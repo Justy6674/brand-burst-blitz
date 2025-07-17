@@ -111,17 +111,19 @@ export function AppSidebar() {
   return (
     <Sidebar className={collapsed ? 'w-14' : 'w-60'} collapsible="icon">
       <div className="border-b border-white/10 p-4 flex items-center gap-3">
-        {!collapsed && (
-          <>
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center flex-shrink-0">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
+        <div className="flex items-center gap-3 flex-1">
+          <img 
+            src="/jbsaaslogo.png" 
+            alt="JB SAAS Logo" 
+            className="w-8 h-8 flex-shrink-0"
+          />
+          {!collapsed && (
             <div className="min-w-0">
               <h1 className="text-lg font-bold text-gradient-primary truncate">JBSAAS</h1>
               <p className="text-xs text-muted-foreground truncate">AI Content Platform</p>
             </div>
-          </>
-        )}
+          )}
+        </div>
         <SidebarTrigger className="ml-auto" />
       </div>
 
@@ -136,7 +138,7 @@ export function AppSidebar() {
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink 
+    <NavLink 
                       to={item.url} 
                       end 
                       className={({ isActive }) => 
