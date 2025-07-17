@@ -511,7 +511,7 @@ const Index = () => {
           </div>
 
           {/* Main Pricing Tiers */}
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
             {/* Solo Business */}
             <Card className="p-8 hover-lift bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-xl relative">
               <CardContent className="p-0">
@@ -553,11 +553,10 @@ const Index = () => {
                 </ul>
                 
                 <Button 
-                  className="w-full cursor-not-allowed opacity-75" 
-                  variant="outline"
+                  className="w-full bg-gradient-primary text-white shadow-glow cursor-not-allowed opacity-75"
                   disabled
                 >
-                  Coming August 2025
+                  Coming September 2025
                 </Button>
               </CardContent>
             </Card>
@@ -616,7 +615,7 @@ const Index = () => {
                   className="w-full bg-gradient-primary text-white shadow-glow cursor-not-allowed opacity-75"
                   disabled
                 >
-                  Coming August 2025
+                  Coming September 2025
                 </Button>
               </CardContent>
             </Card>
@@ -666,11 +665,10 @@ const Index = () => {
                 </ul>
                 
                 <Button 
-                  className="w-full cursor-not-allowed opacity-75" 
-                  variant="outline"
+                  className="w-full bg-gradient-primary text-white shadow-glow cursor-not-allowed opacity-75"
                   disabled
                 >
-                  Coming August 2025
+                  Coming September 2025
                 </Button>
               </CardContent>
             </Card>
