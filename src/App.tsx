@@ -10,6 +10,7 @@ import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import CreateContent from "./pages/CreateContent";
+import Competitors from "./pages/Competitors";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import QuestionnaireRequired from "./components/questionnaire/QuestionnaireRequired";
@@ -43,6 +44,7 @@ const App = () => (
             }>
               <Route index element={<Dashboard />} />
               <Route path="create" element={<CreateContent />} />
+              <Route path="competitors" element={<Competitors />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

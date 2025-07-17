@@ -148,6 +148,177 @@ export type Database = {
           },
         ]
       }
+      competitive_insights: {
+        Row: {
+          business_profile_id: string | null
+          created_at: string | null
+          data_points: Json | null
+          description: string | null
+          id: string
+          insight_type: string
+          is_actionable: boolean | null
+          priority_score: number | null
+          recommendations: Json | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          data_points?: Json | null
+          description?: string | null
+          id?: string
+          insight_type: string
+          is_actionable?: boolean | null
+          priority_score?: number | null
+          recommendations?: Json | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          data_points?: Json | null
+          description?: string | null
+          id?: string
+          insight_type?: string
+          is_actionable?: boolean | null
+          priority_score?: number | null
+          recommendations?: Json | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitive_insights_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitor_content: {
+        Row: {
+          collected_at: string | null
+          competitor_id: string
+          content_text: string | null
+          content_type: string
+          content_url: string | null
+          created_at: string | null
+          engagement_metrics: Json | null
+          id: string
+          image_urls: string[] | null
+          platform: string
+          post_date: string | null
+          sentiment_score: number | null
+          topics: string[] | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          collected_at?: string | null
+          competitor_id: string
+          content_text?: string | null
+          content_type: string
+          content_url?: string | null
+          created_at?: string | null
+          engagement_metrics?: Json | null
+          id?: string
+          image_urls?: string[] | null
+          platform: string
+          post_date?: string | null
+          sentiment_score?: number | null
+          topics?: string[] | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          collected_at?: string | null
+          competitor_id?: string
+          content_text?: string | null
+          content_type?: string
+          content_url?: string | null
+          created_at?: string | null
+          engagement_metrics?: Json | null
+          id?: string
+          image_urls?: string[] | null
+          platform?: string
+          post_date?: string | null
+          sentiment_score?: number | null
+          topics?: string[] | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitor_content_competitor_id_fkey"
+            columns: ["competitor_id"]
+            isOneToOne: false
+            referencedRelation: "competitor_data"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitor_data: {
+        Row: {
+          analysis_frequency: string | null
+          business_profile_id: string | null
+          competitor_description: string | null
+          competitor_name: string
+          competitor_url: string | null
+          created_at: string | null
+          id: string
+          industry: string | null
+          is_active: boolean | null
+          last_analyzed_at: string | null
+          social_platforms: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          analysis_frequency?: string | null
+          business_profile_id?: string | null
+          competitor_description?: string | null
+          competitor_name: string
+          competitor_url?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_active?: boolean | null
+          last_analyzed_at?: string | null
+          social_platforms?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          analysis_frequency?: string | null
+          business_profile_id?: string | null
+          competitor_description?: string | null
+          competitor_name?: string
+          competitor_url?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_active?: boolean | null
+          last_analyzed_at?: string | null
+          social_platforms?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitor_data_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       compliance_logs: {
         Row: {
           action: string

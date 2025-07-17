@@ -62,6 +62,11 @@ const toolsItems = [
     icon: Sparkles,
   },
   {
+    title: 'Competitors',
+    url: '/dashboard/competitors',
+    icon: Users,
+  },
+  {
     title: 'Templates',
     url: '/templates',
     icon: Target,
@@ -82,7 +87,7 @@ const settingsItems = [
   {
     title: 'Business Profile',
     url: '/profile',
-    icon: Users,
+    icon: Target,
   },
   {
     title: 'Automation',
