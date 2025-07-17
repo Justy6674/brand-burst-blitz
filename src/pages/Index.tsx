@@ -189,7 +189,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mr-4">
                     <DollarSign className="w-6 h-6 text-destructive" />
                   </div>
-                  <h3 className="text-2xl font-bold text-destructive">Before JBSAAS</h3>
+                  <h3 className="text-2xl font-bold text-destructive">Before JB-SaaS</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start">
@@ -223,7 +223,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mr-4">
                     <Sparkles className="w-6 h-6 text-success" />
                   </div>
-                  <h3 className="text-2xl font-bold text-success">With JBSAAS</h3>
+                  <h3 className="text-2xl font-bold text-success">With JB-SaaS</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start">
@@ -716,10 +716,10 @@ const Index = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <img 
                   src="/jbsaaslogo.png" 
-                  alt="JB SAAS Logo" 
+                  alt="JB-SaaS Logo" 
                   className="w-8 h-8"
                 />
-                <span className="text-xl font-bold text-gradient-primary">JBSAAS</span>
+                <span className="text-xl font-bold text-gradient-primary">JB-SaaS</span>
               </div>
               <p className="text-muted-foreground">
                 Transforming business content creation with AI-powered automation.
@@ -754,7 +754,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-border/30 mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 JBSAAS. All rights reserved.</p>
+            <p>&copy; 2024 JB-SaaS. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -152,7 +152,7 @@ export function AppSidebar() {
           />
           {!collapsed && (
             <div className="min-w-0">
-              <h1 className="text-lg font-bold text-gradient-primary truncate">JBSAAS</h1>
+              <h1 className="text-lg font-bold text-gradient-primary truncate">JB-SaaS</h1>
               <p className="text-xs text-muted-foreground truncate">AI Content Platform</p>
             </div>
           )}

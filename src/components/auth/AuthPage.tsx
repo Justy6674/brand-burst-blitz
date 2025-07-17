@@ -146,7 +146,7 @@ const AuthPage = () => {
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold text-gradient-primary">
-              Welcome to JBSAAS
+              Welcome to JB-SaaS
             </CardTitle>
             <CardDescription className="text-muted-foreground">
               AI-powered content automation for your business

@@ -32,11 +32,11 @@ const CommonQuestions = () => {
           answer: "Our AI uses advanced language models trained specifically for business content creation. It learns your brand voice, analyzes your industry, and generates content that matches your style and messaging. The AI considers factors like your target audience, brand guidelines, and content performance data to create highly relevant posts."
         },
         {
-          question: "What social media platforms does JBSAAS integrate with?",
-          answer: "JBSAAS currently supports Facebook, Instagram, LinkedIn, and Twitter. We provide content creation and scheduling instructions for all platforms. For Australian customers, we offer full setup and management services for an additional fee."
+          question: "What social media platforms does JB-SaaS integrate with?",
+          answer: "JB-SaaS currently supports Facebook, Instagram, LinkedIn, and Twitter. We provide content creation and scheduling instructions for all platforms. For Australian customers, we offer full setup and management services for an additional fee."
         },
         {
-          question: "How secure is my business data on the JBSAAS platform?",
+          question: "How secure is my business data on the JB-SaaS platform?",
           answer: "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, geo-redundant servers with 99.9% uptime guarantee. We never share your data with third parties and you maintain full ownership of all content created."
         },
         {
@@ -44,16 +44,16 @@ const CommonQuestions = () => {
           answer: "Absolutely. You have full data portability rights. You can export all your content, analytics data, and account information in standard formats (CSV, JSON) at any time. There are no lock-in contracts or data retention fees."
         },
         {
-          question: "What makes JBSAAS different from other AI content tools?",
-          answer: "JBSAAS is specifically designed for business growth, not just content creation. We combine AI content generation with competitor analysis, business intelligence, and strategic recommendations. Our system learns and adapts to your business outcomes, not just content metrics."
+          question: "What makes JB-SaaS different from other AI content tools?",
+          answer: "JB-SaaS is specifically designed for business growth, not just content creation. We combine AI content generation with competitor analysis, business intelligence, and strategic recommendations. Our system learns and adapts to your business outcomes, not just content metrics."
         },
         {
           question: "How often is the AI model updated and improved?",
           answer: "Our AI models are continuously updated with the latest advancements in language technology. We deploy improvements monthly and major updates quarterly. The system also learns from your feedback and performance data to improve personalized recommendations."
         },
         {
-          question: "Does JBSAAS work for all industries and business types?",
-          answer: "Yes, JBSAAS is industry-agnostic and works for B2B, B2C, e-commerce, professional services, healthcare, finance, and more. The AI adapts to your specific industry language, compliance requirements, and audience preferences."
+          question: "Does JB-SaaS work for all industries and business types?",
+          answer: "Yes, JB-SaaS is industry-agnostic and works for B2B, B2C, e-commerce, professional services, healthcare, finance, and more. The AI adapts to your specific industry language, compliance requirements, and audience preferences."
         },
         {
           question: "What API integrations are available?",
@@ -76,7 +76,7 @@ const CommonQuestions = () => {
         },
         {
           question: "What's the ROI of consistent social media marketing?",
-          answer: "Consistent social media marketing typically delivers 3-5x ROI within 6 months. Benefits include increased brand awareness (2.5x), website traffic (3x), lead generation (2x), and customer retention (40% improvement). JBSAAS customers see results 60% faster due to AI optimization."
+          answer: "Consistent social media marketing typically delivers 3-5x ROI within 6 months. Benefits include increased brand awareness (2.5x), website traffic (3x), lead generation (2x), and customer retention (40% improvement). JB-SaaS customers see results 60% faster due to AI optimization."
         },
         {
           question: "How will AI agents discover my business in the future?",
@@ -84,19 +84,19 @@ const CommonQuestions = () => {
         },
         {
           question: "Should I focus more on SEO or social media marketing?",
-          answer: "Both are essential and work synergistically. SEO provides long-term organic traffic, while social media offers immediate engagement and brand building. JBSAAS creates content optimized for both, ensuring your message reaches audiences through multiple channels for maximum impact."
+          answer: "Both are essential and work synergistically. SEO provides long-term organic traffic, while social media offers immediate engagement and brand building. JB-SaaS creates content optimized for both, ensuring your message reaches audiences through multiple channels for maximum impact."
         },
         {
           question: "How much should a business spend on content marketing?",
-          answer: "Most successful businesses allocate 6-10% of revenue to marketing, with 25-30% of that on content. JBSAAS reduces content costs by 80-90% compared to agencies while improving quality and consistency. You get enterprise-level content strategy at a fraction of traditional costs."
+          answer: "Most successful businesses allocate 6-10% of revenue to marketing, with 25-30% of that on content. JB-SaaS reduces content costs by 80-90% compared to agencies while improving quality and consistency. You get enterprise-level content strategy at a fraction of traditional costs."
         },
         {
           question: "What content types perform best for B2B vs B2C?",
-          answer: "B2B audiences prefer educational content, case studies, and industry insights that demonstrate expertise. B2C audiences engage more with entertaining, emotional, and visual content. JBSAAS automatically adapts content style, tone, and format based on your target audience and industry."
+          answer: "B2B audiences prefer educational content, case studies, and industry insights that demonstrate expertise. B2C audiences engage more with entertaining, emotional, and visual content. JB-SaaS automatically adapts content style, tone, and format based on your target audience and industry."
         },
         {
           question: "How do I measure content marketing success?",
-          answer: "Key metrics include engagement rates, website traffic, lead generation, conversion rates, and brand mention growth. JBSAAS provides comprehensive analytics showing content performance, audience growth, competitor comparisons, and ROI tracking across all platforms."
+          answer: "Key metrics include engagement rates, website traffic, lead generation, conversion rates, and brand mention growth. JB-SaaS provides comprehensive analytics showing content performance, audience growth, competitor comparisons, and ROI tracking across all platforms."
         }
       ]
     },
@@ -110,12 +110,12 @@ const CommonQuestions = () => {
           answer: "Initial setup takes 15-30 minutes. You'll see your first AI-generated content within minutes. Meaningful results (increased engagement, traffic) typically appear within 2-4 weeks of consistent posting. Full ROI is usually achieved within 3-6 months."
         },
         {
-          question: "Do I need any technical skills or training to use JBSAAS?",
-          answer: "No technical skills required. JBSAAS is designed for business owners and marketers, not developers. Our intuitive interface guides you through content creation, and our AI handles the complex work. We provide video tutorials and 24/7 support for any questions."
+          question: "Do I need any technical skills or training to use JB-SaaS?",
+          answer: "No technical skills required. JB-SaaS is designed for business owners and marketers, not developers. Our intuitive interface guides you through content creation, and our AI handles the complex work. We provide video tutorials and 24/7 support for any questions."
         },
         {
-          question: "Can JBSAAS integrate with my existing marketing tools?",
-          answer: "Yes, JBSAAS integrates with popular tools including Google Analytics, Facebook Business Manager, Mailchimp, HubSpot, Salesforce, and more. We also offer Zapier integration for connecting with 3,000+ other applications."
+          question: "Can JB-SaaS integrate with my existing marketing tools?",
+          answer: "Yes, JB-SaaS integrates with popular tools including Google Analytics, Facebook Business Manager, Mailchimp, HubSpot, Salesforce, and more. We also offer Zapier integration for connecting with 3,000+ other applications."
         },
         {
           question: "What support options are available?",
@@ -141,8 +141,8 @@ const CommonQuestions = () => {
       color: "text-success",
       questions: [
         {
-          question: "Who is behind JBSAAS and what's your experience?",
-          answer: "JBSAAS is founded by experienced entrepreneurs and technologists with backgrounds in AI, marketing, and business growth. Our team has built and scaled multiple successful SaaS platforms and helped thousands of businesses grow through technology."
+          question: "Who is behind JB-SaaS and what's your experience?",
+          answer: "JB-SaaS is founded by experienced entrepreneurs and technologists with backgrounds in AI, marketing, and business growth. Our team has built and scaled multiple successful SaaS platforms and helped thousands of businesses grow through technology."
         },
         {
           question: "How do you protect my privacy and business information?",
@@ -157,8 +157,8 @@ const CommonQuestions = () => {
           answer: "We offer a 30-day money-back guarantee for all new customers. If you're not satisfied within the first month, we'll provide a full refund, no questions asked. We're confident in our platform's value and stand behind our service quality."
         },
         {
-          question: "Is JBSAAS an Australian-owned company?",
-          answer: "Yes, JBSAAS is proudly Australian-owned and operated. We understand the unique needs of Australian businesses and provide local support during Australian business hours. We also offer specialized services for Australian customers including full social media setup."
+          question: "Is JB-SaaS an Australian-owned company?",
+          answer: "Yes, JB-SaaS is proudly Australian-owned and operated. We understand the unique needs of Australian businesses and provide local support during Australian business hours. We also offer specialized services for Australian customers including full social media setup."
         },
         {
           question: "What's your long-term vision for the platform?",
@@ -182,7 +182,7 @@ const CommonQuestions = () => {
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="text-gradient-primary">Common Questions</span>
-            <br />About JBSAAS
+            <br />About JB-SaaS
           </h1>
           
           <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
@@ -240,7 +240,7 @@ const CommonQuestions = () => {
             <Users className="w-16 h-16 mx-auto mb-6 text-primary" />
             <h2 className="text-3xl font-bold mb-6">Still Have Questions?</h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Our team is here to help you succeed. Get personalized answers about how JBSAAS can transform your business.
+              Our team is here to help you succeed. Get personalized answers about how JB-SaaS can transform your business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/auth">
@@ -287,7 +287,7 @@ const CommonQuestions = () => {
             <div className="flex items-center justify-center space-x-3 mb-4">
               <img 
                 src="/jbsaaslogo.png" 
-                alt="JBSAAS Logo" 
+                alt="JB-SaaS Logo" 
                 className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-gradient-primary">JB-Software-As-A-Service</span>

@@ -24,7 +24,7 @@ const PublicHeader = () => {
           <Link to="/" className="flex items-center space-x-2">
             <img 
               src="/jbsaaslogo.png" 
-              alt="JBSAAS" 
+              alt="JB-SaaS" 
               className="h-8 w-auto"
             />
           </Link>
