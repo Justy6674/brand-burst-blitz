@@ -243,6 +243,213 @@
 - **Mobile-First**: Responsive design patterns proven across multiple projects
 
 **⚠️ READY FOR APPROVAL**: Detailed implementation plan based on your proven blog architecture. Awaiting your "GO" to proceed!
+
+---
+
+## 🇦🇺 **AUSSIE QUICK-START SOCIAL SETUP SERVICE** (Phase 4)
+*One-time, Australia-only "Social Media Setup" service layered on top of JBSAAS*
+
+### **14. Service Definition & Business Model**
+- [ ] **Service Name**: "Aussie Quick-Start Social Setup"
+- [ ] **Description**: For a one-time fee, our team personally configures Facebook Business Manager, Meta App, Instagram Business profile, and connects them into JBSAAS
+- [ ] **Eligibility Requirements**:
+  - [ ] Australian business ABN validation (via ATO API)
+  - [ ] Australian-registered domain verification
+  - [ ] Active Starter or Professional subscription
+- [ ] **Pricing Structure**:
+  - [ ] Starter Plan: AU$299 one-time fee
+  - [ ] Professional Plan: AU$199 one-time fee (discounted)
+  - [ ] Enterprise Plan: Included in subscription (AU$0)
+
+### **15. Database Schema & Architecture**
+- [ ] **Create Social Setup Services Table**:
+  ```sql
+  CREATE TABLE social_setup_services (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id),
+    business_profile_id UUID REFERENCES business_profiles(id),
+    
+    -- Payment & Status
+    stripe_payment_intent_id TEXT UNIQUE,
+    amount_paid INTEGER, -- cents (29900 or 19900)
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'in_progress', 'completed', 'cancelled')),
+    
+    -- Australian Validation
+    abn TEXT NOT NULL,
+    business_address JSONB, -- store full address for verification
+    domain_verified BOOLEAN DEFAULT false,
+    
+    -- Operational Tracking
+    assigned_to UUID, -- ops team member
+    requested_at TIMESTAMPTZ DEFAULT now(),
+    started_at TIMESTAMPTZ,
+    completed_at TIMESTAMPTZ,
+    completion_notes TEXT,
+    
+    -- Connected Accounts (populated after setup)
+    connected_accounts JSONB, -- store account IDs, page IDs, etc.
+    qa_checklist JSONB DEFAULT '{}',
+    qa_approved_by UUID,
+    qa_approved_at TIMESTAMPTZ,
+    
+    created_at TIMESTAMPTZ DEFAULT now(),
+    updated_at TIMESTAMPTZ DEFAULT now()
+  );
+  ```
+
+### **16. Core Service Modules**
+- [ ] **Validation Service** (`/src/services/socialSetup/validation.ts`):
+  - [ ] ABN validation via Australian Business Register API
+  - [ ] Domain ownership verification
+  - [ ] Geo-location verification (Australian business address)
+  - [ ] Subscription tier eligibility checks
+- [ ] **Payment Integration** (`/src/services/socialSetup/payment.ts`):
+  - [ ] Stripe one-time payment processing
+  - [ ] Tier-based pricing logic
+  - [ ] Payment confirmation webhooks
+- [ ] **Operations Management** (`/src/services/socialSetup/operations.ts`):
+  - [ ] Service request creation and tracking
+  - [ ] Status update system with notifications
+  - [ ] Quality assurance workflow
+- [ ] **Notifications Service** (`/src/services/socialSetup/notifications.ts`):
+  - [ ] Customer email templates (request, progress, completion)
+  - [ ] Operations team notifications
+  - [ ] Status update communications
+
+### **17. Edge Functions Implementation**
+- [ ] **`validate-australian-business`**: 
+  - [ ] Integrate with ATO ABN Lookup API
+  - [ ] Verify business registration status
+  - [ ] Return business name, ABN status, GST registration
+- [ ] **`create-social-setup-payment`**:
+  - [ ] Stripe Checkout Session for one-time payments
+  - [ ] Tier-based pricing (AU$299/AU$199/AU$0)
+  - [ ] Payment success handling
+- [ ] **`request-social-setup`**:
+  - [ ] Create service request record
+  - [ ] Send notifications to operations team
+  - [ ] Update user status flags
+- [ ] **`update-setup-status`** (Admin only):
+  - [ ] Status progression (pending → in_progress → completed)
+  - [ ] Quality assurance workflow
+  - [ ] Completion notifications
+
+### **18. User Interface Components**
+- [ ] **Services Dashboard** (`/src/components/services/ServicesDashboard.tsx`):
+  - [ ] Service offerings display
+  - [ ] Eligibility checking
+  - [ ] Order initiation flow
+- [ ] **Aussie Setup Card** (`/src/components/services/AussieSetupCard.tsx`):
+  - [ ] Service description and benefits
+  - [ ] Pricing display with tier discounts
+  - [ ] "Order Now" button with eligibility validation
+- [ ] **Setup Status Tracker** (`/src/components/services/SetupStatusTracker.tsx`):
+  - [ ] Progress visualization
+  - [ ] Real-time status updates
+  - [ ] Completion celebration
+- [ ] **Australian Business Validator** (`/src/components/services/AustralianValidator.tsx`):
+  - [ ] ABN input and validation
+  - [ ] Domain verification
+  - [ ] Address confirmation
+
+### **19. Operations Portal (Admin Interface)**
+- [ ] **Setup Requests Dashboard** (`/admin/social-setup/dashboard`):
+  - [ ] Active requests queue
+  - [ ] Performance metrics and KPIs
+  - [ ] Team workload distribution
+- [ ] **Request Management** (`/admin/social-setup/requests`):
+  - [ ] Individual request details
+  - [ ] Status update controls
+  - [ ] Communication logs
+- [ ] **Quality Assurance** (`/admin/social-setup/qa`):
+  - [ ] Setup validation checklist
+  - [ ] Testing and approval workflow
+  - [ ] Completion verification
+- [ ] **Analytics & Reporting** (`/admin/social-setup/analytics`):
+  - [ ] Revenue tracking
+  - [ ] Completion time metrics
+  - [ ] Customer satisfaction scores
+
+### **20. Automated Testing & Validation**
+- [ ] **Post-Setup Validation System**:
+  - [ ] Test API connections
+  - [ ] Verify permissions and tokens
+  - [ ] Send test posts to validate setup
+  - [ ] Generate setup completion report
+- [ ] **Automated Quality Checks**:
+  - [ ] Account connection verification
+  - [ ] Permission scope validation
+  - [ ] Token expiry monitoring
+
+### **21. Risk Mitigation Strategies**
+- [ ] **Operational Scalability**:
+  - [ ] Partner with Australian digital marketing agencies for outsourcing
+  - [ ] Implement request limits (max 10 setups per week initially)
+  - [ ] Create tiered service levels (Express 24hr vs Standard 3-5 days)
+- [ ] **Quality Control**:
+  - [ ] Standardized setup checklist and procedures
+  - [ ] Internal training documentation
+  - [ ] Quality assurance approval workflow
+  - [ ] Customer acceptance testing
+- [ ] **Post-Setup Support**:
+  - [ ] 30-day support included in service
+  - [ ] Knowledge base with setup guides
+  - [ ] Scheduled 30-day check-in call
+  - [ ] Performance KPI monitoring and reporting
+- [ ] **Refund Policy**:
+  - [ ] 100% money-back guarantee if setup fails
+  - [ ] Clear service level agreements
+  - [ ] Transparent refund process
+  - [ ] Customer satisfaction tracking
+
+### **22. Integration Points**
+- [ ] **JBSAAS Dashboard Integration**:
+  - [ ] New "Services" tab in main navigation
+  - [ ] Service status in user profile
+  - [ ] Connected accounts display in Settings
+- [ ] **Social Media Settings Integration**:
+  - [ ] Display professionally connected accounts
+  - [ ] Show service completion status
+  - [ ] Link to manage connected platforms
+- [ ] **Billing & Subscription Integration**:
+  - [ ] One-time service charges in billing history
+  - [ ] Tier-based pricing display
+  - [ ] Service eligibility based on subscription
+
+### **23. Customer Journey Flow**
+1. **Eligibility Check**: Australian business with valid ABN + active subscription
+2. **Service Discovery**: Services tab → Aussie Quick-Start Social Setup
+3. **Validation**: ABN verification → Domain ownership → Address confirmation
+4. **Payment**: Stripe checkout with tier-based pricing
+5. **Request Creation**: Service request in operations queue
+6. **Professional Setup**: Our team configures all social accounts
+7. **Quality Assurance**: Testing and validation of setup
+8. **Completion**: Customer notification with setup summary
+9. **Follow-up**: 30-day check-in and performance review
+
+### **24. Technical Implementation Priority**
+**Phase 4A: Core Infrastructure** (1-2 weeks)
+- [ ] Database schema and RLS policies
+- [ ] Basic edge functions (validation, payment)
+- [ ] Service request creation flow
+
+**Phase 4B: User Interface** (1-2 weeks)
+- [ ] Services dashboard and setup card
+- [ ] Australian business validation UI
+- [ ] Status tracking and progress display
+
+**Phase 4C: Operations Portal** (1-2 weeks)
+- [ ] Admin dashboard for request management
+- [ ] Quality assurance workflow
+- [ ] Analytics and reporting tools
+
+**Phase 4D: Enhancement & Polish** (1 week)
+- [ ] Automated testing and validation
+- [ ] Advanced notifications and communication
+- [ ] Performance optimization and monitoring
+
+---
+
 On completion I want to work in the following - Please review, consider, and draft a new TODO with your suggestions for review 
 AI-Assisted Professional Guidelines Portal for Australian Healthcare Practitioners
 
