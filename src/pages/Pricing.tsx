@@ -77,7 +77,7 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="outline" className="w-full h-14 rounded-full">
+                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
                     Coming August 2025
                   </Button>
                 </div>
