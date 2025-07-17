@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useUserRoles } from '@/hooks/useUserRoles';
 import {
   Sidebar,
   SidebarContent,
@@ -25,7 +26,8 @@ import {
   Instagram,
   Zap,
   Target,
-  Network
+  Network,
+  ShieldCheck
 } from 'lucide-react';
 
 const navigationItems = [
@@ -96,6 +98,12 @@ const settingsItems = [
     icon: Network,
   },
   {
+    title: 'Admin Panel',
+    url: '/dashboard/admin',
+    icon: ShieldCheck,
+    adminOnly: true,
+  },
+  {
     title: 'Automation',
     url: '/automation',
     icon: Zap,
@@ -112,6 +120,7 @@ export function AppSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
   const collapsed = state === 'collapsed';
+  const { isAdmin } = useUserRoles();
 
   const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
@@ -200,7 +209,9 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {settingsItems.map((item) => (
+              {settingsItems
+                .filter(item => !item.adminOnly || isAdmin)
+                .map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 

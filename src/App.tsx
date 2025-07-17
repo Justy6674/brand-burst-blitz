@@ -18,6 +18,7 @@ import Calendar from "./pages/Calendar";
 import Analytics from "./pages/Analytics";
 import BusinessSettings from "./pages/BusinessSettings";
 import CrossBusinessFeatures from "./pages/CrossBusinessFeatures";
+import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
@@ -58,6 +59,7 @@ const App = () => (
               <Route path="analytics" element={<Analytics />} />
               <Route path="business-settings" element={<BusinessSettings />} />
               <Route path="cross-business" element={<CrossBusinessFeatures />} />
+              <Route path="admin" element={<AdminPanel />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
