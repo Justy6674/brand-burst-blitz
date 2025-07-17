@@ -62,89 +62,78 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.1
-        }}></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Hero Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/95"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80"></div>
+        </div>
         
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="text-center lg:text-left animate-fade-in-up">
-              <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-xs sm:text-sm">
-                <Rocket className="w-3 h-3 mr-1" />
-                Transform Your Business Today
-              </Badge>
-              
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                <span className="text-gradient-hero">AI-Powered Content Creation</span> 
-                <span className="text-gradient-primary"> Platform</span>
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6 leading-relaxed px-2 sm:px-0">
-                Generate professional social media posts, blogs, and marketing content in seconds. 
-                <strong className="text-foreground">No more expensive agencies or endless hours writing content.</strong>
-              </p>
-              
-              <p className="text-xs text-muted-foreground mb-6 sm:mb-8 mx-2 sm:mx-0">
-                <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
-                For Australian customers, we offer full setup service for an additional fee.
-              </p>
-              
-              <div className="flex justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
-                <Button 
-                  variant="hero" 
-                  size="lg" 
-                  className="w-full sm:w-auto cursor-not-allowed opacity-75"
-                  disabled
-                >
-                  Coming in August 2025
-                </Button>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
-                <div className="flex items-center">
-                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
-                  No Setup Required
-                </div>
-                <div className="flex items-center">
-                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
-                  Cancel Anytime
-                </div>
-                <div className="flex items-center">
-                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
-                  Money Back Guarantee
-                </div>
-              </div>
+        {/* Hero Content */}
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
+          <div className="max-w-4xl mx-auto animate-fade-in">
+            <Badge className="mb-6 sm:mb-8 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-sm sm:text-base">
+              <Rocket className="w-4 h-4 mr-2" />
+              Transform Your Business Today
+            </Badge>
+            
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
+              <span className="text-gradient-hero block mb-2">AI-Powered Content</span> 
+              <span className="text-gradient-primary block">Creation Platform</span>
+            </h1>
+            
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">
+              Generate professional social media posts, blogs, and marketing content in seconds. 
+              <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
+            </p>
+            
+            <p className="text-sm text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
+              <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
+              For Australian customers, we offer full setup service for an additional fee.
+            </p>
+            
+            <div className="flex justify-center mb-8 sm:mb-12">
+              <Button 
+                variant="hero" 
+                size="xl" 
+                className="cursor-not-allowed opacity-75 text-lg px-8 py-4"
+                disabled
+              >
+                <Rocket className="w-5 h-5 mr-3" />
+                Coming August 2025
+              </Button>
             </div>
             
-            <div className="flex justify-center animate-slide-in-right mt-8 lg:mt-0">
-              <div className="relative max-w-sm sm:max-w-md lg:max-w-lg w-full px-4 sm:px-0">
-                <img 
-                  src={featuresImage} 
-                  alt="JBSAAS Dashboard" 
-                  className="rounded-xl sm:rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover"
-                />
-              
-                {/* Floating Stats */}
-                <div className="absolute -bottom-1 sm:-bottom-2 lg:-bottom-6 -left-1 sm:-left-2 lg:-left-6 glass rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 float">
-                  <div className="flex items-center space-x-1 sm:space-x-2">
-                    <div className="w-1.5 sm:w-2 lg:w-3 h-1.5 sm:h-2 lg:h-3 bg-success rounded-full animate-pulse"></div>
-                    <span className="text-[10px] sm:text-xs lg:text-sm font-semibold whitespace-nowrap">2,847 Posts Generated</span>
-                  </div>
-                </div>
-                
-                <div className="absolute -top-1 sm:-top-2 lg:-top-6 -left-1 sm:-left-2 lg:-left-6 glass rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 float-delayed">
-                  <div className="flex items-center space-x-1 sm:space-x-2">
-                    <Clock className="w-2.5 sm:w-3 lg:w-4 h-2.5 sm:h-3 lg:h-4 text-primary" />
-                    <span className="text-[10px] sm:text-xs lg:text-sm font-semibold whitespace-nowrap">Saved 94 Hours</span>
-                  </div>
-                </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-muted-foreground">
+              <div className="flex items-center">
+                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+                Enterprise-Grade Security
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+                Advanced AI Technology
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+                Professional Support
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
