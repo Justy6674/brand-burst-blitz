@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, User, Clock } from 'lucide-react';
 import { format } from 'date-fns';
+import PublicHeader from '@/components/layout/PublicHeader';
 
 interface BlogPost {
   id: string;
@@ -65,10 +66,13 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading post...</p>
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5">
+        <PublicHeader />
+        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading post...</p>
+          </div>
         </div>
       </div>
     );
@@ -76,14 +80,17 @@ const BlogPost = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-6">{error || 'The requested post could not be found.'}</p>
-          <Button onClick={() => navigate('/blog')}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Blog
-          </Button>
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5">
+        <PublicHeader />
+        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground mb-4">Post Not Found</h1>
+            <p className="text-muted-foreground mb-6">{error || 'The requested post could not be found.'}</p>
+            <Button onClick={() => navigate('/blog')}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -93,6 +100,7 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen relative">
+      <PublicHeader />
       {/* SEO Meta Tags */}
       <title>{post.title} | JBSAAS Blog</title>
       <meta name="description" content={post.meta_description || post.excerpt} />

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Accordion,
   AccordionContent,
@@ -169,34 +170,8 @@ const CommonQuestions = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="container mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-3">
-              <img 
-                src="/jbsaaslogo.png" 
-                alt="JBSAAS Logo" 
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-xl font-bold text-gradient-primary leading-none">JB-Software-As-A-Service</span>
-            </Link>
-            
-            <div className="flex items-center space-x-4">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
-                Pricing
-              </Link>
-              <Link to="/auth">
-                <Button size="sm" className="bg-gradient-primary shadow-glow">Sign In</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      <PublicHeader />
+      
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto px-6 text-center">

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Calendar, Clock, ArrowRight, Search, Filter, Star } from 'lucide-react';
 import { format } from 'date-fns';
+import PublicHeader from '@/components/layout/PublicHeader';
 
 interface BlogPost {
   id: string;
@@ -82,6 +83,7 @@ const BlogPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
+        <PublicHeader />
         <div className="container mx-auto px-4 py-8">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
@@ -95,6 +97,7 @@ const BlogPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PublicHeader />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
