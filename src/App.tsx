@@ -13,6 +13,7 @@ import { CreateContent } from "./pages/CreateContent";
 import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
 import Posts from "./pages/Posts";
+import SocialMedia from "./pages/SocialMedia";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="posts" element={<Posts />} />
               <Route path="competitors" element={<Competitors />} />
               <Route path="templates" element={<Templates />} />
+              <Route path="social" element={<SocialMedia />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

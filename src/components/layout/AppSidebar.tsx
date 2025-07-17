@@ -78,7 +78,7 @@ const toolsItems = [
   },
   {
     title: 'Social Accounts',
-    url: '/social-accounts',
+    url: '/dashboard/social',
     icon: Instagram,
   },
 ];
