@@ -14,7 +14,515 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analytics: {
+        Row: {
+          collected_at: string | null
+          id: string
+          metrics: Json
+          platform: Database["public"]["Enums"]["social_platform"] | null
+          post_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          collected_at?: string | null
+          id?: string
+          metrics: Json
+          platform?: Database["public"]["Enums"]["social_platform"] | null
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          collected_at?: string | null
+          id?: string
+          metrics?: Json
+          platform?: Database["public"]["Enums"]["social_platform"] | null
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "analytics_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_profiles: {
+        Row: {
+          brand_colors: Json | null
+          business_name: string
+          compliance_settings: Json | null
+          created_at: string | null
+          default_ai_tone: Database["public"]["Enums"]["ai_tone"] | null
+          id: string
+          industry: Database["public"]["Enums"]["industry_type"] | null
+          is_primary: boolean | null
+          logo_url: string | null
+          updated_at: string | null
+          user_id: string | null
+          website_url: string | null
+        }
+        Insert: {
+          brand_colors?: Json | null
+          business_name: string
+          compliance_settings?: Json | null
+          created_at?: string | null
+          default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          id?: string
+          industry?: Database["public"]["Enums"]["industry_type"] | null
+          is_primary?: boolean | null
+          logo_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          brand_colors?: Json | null
+          business_name?: string
+          compliance_settings?: Json | null
+          created_at?: string | null
+          default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          id?: string
+          industry?: Database["public"]["Enums"]["industry_type"] | null
+          is_primary?: boolean | null
+          logo_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      compliance_logs: {
+        Row: {
+          action: string
+          compliance_check_results: Json | null
+          content_preview: string | null
+          created_at: string | null
+          id: string
+          industry: Database["public"]["Enums"]["industry_type"] | null
+          post_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          compliance_check_results?: Json | null
+          content_preview?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: Database["public"]["Enums"]["industry_type"] | null
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          compliance_check_results?: Json | null
+          content_preview?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: Database["public"]["Enums"]["industry_type"] | null
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_logs_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compliance_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_templates: {
+        Row: {
+          ai_prompt_template: string | null
+          business_profile_id: string | null
+          created_at: string | null
+          default_tone: Database["public"]["Enums"]["ai_tone"] | null
+          id: string
+          is_public: boolean | null
+          name: string
+          tags: string[] | null
+          template_content: string
+          type: Database["public"]["Enums"]["post_type"]
+          updated_at: string | null
+          usage_count: number | null
+          user_id: string | null
+        }
+        Insert: {
+          ai_prompt_template?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          default_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          id?: string
+          is_public?: boolean | null
+          name: string
+          tags?: string[] | null
+          template_content: string
+          type: Database["public"]["Enums"]["post_type"]
+          updated_at?: string | null
+          usage_count?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          ai_prompt_template?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          default_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          id?: string
+          is_public?: boolean | null
+          name?: string
+          tags?: string[] | null
+          template_content?: string
+          type?: Database["public"]["Enums"]["post_type"]
+          updated_at?: string | null
+          usage_count?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_templates_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_templates_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      images: {
+        Row: {
+          alt_text: string | null
+          business_profile_id: string | null
+          created_at: string | null
+          dimensions: Json | null
+          file_size: number | null
+          filename: string | null
+          id: string
+          is_logo: boolean | null
+          is_public: boolean | null
+          tags: string[] | null
+          url: string
+          user_id: string | null
+        }
+        Insert: {
+          alt_text?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          dimensions?: Json | null
+          file_size?: number | null
+          filename?: string | null
+          id?: string
+          is_logo?: boolean | null
+          is_public?: boolean | null
+          tags?: string[] | null
+          url: string
+          user_id?: string | null
+        }
+        Update: {
+          alt_text?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          dimensions?: Json | null
+          file_size?: number | null
+          filename?: string | null
+          id?: string
+          is_logo?: boolean | null
+          is_public?: boolean | null
+          tags?: string[] | null
+          url?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "images_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          ai_prompt: string | null
+          ai_tone: Database["public"]["Enums"]["ai_tone"] | null
+          business_profile_id: string | null
+          content: string | null
+          created_at: string | null
+          engagement_data: Json | null
+          excerpt: string | null
+          id: string
+          image_urls: string[] | null
+          metadata: Json | null
+          published_at: string | null
+          scheduled_at: string | null
+          status: Database["public"]["Enums"]["post_status"] | null
+          tags: string[] | null
+          target_platforms:
+            | Database["public"]["Enums"]["social_platform"][]
+            | null
+          title: string | null
+          type: Database["public"]["Enums"]["post_type"]
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          ai_prompt?: string | null
+          ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          business_profile_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          engagement_data?: Json | null
+          excerpt?: string | null
+          id?: string
+          image_urls?: string[] | null
+          metadata?: Json | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          status?: Database["public"]["Enums"]["post_status"] | null
+          tags?: string[] | null
+          target_platforms?:
+            | Database["public"]["Enums"]["social_platform"][]
+            | null
+          title?: string | null
+          type: Database["public"]["Enums"]["post_type"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          ai_prompt?: string | null
+          ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          business_profile_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          engagement_data?: Json | null
+          excerpt?: string | null
+          id?: string
+          image_urls?: string[] | null
+          metadata?: Json | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          status?: Database["public"]["Enums"]["post_status"] | null
+          tags?: string[] | null
+          target_platforms?:
+            | Database["public"]["Enums"]["social_platform"][]
+            | null
+          title?: string | null
+          type?: Database["public"]["Enums"]["post_type"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      publishing_queue: {
+        Row: {
+          attempt_count: number | null
+          created_at: string | null
+          id: string
+          last_error: string | null
+          post_id: string | null
+          published_post_id: string | null
+          scheduled_for: string
+          social_account_id: string | null
+          status: Database["public"]["Enums"]["post_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          attempt_count?: number | null
+          created_at?: string | null
+          id?: string
+          last_error?: string | null
+          post_id?: string | null
+          published_post_id?: string | null
+          scheduled_for: string
+          social_account_id?: string | null
+          status?: Database["public"]["Enums"]["post_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          attempt_count?: number | null
+          created_at?: string | null
+          id?: string
+          last_error?: string | null
+          post_id?: string | null
+          published_post_id?: string | null
+          scheduled_for?: string
+          social_account_id?: string | null
+          status?: Database["public"]["Enums"]["post_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publishing_queue_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publishing_queue_social_account_id_fkey"
+            columns: ["social_account_id"]
+            isOneToOne: false
+            referencedRelation: "social_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_accounts: {
+        Row: {
+          access_token: string
+          account_id: string
+          account_name: string | null
+          business_profile_id: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          page_id: string | null
+          platform: Database["public"]["Enums"]["social_platform"]
+          refresh_token: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          access_token: string
+          account_id: string
+          account_name?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          page_id?: string | null
+          platform: Database["public"]["Enums"]["social_platform"]
+          refresh_token?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          access_token?: string
+          account_id?: string
+          account_name?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          page_id?: string | null
+          platform?: Database["public"]["Enums"]["social_platform"]
+          refresh_token?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_accounts_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "social_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          name: string | null
+          role: Database["public"]["Enums"]["user_role"] | null
+          stripe_customer_id: string | null
+          subscription_end_date: string | null
+          subscription_status: string | null
+          trial_posts_used: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          name?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
+          stripe_customer_id?: string | null
+          subscription_end_date?: string | null
+          subscription_status?: string | null
+          trial_posts_used?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string | null
+          role?: Database["public"]["Enums"]["user_role"] | null
+          stripe_customer_id?: string | null
+          subscription_end_date?: string | null
+          subscription_status?: string | null
+          trial_posts_used?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +531,25 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ai_tone:
+        | "professional"
+        | "friendly"
+        | "casual"
+        | "authoritative"
+        | "empathetic"
+        | "exciting"
+      industry_type:
+        | "health"
+        | "finance"
+        | "legal"
+        | "general"
+        | "fitness"
+        | "beauty"
+        | "tech"
+      post_status: "draft" | "scheduled" | "published" | "failed"
+      post_type: "blog" | "social" | "ad"
+      social_platform: "facebook" | "instagram" | "linkedin" | "twitter"
+      user_role: "admin" | "subscriber" | "trial"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +676,28 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ai_tone: [
+        "professional",
+        "friendly",
+        "casual",
+        "authoritative",
+        "empathetic",
+        "exciting",
+      ],
+      industry_type: [
+        "health",
+        "finance",
+        "legal",
+        "general",
+        "fitness",
+        "beauty",
+        "tech",
+      ],
+      post_status: ["draft", "scheduled", "published", "failed"],
+      post_type: ["blog", "social", "ad"],
+      social_platform: ["facebook", "instagram", "linkedin", "twitter"],
+      user_role: ["admin", "subscriber", "trial"],
+    },
   },
 } as const
