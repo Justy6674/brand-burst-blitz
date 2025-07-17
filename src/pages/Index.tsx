@@ -62,7 +62,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 relative overflow-hidden">
+      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
         <div className="absolute inset-0" style={{
           backgroundImage: `url(${heroImage})`,
@@ -72,69 +72,69 @@ const Index = () => {
         }}></div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left animate-fade-in-up">
-              <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
+              <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-xs sm:text-sm">
                 <Rocket className="w-3 h-3 mr-1" />
                 Transform Your Business Today
               </Badge>
               
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                 From <span className="text-gradient-hero">Weeks of Work</span> to 
                 <span className="text-gradient-primary"> One Click</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed px-2 sm:px-0">
                 Stop spending <strong className="text-foreground">$10,000s on design & tech fees</strong>. 
                 Our AI creates, schedules, and publishes your social content and blogs in seconds.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <Button variant="hero" size="xl" className="group">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
+                <Button variant="hero" size="lg" className="group w-full sm:w-auto">
                   Start Free Trial
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button variant="glass" size="xl">
+                <Button variant="glass" size="lg" className="w-full sm:w-auto">
                   Watch Demo
                 </Button>
               </div>
               
-              <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-2" />
+                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
                   No Setup Required
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-2" />
+                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
                   Cancel Anytime
                 </div>
                 <div className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-2" />
+                  <Check className="w-3 h-3 sm:w-4 sm:h-4 text-success mr-1 sm:mr-2" />
                   Money Back Guarantee
                 </div>
               </div>
             </div>
             
-            <div className="flex justify-center animate-slide-in-right">
-              <div className="relative max-w-lg w-full">
+            <div className="flex justify-center animate-slide-in-right mt-8 lg:mt-0">
+              <div className="relative max-w-sm sm:max-w-md lg:max-w-lg w-full px-4 sm:px-0">
                 <img 
                   src={featuresImage} 
                   alt="JBSAAS Dashboard" 
-                  className="rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover"
+                  className="rounded-xl sm:rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover"
                 />
               
                 {/* Floating Stats */}
-                <div className="absolute -bottom-2 sm:-bottom-6 -left-2 sm:-left-6 glass rounded-xl p-2 sm:p-4 float">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 sm:w-3 h-2 sm:h-3 bg-success rounded-full animate-pulse"></div>
-                    <span className="text-xs sm:text-sm font-semibold">2,847 Posts Generated Today</span>
+                <div className="absolute -bottom-1 sm:-bottom-2 lg:-bottom-6 -left-1 sm:-left-2 lg:-left-6 glass rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 float">
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <div className="w-1.5 sm:w-2 lg:w-3 h-1.5 sm:h-2 lg:h-3 bg-success rounded-full animate-pulse"></div>
+                    <span className="text-[10px] sm:text-xs lg:text-sm font-semibold whitespace-nowrap">2,847 Posts Generated</span>
                   </div>
                 </div>
                 
-                <div className="absolute -top-2 sm:-top-6 -left-2 sm:-left-6 glass rounded-xl p-2 sm:p-4 float-delayed">
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
-                    <span className="text-xs sm:text-sm font-semibold">Saved 94 Hours</span>
+                <div className="absolute -top-1 sm:-top-2 lg:-top-6 -left-1 sm:-left-2 lg:-left-6 glass rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 float-delayed">
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Clock className="w-2.5 sm:w-3 lg:w-4 h-2.5 sm:h-3 lg:h-4 text-primary" />
+                    <span className="text-[10px] sm:text-xs lg:text-sm font-semibold whitespace-nowrap">Saved 94 Hours</span>
                   </div>
                 </div>
               </div>
@@ -144,24 +144,24 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">$50K+</div>
-              <div className="text-muted-foreground">Saved in Agency Fees</div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">$50K+</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Saved in Agency Fees</div>
             </div>
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">500+</div>
-              <div className="text-muted-foreground">Hours Automated</div>
+            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">500+</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Hours Automated</div>
             </div>
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">98%</div>
-              <div className="text-muted-foreground">Time Reduction</div>
+            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">98%</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Time Reduction</div>
             </div>
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">24/7</div>
-              <div className="text-muted-foreground">Automated Publishing</div>
+            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">24/7</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Automated Publishing</div>
             </div>
           </div>
         </div>
