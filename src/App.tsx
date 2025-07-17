@@ -30,7 +30,7 @@ const App = () => (
               </ProtectedRoute>
             }>
               <Route index element={<Dashboard />} />
-              <Route path="/create" element={<CreateContent />} />
+              <Route path="create" element={<CreateContent />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
