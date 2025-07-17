@@ -29,16 +29,16 @@ const Index = () => {
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div>
-                <img 
-                  src="/jbsaaslogo.png" 
-                  alt="JBSAAS Logo" 
-                  className="w-8 h-8 object-contain"
-                />
-                <p className="text-xs text-muted-foreground -mt-1">JB Software as a Service</p>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/jbsaaslogo.png" 
+                alt="JBSAAS Logo" 
+                className="w-8 h-8 object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="text-xl font-bold text-gradient-primary leading-none">JBSAAS</span>
+                <span className="text-[10px] text-muted-foreground leading-none -mt-0.5">JB Software as a Service</span>
               </div>
-              <span className="text-xl font-bold text-gradient-primary">JBSAAS</span>
             </div>
             
             {/* Mobile menu button */}
