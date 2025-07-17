@@ -255,6 +255,54 @@ const Pricing = () => {
         </div>
       </section>
 
+      {/* Aussie Setup Service Section */}
+      <section className="py-20 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <Badge className="mb-6 bg-green-600 text-white">
+              🇦🇺 Australian Businesses Only
+            </Badge>
+            <h2 className="text-3xl font-bold mb-6">Aussie Quick-Start Social Setup Service</h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Skip the hassle! Our Australian team personally sets up your Facebook Business Manager, 
+              Instagram Business profile, and connects everything to JBSAAS. From AU$199.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <Card className="text-center p-6">
+              <Users className="w-12 h-12 text-green-600 mx-auto mb-4" />
+              <h3 className="font-bold mb-2">Complete Setup</h3>
+              <p className="text-sm text-muted-foreground">
+                Facebook Business Manager, Instagram Business, Meta App configuration
+              </p>
+            </Card>
+            <Card className="text-center p-6">
+              <Building className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+              <h3 className="font-bold mb-2">Australian Focus</h3>
+              <p className="text-sm text-muted-foreground">
+                Local business verification, compliance, and market optimization
+              </p>
+            </Card>
+            <Card className="text-center p-6">
+              <Crown className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+              <h3 className="font-bold mb-2">Professional Service</h3>
+              <p className="text-sm text-muted-foreground">
+                Done by our team in 2-5 business days with ongoing support
+              </p>
+            </Card>
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link to="/aussie-setup-service">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                Learn More About Aussie Setup Service
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-6 text-center">
