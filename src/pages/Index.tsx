@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { 
   Sparkles, 
   Zap, 
@@ -17,10 +20,69 @@ import {
   Rocket,
   Brain,
   Target,
-  Shield
+  Shield,
+  Settings
 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import featuresImage from "@/assets/features-image.jpg";
+
+// Hidden Admin Access Component
+const AdminAccess = () => {
+  const [clickCount, setClickCount] = useState(0);
+  const [showDialog, setShowDialog] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const handleLogoClick = () => {
+    setClickCount(prev => prev + 1);
+    if (clickCount >= 4) {
+      setShowDialog(true);
+      setClickCount(0);
+    }
+    // Reset click count after 3 seconds
+    setTimeout(() => setClickCount(0), 3000);
+  };
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "jbsaas2025") {
+      window.location.href = "/dashboard/blog-admin";
+    } else {
+      setPassword("");
+    }
+  };
+
+  return (
+    <>
+      <button 
+        onClick={handleLogoClick}
+        className="p-2 rounded-full hover:bg-muted/20 transition-colors opacity-30 hover:opacity-60"
+        title="Admin Access"
+      >
+        <Settings className="w-4 h-4" />
+      </button>
+      
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Admin Access</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <Input
+              type="password"
+              placeholder="Enter admin password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoFocus
+            />
+            <Button type="submit" className="w-full">
+              Access Blog Admin
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const Index = () => {
   return (
@@ -92,15 +154,7 @@ const Index = () => {
               <span className="text-gradient-primary block">Creation Platform</span>
             </h1>
             
-            {/* SEO-optimized tagline for discoverability */}
-            <div className="text-base sm:text-lg font-medium mb-4 sm:mb-6 animate-fade-in">
-              <span className="bg-gradient-to-r from-blue-500 to-emerald-500 bg-clip-text text-transparent">
-                Make your business discoverable on:
-              </span>
-              <div className="text-sm sm:text-base text-foreground/80 mt-2 space-y-1">
-                • Social Media Platforms • Browser Search Results • AI-Powered Suggestions
-              </div>
-            </div>
+            {/* Simplified tagline - removed redundant text */}
             
             <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Generate professional social media posts, blogs, and marketing content in seconds. 
@@ -260,32 +314,32 @@ const Index = () => {
         </div>
       </section>
 
-      {/* What You Get - Real Feature Showcase */}
-      <section id="features" className="py-20 bg-gradient-to-b from-background via-muted/10 to-muted/30">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              <Brain className="w-3 h-3 mr-1" />
+      {/* Enhanced Features Showcase - Mobile-First Design */}
+      <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-background via-muted/10 to-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-20">
+            <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 text-sm sm:text-base px-4 py-2">
+              <Brain className="w-4 h-4 mr-2" />
               Complete Business Intelligence Platform
             </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              What You Get: <span className="text-gradient-primary">Enterprise-Level Features</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-8 leading-tight">
+              What You Get: <span className="text-gradient-primary block sm:inline">Enterprise-Level Features</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               A sophisticated platform that replaces multiple expensive tools with one comprehensive solution.
             </p>
           </div>
 
-          {/* Core Feature Modules */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* Business Intelligence Dashboard */}
-            <Card className="p-8 hover-lift group bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20 shadow-xl">
+          {/* Enhanced Core Feature Modules - Mobile Optimized */}
+          <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12 mb-12 sm:mb-20">
+            {/* Enhanced Business Intelligence Dashboard */}
+            <Card className="p-4 sm:p-6 lg:p-8 hover-lift group bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-primary/50">
               <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <BarChart3 className="w-6 h-6 text-white" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6">
+                  <div className="w-16 h-16 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 group-hover:scale-110 transition-transform shadow-glow">
+                    <BarChart3 className="w-8 h-8 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">Business Intelligence Dashboard</h3>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">Business Intelligence Dashboard</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
                   Advanced analytics with growth scoring, strategic recommendations, and automated insights to drive business decisions.
@@ -411,14 +465,14 @@ const Index = () => {
             </Card>
           </div>
 
-          {/* Advanced Features Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
+          {/* Enhanced Advanced Features Grid - Mobile First */}
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-16">
+            <Card className="p-4 sm:p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-muted/70">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Calendar className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 sm:w-12 sm:h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
+                  <Calendar className="w-7 h-7 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Content Calendar</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Content Calendar</h3>
                 <p className="text-muted-foreground mb-4">
                   Visual scheduling with timeline management and multi-platform coordination.
                 </p>
@@ -753,8 +807,10 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border/30 mt-8 pt-8 text-center text-muted-foreground">
+          <div className="border-t border-border/30 mt-8 pt-8 flex justify-between items-center text-muted-foreground">
             <p>&copy; 2024 JB-SaaS. All rights reserved.</p>
+            {/* Hidden Admin Access - Click 5 times */}
+            <AdminAccess />
           </div>
         </div>
       </footer>
