@@ -871,6 +871,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_prompt_usage: {
+        Args: { prompt_id: string }
+        Returns: undefined
+      }
       is_admin: {
         Args: { _user_id: string }
         Returns: boolean

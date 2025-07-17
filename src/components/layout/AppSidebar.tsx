@@ -27,7 +27,8 @@ import {
   Zap,
   Target,
   Network,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen
 } from 'lucide-react';
 
 const navigationItems = [
@@ -96,6 +97,11 @@ const settingsItems = [
     title: 'Cross-Business',
     url: '/dashboard/cross-business',
     icon: Network,
+  },
+  {
+    title: 'Prompt Library',
+    url: '/dashboard/prompts',
+    icon: BookOpen,
   },
   {
     title: 'Admin Panel',

@@ -166,15 +166,16 @@ export const usePromptLibrary = (): UsePromptLibraryReturn => {
       const { data: newVersion, error } = await supabase
         .from('prompts')
         .insert({
-          ...data,
           name: basePrompt.name,
           type: basePrompt.type,
           platform: basePrompt.platform,
           category: basePrompt.category,
+          prompt_text: data.prompt_text || '',
           created_by: user.id,
           version: nextVersion,
           usage_count: 0,
           is_active: true,
+          variables: data.variables,
         })
         .select()
         .single();
@@ -230,7 +231,23 @@ export const usePromptLibrary = (): UsePromptLibraryReturn => {
   // Increment usage count
   const incrementUsageMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.rpc('increment_prompt_usage', { prompt_id: id });
+      // Get current usage count first
+      const { data: currentPrompt, error: fetchError } = await supabase
+        .from('prompts')
+        .select('usage_count')
+        .eq('id', id)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      const { error } = await supabase
+        .from('prompts')
+        .update({ 
+          usage_count: (currentPrompt.usage_count || 0) + 1,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id);
+      
       if (error) throw error;
     },
     onSuccess: () => {
