@@ -12,7 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Bell, LogOut, User, CreditCard, HelpCircle } from 'lucide-react';
+import { Bell, LogOut, User, CreditCard, HelpCircle, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function AppHeader() {
   const { user, signOut } = useAuth();
@@ -28,6 +29,12 @@ export function AppHeader() {
     <header className="border-b border-white/10 bg-card/50 backdrop-blur-xl">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center space-x-4">
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground">
+              <Home className="h-4 w-4" />
+              <span className="hidden sm:inline">Back to Landing</span>
+            </Button>
+          </Link>
           <BusinessProfileSelector />
         </div>
 
