@@ -42,7 +42,7 @@ const Pricing = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-end">
             
             {/* Starter Plan */}
-            <Card className="relative p-8">
+            <Card className="relative p-8 scale-105 border-primary shadow-xl">
               <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Starter</h3>
