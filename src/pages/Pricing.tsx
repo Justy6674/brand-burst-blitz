@@ -48,7 +48,7 @@ const Pricing = () => {
                   <h3 className="text-2xl font-bold mb-2">Starter</h3>
                   <p className="text-muted-foreground mb-6">Perfect for small businesses getting started</p>
                   <div className="mb-12">
-                    <span className="text-5xl font-bold">$49</span>
+                    <span className="text-5xl font-bold text-primary">$49</span>
                     <span className="text-muted-foreground">/month</span>
                   </div>
                 </div>
