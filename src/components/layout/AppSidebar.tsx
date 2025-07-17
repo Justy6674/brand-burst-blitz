@@ -35,12 +35,12 @@ const navigationItems = [
   },
   {
     title: 'Create Content',
-    url: '/create',
+    url: '/dashboard/create',
     icon: PenTool,
   },
   {
     title: 'Posts',
-    url: '/posts',
+    url: '/dashboard/posts',
     icon: FileText,
   },
   {

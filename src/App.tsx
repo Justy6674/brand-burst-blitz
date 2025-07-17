@@ -12,9 +12,9 @@ import Dashboard from "./pages/Dashboard";
 import { CreateContent } from "./pages/CreateContent";
 import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
+import Posts from "./pages/Posts";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
-import QuestionnaireRequired from "./components/questionnaire/QuestionnaireRequired";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +35,7 @@ const App = () => (
             } />
             <Route path="/questionnaire-required" element={
               <ProtectedRoute>
-                <QuestionnaireRequired />
+                <BusinessQuestionnaire />
               </ProtectedRoute>
             } />
             <Route path="/dashboard" element={
@@ -45,6 +45,7 @@ const App = () => (
             }>
               <Route index element={<Dashboard />} />
               <Route path="create" element={<CreateContent />} />
+              <Route path="posts" element={<Posts />} />
               <Route path="competitors" element={<Competitors />} />
               <Route path="templates" element={<Templates />} />
             </Route>
