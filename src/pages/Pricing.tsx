@@ -39,11 +39,11 @@ const Pricing = () => {
       {/* Pricing Cards */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-end">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
             
             {/* Starter Plan */}
-            <Card className="relative p-8 scale-105 border-primary shadow-xl">
-              <CardContent className="p-0">
+            <Card className="relative p-8 border-primary shadow-xl h-full flex flex-col">
+              <CardContent className="p-0 flex-1 flex flex-col">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Starter</h3>
                   <p className="text-muted-foreground mb-6">Perfect for small businesses getting started</p>
@@ -53,7 +53,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-1">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Up to 100 AI-generated posts/month</span>
@@ -85,13 +85,13 @@ const Pricing = () => {
             </Card>
 
             {/* Professional Plan - Most Popular */}
-            <Card className="relative p-8 scale-105 border-primary shadow-xl">
+            <Card className="relative p-8 border-primary shadow-xl h-full flex flex-col">
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-blue-500 text-white">
                 <Star className="w-3 h-3 mr-1" />
                 Most Popular
               </Badge>
               
-              <CardContent className="p-0">
+              <CardContent className="p-0 flex-1 flex flex-col">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Professional</h3>
                   <p className="text-muted-foreground mb-6">For growing businesses that need more power</p>
@@ -101,7 +101,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-1">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Unlimited AI-generated content</span>
@@ -141,8 +141,8 @@ const Pricing = () => {
             </Card>
 
             {/* Enterprise Plan */}
-            <Card className="relative p-8">
-              <CardContent className="p-0">
+            <Card className="relative p-8 border-primary shadow-xl h-full flex flex-col">
+              <CardContent className="p-0 flex-1 flex flex-col">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
                   <p className="text-muted-foreground mb-6">For large organizations with custom needs</p>
@@ -152,7 +152,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-1">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Everything in Professional</span>
