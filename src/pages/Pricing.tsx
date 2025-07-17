@@ -80,7 +80,7 @@ const Pricing = () => {
                 </ul>
                 
                 <Button className="w-full" variant="outline">
-                  Coming August 2025
+            <Button size="lg" variant="glass">Coming August 2025</Button>
                 </Button>
               </CardContent>
             </Card>
@@ -137,7 +137,7 @@ const Pricing = () => {
                 </ul>
                 
                 <Button className="w-full bg-gradient-primary shadow-glow">
-                  Coming August 2025
+            <Button size="lg" variant="premium">Coming August 2025</Button>
                 </Button>
               </CardContent>
             </Card>
