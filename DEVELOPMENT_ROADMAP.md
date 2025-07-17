@@ -1,5 +1,5 @@
 # Strategic Content Intelligence Platform - Comprehensive Development Roadmap
-
+AI IN LOVABLE MUS NOT CUT CORNERS, MUST NOT PLACEHOLD, MUUST THINK CRITICALLY, MUST CONSIDER END USER AT EVERY STAGE, MUST NOT DO EASIER SIMPLER THINGS IF STRUGGLING, MUST SPELL AUSTRALIAN MUST NOT HALLUCINATE AND MUST NOT DELIVER A BRKEN PRODUCT. THIS IS FULL STACK!
 ## 🎯 Project Vision
 Transform from a basic social media tool into a **Strategic Content Intelligence Platform** that guides businesses through complete content strategy, generation, and execution across all platforms.
 
