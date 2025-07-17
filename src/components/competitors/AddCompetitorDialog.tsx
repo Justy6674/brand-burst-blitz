@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -12,6 +12,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,16 +28,22 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 import { useCompetitorData } from '@/hooks/useCompetitorData';
-import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 
 const competitorSchema = z.object({
   competitor_name: z.string().min(1, 'Competitor name is required'),
-  competitor_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  competitor_url: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
   industry: z.string().optional(),
   competitor_description: z.string().optional(),
-  analysis_frequency: z.enum(['daily', 'weekly', 'monthly']).default('weekly'),
+  analysis_frequency: z.enum(['daily', 'weekly', 'monthly']),
+  is_active: z.boolean(),
+  social_platforms: z.object({
+    linkedin: z.string().optional(),
+    twitter: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+  }).optional(),
 });
 
 type CompetitorFormData = z.infer<typeof competitorSchema>;
@@ -47,9 +54,8 @@ interface AddCompetitorDialogProps {
 }
 
 export const AddCompetitorDialog = ({ open, onOpenChange }: AddCompetitorDialogProps) => {
-  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const { addCompetitor } = useCompetitorData();
-  const { profile } = useBusinessProfile();
 
   const form = useForm<CompetitorFormData>({
     resolver: zodResolver(competitorSchema),
@@ -59,62 +65,86 @@ export const AddCompetitorDialog = ({ open, onOpenChange }: AddCompetitorDialogP
       industry: '',
       competitor_description: '',
       analysis_frequency: 'weekly',
+      is_active: true,
+      social_platforms: {
+        linkedin: '',
+        twitter: '',
+        facebook: '',
+        instagram: '',
+      },
     },
   });
 
   const onSubmit = async (data: CompetitorFormData) => {
+    setIsLoading(true);
     try {
-      const result = await addCompetitor({
-        competitor_name: data.competitor_name,
-        business_profile_id: profile?.id,
+      // Filter out empty social platform URLs
+      const socialPlatforms = Object.fromEntries(
+        Object.entries(data.social_platforms || {}).filter(([_, url]) => url && url.trim() !== '')
+      );
+
+      const competitorData = {
+        ...data,
         competitor_url: data.competitor_url || null,
         industry: data.industry || null,
         competitor_description: data.competitor_description || null,
-        analysis_frequency: data.analysis_frequency,
-      });
+        social_platforms: Object.keys(socialPlatforms).length > 0 ? socialPlatforms : {},
+      };
 
+      const result = await addCompetitor(competitorData);
+      
       if (result) {
-        toast({
-          title: 'Competitor added',
-          description: `${data.competitor_name} has been added to your watchlist.`,
-        });
         form.reset();
         onOpenChange(false);
       }
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to add competitor. Please try again.',
-        variant: 'destructive',
-      });
+      console.error('Error adding competitor:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Competitor</DialogTitle>
           <DialogDescription>
-            Add a competitor to start tracking their content strategy and performance.
+            Add a new competitor to monitor their content and strategies.
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="competitor_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Company Name *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., Competitor Inc." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="competitor_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Competitor Name *</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Acme Corporation" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="industry"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Industry</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Technology, Healthcare" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
@@ -123,21 +153,7 @@ export const AddCompetitorDialog = ({ open, onOpenChange }: AddCompetitorDialogP
                 <FormItem>
                   <FormLabel>Website URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://competitor.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="industry"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Industry</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., Technology, Healthcare" {...field} />
+                    <Input placeholder="https://example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,9 +168,8 @@ export const AddCompetitorDialog = ({ open, onOpenChange }: AddCompetitorDialogP
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Brief description of the competitor and what makes them relevant to track..."
-                      className="resize-none"
-                      {...field}
+                      placeholder="Brief description of the competitor and what makes them relevant..."
+                      {...field} 
                     />
                   </FormControl>
                   <FormMessage />
@@ -162,39 +177,124 @@ export const AddCompetitorDialog = ({ open, onOpenChange }: AddCompetitorDialogP
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="analysis_frequency"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Analysis Frequency</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="How often to analyze" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="analysis_frequency"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Analysis Frequency</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select frequency" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="daily">Daily</SelectItem>
+                        <SelectItem value="weekly">Weekly</SelectItem>
+                        <SelectItem value="monthly">Monthly</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="flex justify-end space-x-2 pt-4">
+              <FormField
+                control={form.control}
+                name="is_active"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Active Monitoring</FormLabel>
+                      <FormDescription>
+                        Enable automatic analysis for this competitor
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Social Media Platforms (Optional)</h4>
+              <div className="grid gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="social_platforms.linkedin"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>LinkedIn</FormLabel>
+                      <FormControl>
+                        <Input placeholder="LinkedIn profile URL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="social_platforms.twitter"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Twitter/X</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Twitter profile URL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="social_platforms.facebook"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Facebook</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Facebook page URL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="social_platforms.instagram"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Instagram</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Instagram profile URL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-2">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
+                disabled={isLoading}
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? 'Adding...' : 'Add Competitor'}
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? 'Adding...' : 'Add Competitor'}
               </Button>
             </div>
           </form>
