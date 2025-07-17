@@ -92,7 +92,7 @@ const Index = () => {
               <span className="text-gradient-primary block">Creation Platform</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Generate professional social media posts, blogs, and marketing content in seconds. 
               <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
             </p>
