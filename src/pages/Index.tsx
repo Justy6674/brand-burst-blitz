@@ -104,16 +104,13 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="relative animate-slide-in-right">
+            <div className="flex justify-center animate-slide-in-right">
               <div className="relative">
                 <img 
                   src={featuresImage} 
                   alt="JBSAAS Dashboard" 
                   className="rounded-2xl shadow-2xl hover-lift"
                 />
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-pulse">
-                  <Sparkles className="w-8 h-8 text-white" />
-                </div>
               </div>
               
               {/* Floating Stats */}
