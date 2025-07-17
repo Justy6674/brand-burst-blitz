@@ -265,178 +265,239 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* What You Get - Real Feature Showcase */}
       <section id="features" className="py-20 bg-gradient-to-b from-background via-muted/10 to-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
               <Brain className="w-3 h-3 mr-1" />
-              AI-Powered Features
+              Complete Business Intelligence Platform
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Everything You Need to <span className="text-gradient-primary">Dominate Social Media</span>
+              What You Get: <span className="text-gradient-primary">Enterprise-Level Features</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From content creation to publishing, we've automated every step of your social media strategy.
+              A sophisticated platform that replaces multiple expensive tools with one comprehensive solution.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
+
+          {/* Core Feature Modules */}
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* Business Intelligence Dashboard */}
+            <Card className="p-8 hover-lift group bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20 shadow-xl">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Sparkles className="w-6 h-6 text-white" />
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
+                    <BarChart3 className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">Business Intelligence Dashboard</h3>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">AI Content Generation</h3>
-                <p className="text-muted-foreground mb-4">
-                  Our advanced AI creates engaging social posts and blog articles tailored to your industry and brand voice.
+                <p className="text-muted-foreground mb-6">
+                  Advanced analytics with growth scoring, strategic recommendations, and automated insights to drive business decisions.
                 </p>
-                <ul className="space-y-2 text-sm">
+                <ul className="space-y-3">
                   <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Industry-specific content
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Growth Score Tracking & Analysis</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Brand voice consistency
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Strategic Content Recommendations</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    SEO optimization
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Cross-Platform Performance Analytics</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">ROI & Engagement Reporting</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
+
+            {/* AI Content Creation Engine */}
+            <Card className="p-8 hover-lift group bg-gradient-to-br from-secondary/5 to-accent/5 border-2 border-secondary/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
+                    <Brain className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">AI Content Creation Engine</h3>
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  Generate professional blog posts, social media content, and ad copy with brand voice learning and consistency.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Brand Voice Learning & Consistency</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Blog, Social & Ad Copy Generation</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Industry-Specific Content Templates</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">AI Prompt Library Integration</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Competitive Intelligence */}
+            <Card className="p-8 hover-lift group bg-gradient-to-br from-accent/5 to-primary/5 border-2 border-accent/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
+                    <Target className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">Competitive Intelligence</h3>
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  Automated competitor monitoring, content analysis, and actionable insights to stay ahead of your competition.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Automated Competitor Monitoring</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Content Performance Analysis</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Actionable Strategic Insights</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Market Gap Identification</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Multi-Business Management */}
+            <Card className="p-8 hover-lift group bg-gradient-to-br from-primary/5 to-muted/10 border-2 border-primary/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">Multi-Business Management</h3>
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  Manage multiple business profiles, share templates across brands, and get unified reporting for all your ventures.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Business Profile Switching</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Cross-Business Template Sharing</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Unified Analytics & Reporting</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Role-Based Team Access Control</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Advanced Features Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Smart Scheduling*</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Content Calendar</h3>
                 <p className="text-muted-foreground mb-4">
-                  We create content and provide detailed setup instructions for your social platforms. Premium setup service available for Australian customers.
+                  Visual scheduling with timeline management and multi-platform coordination.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Optimal timing analysis
+                    Timeline visualization
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Multi-platform publishing
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Calendar view & management
+                    Publishing queue management
                   </li>
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
+
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Target className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
+                  <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Competitive Analysis & Benchmarking</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Template Library</h3>
                 <p className="text-muted-foreground mb-4">
-                  Monitor competitors' content strategies and benchmark your performance against successful similar businesses.
+                  Public and private templates with AI prompt integration for consistent content.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Competitor content tracking
+                    AI prompt templates
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Performance benchmarking
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Strategic insights
+                    Usage analytics
                   </li>
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
+
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
+                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Compliance Protection</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Enterprise Security</h3>
                 <p className="text-muted-foreground mb-4">
-                  Built-in compliance checks for health, finance, and regulated industries.
+                  Role-based access control, audit logs, and compliance monitoring for business safety.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    AHPRA/TGA compliance
+                    User role management
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    ASIC/AFSL warnings
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Industry disclaimers
+                    Activity audit trails
                   </li>
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <BarChart3 className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Analytics & Cross-Business Reporting</h3>
-                <p className="text-muted-foreground mb-4">
-                  Track performance, engagement, and ROI with detailed analytics and reporting.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Performance tracking
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Engagement metrics
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    ROI calculations
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Multi-Business Management</h3>
-                <p className="text-muted-foreground mb-4">
-                  Run multiple businesses from one dashboard with separate content libraries, analytics, and role-based access control.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Business profile switcher
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Cross-business templates
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Role-based permissions
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          </div>
+
+          {/* Value Proposition */}
+          <div className="text-center bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
+            <h3 className="text-2xl font-bold mb-4 text-foreground">Replace $10,000+ in Business Tools</h3>
+            <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
+              Our platform combines the functionality of expensive business intelligence tools, content agencies, 
+              competitive analysis services, and social media management platforms into one comprehensive solution.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+              <span>• Business Intelligence Tools ($500+/month)</span>
+              <span>• Content Agencies ($5,000+/month)</span>
+              <span>• Competitive Analysis ($300+/month)</span>
+              <span>• Social Media Management ($200+/month)</span>
+            </div>
           </div>
         </div>
       </section>
