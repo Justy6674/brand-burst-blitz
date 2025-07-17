@@ -42,8 +42,8 @@ const Pricing = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             
             {/* Starter Plan */}
-            <Card className="relative p-8 border-2 border-muted/50 hover:border-primary/30 transition-colors h-full flex flex-col">
-              <CardContent className="p-0">
+            <Card className="relative p-8 border-2 border-muted/50 hover:border-primary/30 transition-colors min-h-[700px] flex flex-col">
+              <CardContent className="p-0 flex flex-col h-full">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-4">
                     <Users className="w-8 h-8 text-muted-foreground" />
@@ -56,7 +56,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-success mr-3" />
                     <span>Up to 100 AI-generated posts/month</span>
@@ -79,20 +79,22 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto pt-4">
-                  <Button className="w-full bg-background border border-border/80 hover:bg-background/80 text-foreground rounded-lg py-4">Coming August 2025</Button>
+                <div className="mt-auto">
+                  <Button variant="outline" size="lg" className="w-full">
+                    Coming August 2025
+                  </Button>
                 </div>
               </CardContent>
             </Card>
 
             {/* Professional Plan - Most Popular */}
-            <Card className="relative p-8 border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl scale-105 h-full flex flex-col">
+            <Card className="relative p-8 border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl scale-105 min-h-[700px] flex flex-col">
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white">
                 <Star className="w-3 h-3 mr-1" />
                 Most Popular
               </Badge>
               
-              <CardContent className="p-0">
+              <CardContent className="p-0 flex flex-col h-full">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-4">
                     <Building className="w-8 h-8 text-primary" />
@@ -105,7 +107,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-success mr-3" />
                     <span>Unlimited AI-generated content</span>
@@ -136,15 +138,17 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto pt-4">
-                  <Button className="w-full bg-gradient-to-r from-purple-500 to-teal-400 text-white rounded-lg py-4 hover:shadow-glow transition-all">Coming August 2025</Button>
+                <div className="mt-auto">
+                  <Button size="lg" className="w-full bg-gradient-primary text-white">
+                    Coming August 2025
+                  </Button>
                 </div>
               </CardContent>
             </Card>
 
             {/* Enterprise Plan */}
-            <Card className="relative p-8 border-2 border-muted/50 hover:border-secondary/30 transition-colors h-full flex flex-col">
-              <CardContent className="p-0">
+            <Card className="relative p-8 border-2 border-muted/50 hover:border-secondary/30 transition-colors min-h-[700px] flex flex-col">
+              <CardContent className="p-0 flex flex-col h-full">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-4">
                     <Crown className="w-8 h-8 text-secondary" />
@@ -157,7 +161,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-center">
                     <Check className="w-5 h-5 text-success mr-3" />
                     <span>Everything in Professional</span>
@@ -188,8 +192,10 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto pt-4">
-                  <Button className="w-full bg-background border border-border/80 hover:bg-background/80 text-foreground rounded-lg py-4">Contact Sales</Button>
+                <div className="mt-auto">
+                  <Button variant="outline" size="lg" className="w-full">
+                    Contact Sales
+                  </Button>
                 </div>
               </CardContent>
             </Card>
