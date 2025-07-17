@@ -77,7 +77,7 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-auto">
-                  <Button className="w-full rounded-md h-14 text-white bg-transparent border border-gray-700 hover:bg-transparent">
+                  <Button className="w-full rounded-full h-14 text-white bg-transparent border border-gray-700 hover:bg-transparent">
                     Coming August 2025
                   </Button>
                 </div>
@@ -133,7 +133,7 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-auto">
-                  <Button className="w-full rounded-md h-14 text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90">
+                  <Button className="w-full rounded-full h-14 text-white bg-gradient-to-r from-purple-500 to-blue-400 hover:opacity-90">
                     Coming August 2025
                   </Button>
                 </div>
@@ -184,7 +184,7 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-auto">
-                  <Button className="w-full rounded-md h-14 text-white bg-transparent border border-gray-700 hover:bg-transparent">
+                  <Button className="w-full rounded-full h-14 text-white bg-transparent border border-gray-700 hover:bg-transparent">
                     Contact Sales
                   </Button>
                 </div>
