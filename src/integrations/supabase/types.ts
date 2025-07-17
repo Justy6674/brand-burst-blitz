@@ -951,6 +951,83 @@ export type Database = {
           },
         ]
       }
+      social_setup_services: {
+        Row: {
+          abn: string
+          amount_paid: number | null
+          assigned_to: string | null
+          business_address: Json | null
+          business_profile_id: string | null
+          completed_at: string | null
+          completion_notes: string | null
+          connected_accounts: Json | null
+          created_at: string | null
+          domain_verified: boolean | null
+          id: string
+          qa_approved_at: string | null
+          qa_approved_by: string | null
+          qa_checklist: Json | null
+          requested_at: string | null
+          started_at: string | null
+          status: string | null
+          stripe_payment_intent_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          abn: string
+          amount_paid?: number | null
+          assigned_to?: string | null
+          business_address?: Json | null
+          business_profile_id?: string | null
+          completed_at?: string | null
+          completion_notes?: string | null
+          connected_accounts?: Json | null
+          created_at?: string | null
+          domain_verified?: boolean | null
+          id?: string
+          qa_approved_at?: string | null
+          qa_approved_by?: string | null
+          qa_checklist?: Json | null
+          requested_at?: string | null
+          started_at?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          abn?: string
+          amount_paid?: number | null
+          assigned_to?: string | null
+          business_address?: Json | null
+          business_profile_id?: string | null
+          completed_at?: string | null
+          completion_notes?: string | null
+          connected_accounts?: Json | null
+          created_at?: string | null
+          domain_verified?: boolean | null
+          id?: string
+          qa_approved_at?: string | null
+          qa_approved_by?: string | null
+          qa_checklist?: Json | null
+          requested_at?: string | null
+          started_at?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_setup_services_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       strategic_content_recommendations: {
         Row: {
           business_profile_id: string | null
