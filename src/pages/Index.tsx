@@ -138,6 +138,56 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Platform Preview Section */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+              <Target className="w-3 h-3 mr-1" />
+              Platform Preview
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+              See the <span className="text-gradient-primary">Enterprise Platform</span>
+            </h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+              Experience the sophisticated dashboard that powers your content strategy with AI-driven insights and comprehensive management tools.
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <div className="relative max-w-5xl w-full">
+              <img 
+                src={featuresImage} 
+                alt="JBSAAS Platform Dashboard - Business Intelligence and Content Management Interface" 
+                className="rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover border border-border/50"
+              />
+              
+              {/* Floating Feature Callouts */}
+              <div className="absolute top-4 left-4 glass rounded-xl p-4 animate-fade-in hidden sm:block">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+                  <span className="text-sm font-semibold">Business Intelligence</span>
+                </div>
+              </div>
+              
+              <div className="absolute top-4 right-4 glass rounded-xl p-4 animate-fade-in hidden sm:block" style={{animationDelay: '0.2s'}}>
+                <div className="flex items-center space-x-2">
+                  <Brain className="w-4 h-4 text-secondary" />
+                  <span className="text-sm font-semibold">AI Content Engine</span>
+                </div>
+              </div>
+              
+              <div className="absolute bottom-4 left-4 glass rounded-xl p-4 animate-fade-in hidden sm:block" style={{animationDelay: '0.4s'}}>
+                <div className="flex items-center space-x-2">
+                  <BarChart3 className="w-4 h-4 text-accent" />
+                  <span className="text-sm font-semibold">Analytics Dashboard</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-12 sm:py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
         <div className="container mx-auto px-4 sm:px-6">
