@@ -48,6 +48,7 @@ const Index = () => {
             {/* Desktop menu */}
             <div className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
+              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
               <Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
               <Link to="/common-questions" className="text-muted-foreground hover:text-foreground transition-colors">Common Questions</Link>
               <Link to="/auth">
