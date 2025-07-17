@@ -27,16 +27,25 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <img 
                 src="/jbsaaslogo.png" 
-                alt="JB SAAS Logo" 
-                className="w-8 h-8"
+                alt="JBSAAS Logo" 
+                className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-gradient-primary">JBSAAS</span>
             </div>
+            
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <Link to="/auth">
+                <Button size="sm" className="bg-gradient-primary shadow-glow">Sign In</Button>
+              </Link>
+            </div>
+            
+            {/* Desktop menu */}
             <div className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
               <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
@@ -62,7 +71,7 @@ const Index = () => {
           opacity: 0.1
         }}></div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left animate-fade-in-up">
               <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
@@ -107,26 +116,26 @@ const Index = () => {
             </div>
             
             <div className="flex justify-center animate-slide-in-right">
-              <div className="relative">
+              <div className="relative max-w-lg w-full">
                 <img 
                   src={featuresImage} 
                   alt="JBSAAS Dashboard" 
-                  className="rounded-2xl shadow-2xl hover-lift"
+                  className="rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover"
                 />
-              </div>
               
-              {/* Floating Stats */}
-              <div className="absolute -bottom-6 -left-6 glass rounded-xl p-4 float">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-success rounded-full animate-pulse"></div>
-                  <span className="text-sm font-semibold">2,847 Posts Generated Today</span>
+                {/* Floating Stats */}
+                <div className="absolute -bottom-2 sm:-bottom-6 -left-2 sm:-left-6 glass rounded-xl p-2 sm:p-4 float">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 sm:w-3 h-2 sm:h-3 bg-success rounded-full animate-pulse"></div>
+                    <span className="text-xs sm:text-sm font-semibold">2,847 Posts Generated Today</span>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="absolute -top-6 -left-6 glass rounded-xl p-4 float-delayed">
-                <div className="flex items-center space-x-2">
-                  <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-semibold">Saved 94 Hours</span>
+                
+                <div className="absolute -top-2 sm:-top-6 -left-2 sm:-left-6 glass rounded-xl p-2 sm:p-4 float-delayed">
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
+                    <span className="text-xs sm:text-sm font-semibold">Saved 94 Hours</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,7 +145,7 @@ const Index = () => {
 
       {/* Stats Section */}
       <section className="py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">$50K+</div>
