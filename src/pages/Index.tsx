@@ -35,10 +35,7 @@ const Index = () => {
                 alt="JBSAAS Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-gradient-primary leading-none">JBSAAS</span>
-                <span className="text-[10px] text-muted-foreground leading-none -mt-0.5">JB Software as a Service</span>
-              </div>
+              <span className="text-xl font-bold text-gradient-primary leading-none">JB-Software-As-A-Service</span>
             </div>
             
             {/* Mobile menu button */}
