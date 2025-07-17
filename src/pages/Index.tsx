@@ -91,14 +91,9 @@ const Index = () => {
               <span className="text-gradient-primary block">Creation Platform</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Generate professional social media posts, blogs, and marketing content in seconds. 
               <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
-            </p>
-            
-            <p className="text-sm text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
-              <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
-              For Australian customers, we offer full setup service for an additional fee.
             </p>
             
             <div className="flex justify-center mb-8 sm:mb-12">
