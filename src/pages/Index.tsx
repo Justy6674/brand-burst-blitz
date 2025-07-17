@@ -90,9 +90,13 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
-                <Button variant="hero" size="lg" className="group w-full sm:w-auto">
-                  Start Free Trial
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  variant="hero" 
+                  size="lg" 
+                  className="w-full sm:w-auto cursor-not-allowed opacity-75"
+                  disabled
+                >
+                  Coming in August 2025
                 </Button>
                 <Button variant="glass" size="lg" className="w-full sm:w-auto">
                   Watch Demo
