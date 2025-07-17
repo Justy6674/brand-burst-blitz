@@ -668,7 +668,7 @@ const Index = () => {
                   className="w-full bg-gradient-primary text-white shadow-glow cursor-not-allowed opacity-75"
                   disabled
                 >
-                  Coming September 2025
+                  Coming 2026
                 </Button>
               </CardContent>
             </Card>
