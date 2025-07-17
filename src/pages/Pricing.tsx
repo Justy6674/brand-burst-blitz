@@ -79,8 +79,8 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto">
-                  <Button size="lg" variant="outline" className="w-full">Coming August 2025</Button>
+                <div className="w-full mt-auto pt-4">
+                  <Button className="w-full bg-background border border-border/80 hover:bg-background/80 text-foreground rounded-lg py-4">Coming August 2025</Button>
                 </div>
               </CardContent>
             </Card>
@@ -136,8 +136,8 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto">
-                  <Button size="lg" variant="premium" className="w-full">Coming August 2025</Button>
+                <div className="w-full mt-auto pt-4">
+                  <Button className="w-full bg-gradient-to-r from-purple-500 to-teal-400 text-white rounded-lg py-4 hover:shadow-glow transition-all">Coming August 2025</Button>
                 </div>
               </CardContent>
             </Card>
@@ -188,8 +188,8 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full mt-auto">
-                  <Button size="lg" variant="outline" className="w-full">Contact Sales</Button>
+                <div className="w-full mt-auto pt-4">
+                  <Button className="w-full bg-background border border-border/80 hover:bg-background/80 text-foreground rounded-lg py-4">Contact Sales</Button>
                 </div>
               </CardContent>
             </Card>
