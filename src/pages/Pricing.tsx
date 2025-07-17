@@ -42,7 +42,7 @@ const Pricing = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             
             {/* Starter Plan */}
-            <Card className="relative p-8 border-2 border-muted/50 hover:border-primary/30 transition-colors">
+            <Card className="relative p-8 border-2 border-muted/50 hover:border-primary/30 transition-colors h-full flex flex-col">
               <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-4">
@@ -79,14 +79,14 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full">
-                  <Button size="lg" variant="glass" className="w-full">Coming August 2025</Button>
+                <div className="w-full mt-auto">
+                  <Button size="lg" variant="outline" className="w-full">Coming August 2025</Button>
                 </div>
               </CardContent>
             </Card>
 
             {/* Professional Plan - Most Popular */}
-            <Card className="relative p-8 border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl scale-105">
+            <Card className="relative p-8 border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl scale-105 h-full flex flex-col">
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-white">
                 <Star className="w-3 h-3 mr-1" />
                 Most Popular
@@ -136,14 +136,14 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <div className="w-full">
+                <div className="w-full mt-auto">
                   <Button size="lg" variant="premium" className="w-full">Coming August 2025</Button>
                 </div>
               </CardContent>
             </Card>
 
             {/* Enterprise Plan */}
-            <Card className="relative p-8 border-2 border-muted/50 hover:border-secondary/30 transition-colors">
+            <Card className="relative p-8 border-2 border-muted/50 hover:border-secondary/30 transition-colors h-full flex flex-col">
               <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-4">
@@ -188,9 +188,9 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <Button className="w-full" variant="outline">
-                  Contact Sales
-                </Button>
+                <div className="w-full mt-auto">
+                  <Button size="lg" variant="outline" className="w-full">Contact Sales</Button>
+                </div>
               </CardContent>
             </Card>
           </div>
