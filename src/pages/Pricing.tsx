@@ -39,11 +39,11 @@ const Pricing = () => {
       {/* Pricing Cards */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-end">
             
             {/* Starter Plan */}
-            <Card className="relative p-8 h-full flex flex-col">
-              <CardContent className="p-0 flex-1 flex flex-col">
+            <Card className="relative p-8">
+              <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Starter</h3>
                   <p className="text-muted-foreground mb-6">Perfect for small businesses getting started</p>
@@ -53,30 +53,30 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8 flex-1">
+                <ul className="space-y-4 mb-8">
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Up to 100 AI-generated posts/month</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>3 Social media accounts</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Basic analytics dashboard</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Content scheduling</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Email support</span>
                   </li>
                 </ul>
                 
-                <div className="mt-auto">
+                <div className="mt-8">
                   <Button variant="outline" className="w-full h-14 rounded-full">
                     Coming August 2025
                   </Button>
@@ -85,13 +85,13 @@ const Pricing = () => {
             </Card>
 
             {/* Professional Plan - Most Popular */}
-            <Card className="relative p-8 h-full flex flex-col scale-105 border-primary">
+            <Card className="relative p-8 scale-105 border-primary shadow-xl">
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-blue-500 text-white">
                 <Star className="w-3 h-3 mr-1" />
                 Most Popular
               </Badge>
               
-              <CardContent className="p-0 flex-1 flex flex-col">
+              <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Professional</h3>
                   <p className="text-muted-foreground mb-6">For growing businesses that need more power</p>
@@ -101,39 +101,39 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8 flex-1">
+                <ul className="space-y-4 mb-8">
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Unlimited AI-generated content</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>10 Social media accounts</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Advanced analytics & insights</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Competitor analysis</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Brand voice training</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Priority support</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Custom templates</span>
                   </li>
                 </ul>
                 
-                <div className="mt-auto">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400">
+                <div className="mt-8">
+                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
                     Coming August 2025
                   </Button>
                 </div>
@@ -141,8 +141,8 @@ const Pricing = () => {
             </Card>
 
             {/* Enterprise Plan */}
-            <Card className="relative p-8 h-full flex flex-col">
-              <CardContent className="p-0 flex-1 flex flex-col">
+            <Card className="relative p-8">
+              <CardContent className="p-0">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
                   <p className="text-muted-foreground mb-6">For large organizations with custom needs</p>
@@ -152,38 +152,38 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-4 mb-8 flex-1">
+                <ul className="space-y-4 mb-8">
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Everything in Professional</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Unlimited team members</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>White-label solution</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Custom integrations</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Dedicated success manager</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>SLA guarantees</span>
                   </li>
                   <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Custom training</span>
                   </li>
                 </ul>
                 
-                <div className="mt-auto">
+                <div className="mt-8">
                   <Button variant="outline" className="w-full h-14 rounded-full">
                     Contact Sales
                   </Button>
