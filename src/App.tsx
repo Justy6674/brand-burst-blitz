@@ -9,6 +9,8 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
+import Pricing from "./pages/Pricing";
+import CommonQuestions from "./pages/CommonQuestions";
 import Dashboard from "./pages/Dashboard";
 import { CreateContent } from "./pages/CreateContent";
 import Competitors from "./pages/Competitors";
@@ -36,6 +38,8 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/common-questions" element={<CommonQuestions />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>
