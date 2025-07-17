@@ -154,20 +154,20 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">$50K+</div>
-              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Saved in Agency Fees</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">100%</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">AI-Powered Platform</div>
             </div>
             <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">500+</div>
-              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Hours Automated</div>
-            </div>
-            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
-              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">98%</div>
-              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Time Reduction</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">10+</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Enterprise Features</div>
             </div>
             <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">24/7</div>
-              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Automated Publishing</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">Platform Availability</div>
+            </div>
+            <div className="text-center p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
+              <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gradient-primary mb-1 sm:mb-2">Aug</div>
+              <div className="text-xs sm:text-sm lg:text-base text-muted-foreground">2025 Launch Date</div>
             </div>
           </div>
         </div>
@@ -507,27 +507,27 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-hero opacity-90"></div>
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Ready to Save $50,000+ This Year?
+            Transform Your Content Strategy
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of businesses who've eliminated agency fees and automated their content creation.
+            Experience a comprehensive platform that combines AI content creation, business intelligence, 
+            and competitive analysis in one sophisticated solution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button variant="glass" size="xl" className="group">
-              <Rocket className="w-5 h-5 mr-2 group-hover:translate-y-1 transition-transform" />
-              Start Your Free Trial
-            </Button>
-            <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-white/10">
-              Schedule Demo
+            <Button 
+              variant="glass" 
+              size="xl" 
+              className="group cursor-not-allowed opacity-75"
+              disabled
+            >
+              <Rocket className="w-5 h-5 mr-2" />
+              Coming August 2025
             </Button>
           </div>
           <div className="flex items-center justify-center space-x-6 text-sm text-white/80">
-            <div className="flex items-center">
-              <Star className="w-4 h-4 fill-current mr-1" />
-              4.9/5 Rating
-            </div>
+            <div>Enterprise-Grade Platform</div>
             <div>•</div>
-            <div>No Credit Card Required</div>
+            <div>Professional Content Solutions</div>
             <div>•</div>
             <div>Setup in Under 5 Minutes</div>
           </div>
