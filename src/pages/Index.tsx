@@ -138,56 +138,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Platform Preview Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              <Target className="w-3 h-3 mr-1" />
-              Platform Preview
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              See the <span className="text-gradient-primary">Enterprise Platform</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Experience the sophisticated dashboard that powers your content strategy with AI-driven insights and comprehensive management tools.
-            </p>
-          </div>
-          
-          <div className="flex justify-center">
-            <div className="relative max-w-5xl w-full">
-              <img 
-                src={featuresImage} 
-                alt="JBSAAS Platform Dashboard - Business Intelligence and Content Management Interface" 
-                className="rounded-2xl shadow-2xl hover-lift w-full h-auto object-cover border border-border/50"
-              />
-              
-              {/* Floating Feature Callouts */}
-              <div className="absolute top-4 left-4 glass rounded-xl p-4 animate-fade-in hidden sm:block">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-                  <span className="text-sm font-semibold">Business Intelligence</span>
-                </div>
-              </div>
-              
-              <div className="absolute top-4 right-4 glass rounded-xl p-4 animate-fade-in hidden sm:block" style={{animationDelay: '0.2s'}}>
-                <div className="flex items-center space-x-2">
-                  <Brain className="w-4 h-4 text-secondary" />
-                  <span className="text-sm font-semibold">AI Content Engine</span>
-                </div>
-              </div>
-              
-              <div className="absolute bottom-4 left-4 glass rounded-xl p-4 animate-fade-in hidden sm:block" style={{animationDelay: '0.4s'}}>
-                <div className="flex items-center space-x-2">
-                  <BarChart3 className="w-4 h-4 text-accent" />
-                  <span className="text-sm font-semibold">Analytics Dashboard</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Stats Section */}
       <section className="py-12 sm:py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
         <div className="container mx-auto px-4 sm:px-6">
@@ -541,9 +491,188 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Why This Matters - Education Section */}
+      <section className="py-20 bg-gradient-to-b from-muted/30 to-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+              <Brain className="w-3 h-3 mr-1" />
+              Why Content Strategy Matters
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              How Businesses <span className="text-gradient-primary">Get Discovered</span> Online
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Most businesses struggle with trial and error in digital marketing. 
+              Understanding how search engines, social platforms, and AI agents work is crucial for success.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+            {/* Search Engine Discovery */}
+            <Card className="p-8 hover-lift bg-gradient-to-br from-primary/5 to-background border-2 border-primary/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-6 shadow-glow">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">Search Engine Visibility</h3>
+                <p className="text-muted-foreground mb-6">
+                  Google and Bing algorithms prioritize websites with fresh, relevant blog content. 
+                  Without regular content updates, your business becomes invisible in search results.
+                </p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Regular blog posts improve search rankings</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>SEO-optimized content drives organic traffic</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Fresh content signals active business to search engines</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Social Media Engagement */}
+            <Card className="p-8 hover-lift bg-gradient-to-br from-secondary/5 to-background border-2 border-secondary/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-6 shadow-glow">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">Social Media Discovery</h3>
+                <p className="text-muted-foreground mb-6">
+                  Consistent, creative social media content builds brand awareness and trust. 
+                  Platform algorithms favor accounts that post regularly with engaging, authentic content.
+                </p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Regular posting increases algorithm visibility</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Authentic content builds customer relationships</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Cross-platform presence expands reach</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* AI Agent Discovery */}
+            <Card className="p-8 hover-lift bg-gradient-to-br from-accent/5 to-background border-2 border-accent/20 shadow-xl">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-6 shadow-glow">
+                  <Brain className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">AI Agent Recognition</h3>
+                <p className="text-muted-foreground mb-6">
+                  The future is AI agents recommending businesses. They analyze content quality, 
+                  consistency, and relevance to suggest services. Quality content = AI recommendations.
+                </p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>AI agents analyze content for recommendations</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Quality content improves AI trust scores</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Consistent messaging builds AI understanding</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* The Problem */}
+          <div className="text-center bg-gradient-to-r from-destructive/5 via-destructive/10 to-destructive/5 rounded-2xl p-8 mb-12 border border-destructive/20">
+            <h3 className="text-2xl font-bold mb-4 text-foreground">The Reality Most Businesses Face</h3>
+            <p className="text-lg text-muted-foreground mb-6 max-w-4xl mx-auto">
+              Creating creative, accurate, honest, regular, and relatable content is <strong className="text-foreground">extremely time-consuming and expensive</strong>. 
+              Most businesses resort to trial and error, wasting months and thousands of dollars on ineffective strategies.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6 mt-8">
+              <div className="text-left">
+                <h4 className="font-semibold text-destructive mb-3">Common Struggles:</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Inconsistent posting schedules</li>
+                  <li>• Generic, boring content that doesn't engage</li>
+                  <li>• No understanding of what competitors are doing</li>
+                  <li>• Wasting money on agencies that don't understand your business</li>
+                </ul>
+              </div>
+              <div className="text-left">
+                <h4 className="font-semibold text-destructive mb-3">The Cost:</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 20+ hours weekly on content creation</li>
+                  <li>• $5,000-$15,000 monthly on agencies</li>
+                  <li>• Missed opportunities due to poor online presence</li>
+                  <li>• Lost customers to competitors with better content</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* The Solution */}
+          <div className="text-center bg-gradient-to-r from-success/5 via-success/10 to-success/5 rounded-2xl p-8 border border-success/20">
+            <h3 className="text-2xl font-bold mb-4 text-foreground">Our One-Stop Solution</h3>
+            <p className="text-lg text-muted-foreground mb-6 max-w-4xl mx-auto">
+              We provide an <strong className="text-foreground">easy, comprehensive platform</strong> that lets you emulate successful businesses in your industry. 
+              Our AI analyzes what works, creates content that converts, and handles the strategy so you can focus on running your business.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-8 h-8 text-success" />
+                </div>
+                <h4 className="font-semibold text-success mb-2">Learn from the Best</h4>
+                <p className="text-sm text-muted-foreground">Analyze successful competitors and emulate their strategies</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Brain className="w-8 h-8 text-success" />
+                </div>
+                <h4 className="font-semibold text-success mb-2">AI-Powered Creation</h4>
+                <p className="text-sm text-muted-foreground">Generate creative, accurate content that matches your brand voice</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-8 h-8 text-success" />
+                </div>
+                <h4 className="font-semibold text-success mb-2">Automated Strategy</h4>
+                <p className="text-sm text-muted-foreground">Regular, consistent posting that builds your online presence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Dashboard Background */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero opacity-90"></div>
+        {/* Dashboard Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${featuresImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-hero opacity-95"></div>
+        </div>
+        
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
             Transform Your Content Strategy
