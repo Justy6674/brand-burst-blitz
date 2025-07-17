@@ -86,7 +86,7 @@ const toolsItems = [
 const settingsItems = [
   {
     title: 'Business Profile',
-    url: '/profile',
+    url: '/dashboard/business-settings',
     icon: Target,
   },
   {

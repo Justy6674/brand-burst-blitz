@@ -16,6 +16,7 @@ import Posts from "./pages/Posts";
 import SocialMedia from "./pages/SocialMedia";
 import Calendar from "./pages/Calendar";
 import Analytics from "./pages/Analytics";
+import BusinessSettings from "./pages/BusinessSettings";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
@@ -54,6 +55,7 @@ const App = () => (
               <Route path="social" element={<SocialMedia />} />
               <Route path="calendar" element={<Calendar />} />
               <Route path="analytics" element={<Analytics />} />
+              <Route path="business-settings" element={<BusinessSettings />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

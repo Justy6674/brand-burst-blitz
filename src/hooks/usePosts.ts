@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
+import { useBusinessProfileContext } from '@/contexts/BusinessProfileContext';
 import type { Tables } from '@/integrations/supabase/types';
 
 type Post = Tables<'posts'>;
@@ -23,6 +24,7 @@ export const usePosts = (): UsePostsReturn => {
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const { toast } = useToast();
+  const { activeProfile } = useBusinessProfileContext();
 
   const fetchPosts = async () => {
     if (!user) {
@@ -34,11 +36,17 @@ export const usePosts = (): UsePostsReturn => {
       setError(null);
       setIsLoading(true);
 
-      const { data, error: fetchError } = await supabase
+      let query = supabase
         .from('posts')
         .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        .eq('user_id', user.id);
+      
+      // Filter by active business profile if available
+      if (activeProfile?.id) {
+        query = query.eq('business_profile_id', activeProfile.id);
+      }
+      
+      const { data, error: fetchError } = await query.order('created_at', { ascending: false });
 
       if (fetchError) {
         console.error('Error fetching posts:', fetchError);
@@ -64,6 +72,7 @@ export const usePosts = (): UsePostsReturn => {
         .insert({
           ...postData,
           user_id: user.id,
+          business_profile_id: activeProfile?.id || null,
           type: postData.type || 'blog'
         })
         .select()
@@ -218,7 +227,7 @@ export const usePosts = (): UsePostsReturn => {
 
   useEffect(() => {
     fetchPosts();
-  }, [user]);
+  }, [user, activeProfile]); // Refetch when user or active profile changes
 
   return {
     posts,
