@@ -11,6 +11,8 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import CreateContent from "./pages/CreateContent";
 import NotFound from "./pages/NotFound";
+import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
+import QuestionnaireRequired from "./components/questionnaire/QuestionnaireRequired";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,16 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/questionnaire" element={
+              <ProtectedRoute>
+                <BusinessQuestionnaire />
+              </ProtectedRoute>
+            } />
+            <Route path="/questionnaire-required" element={
+              <ProtectedRoute>
+                <QuestionnaireRequired />
+              </ProtectedRoute>
+            } />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <AppLayout />

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/components/auth/AuthProvider';
+import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { 
   PenTool, 
   Calendar, 
@@ -18,11 +21,16 @@ import {
   Linkedin,
   Twitter,
   LogOut,
-  Bell
+  Bell,
+  ArrowRight,
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
+  const { profile, isLoading, hasCompletedQuestionnaire } = useBusinessProfile();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     await signOut();
@@ -63,12 +71,54 @@ const Dashboard = () => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
-            Welcome back, {user?.user_metadata?.business_name || user?.email?.split('@')[0]}!
+            Welcome back, {profile?.business_name || user?.email?.split('@')[0]}!
           </h2>
           <p className="text-muted-foreground">
-            Manage your AI-powered content and social media automation
+            {hasCompletedQuestionnaire 
+              ? "Your strategic content intelligence platform is ready" 
+              : "Complete your business questionnaire to unlock AI-powered content strategy"
+            }
           </p>
         </div>
+
+        {/* Questionnaire Alert */}
+        {!isLoading && !hasCompletedQuestionnaire && (
+          <Alert className="mb-8 border-primary/50 bg-gradient-to-r from-primary/10 to-secondary/10">
+            <AlertCircle className="h-4 w-4 text-primary" />
+            <AlertDescription className="flex items-center justify-between">
+              <div>
+                <span className="font-medium text-primary">Complete your business intelligence profile</span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Unlock personalized content strategies, competitor analysis, and AI-powered generation tailored to your business.
+                </p>
+              </div>
+              <div className="flex space-x-2 ml-4">
+                <Button
+                  onClick={() => navigate('/questionnaire')}
+                  className="bg-gradient-primary hover:scale-105 transition-all"
+                  size="sm"
+                >
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Start Questionnaire
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Success Alert for Completed Questionnaire */}
+        {!isLoading && hasCompletedQuestionnaire && profile && (
+          <Alert className="mb-8 border-success/50 bg-gradient-to-r from-success/10 to-primary/10">
+            <CheckCircle className="h-4 w-4 text-success" />
+            <AlertDescription>
+              <span className="font-medium text-success">Business intelligence profile complete!</span>
+              <p className="text-sm text-muted-foreground mt-1">
+                Industry: {profile.industry} • Voice: {profile.default_ai_tone} • Ready for strategic content generation
+              </p>
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
