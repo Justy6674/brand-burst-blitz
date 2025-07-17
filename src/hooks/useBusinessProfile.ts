@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/auth/AuthProvider';
-import type { Tables } from '@/integrations/supabase/types';
+import type { Tables, TablesInsert, TablesUpdate } from '@/integrations/supabase/types';
 
 type BusinessProfile = Tables<'business_profiles'>;
 
 interface UseBusinessProfileReturn {
   profile: BusinessProfile | null;
+  businessProfiles: BusinessProfile[] | undefined;
   isLoading: boolean;
   error: string | null;
   hasCompletedQuestionnaire: boolean;
   refetch: () => Promise<void>;
+  createBusinessProfile: (data: TablesInsert<'business_profiles'>) => Promise<BusinessProfile>;
+  updateBusinessProfile: (id: string, data: Partial<TablesUpdate<'business_profiles'>>) => Promise<BusinessProfile>;
+  deleteBusinessProfile: (id: string) => Promise<void>;
+  refreshBusinessProfiles: () => void;
 }
 
 export const useBusinessProfile = (): UseBusinessProfileReturn => {
@@ -18,6 +24,80 @@ export const useBusinessProfile = (): UseBusinessProfileReturn => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+  // Query for all business profiles
+  const { data: businessProfiles, refetch: refetchProfiles } = useQuery({
+    queryKey: ['business-profiles', user?.id],
+    queryFn: async () => {
+      if (!user) throw new Error('No user');
+      
+      const { data, error } = await supabase
+        .from('business_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data as BusinessProfile[];
+    },
+    enabled: !!user,
+  });
+
+  // Create business profile mutation
+  const createMutation = useMutation({
+    mutationFn: async (data: TablesInsert<'business_profiles'>) => {
+      if (!user) throw new Error('No user');
+
+      const { data: newProfile, error } = await supabase
+        .from('business_profiles')
+        .insert({
+          ...data,
+          user_id: user.id,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      return newProfile as BusinessProfile;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['business-profiles'] });
+    },
+  });
+
+  // Update business profile mutation
+  const updateMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: Partial<TablesUpdate<'business_profiles'>> }) => {
+      const { data: updatedProfile, error } = await supabase
+        .from('business_profiles')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return updatedProfile as BusinessProfile;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['business-profiles'] });
+    },
+  });
+
+  // Delete business profile mutation
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from('business_profiles')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['business-profiles'] });
+    },
+  });
 
   const fetchProfile = async () => {
     if (!user) {
@@ -73,9 +153,15 @@ export const useBusinessProfile = (): UseBusinessProfileReturn => {
 
   return {
     profile,
+    businessProfiles,
     isLoading,
     error,
     hasCompletedQuestionnaire,
     refetch: fetchProfile,
+    createBusinessProfile: createMutation.mutateAsync,
+    updateBusinessProfile: (id: string, data: Partial<TablesUpdate<'business_profiles'>>) => 
+      updateMutation.mutateAsync({ id, data }),
+    deleteBusinessProfile: deleteMutation.mutateAsync,
+    refreshBusinessProfiles: () => refetchProfiles(),
   };
 };

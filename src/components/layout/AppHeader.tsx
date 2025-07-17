@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { BusinessProfileSelector } from '@/components/business/BusinessProfileSelector';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { 
   DropdownMenu,
@@ -27,9 +28,7 @@ export function AppHeader() {
     <header className="border-b border-white/10 bg-card/50 backdrop-blur-xl">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center space-x-4">
-          <h2 className="text-xl font-semibold">
-            Welcome back, {user?.user_metadata?.business_name || user?.email?.split('@')[0]}!
-          </h2>
+          <BusinessProfileSelector />
         </div>
 
         <div className="flex items-center space-x-4">
