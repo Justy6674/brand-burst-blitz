@@ -92,12 +92,10 @@ const Index = () => {
                 <strong className="text-foreground">No more expensive agencies or endless hours writing content.</strong>
               </p>
               
-              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mb-6 sm:mb-8 mx-2 sm:mx-0">
-                <p className="text-xs text-amber-800 dark:text-amber-200">
-                  <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
-                  For Australian customers, we offer full setup service for an additional fee.
-                </p>
-              </div>
+              <p className="text-xs text-muted-foreground mb-6 sm:mb-8 mx-2 sm:mx-0">
+                <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
+                For Australian customers, we offer full setup service for an additional fee.
+              </p>
               
               <div className="flex justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
                 <Button 
