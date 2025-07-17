@@ -45,7 +45,6 @@ const App = () => (
               <Route path="/common-questions" element={<CommonQuestions />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/blog-admin" element={<BlogAdmin />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>
@@ -72,6 +71,7 @@ const App = () => (
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="business-settings" element={<BusinessSettings />} />
                 <Route path="cross-business" element={<CrossBusinessFeatures />} />
+                <Route path="blog-admin" element={<BlogAdmin />} />
                 <Route path="admin" element={<AdminPanel />} />
                 <Route path="prompts" element={<PromptsPage />} />
               </Route>

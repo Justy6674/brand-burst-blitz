@@ -28,7 +28,8 @@ import {
   Target,
   Network,
   ShieldCheck,
-  BookOpen
+  BookOpen,
+  Edit3
 } from 'lucide-react';
 
 const navigationItems = [
@@ -102,6 +103,12 @@ const settingsItems = [
     title: 'Prompt Library',
     url: '/dashboard/prompts',
     icon: BookOpen,
+  },
+  {
+    title: 'Blog Admin',
+    url: '/dashboard/blog-admin',
+    icon: Edit3,
+    adminOnly: true,
   },
   {
     title: 'Admin Panel',
