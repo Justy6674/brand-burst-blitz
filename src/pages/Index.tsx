@@ -30,11 +30,14 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <img 
-                src="/jbsaaslogo.png" 
-                alt="JBSAAS Logo" 
-                className="w-8 h-8 object-contain"
-              />
+              <div>
+                <img 
+                  src="/jbsaaslogo.png" 
+                  alt="JBSAAS Logo" 
+                  className="w-8 h-8 object-contain"
+                />
+                <p className="text-xs text-muted-foreground -mt-1">JB Software as a Service</p>
+              </div>
               <span className="text-xl font-bold text-gradient-primary">JBSAAS</span>
             </div>
             
@@ -80,14 +83,21 @@ const Index = () => {
               </Badge>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                From <span className="text-gradient-hero">Weeks of Work</span> to 
-                <span className="text-gradient-primary"> One Click</span>
+                <span className="text-gradient-hero">AI-Powered Content Creation</span> 
+                <span className="text-gradient-primary"> Platform</span>
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed px-2 sm:px-0">
-                Stop spending <strong className="text-foreground">$10,000s on design & tech fees</strong>. 
-                Our AI creates, schedules, and publishes your social content and blogs in seconds.
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6 leading-relaxed px-2 sm:px-0">
+                Generate professional social media posts, blogs, and marketing content in seconds. 
+                <strong className="text-foreground">No more expensive agencies or endless hours writing content.</strong>
               </p>
+              
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mb-6 sm:mb-8 mx-2 sm:mx-0">
+                <p className="text-xs text-amber-800 dark:text-amber-200">
+                  <span className="font-semibold">*Social Media Publishing:</span> We create content and provide setup instructions for your social platforms. 
+                  For Australian customers, we offer full setup service for an additional fee.
+                </p>
+              </div>
               
               <div className="flex justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
                 <Button 
@@ -277,7 +287,7 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Sparkles className="w-6 h-6 text-white" />
@@ -303,14 +313,14 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Smart Scheduling</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Smart Scheduling*</h3>
                 <p className="text-muted-foreground mb-4">
-                  Automatically schedule posts at optimal times for maximum engagement across all your platforms.
+                  We create content and provide detailed setup instructions for your social platforms. Premium setup service available for Australian customers.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
@@ -329,33 +339,33 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Target className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Brand Management</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Competitive Analysis & Benchmarking</h3>
                 <p className="text-muted-foreground mb-4">
-                  Upload your logo and brand assets. AI automatically maintains consistency across all content.
+                  Monitor competitors' content strategies and benchmark your performance against successful similar businesses.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Logo overlay automation
+                    Competitor content tracking
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Brand color matching
+                    Performance benchmarking
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Style consistency
+                    Strategic insights
                   </li>
                 </ul>
               </CardContent>
             </Card>
             
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Shield className="w-6 h-6 text-white" />
@@ -381,12 +391,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Analytics & Insights</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Analytics & Cross-Business Reporting</h3>
                 <p className="text-muted-foreground mb-4">
                   Track performance, engagement, and ROI with detailed analytics and reporting.
                 </p>
@@ -407,27 +417,27 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-primary/20 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Multi-Brand Support</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Multi-Business Management</h3>
                 <p className="text-muted-foreground mb-4">
-                  Manage multiple businesses and brands from a single dashboard with ease.
+                  Run multiple businesses from one dashboard with separate content libraries, analytics, and role-based access control.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Brand switcher interface
+                    Business profile switcher
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Separate content libraries
+                    Cross-business templates
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Individual analytics
+                    Role-based permissions
                   </li>
                 </ul>
               </CardContent>
