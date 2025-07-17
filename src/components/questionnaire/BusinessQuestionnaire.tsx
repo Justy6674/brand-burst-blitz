@@ -236,58 +236,27 @@ const BusinessQuestionnaire: React.FC = () => {
         throw new Error(profileResult.error.message);
       }
 
-      // Store additional questionnaire data in a separate table or as metadata
-      const questionnaireMetadata = {
-        target_audience: {
-          demographics: data.target_audience_demographics,
-          psychographics: data.target_audience_psychographics,
-        },
-        goals: {
-          primary: data.primary_goals,
-          secondary: data.secondary_goals || [],
-          metrics: data.success_metrics,
-        },
-        brand: {
-          voice: data.brand_voice,
-          personality: data.brand_personality,
-        },
-        content: {
-          topics: data.content_topics,
-          formats: data.content_formats,
-          frequency: data.posting_frequency,
-        },
-        platforms: {
-          targets: data.target_platforms,
-          priorities: data.platform_priorities,
-        },
-        business: {
-          size: data.business_size,
-          stage: data.business_stage,
-          budget: data.monthly_budget,
-          time_available: data.content_creation_time,
-        },
-        competition: {
-          competitors: data.main_competitors,
-          advantages: data.competitive_advantages,
-          challenges: data.content_challenges,
-          automation_preferences: data.automation_preferences,
-        },
-      };
+      // Call the enhanced business insights generation function
+      const { data: insightsResponse, error: insightsError } = await supabase.functions.invoke(
+        'generate-business-insights',
+        {
+          body: {
+            questionnaireResponses: data,
+            businessProfileId: profileResult.data.id,
+          },
+        }
+      );
 
-      // Update business profile with questionnaire metadata
-      await supabase
-        .from('business_profiles')
-        .update({
-          compliance_settings: JSON.stringify({
-            ...JSON.parse(businessProfileData.compliance_settings),
-            questionnaire_data: questionnaireMetadata,
-          }),
-        })
-        .eq('id', profileResult.data.id);
+      if (insightsError) {
+        console.error('Error generating insights:', insightsError);
+        // Don't fail the entire process if insights generation fails
+      }
 
       toast({
         title: 'Business questionnaire completed!',
-        description: 'Your business profile has been created. You can now start generating strategic content.',
+        description: insightsResponse?.success 
+          ? 'Your business profile and strategic insights have been generated.' 
+          : 'Your business profile has been created. You can now start generating strategic content.',
       });
 
       // Navigate to dashboard

@@ -120,11 +120,47 @@ export const useBusinessIntelligence = () => {
         // Don't throw - insights might be empty
       }
 
+      // Fetch strategic recommendations
+      const { data: strategicRecs, error: strategicError } = await supabase
+        .from('strategic_content_recommendations')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('status', 'active')
+        .order('priority_score', { ascending: false })
+        .limit(10);
+
+      if (strategicError) {
+        console.error('Error fetching strategic recommendations:', strategicError);
+        // Don't throw - recommendations might be empty
+      }
+
+      // Fetch questionnaire responses for enhanced insights
+      const { data: questionnaireData, error: questionnaireError } = await supabase
+        .from('business_questionnaire_responses')
+        .select('ai_insights, completion_score')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (questionnaireError) {
+        console.error('Error fetching questionnaire data:', questionnaireError);
+      }
+
       // Calculate performance metrics
       const performance = calculatePerformanceMetrics(posts || [], analytics || []);
       const competitorMetrics = calculateCompetitorMetrics(competitors || [], insights || []);
-      const recommendations = generateRecommendations(performance, competitorMetrics);
-      const growthScore = calculateGrowthScore(performance, competitorMetrics);
+      const recommendations = generateEnhancedRecommendations(
+        performance, 
+        competitorMetrics, 
+        strategicRecs || [],
+        questionnaireData?.ai_insights
+      );
+      const growthScore = calculateEnhancedGrowthScore(
+        performance, 
+        competitorMetrics, 
+        questionnaireData?.completion_score || 0
+      );
 
       setIntelligence({
         performance,
@@ -245,8 +281,29 @@ export const useBusinessIntelligence = () => {
     };
   };
 
-  const generateRecommendations = (performance: PerformanceMetrics, competitors: CompetitorMetrics): string[] => {
+  const generateEnhancedRecommendations = (
+    performance: PerformanceMetrics, 
+    competitors: CompetitorMetrics,
+    strategicRecs: any[],
+    aiInsights?: any
+  ): string[] => {
     const recommendations: string[] = [];
+
+    // Include strategic recommendations first
+    strategicRecs.forEach(rec => {
+      if (rec.status === 'active') {
+        recommendations.push(rec.title + ': ' + rec.description);
+      }
+    });
+
+    // AI-driven insights from questionnaire
+    if (aiInsights?.strategic_recommendations) {
+      aiInsights.strategic_recommendations.forEach((rec: string) => {
+        if (recommendations.length < 8) {
+          recommendations.push(rec);
+        }
+      });
+    }
 
     // Content recommendations
     if (performance.publishedPosts < 5) {
@@ -274,28 +331,44 @@ export const useBusinessIntelligence = () => {
       recommendations.push("Review and act on high-priority competitive insights");
     }
 
+    // Industry-specific recommendations from AI insights
+    if (aiInsights?.industry_insights?.industry_specific_recommendations) {
+      aiInsights.industry_insights.industry_specific_recommendations.forEach((rec: string) => {
+        if (recommendations.length < 10) {
+          recommendations.push(rec);
+        }
+      });
+    }
+
     // General recommendations
     if (recommendations.length === 0) {
       recommendations.push("Great work! Continue maintaining your content strategy and competitive monitoring");
     }
 
-    return recommendations.slice(0, 5); // Limit to 5 recommendations
+    return recommendations.slice(0, 8); // Limit to 8 recommendations
   };
 
-  const calculateGrowthScore = (performance: PerformanceMetrics, competitors: CompetitorMetrics): number => {
+  const calculateEnhancedGrowthScore = (
+    performance: PerformanceMetrics, 
+    competitors: CompetitorMetrics,
+    questionnaireScore: number
+  ): number => {
     let score = 0;
 
-    // Content score (40 points max)
-    score += Math.min(performance.publishedPosts * 2, 20); // 2 points per published post, max 20
-    score += Math.min(performance.avgEngagementRate / 2, 20); // Engagement rate contribution, max 20
+    // Content score (30 points max)
+    score += Math.min(performance.publishedPosts * 2, 15); // 2 points per published post, max 15
+    score += Math.min(performance.avgEngagementRate / 2, 15); // Engagement rate contribution, max 15
 
-    // Competitor intelligence score (30 points max)
-    score += Math.min(competitors.activeCompetitors * 5, 20); // 5 points per active competitor, max 20
+    // Competitor intelligence score (25 points max)
+    score += Math.min(competitors.activeCompetitors * 3, 15); // 3 points per active competitor, max 15
     score += Math.min(competitors.recentAnalyses * 2, 10); // 2 points per recent analysis, max 10
 
-    // Activity score (30 points max)
+    // Activity score (20 points max)
     const activityScore = performance.engagementTrend.reduce((total, day) => total + day.engagement, 0) / 100;
-    score += Math.min(activityScore, 30);
+    score += Math.min(activityScore, 20);
+
+    // Business intelligence foundation score (25 points max)
+    score += Math.min(questionnaireScore / 4, 25); // Questionnaire completion contributes up to 25 points
 
     return Math.min(Math.round(score), 100); // Cap at 100
   };

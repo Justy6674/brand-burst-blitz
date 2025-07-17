@@ -148,6 +148,110 @@ export type Database = {
           },
         ]
       }
+      business_questionnaire_responses: {
+        Row: {
+          ai_insights: Json | null
+          business_profile_id: string | null
+          completion_score: number | null
+          completion_status: string | null
+          created_at: string
+          id: string
+          questionnaire_version: number
+          responses: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_insights?: Json | null
+          business_profile_id?: string | null
+          completion_score?: number | null
+          completion_status?: string | null
+          created_at?: string
+          id?: string
+          questionnaire_version?: number
+          responses: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_insights?: Json | null
+          business_profile_id?: string | null
+          completion_score?: number | null
+          completion_status?: string | null
+          created_at?: string
+          id?: string
+          questionnaire_version?: number
+          responses?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_questionnaire_responses_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitive_analysis_results: {
+        Row: {
+          analysis_results: Json
+          analysis_type: string
+          business_profile_id: string | null
+          competitor_id: string
+          confidence_score: number | null
+          created_at: string
+          id: string
+          processing_time_ms: number | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          analysis_results: Json
+          analysis_type: string
+          business_profile_id?: string | null
+          competitor_id: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          processing_time_ms?: number | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          analysis_results?: Json
+          analysis_type?: string
+          business_profile_id?: string | null
+          competitor_id?: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          processing_time_ms?: number | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitive_analysis_results_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "competitive_analysis_results_competitor_id_fkey"
+            columns: ["competitor_id"]
+            isOneToOne: false
+            referencedRelation: "competitor_data"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       competitive_insights: {
         Row: {
           business_profile_id: string | null
@@ -793,6 +897,68 @@ export type Database = {
           },
         ]
       }
+      strategic_content_recommendations: {
+        Row: {
+          business_profile_id: string | null
+          created_at: string
+          data_sources: Json | null
+          description: string
+          expected_impact: string | null
+          id: string
+          implementation_effort: string | null
+          implemented_at: string | null
+          metadata: Json | null
+          priority_score: number | null
+          recommendation_type: string
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          business_profile_id?: string | null
+          created_at?: string
+          data_sources?: Json | null
+          description: string
+          expected_impact?: string | null
+          id?: string
+          implementation_effort?: string | null
+          implemented_at?: string | null
+          metadata?: Json | null
+          priority_score?: number | null
+          recommendation_type: string
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string | null
+          created_at?: string
+          data_sources?: Json | null
+          description?: string
+          expected_impact?: string | null
+          id?: string
+          implementation_effort?: string | null
+          implemented_at?: string | null
+          metadata?: Json | null
+          priority_score?: number | null
+          recommendation_type?: string
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "strategic_content_recommendations_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           assigned_at: string | null
@@ -864,6 +1030,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_questionnaire_score: {
+        Args: { responses: Json }
+        Returns: number
+      }
+      generate_questionnaire_insights: {
+        Args: { user_id_param: string; responses_param: Json }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _user_id: string
