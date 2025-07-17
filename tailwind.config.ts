@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+				mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -65,8 +69,9 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-card': 'var(--gradient-card)',
-				'gradient-glass': 'var(--gradient-glass)'
+				'gradient-dark': 'var(--gradient-dark)',
+				'gradient-glass': 'var(--gradient-glass)',
+				'gradient-mesh': 'var(--gradient-mesh)'
 			},
 			boxShadow: {
 				'sm': 'var(--shadow-sm)',
@@ -75,7 +80,8 @@ export default {
 				'xl': 'var(--shadow-xl)',
 				'2xl': 'var(--shadow-2xl)',
 				'primary': 'var(--shadow-primary)',
-				'glow': 'var(--shadow-glow)'
+				'glow': 'var(--shadow-glow)',
+				'secondary': 'var(--shadow-secondary)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
