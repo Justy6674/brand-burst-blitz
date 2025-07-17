@@ -131,22 +131,22 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">$50K+</div>
               <div className="text-muted-foreground">Saved in Agency Fees</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">500+</div>
               <div className="text-muted-foreground">Hours Automated</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">98%</div>
               <div className="text-muted-foreground">Time Reduction</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border border-border/30 backdrop-blur-sm">
               <div className="text-3xl md:text-4xl font-bold text-gradient-primary mb-2">24/7</div>
               <div className="text-muted-foreground">Automated Publishing</div>
             </div>
@@ -247,7 +247,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-muted/30">
+      <section id="features" className="py-20 bg-gradient-to-b from-background via-muted/10 to-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
@@ -263,12 +263,12 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">AI Content Generation</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">AI Content Generation</h3>
                 <p className="text-muted-foreground mb-4">
                   Our advanced AI creates engaging social posts and blog articles tailored to your industry and brand voice.
                 </p>
@@ -289,12 +289,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Smart Scheduling</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Smart Scheduling</h3>
                 <p className="text-muted-foreground mb-4">
                   Automatically schedule posts at optimal times for maximum engagement across all your platforms.
                 </p>
@@ -315,12 +315,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Target className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Brand Management</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Brand Management</h3>
                 <p className="text-muted-foreground mb-4">
                   Upload your logo and brand assets. AI automatically maintains consistency across all content.
                 </p>
@@ -341,12 +341,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Compliance Protection</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Compliance Protection</h3>
                 <p className="text-muted-foreground mb-4">
                   Built-in compliance checks for health, finance, and regulated industries.
                 </p>
@@ -367,12 +367,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Analytics & Insights</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Analytics & Insights</h3>
                 <p className="text-muted-foreground mb-4">
                   Track performance, engagement, and ROI with detailed analytics and reporting.
                 </p>
@@ -393,12 +393,12 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="card-premium p-6 hover-lift group">
+            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border border-border/50 backdrop-blur-sm">
               <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Multi-Brand Support</h3>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Multi-Brand Support</h3>
                 <p className="text-muted-foreground mb-4">
                   Manage multiple businesses and brands from a single dashboard with ease.
                 </p>
@@ -455,12 +455,12 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border py-12">
+      <footer className="bg-gradient-to-b from-muted/20 to-muted/40 border-t border-border/50 py-12">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center shadow-glow">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-xl font-bold text-gradient-primary">JBSAAS</span>
@@ -470,7 +470,7 @@ const Index = () => {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Product</h4>
+              <h4 className="font-semibold mb-4 text-foreground">Product</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="#" className="hover:text-foreground transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-foreground transition-colors">Pricing</a></li>
@@ -479,7 +479,7 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
+              <h4 className="font-semibold mb-4 text-foreground">Company</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
                 <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
@@ -488,7 +488,7 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
+              <h4 className="font-semibold mb-4 text-foreground">Support</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="#" className="hover:text-foreground transition-colors">Help Center</a></li>
                 <li><a href="#" className="hover:text-foreground transition-colors">Documentation</a></li>
@@ -497,7 +497,7 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
+          <div className="border-t border-border/30 mt-8 pt-8 text-center text-muted-foreground">
             <p>&copy; 2024 JBSAAS. All rights reserved.</p>
           </div>
         </div>
