@@ -14,6 +14,7 @@ import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
 import Posts from "./pages/Posts";
 import SocialMedia from "./pages/SocialMedia";
+import Calendar from "./pages/Calendar";
 import NotFound from "./pages/NotFound";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="competitors" element={<Competitors />} />
               <Route path="templates" element={<Templates />} />
               <Route path="social" element={<SocialMedia />} />
+              <Route path="calendar" element={<Calendar />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

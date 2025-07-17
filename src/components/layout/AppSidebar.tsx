@@ -45,7 +45,7 @@ const navigationItems = [
   },
   {
     title: 'Calendar',
-    url: '/calendar',
+    url: '/dashboard/calendar',
     icon: Calendar,
   },
   {
