@@ -74,8 +74,8 @@ const Index = () => {
           }}
         >
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/95"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-background/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50"></div>
         </div>
         
         {/* Hero Content */}
