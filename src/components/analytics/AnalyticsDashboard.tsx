@@ -7,6 +7,9 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { TrendingUp, TrendingDown, Eye, Heart, Share2, MessageCircle, Target, Calendar, RefreshCw } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { usePosts } from "@/hooks/usePosts";
+import { useBusinessProfileContext } from "@/contexts/BusinessProfileContext";
+import { BusinessComparison } from "@/components/business/BusinessComparison";
+import { UnifiedReporting } from "@/components/business/UnifiedReporting";
 import { format } from "date-fns";
 
 export const AnalyticsDashboard = () => {
@@ -21,6 +24,7 @@ export const AnalyticsDashboard = () => {
   } = useAnalytics();
   
   const { posts } = usePosts();
+  const { allProfiles } = useBusinessProfileContext();
 
   const platformPerformance = getPlatformPerformance();
   const topPosts = getTopPerformingPosts();
@@ -177,6 +181,12 @@ export const AnalyticsDashboard = () => {
           <TabsTrigger value="platforms">Platforms</TabsTrigger>
           <TabsTrigger value="content">Top Content</TabsTrigger>
           <TabsTrigger value="trends">Trends</TabsTrigger>
+          {allProfiles && allProfiles.length > 1 && (
+            <>
+              <TabsTrigger value="comparison">Business Comparison</TabsTrigger>
+              <TabsTrigger value="unified">Unified Reporting</TabsTrigger>
+            </>
+          )}
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -358,6 +368,18 @@ export const AnalyticsDashboard = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        {allProfiles && allProfiles.length > 1 && (
+          <>
+            <TabsContent value="comparison" className="space-y-4">
+              <BusinessComparison />
+            </TabsContent>
+
+            <TabsContent value="unified" className="space-y-4">
+              <UnifiedReporting />
+            </TabsContent>
+          </>
+        )}
       </Tabs>
     </div>
   );

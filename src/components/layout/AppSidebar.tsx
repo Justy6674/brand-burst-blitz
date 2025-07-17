@@ -24,7 +24,8 @@ import {
   FileText,
   Instagram,
   Zap,
-  Target
+  Target,
+  Network
 } from 'lucide-react';
 
 const navigationItems = [
@@ -88,6 +89,11 @@ const settingsItems = [
     title: 'Business Profile',
     url: '/dashboard/business-settings',
     icon: Target,
+  },
+  {
+    title: 'Cross-Business',
+    url: '/dashboard/cross-business',
+    icon: Network,
   },
   {
     title: 'Automation',
