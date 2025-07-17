@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
@@ -29,43 +30,45 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/questionnaire" element={
-              <ProtectedRoute>
-                <BusinessQuestionnaire />
-              </ProtectedRoute>
-            } />
-            <Route path="/questionnaire-required" element={
-              <ProtectedRoute>
-                <BusinessQuestionnaire />
-              </ProtectedRoute>
-            } />
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <AppLayout />
-              </ProtectedRoute>
-            }>
-              <Route index element={<Dashboard />} />
-              <Route path="create" element={<CreateContent />} />
-              <Route path="posts" element={<Posts />} />
-              <Route path="competitors" element={<Competitors />} />
-              <Route path="templates" element={<Templates />} />
-              <Route path="social" element={<SocialMedia />} />
-              <Route path="calendar" element={<Calendar />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="business-settings" element={<BusinessSettings />} />
-              <Route path="cross-business" element={<CrossBusinessFeatures />} />
-              <Route path="admin" element={<AdminPanel />} />
-              <Route path="prompts" element={<PromptsPage />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <ErrorBoundary>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/questionnaire" element={
+                <ProtectedRoute>
+                  <BusinessQuestionnaire />
+                </ProtectedRoute>
+              } />
+              <Route path="/questionnaire-required" element={
+                <ProtectedRoute>
+                  <BusinessQuestionnaire />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }>
+                <Route index element={<Dashboard />} />
+                <Route path="create" element={<CreateContent />} />
+                <Route path="posts" element={<Posts />} />
+                <Route path="competitors" element={<Competitors />} />
+                <Route path="templates" element={<Templates />} />
+                <Route path="social" element={<SocialMedia />} />
+                <Route path="calendar" element={<Calendar />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="business-settings" element={<BusinessSettings />} />
+                <Route path="cross-business" element={<CrossBusinessFeatures />} />
+                <Route path="admin" element={<AdminPanel />} />
+                <Route path="prompts" element={<PromptsPage />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ErrorBoundary>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
