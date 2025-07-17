@@ -7,6 +7,7 @@
 - [x] **Create Missing Routes**: Add `/pricing` and `/common-questions` routes to App.tsx
 - [x] **Update Menu Items**: Replace "Reviews" with "Common Questions" in navigation
 - [x] **Ensure Proper Page Navigation**: All menu items should navigate to actual pages, not sections
+- [ ] **Ensure user navigation as per best practice - ? header? hamburger menu? depending on desktop/phone
 
 ### **2. Create Missing Pages** ✅ COMPLETED
 - [x] **`/pricing` Page**: Move entire pricing section from landing page to dedicated pricing page
@@ -15,6 +16,8 @@
   - **Business Strategy** (8 questions): Why blogs matter for Google rankings, competitor analysis, social media consistency, AI agent discovery
   - **Implementation & Support** (7 questions): Setup time, training, custom integrations, billing with Stripe
   - **Company & Trust** (6 questions): Who is JBSAAS, privacy protection, data handling, Australian ownership
+- [ ] Ensure user navigation as per best practice - ? header? hamburger menu? depending on desktop/phone
+
 
 ### **3. Landing Page Optimization** ✅ COMPLETED
 #### **Navigation Header**
