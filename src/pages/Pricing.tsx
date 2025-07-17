@@ -79,9 +79,9 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <Button className="w-full" variant="outline">
-            <Button size="lg" variant="glass">Coming August 2025</Button>
-                </Button>
+                <div className="w-full">
+                  <Button size="lg" variant="glass" className="w-full">Coming August 2025</Button>
+                </div>
               </CardContent>
             </Card>
 
@@ -136,9 +136,9 @@ const Pricing = () => {
                   </li>
                 </ul>
                 
-                <Button className="w-full bg-gradient-primary shadow-glow">
-            <Button size="lg" variant="premium">Coming August 2025</Button>
-                </Button>
+                <div className="w-full">
+                  <Button size="lg" variant="premium" className="w-full">Coming August 2025</Button>
+                </div>
               </CardContent>
             </Card>
 
