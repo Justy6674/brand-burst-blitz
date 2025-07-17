@@ -24,6 +24,9 @@ import CrossBusinessFeatures from "./pages/CrossBusinessFeatures";
 import AdminPanel from "./pages/AdminPanel";
 import PromptsPage from "./pages/PromptsPage";
 import NotFound from "./pages/NotFound";
+import BlogPage from "./pages/BlogPage";
+import BlogAdmin from "./pages/BlogAdmin";
+import BlogPost from "./components/blog/BlogPost";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
 const queryClient = new QueryClient();
@@ -40,6 +43,9 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/common-questions" element={<CommonQuestions />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/blog-admin" element={<BlogAdmin />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>
