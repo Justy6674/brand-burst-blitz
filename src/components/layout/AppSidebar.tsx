@@ -58,7 +58,7 @@ const navigationItems = [
 const toolsItems = [
   {
     title: 'AI Generator',
-    url: '/ai-generator',
+    url: '/dashboard/create',
     icon: Sparkles,
   },
   {

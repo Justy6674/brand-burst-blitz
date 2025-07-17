@@ -9,7 +9,7 @@ import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
-import CreateContent from "./pages/CreateContent";
+import { CreateContent } from "./pages/CreateContent";
 import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
 import NotFound from "./pages/NotFound";
