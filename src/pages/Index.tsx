@@ -92,6 +92,16 @@ const Index = () => {
               <span className="text-gradient-primary block">Creation Platform</span>
             </h1>
             
+            {/* SEO-optimized tagline for discoverability */}
+            <div className="text-base sm:text-lg font-medium mb-4 sm:mb-6 animate-fade-in">
+              <span className="bg-gradient-to-r from-blue-500 to-emerald-500 bg-clip-text text-transparent">
+                Make your business discoverable on:
+              </span>
+              <div className="text-sm sm:text-base text-foreground/80 mt-2 space-y-1">
+                • Social Media Platforms • Browser Search Results • AI-Powered Suggestions
+              </div>
+            </div>
+            
             <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Generate professional social media posts, blogs, and marketing content in seconds. 
               <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
