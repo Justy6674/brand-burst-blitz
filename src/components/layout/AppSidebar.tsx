@@ -68,7 +68,7 @@ const toolsItems = [
   },
   {
     title: 'Templates',
-    url: '/templates',
+    url: '/dashboard/templates',
     icon: Target,
   },
   {
