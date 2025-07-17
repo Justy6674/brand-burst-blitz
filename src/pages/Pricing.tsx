@@ -147,7 +147,7 @@ const Pricing = () => {
                   <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
                   <p className="text-muted-foreground mb-6">For large organizations with custom needs</p>
                   <div className="mb-12">
-                    <span className="text-5xl font-bold">Custom</span>
+                    <span className="text-5xl font-bold text-primary">Custom</span>
                     <span className="text-muted-foreground">/month</span>
                   </div>
                 </div>
