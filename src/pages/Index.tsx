@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -38,8 +39,12 @@ const Index = () => {
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
               <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
               <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Reviews</a>
-              <Button variant="outline" size="sm">Sign In</Button>
-              <Button variant="hero" size="sm" className="shadow-glow">Get Started</Button>
+              <Link to="/auth">
+                <Button variant="outline" size="sm">Sign In</Button>
+              </Link>
+              <Link to="/auth">
+                <Button size="sm" className="bg-gradient-primary shadow-glow">Get Started</Button>
+              </Link>
             </div>
           </div>
         </div>
