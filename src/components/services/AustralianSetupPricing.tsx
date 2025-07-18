@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Check, 
   Crown, 
@@ -37,15 +39,62 @@ const AustralianSetupPricing = () => {
   const [abnNumber, setAbnNumber] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [isEligible, setIsEligible] = useState<boolean | null>(null);
+  const [businessName, setBusinessName] = useState<string>('');
+  const [validationError, setValidationError] = useState<string>('');
+  const { toast } = useToast();
 
   const validateABN = async () => {
-    if (!abnNumber.trim()) return;
+    if (!abnNumber.trim() || abnNumber.length !== 11) return;
     
     setIsValidating(true);
-    // Simulate ABN validation
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsEligible(true);
-    setIsValidating(false);
+    setValidationError('');
+    setBusinessName('');
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('validate-australian-business', {
+        body: { abn: abnNumber }
+      });
+
+      if (error) {
+        console.error('Validation error:', error);
+        setValidationError('Unable to validate ABN. Please try again.');
+        setIsEligible(false);
+        toast({
+          title: "Validation Error",
+          description: "Unable to validate ABN. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (data?.isValid) {
+        setIsEligible(true);
+        setBusinessName(data.businessName || '');
+        toast({
+          title: "ABN Verified ✅",
+          description: `Welcome ${data.businessName}! Your business qualifies for our setup service.`,
+        });
+      } else {
+        setIsEligible(false);
+        setValidationError(data?.error || 'ABN not found or inactive');
+        toast({
+          title: "Validation Failed",
+          description: data?.error || 'ABN not found in Australian Business Register',
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setValidationError('Unexpected error occurred. Please try again.');
+      setIsEligible(false);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsValidating(false);
+    }
   };
 
   const pricingPlans: PricingPlan[] = [
@@ -167,7 +216,17 @@ const AustralianSetupPricing = () => {
             <div className="mt-4 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
               <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
                 <Check className="w-5 h-5" />
-                <span className="font-medium">Eligible! Your Australian business qualifies for our setup service.</span>
+                <div className="flex-1">
+                  <span className="font-medium">✅ ABN Verified!</span>
+                  {businessName && (
+                    <div className="text-sm mt-1">
+                      Business: <span className="font-medium">{businessName}</span>
+                    </div>
+                  )}
+                  <div className="text-sm mt-1">
+                    Your Australian business qualifies for our setup service.
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -176,7 +235,15 @@ const AustralianSetupPricing = () => {
             <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg">
               <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
                 <AlertCircle className="w-5 h-5" />
-                <span className="font-medium">This service is only available for registered Australian businesses.</span>
+                <div className="flex-1">
+                  <span className="font-medium">ABN Validation Failed</span>
+                  {validationError && (
+                    <div className="text-sm mt-1">{validationError}</div>
+                  )}
+                  <div className="text-sm mt-1">
+                    This service is only available for registered Australian businesses.
+                  </div>
+                </div>
               </div>
             </div>
           )}
