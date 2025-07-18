@@ -110,7 +110,7 @@ const Index = () => {
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
             Generate professional social media posts, blogs, and marketing content in seconds. 
-            <strong className="text-white block mt-2">Plans from $49/month - No more expensive agencies or endless hours writing content.</strong>
+            <strong className="text-white block mt-2">Plans from $49/month - Professional plans include unlimited content generation.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
@@ -237,7 +237,7 @@ const Index = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Plans from $49/month for up to 100 posts</span>
+                    <span className="text-foreground font-medium">Starter: $49/month (100 posts) • Professional: $149/month (unlimited)</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
@@ -730,11 +730,23 @@ const Index = () => {
             <Button 
               variant="glass" 
               size="xl" 
-              className="group cursor-not-allowed opacity-75"
-              disabled
+              className="group"
+              asChild
             >
-              <Rocket className="w-5 h-5 mr-2" />
-              Coming August 2025
+              <Link to="/auth">
+                <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                Start Your Free Trial
+              </Link>
+            </Button>
+            <Button 
+              variant="outline-white" 
+              size="xl" 
+              asChild
+            >
+              <Link to="/pricing">
+                <DollarSign className="w-5 h-5 mr-2" />
+                View Pricing Plans
+              </Link>
             </Button>
           </div>
           <div className="flex items-center justify-center space-x-6 text-sm text-white/80">
@@ -760,9 +772,23 @@ const Index = () => {
                 />
                 <span className="text-xl font-bold text-gradient-primary">JB-SaaS</span>
               </div>
-              <p className="text-muted-foreground">
-                Transforming business content creation with AI-powered automation.
-              </p>
+               <p className="text-muted-foreground mb-4">
+                 AI-powered marketing content creation platform designed specifically for Australian businesses.
+               </p>
+               <div className="space-y-2 text-sm">
+                 <div className="flex items-center text-green-600 font-medium">
+                   <span className="mr-2">🇦🇺</span>
+                   100% Australian Owned & Operated
+                 </div>
+                 <div className="flex items-center text-muted-foreground">
+                   <span className="mr-2">📍</span>
+                   Brisbane, Queensland, Australia
+                 </div>
+                 <div className="flex items-center text-muted-foreground">
+                   <span className="mr-2">🛡️</span>
+                   Compliant with Australian Privacy Principles
+                 </div>
+               </div>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-foreground">Product</h4>
@@ -792,8 +818,8 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border/30 mt-8 pt-8 flex justify-between items-center text-muted-foreground">
-            <p>&copy; 2024 JB-SaaS. All rights reserved.</p>
+          <div className="border-t border-border/30 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-muted-foreground space-y-4 sm:space-y-0">
+            <p>&copy; 2025 JB-SaaS. All rights reserved. Australian Business Number: [ABN to be added]</p>
             {/* Hidden Admin Access - Click 5 times */}
             <AdminAccess />
           </div>

@@ -253,24 +253,23 @@ const CommonQuestions = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+      <HeroSection backgroundImage={aiContentHero}>
+        <div className="max-w-4xl mx-auto animate-fade-in">
+          <Badge className="mb-6 bg-white/10 text-white border-white/20">
             <HelpCircle className="w-4 h-4 mr-2" />
             Everything You Need to Know
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient-primary">Common Questions</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            <span className="text-gradient-hero">Common Questions</span>
             <br />About JB-SaaS
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Get answers to the most frequently asked questions about our AI-powered content creation platform.
+          <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
+            Get answers to the most frequently asked questions about our AI-powered content creation platform designed for Australian businesses.
           </p>
         </div>
-      </section>
+      </HeroSection>
 
       {/* Questions by Category */}
       <section className="py-20">

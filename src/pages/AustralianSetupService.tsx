@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicHeader from '@/components/layout/PublicHeader';
+import { HeroSection } from '@/components/layout/HeroSection';
 import SocialMediaAudit from '@/components/services/SocialMediaAudit';
 import AustralianCompetitorAnalysis from '@/components/services/AustralianCompetitorAnalysis';
 import AustralianContentTemplates from '@/components/services/AustralianContentTemplates';
@@ -20,39 +21,39 @@ import {
   Linkedin
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import socialMediaStrategyHero from '@/assets/social-media-strategy-hero.jpg';
 
 const AustralianSetupService = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-green-50 to-background dark:from-green-950/20">
-        <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-6 bg-green-600 text-white text-lg px-6 py-2">
+      <HeroSection backgroundImage={socialMediaStrategyHero}>
+        <div className="max-w-4xl mx-auto text-center animate-fade-in">
+          <Badge className="mb-6 bg-green-600 text-white border-green-500 text-lg px-6 py-2">
             🇦🇺 Exclusively for Australian Businesses
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Australian Quick-Start <span className="text-gradient-primary">Social Setup Service</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Australian Quick-Start <span className="text-gradient-hero">Social Setup Service</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
             Skip the technical hassle! Our Australian team personally configures your Facebook Business Manager, 
             Instagram Business profile, and connects everything to JBSAAS. Professional setup in 2-5 business days.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="xl" className="bg-gradient-primary shadow-glow">
+            <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg">
               Get Professional Setup - From AU$199
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button size="xl" variant="outline">
+            <Button size="xl" variant="outline" className="border-white text-white hover:bg-white/10">
               View Pricing Plans
             </Button>
           </div>
         </div>
-      </section>
+      </HeroSection>
 
       {/* Why Choose Our Service */}
       <section className="py-20">
