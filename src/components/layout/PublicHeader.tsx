@@ -26,6 +26,9 @@ const PublicHeader = () => {
               src="/jbsaaslogo.png" 
               alt="JB-SaaS" 
               className="h-8 w-auto"
+              width="32"
+              height="32"
+              loading="eager"
             />
             <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">
               JB-Software-As-A-Service
