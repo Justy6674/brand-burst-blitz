@@ -127,7 +127,7 @@ const AuthPage = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage: `url('/lovable-uploads/263fa670-c783-4f19-b63f-1ce967135c7a.png')`,
+        backgroundImage: `url('/lovable-uploads/56e52299-52d9-44f0-ad9f-2f53d33d5c45.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -176,7 +176,7 @@ const AuthPage = () => {
                   value="signup" 
                   className="font-medium text-white data-[state=active]:bg-white/15 data-[state=active]:text-white"
                 >
-                  Sign Up
+                  Join Waitlist
                 </TabsTrigger>
               </TabsList>
 
@@ -292,12 +292,12 @@ const AuthPage = () => {
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Creating account...
+                        Joining waitlist...
                       </>
                     ) : (
                       <>
                         <Zap className="mr-2 h-4 w-4" />
-                        Create Account
+                        Join Waitlist
                       </>
                     )}
                   </Button>

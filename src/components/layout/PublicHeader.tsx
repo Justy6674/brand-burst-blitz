@@ -65,7 +65,10 @@ const PublicHeader = () => {
           </NavigationMenu>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center space-x-3">
+            <Button variant="outline" asChild>
+              <Link to="/auth">Login</Link>
+            </Button>
             <ComingSoonPopup 
               trigger={
                 <Button className="bg-gradient-primary text-primary-foreground px-6 py-2 font-semibold">
@@ -124,6 +127,13 @@ const PublicHeader = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 FAQ
+              </Link>
+              <Link
+                to="/auth"
+                className="block py-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
               </Link>
               <div className="pt-4 border-t">
                 <ComingSoonPopup 
