@@ -167,7 +167,7 @@ const Index = () => {
               },
               {
                 title: "⏰ The Time-Strapped Entrepreneur", 
-                description: "Spending <span className='text-yellow-highlight'>20+ hours weekly</span> on content creation instead of running your business. Missing <span className='text-yellow-highlight'>opportunities</span> while stuck in marketing tasks.",
+                description: "Spending <span className='text-yellow-highlight'>20+ hours weekly</span> on <span style='color: #ffd700; font-weight: 700;'>content creation</span> instead of running your business. Missing <span className='text-yellow-highlight'>opportunities</span> while stuck in <span style='color: #ffd700; font-weight: 700;'>marketing</span> tasks.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
