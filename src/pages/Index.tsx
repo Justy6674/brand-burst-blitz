@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { RegisterInterestDialog } from "@/components/common/RegisterInterestDialog";
 import { 
   Sparkles, 
   Zap, 
@@ -118,6 +119,8 @@ const AdminAccess = () => {
 };
 
 const Index = () => {
+  const [showRegisterDialog, setShowRegisterDialog] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Geo Detection Banner */}
@@ -129,8 +132,8 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection backgroundImage={heroImage}>
         <div className="max-w-4xl mx-auto animate-fade-in">
-          <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
-            🇦🇺 Australian Businesses Only
+          <Badge className="mb-6 sm:mb-8 bg-orange-600 text-white border-orange-500 hover:bg-orange-700 text-sm sm:text-base">
+            🚀 Coming August 2025 - Australian Businesses Only
           </Badge>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
@@ -140,28 +143,26 @@ const Index = () => {
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
             Generate professional social media posts, blogs, and marketing content in seconds. 
-            <strong className="text-white block mt-2">Plans from $49/month - Professional plans include unlimited content generation.</strong>
+            <strong className="text-white block mt-2">Launching August 2025 - Plans from $49/month with unlimited content generation.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
             <Button 
               variant="hero" 
               size="lg" 
-              asChild
+              onClick={() => setShowRegisterDialog(true)}
             >
-              <Link to="/discover">
-                <Target className="w-5 h-5 mr-3" />
-                Find My Industry Solution
-              </Link>
+              <Target className="w-5 h-5 mr-3" />
+              Register Your Interest
             </Button>
             <Button 
               variant="outline-white" 
               size="lg" 
               asChild
             >
-              <Link to="/auth">
+              <Link to="/discover">
                 <Rocket className="w-5 h-5 mr-3" />
-                Start Free Trial
+                Explore Features
               </Link>
             </Button>
           </div>
@@ -291,9 +292,14 @@ const Index = () => {
           </div>
           
           <div className="text-center">
-            <Button variant="premium" size="xl" className="group">
+            <Button 
+              variant="premium" 
+              size="xl" 
+              className="group"
+              onClick={() => setShowRegisterDialog(true)}
+            >
               <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Transform My Business Now
+              Join the Waitlist - August 2025
             </Button>
           </div>
         </div>
@@ -761,12 +767,10 @@ const Index = () => {
               variant="glass" 
               size="xl" 
               className="group"
-              asChild
+              onClick={() => setShowRegisterDialog(true)}
             >
-              <Link to="/auth">
-                <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                Start Your Free Trial
-              </Link>
+              <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+              Join Waitlist - August 2025
             </Button>
             <Button 
               variant="outline-white" 
@@ -775,7 +779,7 @@ const Index = () => {
             >
               <Link to="/pricing">
                 <DollarSign className="w-5 h-5 mr-2" />
-                View Pricing Plans
+                View Future Pricing
               </Link>
             </Button>
           </div>
@@ -858,6 +862,12 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Register Interest Dialog */}
+      <RegisterInterestDialog 
+        open={showRegisterDialog} 
+        onOpenChange={setShowRegisterDialog} 
+      />
     </div>
   );
 };
