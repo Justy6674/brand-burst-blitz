@@ -111,17 +111,17 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection backgroundImage={heroImage}>
         <div className="max-w-4xl mx-auto animate-fade-in">
-          <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
-            🇦🇺 Australian Businesses Only
+          <Badge className="mb-6 sm:mb-8 bg-primary/10 text-primary border-primary/20 text-sm sm:text-base">
+            🎯 Complete AI Marketing Automation & SEO Platform
           </Badge>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
-            <span className="block mb-2">Stop Being Invisible</span> 
-            <span className="text-gradient-hero block">to Google & ChatGPT</span>
+            <span className="block mb-2">Be Found on <span className="text-yellow-400">Google</span></span> 
+            <span className="text-gradient-hero block">Recommended by <span className="text-yellow-400">AI Agents</span></span>
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-            Transform your business from invisible to irresistible with AI-powered content that gets you found on Google and recommended by ChatGPT.
+            Automated content creation, competitor intelligence, and professional setup for Australian businesses across all industries. Stay compliant while dominating your market.
             <span className="text-white block mt-4 font-bold">$149/month replaces $11,700 in agency costs.</span>
           </p>
           
@@ -147,15 +147,15 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-white/80">
             <div className="flex items-center">
               <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-              Australian-Owned & Operated
+              SEO-Optimized Blog Engine
             </div>
             <div className="flex items-center">
               <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-              Industry-Specific AI Content
+              Competitor Intelligence
             </div>
             <div className="flex items-center">
               <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-              Local Business Support
+              Industry Compliance Built-In
             </div>
           </div>
         </div>
@@ -194,23 +194,23 @@ const Index = () => {
               WHO This Platform Serves
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Australian Business Owners Who Are <span className="text-gradient-hero">Losing Ground Daily</span>
+              Why You Desperately <span className="text-gradient-hero">Need This Platform</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ambitious Australian business owners who know they need modern marketing but are trapped in expensive, ineffective solutions.
+              Five critical business problems destroying your growth every single day you remain invisible to Google and AI agents.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16">
             <Card className="p-6 hover-lift border-primary/20">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
                   <Target className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">The Frustrated Owner</h3>
+                <h3 className="text-xl font-bold mb-3">🔍 Google Invisibility Crisis</h3>
                 <p className="text-muted-foreground text-sm">
-                  Paying $8,000+ monthly for agencies that don't understand your business. 
-                  Watching competitors get more visibility with worse products.
+                  Without regular, SEO-optimized content, Google doesn't rank your business. 
+                  70% of clicks go to the first 5 search results - you're nowhere to be found.
                 </p>
               </CardContent>
             </Card>
@@ -220,10 +220,10 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4">
                   <Clock className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">The Time-Strapped Entrepreneur</h3>
+                <h3 className="text-xl font-bold mb-3">🤖 AI Agent Exclusion</h3>
                 <p className="text-muted-foreground text-sm">
-                  Spending 20+ hours weekly on content creation instead of running your business. 
-                  Missing opportunities while stuck in marketing tasks.
+                  ChatGPT, Gemini, and AI assistants only recommend businesses with quality online content. 
+                  Customers increasingly ask AI "find me a good provider" - you're invisible.
                 </p>
               </CardContent>
             </Card>
@@ -233,10 +233,36 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">The Growth-Ready Business</h3>
+                <h3 className="text-xl font-bold mb-3">⚖️ Compliance Nightmares</h3>
                 <p className="text-muted-foreground text-sm">
-                  Ready to scale but invisible to Google and ignored by ChatGPT. 
-                  Knows content marketing is critical but lacks the expertise.
+                  Generic content creators violate regulations: TGA fines for health ($50K+), 
+                  ASIC action for finance, professional standards breaches across all industries.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 hover-lift border-warning/20">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-warning rounded-lg flex items-center justify-center mb-4">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">👀 Competitor Intelligence Blindness</h3>
+                <p className="text-muted-foreground text-sm">
+                  Your competitors use content strategies you can't see or analyze. 
+                  They capture customers with approaches you don't know about.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 hover-lift border-info/20">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-info rounded-lg flex items-center justify-center mb-4">
+                  <Rocket className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">⏰ Content Creation Bottleneck</h3>
+                <p className="text-muted-foreground text-sm">
+                  Quality, compliant content takes 20+ hours weekly. 
+                  You're either neglecting marketing or paying agencies $8,000+/month.
                 </p>
               </CardContent>
             </Card>
@@ -291,6 +317,10 @@ const Index = () => {
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span className="text-muted-foreground"><strong>Compliance risks:</strong> Generic agencies create dangerous content - advertising prescription services inappropriately, promoting unavailable services (e.g., doctor vs nurse practitioner), risking regulatory violations</span>
                   </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-muted-foreground"><strong>Competitor blindness:</strong> Missing winning strategies, losing market share to businesses with better content approaches</span>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -323,7 +353,19 @@ const Index = () => {
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium"><strong>Industry compliance:</strong> AHPRA, TGA, and sector-specific safeguards built into every piece of content</span>
+                    <span className="text-foreground font-medium"><strong>Industry compliance:</strong> AHPRA, TGA, ASIC, and sector-specific safeguards built into every piece of content</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <span className="text-foreground font-medium"><strong>Competitor intelligence:</strong> Automated scanning reveals winning strategies across your industry</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <span className="text-foreground font-medium"><strong>Quality review system:</strong> Every piece scored for effectiveness, compliance, and brand consistency</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <span className="text-foreground font-medium"><strong>Professional setup services:</strong> Expert social media configuration and business validation included</span>
                   </li>
                 </ul>
               </CardContent>
