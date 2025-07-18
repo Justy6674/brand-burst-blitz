@@ -149,6 +149,9 @@ export function AppSidebar() {
             src="/jbsaaslogo.png" 
             alt="JB SAAS Logo" 
             className="w-8 h-8 flex-shrink-0"
+            width="32"
+            height="32"
+            loading="eager"
           />
           {!collapsed && (
             <div className="min-w-0">

@@ -799,6 +799,9 @@ const Index = () => {
                   src="/jbsaaslogo.png" 
                   alt="JB-SaaS Logo" 
                   className="w-8 h-8"
+                  width="32"
+                  height="32"
+                  loading="lazy"
                 />
                 <span className="text-xl font-bold text-gradient-primary">JB-SaaS</span>
               </div>

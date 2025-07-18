@@ -153,6 +153,9 @@ const AuthPage = () => {
                 src="/lovable-uploads/a1f513c9-7ef7-4648-a7fc-8dd53f19335c.png" 
                 alt="JB-SaaS Logo" 
                 className="w-12 h-12 object-contain"
+                width="48"
+                height="48"
+                loading="eager"
               />
             </div>
             <CardTitle className="text-2xl font-bold text-white">
