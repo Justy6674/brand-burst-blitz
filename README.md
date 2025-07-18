@@ -1,216 +1,271 @@
-JBSAAS: AI-Powered Content & Social Automation Platform
+# JBSAAS: AI-Powered Business Content & Social Automation Platform
 
-JBSAAS is a modern, full-stack SaaS application that enables business owners to generate, schedule, and publish AI-assisted blog posts, social media content, and (optionally) Facebook ad campaigns. Built on Lovable with Supabase, and powered by OpenAI/Gemini, JBSAAS gives non-technical users a turnkey system for content marketing, complete with compliance safeguards, brand management, and subscription billing.
+JBSAAS is a comprehensive, full-stack SaaS platform that empowers Australian businesses with AI-driven content creation, social media management, blog publishing, competitive analysis, and specialized business services. Built on React with Supabase backend and powered by OpenAI, JBSAAS provides businesses with a complete digital marketing automation solution.
 
-⸻
+---
 
-📖 Table of Contents
-	1.	Project Overview
-	2.	Key Features
-	3.	Architecture & Technology
-	4.	Data Model & Supabase Schema
-	5.	AI & OpenAI Usage
-	6.	Serverless Functions & Scheduling
-	7.	Social Publishing & Ads Integration
-	8.	Compliance & Legal Considerations
-	9.	Security & Token Management
-	10.	Setup & Deployment Instructions
-	11.	Future Roadmap
+## 📖 Table of Contents
+1. [Project Overview](#project-overview)
+2. [Complete Feature Set](#complete-feature-set)
+3. [Architecture & Technology Stack](#architecture--technology-stack)
+4. [Database Schema & Data Model](#database-schema--data-model)
+5. [AI Integration & Content Generation](#ai-integration--content-generation)
+6. [Australian Business Services](#australian-business-services)
+7. [Business Intelligence & Analytics](#business-intelligence--analytics)
+8. [Security & Compliance](#security--compliance)
+9. [Setup & Deployment](#setup--deployment)
+10. [Pricing & Subscription Model](#pricing--subscription-model)
 
-⸻
+---
 
-Project Overview
+## Project Overview
 
-JBSAAS empowers small businesses to:
-	•	Generate AI-driven blog posts and social media captions
-	•	Edit and brand content with custom logos and image overlays
-	•	Schedule publication on blogs, Facebook Pages, and Instagram
-	•	Track content status via an interactive calendar & dashboard
-	•	Monetize access via Stripe subscriptions
-	•	(Optional) Launch simple Facebook ad campaigns via the same UI
+JBSAAS is a feature-complete business automation platform that enables Australian businesses to:
 
-Built on Lovable’s drag-and-chat interface, JBSAAS leverages Supabase for backend services and OpenAI/Gemini for natural-language generation, delivering a polished end-user experience with minimal setup.
+- **Content Creation**: Generate AI-driven blog posts, social media content, and marketing materials
+- **Blog Management**: Full-featured blog system with SEO optimization and content templates
+- **Social Media Automation**: Schedule and publish across multiple platforms with brand consistency
+- **Business Intelligence**: Competitive analysis, market insights, and strategic recommendations
+- **Australian Services**: ABN validation, social media setup, and business name research
+- **Multi-Business Management**: Support for agencies and enterprise clients with multiple brands
+- **Compliance Management**: Industry-specific compliance monitoring and audit trails
 
-⸻
+---
 
-Key Features
+## Complete Feature Set
 
-Phase 1: Core MVP
-	•	User Onboarding
-– Sign up/in via email & Supabase Auth
-– Collect business name, industry, logo
-– Connect Facebook Page (access token)
-	•	Blog Builder
-– AI-generate long-form articles with title, body, tags
-– Manual editing and rich-text preview
-– Image uploader + optional AI header generation
-	•	Social Post Builder
-– One-click AI draft of Facebook & Instagram captions
-– Edit text, add hashtags, choose or upload images
-– Logo overlay toggle, image library
-	•	Scheduler & Dashboard
-– Calendar views (day/week/month) with drag-and-drop
-– List view of Draft, Scheduled, Posted
-– Publish now or schedule in future
-	•	Stripe Billing
-– Monthly subscription gating AI & scheduling features
-– Role management: Admin (JB), Subscriber (user)
-– Trial allowance (3 free posts)
+### 🎯 **Core Platform Features**
+- **Landing Page & Navigation**: Optimized responsive design with comprehensive FAQ system
+- **User Authentication**: Supabase Auth with role-based access control (Trial, Subscriber, Admin)
+- **Business Profile Management**: Multi-business support with brand colors, logos, and compliance settings
+- **Dashboard**: Unified business dashboard with analytics and service management
 
-Phase 2: SickNote.health Blog Sync
-	•	Import existing blog drafts via API
-	•	Auto-convert posts into social campaigns
+### 📝 **Content Management System**
+- **Blog Platform**: Full-featured blog with rich editor, SEO optimization, and scheduled publishing
+- **Content Templates**: Industry-specific templates with AI integration
+- **AI Content Generation**: Business-focused content creation with tone customization
+- **Image Management**: Upload, storage, and optimization with alt-text and tagging
+- **Publishing Queue**: Automated scheduling and status tracking
 
-Phase 3: Multi-Brand & Compliance Modes
-	•	Support multiple pages/logos per account
-	•	Industry-specific prompts & disclaimers (Health, Finance, Legal)
-	•	Automated compliance reminders (AHPRA/TGA, ASIC/AFSL guidelines)
+### 📊 **Business Intelligence**
+- **Analytics Dashboard**: Comprehensive performance metrics and insights
+- **Competitive Analysis**: Automated competitor tracking and content analysis
+- **Strategic Recommendations**: AI-powered business insights and action items
+- **Cross-Business Reporting**: Enterprise-level analytics for multi-business accounts
+- **Performance Tracking**: Engagement metrics and ROI analysis
 
-Phase 4: Facebook Ads Builder (Optional)
-	•	Create basic ad sets & creatives via AI templates
-	•	Submit to Facebook Marketing API
-	•	Track ad status & spend
+### 🇦🇺 **Australian Business Services**
+- **Aussie Quick-Start Social Setup**: Professional social media account configuration
+  - ABN validation and business verification
+  - Facebook Business Manager setup
+  - Instagram Business profile configuration
+  - Tier-based pricing (AU$299/AU$199/Included)
+- **Aussie Name & Domain Scout**: Business name and domain research service
+  - ASIC business name availability checking
+  - Domain availability across multiple extensions
+  - Optional trademark screening
+  - AI-generated research reports
+  - Pricing: AU$99-AU$69 based on subscription tier
 
-⸻
+### 🛠 **Advanced Features**
+- **Prompt Library**: Curated AI prompts with usage tracking and categorization
+- **Template Engine**: Blog and content templates with deployment system
+- **Business Questionnaire**: Comprehensive business analysis and AI insights
+- **Calendar Integration**: Content scheduling with drag-and-drop interface
+- **Audit Logging**: Complete activity tracking and compliance monitoring
+- **Error Management**: Comprehensive error logging and resolution tracking
 
-Architecture & Technology
+### 👨‍💼 **Admin & Operations**
+- **Admin Panel**: Complete platform management interface
+- **User Role Management**: Advanced permission system
+- **Service Operations Portal**: Management of Australian business services
+- **Quality Assurance Tools**: Automated testing and validation systems
+- **Revenue Tracking**: Subscription and service revenue analytics
 
-Layer	Technology
-Frontend UI	Lovable + Tailwind CSS
-Backend Services	Supabase (Auth, Database, Storage)
-AI Generation	OpenAI/Gemini via secure API calls
-Serverless Functions	Supabase Edge Functions
-Scheduling	Supabase Cron or webhook jobs
-Payments	Stripe Subscription API
-Social Publishing	Custom webhooks / Pipedream jobs
-Ads Integration	Facebook Marketing API
+---
 
+## Architecture & Technology Stack
 
-⸻
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18 + TypeScript + Tailwind CSS |
+| Backend | Supabase (Auth, Database, Storage, Edge Functions) |
+| AI Integration | OpenAI GPT-4 with business-specific prompting |
+| Payment Processing | Stripe (Subscriptions + One-time payments) |
+| Database | PostgreSQL with Row-Level Security |
+| File Storage | Supabase Storage with CDN |
+| Deployment | Lovable Platform |
+| Routing | React Router DOM |
+| State Management | React Query + Context API |
+| UI Components | Radix UI + shadcn/ui |
 
-Data Model & Supabase Schema
+---
 
-Tables
-	1.	users
-‣ id, email, name, stripe_customer_id, role
-	2.	posts
-‣ id, user_id, type (blog/social/ad), title, content, image_url, status, scheduled_at, posted_at
-	3.	tokens
-‣ id, user_id, platform (facebook/instagram), access_token, expires_at
-	4.	images
-‣ id, user_id, url, created_at
-	5.	settings
-‣ user_id, industry, default_logo_url, ai_tone, calendar_timezone
+## Database Schema & Data Model
 
-⸻
+### Core Tables (20+ tables)
+- **users**: User profiles with subscription status and metadata
+- **business_profiles**: Multi-business support with branding and compliance
+- **posts**: Content management with scheduling and status tracking
+- **blog_posts**: Blog-specific content with SEO optimization
+- **content_templates**: Reusable templates with AI integration
+- **prompts**: AI prompt library with usage analytics
+- **social_accounts**: Social media platform connections
+- **analytics**: Performance metrics and engagement data
+- **images**: Asset management with metadata and optimization
 
-AI & OpenAI Usage
-	•	Model Selection: Default to Gemini; fallback to OpenAI GPT-4
-	•	Prompt Templates:
-	•	Blog: “Write a 500-word article on {topic} in a friendly but professional tone.”
-	•	Social: “Generate 3 Facebook captions promoting {service}, include a CTA.”
-	•	Token Management:
-	•	Store API keys in Supabase Secrets
-	•	Rate-limit by user plan to prevent runaway usage
-	•	Fine-Tuning & Guardrails:
-	•	Enforce max length (e.g. 280 chars for social)
-	•	Sanitize output to remove disallowed terms
+### Business Intelligence Tables
+- **competitor_data**: Competitor tracking and analysis
+- **competitive_insights**: AI-generated competitive intelligence
+- **strategic_content_recommendations**: Business improvement suggestions
+- **business_questionnaire_responses**: Business analysis data
 
-⸻
+### Australian Services Tables
+- **social_setup_services**: Social media setup service tracking
+- **name_scout_requests**: Business name research service data
 
-Serverless Functions & Scheduling
-	•	Edge Functions
-	•	generateContent() – calls AI, returns draft
-	•	publishToSocial() – invokes Facebook Graph API
-	•	importBlog() – fetches from external CMS API
-	•	Cron Jobs
-	•	Every 5 minutes:
-	•	Query posts where status=“scheduled” & scheduled_at <= now
-	•	Call publishToSocial() and update status=“posted”
+### Operational Tables
+- **user_roles**: Role-based access control
+- **audit_logs**: Complete activity tracking
+- **error_logs**: System monitoring and debugging
+- **compliance_logs**: Industry-specific compliance tracking
 
-⸻
+---
 
-Social Publishing & Ads Integration
+## AI Integration & Content Generation
 
-Facebook & Instagram Posting
-	•	User Flow:
-	1.	User connects FB Page token
-	2.	Lovable UI calls publishToSocial() via webhook
-	3.	Edge Function executes Graph API POST to /feed or /promotable_posts
-	•	Error Handling:
-	•	Log failures in posts.response
-	•	Retry up to 3 times, then mark status=“failed”
+### AI Models & Configuration
+- **Primary Model**: OpenAI GPT-4 with business-optimized prompts
+- **Industry Customization**: Health, Finance, Legal, Tech, General business prompts
+- **Tone Management**: Professional, Friendly, Casual, Authoritative, Empathetic, Exciting
+- **Content Types**: Blog posts, social media, ads, business analysis
 
-Facebook Ads (Optional)
-	•	AI-assisted Ad Builder:
-– Prompt: “Create a carousel ad for {campaign} with {images} and text {headline}”
-	•	API Submission:
-– Create Campaign → Ad Set → Creative → Ad via Marketing API
-	•	Tracking:
-– Store ad_id, fetch performance periodically
+### AI-Powered Features
+- **Content Generation**: Blog posts, social captions, marketing copy
+- **Business Analysis**: Questionnaire insights and recommendations
+- **Competitive Intelligence**: Automated competitor content analysis
+- **SEO Optimization**: Keyword suggestions and content optimization
+- **Strategic Recommendations**: Business improvement suggestions
 
-⸻
+---
 
-Compliance & Legal Considerations
+## Australian Business Services
 
-Health Industry
-	•	AHPRA/TGA:
-	•	Require a disclaimer field (e.g. “Speak to a health professional…”)
-	•	Block claims like “cure” or “guarantee” in AI prompts
-	•	Audit Trail:
-	•	Log every generated draft and user approval
+### ABN Validation & Business Verification
+- Integration with Australian business registries
+- Real-time ABN validation and verification
+- Business address and details confirmation
 
-Finance & Legal
-	•	ASIC/AFSL:
-	•	Warn users to verify compliance before publishing
-	•	Copyright & Fair Use
-	•	Disallow direct copy-paste; enforce AI-rewrite
-	•	Include “Fair Use Notice” in footer
+### Social Media Setup Service
+- Professional Facebook Business Manager configuration
+- Instagram Business profile optimization
+- Account linking and verification
+- Quality assurance and testing protocols
 
-Data Privacy
-	•	GDPR/CCPA:
-	•	Users can request export/deletion of their data
-	•	Supabase GDPR features enabled
+### Name & Domain Scout
+- ASIC business name availability checking
+- Multi-extension domain availability research
+- Trademark screening and risk assessment
+- AI-generated research reports and recommendations
 
-⸻
+---
 
-Security & Token Management
-	•	Access Tokens:
-	•	Encrypted at rest in Supabase
-	•	Short-lived and refreshed
-	•	Secrets:
-	•	Store OpenAI keys in Supabase Secrets vault
-	•	Authentication:
-	•	Supabase Auth with email verification
-	•	Permissions:
-	•	Row-level security on posts & tokens tables
+## Business Intelligence & Analytics
 
-⸻
+### Analytics Dashboard
+- Content performance metrics
+- User engagement tracking
+- Revenue and subscription analytics
+- Service utilization reports
 
-Setup & Deployment Instructions
-	1.	Connect Lovable to GitHub repo & Supabase project
-	2.	Configure Environment
-	•	NEXT_PUBLIC_SUPABASE_URL
-	•	SUPABASE_SERVICE_ROLE_KEY
-	•	OPENAI_API_KEY / GEMINI_API_KEY
-	•	STRIPE_SECRET_KEY
-	3.	Run Initial Migrations in Supabase
-	4.	Deploy Edge Functions via Lovable’s CLI
-	5.	Set Up Supabase Cron for scheduler
-	6.	Configure Stripe webhooks & plans
-	7.	Test Workflows:
-	•	AI generation → Draft
-	•	Schedule → Auto-publish
+### Competitive Analysis
+- Automated competitor content monitoring
+- Performance benchmarking
+- Market trend identification
+- Strategic opportunity identification
 
-⸻
+### Strategic Recommendations
+- AI-powered business insights
+- Content strategy optimization
+- Market positioning recommendations
+- Growth opportunity identification
 
-Future Roadmap
-	•	LinkedIn & Reddit auto-posting modules
-	•	SEO Content Planner with keyword research
-	•	Analytics Dashboard for engagement metrics
-	•	Marketplace for AI prompt templates by industry
-	•	Mobile App companion
+---
 
-⸻
+## Security & Compliance
 
-JBSAAS delivers a comprehensive, scalable solution for AI-powered content marketing—built quickly in Lovable, backed by Supabase, and extensible for blogs, social, and ads. Welcome to the future of automated marketing.
+### Data Security
+- Row-Level Security (RLS) on all tables
+- Encrypted storage for sensitive data
+- Secure API key management via Supabase Secrets
+- Audit trails for all user actions
+
+### Industry Compliance
+- Health industry (AHPRA/TGA) compliance monitoring
+- Finance industry (ASIC/AFSL) guidelines enforcement
+- Legal industry compliance frameworks
+- Automated compliance checking and reporting
+
+### Privacy Protection
+- GDPR/CCPA compliance features
+- Data export and deletion capabilities
+- User consent management
+- Privacy policy enforcement
+
+---
+
+## Setup & Deployment
+
+### Prerequisites
+- Supabase project with database and storage
+- OpenAI API key for content generation
+- Stripe account for payment processing
+- Lovable deployment environment
+
+### Configuration Steps
+1. **Database Setup**: Run migration scripts for all tables and RLS policies
+2. **Environment Variables**: Configure API keys and service endpoints
+3. **Edge Functions**: Deploy AI generation and payment processing functions
+4. **Storage Configuration**: Set up image storage buckets and policies
+5. **Stripe Integration**: Configure subscription plans and webhook endpoints
+6. **Domain Configuration**: Set up custom domain and SSL certificates
+
+---
+
+## Pricing & Subscription Model
+
+### Subscription Tiers
+- **Trial**: Limited features with content generation limits
+- **Starter Plan**: Full platform access with basic features
+- **Professional Plan**: Advanced features with priority support
+- **Enterprise Plan**: Multi-business support with dedicated account management
+
+### Australian Service Add-ons
+- **Aussie Quick-Start Social Setup**: AU$299 (Starter) / AU$199 (Professional) / Included (Enterprise)
+- **Aussie Name & Domain Scout**: AU$99 (Starter) / AU$79 (Professional) / AU$69 (Enterprise)
+- **Trademark Screening**: AU$50 add-on (included for Professional+)
+
+### Payment Processing
+- Monthly/annual subscription billing via Stripe
+- One-time service payments for Australian services
+- Automatic proration and plan changes
+- Cancel anytime with immediate access retention
+
+---
+
+## Platform Status
+
+**Current Status**: ✅ **PRODUCTION READY**
+
+All major features implemented and tested:
+- ✅ Landing page optimization and navigation
+- ✅ Complete blog management system
+- ✅ Blog builder templates and deployment
+- ✅ Australian social media setup services
+- ✅ Cross-business features and analytics
+- ✅ Australian name and domain scout services
+- ✅ Business intelligence and competitive analysis
+- ✅ Admin operations and user management
+- ✅ Payment processing and subscription management
+
+**The JBSAAS platform is feature-complete and ready for production deployment.**
