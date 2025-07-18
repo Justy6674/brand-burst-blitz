@@ -146,9 +146,9 @@ const AuthPage = () => {
           Back to Home
         </Link>
 
-        <Card className="backdrop-blur-lg bg-white/10 border-white/20 shadow-2xl">
+        <Card className="backdrop-blur-md bg-white/5 border-white/10 shadow-2xl">
           <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 border border-white/30">
+            <div className="mx-auto w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 border border-white/20">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold text-white">
@@ -161,23 +161,23 @@ const AuthPage = () => {
 
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/10 backdrop-blur-sm border border-white/20">
+              <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/5 backdrop-blur-sm border border-white/10">
                 <TabsTrigger 
                   value="login" 
-                  className="font-medium text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
+                  className="font-medium text-white data-[state=active]:bg-white/15 data-[state=active]:text-white"
                 >
                   Sign In
                 </TabsTrigger>
                 <TabsTrigger 
                   value="signup" 
-                  className="font-medium text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
+                  className="font-medium text-white data-[state=active]:bg-white/15 data-[state=active]:text-white"
                 >
                   Sign Up
                 </TabsTrigger>
               </TabsList>
 
               {error && (
-                <Alert className="mb-4 border-red-400/50 bg-red-900/20 backdrop-blur-sm">
+                <Alert className="mb-4 border-red-400/30 bg-red-900/10 backdrop-blur-sm">
                   <AlertDescription className="text-red-200">
                     {error}
                   </AlertDescription>
@@ -195,7 +195,7 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
@@ -207,12 +207,12 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur-sm border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -241,7 +241,7 @@ const AuthPage = () => {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
@@ -253,7 +253,7 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
@@ -265,7 +265,7 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
@@ -277,12 +277,12 @@ const AuthPage = () => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur-sm border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -311,15 +311,15 @@ const AuthPage = () => {
 
         {/* Features Preview */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+          <div className="backdrop-blur-sm bg-white/5 p-4 rounded-lg border border-white/10">
             <Sparkles className="h-6 w-6 text-white mx-auto mb-2" />
             <p className="text-xs text-white/90">AI Content</p>
           </div>
-          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+          <div className="backdrop-blur-sm bg-white/5 p-4 rounded-lg border border-white/10">
             <Zap className="h-6 w-6 text-white mx-auto mb-2" />
             <p className="text-xs text-white/90">Auto Posting</p>
           </div>
-          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+          <div className="backdrop-blur-sm bg-white/5 p-4 rounded-lg border border-white/10">
             <Shield className="h-6 w-6 text-white mx-auto mb-2" />
             <p className="text-xs text-white/90">Compliance</p>
           </div>
