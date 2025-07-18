@@ -173,7 +173,7 @@ const Index = () => {
               },
               {
                 title: "🚀 The Growth-Ready Business",
-                description: "Ready to scale but <span className='text-yellow-highlight'>invisible to Google</span> and ignored by <span className='text-yellow-highlight'>ChatGPT</span>. Knows content marketing is critical but lacks the expertise.",
+                description: "Ready to scale but <span className='text-yellow-highlight'>invisible to <span style='color: #ffd700; font-weight: 700;'>Google</span></span> and ignored by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Knows content <span style='color: #ffd700; font-weight: 700;'>marketing</span> is critical but lacks the expertise.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
