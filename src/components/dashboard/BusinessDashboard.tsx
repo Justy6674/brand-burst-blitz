@@ -18,6 +18,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useBusinessIntelligence } from '@/hooks/useBusinessIntelligence';
+import { NameScoutService } from '@/components/services/NameScoutService';
 
 export const BusinessDashboard = () => {
   const { 
@@ -125,10 +126,11 @@ export const BusinessDashboard = () => {
       </Card>
 
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="content">Content</TabsTrigger>
           <TabsTrigger value="competitors">Competitors</TabsTrigger>
+          <TabsTrigger value="services">Services</TabsTrigger>
           <TabsTrigger value="recommendations">Insights</TabsTrigger>
         </TabsList>
 
@@ -355,6 +357,33 @@ export const BusinessDashboard = () => {
                     No competitors added yet
                   </p>
                 )}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="services" className="space-y-4">
+          <div className="grid gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Additional Tools</h3>
+              <p className="text-muted-foreground mb-4">
+                Specialized services to enhance your business operations
+              </p>
+            </div>
+            
+            {/* Name Scout Service for Australian users only */}
+            <NameScoutService />
+            
+            {/* Placeholder for future services */}
+            <Card className="glass border-dashed border-muted-foreground/30">
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center mb-4">
+                  <div className="text-2xl">🚀</div>
+                </div>
+                <h4 className="font-semibold mb-2">More Services Coming Soon</h4>
+                <p className="text-muted-foreground text-sm">
+                  We're constantly adding new tools and services to help your business grow
+                </p>
               </CardContent>
             </Card>
           </div>

@@ -696,6 +696,86 @@ export type Database = {
           },
         ]
       }
+      name_scout_requests: {
+        Row: {
+          ai_summary: string | null
+          amount_paid: number
+          asic_availability: Json | null
+          assigned_to: string | null
+          business_profile_id: string | null
+          completed_at: string | null
+          created_at: string
+          domain_availability: Json | null
+          domain_extensions: string[]
+          id: string
+          include_trademark_screening: boolean
+          payment_status: string
+          request_status: string
+          requested_at: string
+          requested_name: string
+          started_at: string | null
+          stripe_payment_intent_id: string | null
+          trademark_results: Json | null
+          trademark_screening_paid: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_summary?: string | null
+          amount_paid: number
+          asic_availability?: Json | null
+          assigned_to?: string | null
+          business_profile_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          domain_availability?: Json | null
+          domain_extensions?: string[]
+          id?: string
+          include_trademark_screening?: boolean
+          payment_status?: string
+          request_status?: string
+          requested_at?: string
+          requested_name: string
+          started_at?: string | null
+          stripe_payment_intent_id?: string | null
+          trademark_results?: Json | null
+          trademark_screening_paid?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_summary?: string | null
+          amount_paid?: number
+          asic_availability?: Json | null
+          assigned_to?: string | null
+          business_profile_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          domain_availability?: Json | null
+          domain_extensions?: string[]
+          id?: string
+          include_trademark_screening?: boolean
+          payment_status?: string
+          request_status?: string
+          requested_at?: string
+          requested_name?: string
+          started_at?: string | null
+          stripe_payment_intent_id?: string | null
+          trademark_results?: Json | null
+          trademark_screening_paid?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "name_scout_requests_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           ai_prompt: string | null
