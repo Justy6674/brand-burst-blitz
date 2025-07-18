@@ -223,7 +223,7 @@ const Index = () => {
               },
               {
                 title: "⚖️ Compliance Nightmares",
-                description: "Generic content creators violate regulations. Australian businesses need compliant <span style='color: #ffd700; font-weight: 700;'>marketing</span> that protects your reputation and avoids costly fines.",
+                description: "Generic content creators violate regulations. <span style='color: #ffd700; font-weight: 700;'>Australian businesses</span> need <span style='color: #ffd700; font-weight: 700;'>compliant marketing</span> that protects your reputation and avoids costly fines.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
