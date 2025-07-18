@@ -235,7 +235,7 @@ const Index = () => {
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "Quality, compliant <span className='text-yellow-highlight'>content</span> takes 20+ hours weekly. You're either neglecting <span className='text-yellow-highlight'>marketing</span> or paying agencies thousands monthly for poor <span className='text-yellow-highlight'>results</span>.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Quality, compliant content</span> takes 20+ hours weekly. You're either neglecting <span style='color: #ffd700; font-weight: 700;'>marketing</span> or paying agencies thousands monthly for poor <span className='text-yellow-highlight'>results</span>.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }
