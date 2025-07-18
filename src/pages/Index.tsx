@@ -273,7 +273,7 @@ const Index = () => {
               },
               {
                 title: "🕵️ Competitor Intelligence Scanning",
-                description: "<span className='text-yellow-highlight'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and market gaps you can exploit.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and <span style='color: #ffd700; font-weight: 700;'>market gaps</span> you can exploit.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
