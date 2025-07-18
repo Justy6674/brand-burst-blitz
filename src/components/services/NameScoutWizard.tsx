@@ -62,16 +62,17 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
   };
 
   const calculatePricing = () => {
+    // No free options - all tiers pay
     let basePrice = 99;
     if (userTier === 'Professional') {
       basePrice = 79;
     } else if (userTier === 'Enterprise') {
-      basePrice = 0;
+      basePrice = 69; // Discounted but not free
     }
 
     let trademarkPrice = 0;
-    if (includeTrademarkScreening && userTier !== 'Professional' && userTier !== 'Enterprise') {
-      trademarkPrice = 50;
+    if (includeTrademarkScreening) {
+      trademarkPrice = 50; // All tiers pay for trademark screening
     }
 
     return { basePrice, trademarkPrice, total: basePrice + trademarkPrice };
@@ -279,17 +280,7 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  {userTier === 'Professional' && (
-                    <Badge className="bg-primary/10 text-primary border-primary">
-                      Free with Pro
-                    </Badge>
-                  )}
-                  {userTier === 'Enterprise' && (
-                    <Badge className="bg-success/10 text-success border-success">
-                      Included
-                    </Badge>
-                  )}
-                  {userTier === 'Starter' && !includeTrademarkScreening && (
+                  {!includeTrademarkScreening && (
                     <Badge variant="outline">+AU$50</Badge>
                   )}
                   <Switch
@@ -322,17 +313,14 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">Total Cost:</span>
                   <div className="text-right">
-                    {pricing.total === 0 ? (
-                      <Badge className="bg-success text-white">FREE</Badge>
-                    ) : (
-                      <span className="text-lg font-bold">AU${pricing.total}</span>
-                    )}
+                    <span className="text-lg font-bold">AU${pricing.total}</span>
                     {userTier === 'Professional' && (
                       <p className="text-xs text-muted-foreground">Professional pricing</p>
                     )}
                     {userTier === 'Enterprise' && (
-                      <p className="text-xs text-muted-foreground">Included in plan</p>
+                      <p className="text-xs text-muted-foreground">Enterprise pricing</p>
                     )}
+                    <p className="text-xs text-muted-foreground mt-1">Cancel subscription anytime</p>
                   </div>
                 </div>
               </div>
@@ -359,7 +347,7 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
                 ) : (
                   <>
                     <CheckCircle className="h-4 w-4 mr-2" />
-                    {pricing.total === 0 ? 'Submit Request' : 'Proceed to Payment'}
+                    Proceed to Payment
                   </>
                 )}
               </Button>

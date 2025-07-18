@@ -55,61 +55,24 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    // Calculate pricing based on tier
+    // Calculate pricing based on tier - no free options
     let basePrice = 9900; // AU$99 default
     if (userTier === 'Professional') {
       basePrice = 7900; // AU$79 for Professional plan
     } else if (userTier === 'Enterprise') {
-      basePrice = 0; // Free for Enterprise plan
+      basePrice = 6900; // AU$69 for Enterprise plan (discounted but not free)
     }
 
-    // Add trademark screening cost if selected and not Professional/Enterprise
+    // Add trademark screening cost if selected
     let trademarkPrice = 0;
-    if (includeTrademarkScreening && userTier !== 'Professional' && userTier !== 'Enterprise') {
-      trademarkPrice = 5000; // AU$50 extra
+    if (includeTrademarkScreening) {
+      trademarkPrice = 5000; // AU$50 extra for all tiers
     }
 
     const totalPrice = basePrice + trademarkPrice;
     logStep("Pricing calculated", { basePrice, trademarkPrice, totalPrice, userTier });
 
-    // If Enterprise plan (free), create request directly
-    if (totalPrice === 0) {
-      const supabaseService = createClient(
-        Deno.env.get("SUPABASE_URL") ?? "",
-        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
-        { auth: { persistSession: false } }
-      );
-
-      const { data: request, error: insertError } = await supabaseService
-        .from('name_scout_requests')
-        .insert({
-          user_id: user.id,
-          requested_name: businessName,
-          domain_extensions: domainExtensions,
-          include_trademark_screening: includeTrademarkScreening,
-          trademark_screening_paid: includeTrademarkScreening,
-          amount_paid: 0,
-          payment_status: 'completed',
-          request_status: 'pending'
-        })
-        .select()
-        .single();
-
-      if (insertError) throw new Error(`Failed to create request: ${insertError.message}`);
-      
-      logStep("Enterprise request created", { requestId: request.id });
-      
-      return new Response(JSON.stringify({ 
-        success: true,
-        requestId: request.id,
-        message: "Request created successfully - included in your Enterprise plan" 
-      }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
-    }
-
-    // For paid plans, create Stripe checkout
+    // All plans now require payment - create Stripe checkout
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     
     // Check for existing Stripe customer
