@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
@@ -41,14 +42,22 @@ const AustralianServices = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
-              <Building className="w-5 h-5 mr-2" />
-              Get Social Setup Service
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              <FileSearch className="w-5 h-5 mr-2" />
-              Try Name Scout Service
-            </Button>
+            <ComingSoonPopup 
+              trigger={
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
+                  <Building className="w-5 h-5 mr-2" />
+                  Get Social Setup Service
+                </Button>
+              } 
+            />
+            <ComingSoonPopup 
+              trigger={
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <FileSearch className="w-5 h-5 mr-2" />
+                  Try Name Scout Service
+                </Button>
+              } 
+            />
           </div>
         </div>
       </HeroSection>
@@ -112,10 +121,14 @@ const AustralianServices = () => {
                   </div>
                 </div>
                 
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <Building className="w-5 h-5 mr-2" />
-                  Start Social Setup Service
-                </Button>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                      <Building className="w-5 h-5 mr-2" />
+                      Start Social Setup Service
+                    </Button>
+                  } 
+                />
               </CardContent>
             </Card>
 
@@ -176,10 +189,14 @@ const AustralianServices = () => {
                   </div>
                 </div>
                 
-                <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                  <FileSearch className="w-5 h-5 mr-2" />
-                  Start Name Scout Service
-                </Button>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                      <FileSearch className="w-5 h-5 mr-2" />
+                      Start Name Scout Service
+                    </Button>
+                  } 
+                />
               </CardContent>
             </Card>
           </div>
@@ -316,18 +333,26 @@ const AustralianServices = () => {
                 <Phone className="w-8 h-8 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-bold mb-2">Phone Support</h3>
                 <p className="text-muted-foreground mb-4">Speak directly with our Australian team</p>
-                <Button variant="outline" className="w-full">
-                  Request Callback
-                </Button>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button variant="outline" className="w-full">
+                      Request Callback
+                    </Button>
+                  } 
+                />
               </Card>
               
               <Card className="p-6">
                 <Mail className="w-8 h-8 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-bold mb-2">Email Support</h3>
                 <p className="text-muted-foreground mb-4">Get detailed information via email</p>
-                <Button variant="outline" className="w-full">
-                  Send Enquiry
-                </Button>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button variant="outline" className="w-full">
+                      Send Enquiry
+                    </Button>
+                  } 
+                />
               </Card>
             </div>
             
@@ -338,11 +363,13 @@ const AustralianServices = () => {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to="/auth">
-                <Button size="lg" variant="outline">
-                  Start Free Trial
-                </Button>
-              </Link>
+              <ComingSoonPopup 
+                trigger={
+                  <Button size="lg" variant="outline">
+                    Start Free Trial
+                  </Button>
+                } 
+              />
             </div>
           </div>
         </div>

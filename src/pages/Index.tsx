@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -114,26 +115,22 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
-            <Button 
-              variant="hero" 
-              size="lg" 
-              asChild
-            >
-              <Link to="/discover">
-                <Target className="w-5 h-5 mr-3" />
-                Find My Industry Solution
-              </Link>
-            </Button>
-            <Button 
-              variant="outline-white" 
-              size="lg" 
-              asChild
-            >
-              <Link to="/auth">
-                <Rocket className="w-5 h-5 mr-3" />
-                Start Free Trial
-              </Link>
-            </Button>
+            <ComingSoonPopup 
+              trigger={
+                <Button variant="hero" size="lg">
+                  <Target className="w-5 h-5 mr-3" />
+                  Find My Industry Solution
+                </Button>
+              } 
+            />
+            <ComingSoonPopup 
+              trigger={
+                <Button variant="outline-white" size="lg">
+                  <Rocket className="w-5 h-5 mr-3" />
+                  Start Free Trial
+                </Button>
+              } 
+            />
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-white/80">
@@ -261,10 +258,14 @@ const Index = () => {
           </div>
           
           <div className="text-center">
-            <Button variant="premium" size="xl" className="group">
-              <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Transform My Business Now
-            </Button>
+            <ComingSoonPopup 
+              trigger={
+                <Button variant="premium" size="xl" className="group">
+                  <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                  Transform My Business Now
+                </Button>
+              } 
+            />
           </div>
         </div>
       </section>
@@ -727,17 +728,14 @@ const Index = () => {
             and competitive analysis in one sophisticated solution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button 
-              variant="glass" 
-              size="xl" 
-              className="group"
-              asChild
-            >
-              <Link to="/auth">
-                <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                Start Your Free Trial
-              </Link>
-            </Button>
+            <ComingSoonPopup 
+              trigger={
+                <Button variant="glass" size="xl" className="group">
+                  <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                  Start Your Free Trial
+                </Button>
+              } 
+            />
             <Button 
               variant="outline-white" 
               size="xl" 

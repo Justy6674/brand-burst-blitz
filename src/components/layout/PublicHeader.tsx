@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ComingSoonPopup } from '@/components/common/ComingSoonPopup';
 import { 
   NavigationMenu,
   NavigationMenuContent,
@@ -70,12 +71,20 @@ const PublicHeader = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link to="/auth">Sign In</Link>
-            </Button>
-            <Button asChild className="bg-gradient-primary">
-              <Link to="/auth">Get Started</Link>
-            </Button>
+            <ComingSoonPopup 
+              trigger={
+                <Button variant="ghost">
+                  Join Waitlist - August 2025
+                </Button>
+              } 
+            />
+            <ComingSoonPopup 
+              trigger={
+                <Button className="bg-gradient-primary">
+                  Get Started
+                </Button>
+              } 
+            />
           </div>
 
           {/* Mobile Menu Button */}
@@ -136,12 +145,20 @@ const PublicHeader = () => {
                 FAQ
               </Link>
               <div className="pt-4 border-t space-y-2">
-                <Button variant="ghost" asChild className="w-full justify-start">
-                  <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
-                </Button>
-                <Button asChild className="w-full bg-gradient-primary">
-                  <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
-                </Button>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button variant="ghost" className="w-full justify-start" onClick={() => setMobileMenuOpen(false)}>
+                      Join Waitlist - August 2025
+                    </Button>
+                  } 
+                />
+                <ComingSoonPopup 
+                  trigger={
+                    <Button className="w-full bg-gradient-primary" onClick={() => setMobileMenuOpen(false)}>
+                      Get Started
+                    </Button>
+                  } 
+                />
               </div>
             </nav>
           </div>

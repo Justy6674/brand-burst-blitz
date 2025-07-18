@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
@@ -76,9 +77,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="hero" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Start Free Trial</Link>
-                  </Button>
+                  <ComingSoonPopup 
+                    trigger={
+                      <Button variant="hero" size="lg" className="w-full">
+                        Start Free Trial
+                      </Button>
+                    } 
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -132,9 +137,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="premium" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Start Free Trial</Link>
-                  </Button>
+                  <ComingSoonPopup 
+                    trigger={
+                      <Button variant="premium" size="lg" className="w-full">
+                        Start Free Trial
+                      </Button>
+                    } 
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -183,9 +192,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="secondary" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Contact Sales</Link>
-                  </Button>
+                  <ComingSoonPopup 
+                    trigger={
+                      <Button variant="secondary" size="lg" className="w-full">
+                        Contact Sales
+                      </Button>
+                    } 
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -417,12 +430,14 @@ const Pricing = () => {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of businesses already using AI to create better content faster.
           </p>
-          <Link to="/auth">
-            <Button size="xl" className="bg-gradient-primary shadow-glow">
-              Get Started Today
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
+          <ComingSoonPopup 
+            trigger={
+              <Button size="xl" className="bg-gradient-primary shadow-glow">
+                Get Started Today
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            } 
+          />
         </div>
       </section>
 
