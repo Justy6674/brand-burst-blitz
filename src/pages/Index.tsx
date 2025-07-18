@@ -178,9 +178,9 @@ const Index = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-            alt="Blue starry night technology background"
-            className="w-full h-full object-cover object-center"
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Circuit board macro technology background"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
         </div>
