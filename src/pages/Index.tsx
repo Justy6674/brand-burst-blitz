@@ -127,7 +127,7 @@ const Index = () => {
             alt="AI Marketing Hero Background"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-900/85 to-purple-900/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
         <div className="relative z-20 container mx-auto px-6">
