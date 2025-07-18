@@ -285,7 +285,7 @@ const Index = () => {
               },
               {
                 title: "⚙️ Professional Social Media Setup",
-                description: "Expert configuration of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span className='text-yellow-highlight'>Australian compliance</span> verification. $199-299 value included.",
+                description: "Expert <span style='color: #ffd700; font-weight: 700;'>configuration</span> of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span style='color: #ffd700; font-weight: 700;'>Australian compliance</span> verification. $199-299 value included.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               },
