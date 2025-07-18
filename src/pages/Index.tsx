@@ -106,12 +106,12 @@ const Index = () => {
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
             <span className="block mb-2">Stop Being Invisible</span> 
-            <span className="text-gradient-hero block">to Google & AI Agents</span>
+            <span className="text-gradient-hero block">to Google & ChatGPT</span>
           </h1>
           
-          <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-            Australian businesses lose $12,500/month on agencies and wasted time. Our AI creates Google-crawlable blogs and engaging social content that gets you found by search engines AND recommended by ChatGPT.
-            <strong className="text-white block mt-2">Replace $11,700/month in costs with our $149 solution.</strong>
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
+            Transform your business from invisible to irresistible with AI-powered content that gets you found on Google and recommended by ChatGPT.
+            <span className="text-white block mt-4 font-bold">$149/month replaces $11,700 in agency costs.</span>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
@@ -174,15 +174,78 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Problem/Solution Section */}
+      {/* WHO Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
+            <Badge className="mb-6 bg-green-600 text-white border-green-500">
+              <Users className="w-4 h-4 mr-2" />
+              WHO This Platform Serves
+            </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Why Your Business Is <span className="text-gradient-hero">Losing $11,700 Monthly</span>
+              Australian Business Owners Who Are <span className="text-gradient-hero">Losing Ground Daily</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              You're invisible to Google, ignored by AI agents, and outplayed by competitors who understand modern discovery. Here's the brutal math.
+              Ambitious Australian business owners who know they need modern marketing but are trapped in expensive, ineffective solutions.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="p-6 hover-lift border-primary/20">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">The Frustrated Owner</h3>
+                <p className="text-muted-foreground text-sm">
+                  Paying $8,000+ monthly for agencies that don't understand your business. 
+                  Watching competitors get more visibility with worse products.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 hover-lift border-secondary/20">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4">
+                  <Clock className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">The Time-Strapped Entrepreneur</h3>
+                <p className="text-muted-foreground text-sm">
+                  Spending 20+ hours weekly on content creation instead of running your business. 
+                  Missing opportunities while stuck in marketing tasks.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 hover-lift border-accent/20">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">The Growth-Ready Business</h3>
+                <p className="text-muted-foreground text-sm">
+                  Ready to scale but invisible to Google and ignored by ChatGPT. 
+                  Knows content marketing is critical but lacks the expertise.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY Section */}
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="mb-6 bg-destructive/10 text-destructive border-destructive/20">
+              <DollarSign className="w-4 h-4 mr-2" />
+              WHY This Costs You $11,700 Monthly
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              The Brutal Economics of <span className="text-gradient-hero">Being Invisible</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Every day you're invisible to Google and ignored by ChatGPT, your competitors capture customers who should be yours.
             </p>
           </div>
           
@@ -194,28 +257,24 @@ const Index = () => {
                   <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mr-4">
                     <DollarSign className="w-6 h-6 text-destructive" />
                   </div>
-                  <h3 className="text-2xl font-bold text-destructive">Before JB-SaaS</h3>
+                  <h3 className="text-2xl font-bold text-destructive">Your Current Reality</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground"><strong>Agency costs:</strong> $8,000/month for content that doesn't understand your business</span>
+                    <span className="text-muted-foreground"><strong>Agency costs:</strong> $8,000/month for generic content that doesn't convert</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground"><strong>Your time:</strong> 20 hours weekly × $200/hour = $3,200/month in lost earning time</span>
+                    <span className="text-muted-foreground"><strong>Your lost time:</strong> 20 hours weekly × $200/hour = $3,200/month in earning potential</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground"><strong>Tools & subscriptions:</strong> $500/month for multiple platforms that don't talk to each other</span>
+                    <span className="text-muted-foreground"><strong>Google invisibility:</strong> No fresh content = no search rankings = lost customers</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground"><strong>Google invisibility:</strong> No fresh content = no search rankings = lost customers daily</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground"><strong>AI exclusion:</strong> ChatGPT won't recommend businesses without quality online presence</span>
+                    <span className="text-muted-foreground"><strong>ChatGPT exclusion:</strong> AI agents won't recommend businesses without quality content</span>
                   </li>
                 </ul>
               </CardContent>
@@ -237,19 +296,15 @@ const Index = () => {
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium"><strong>Time back:</strong> 20 hours weekly freed up = 80 hours monthly to earn revenue</span>
+                    <span className="text-foreground font-medium"><strong>Time returned:</strong> 80 hours monthly freed up for revenue generation</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium"><strong>Google ranking:</strong> Fresh blogs get your business found in search results</span>
+                    <span className="text-foreground font-medium"><strong>Google discovery:</strong> Fresh blogs = higher rankings = more customers</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium"><strong>AI recommendations:</strong> Quality content gets you suggested by ChatGPT & Gemini</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium"><strong>Competitor advantage:</strong> Know exactly what works before you post</span>
+                    <span className="text-foreground font-medium"><strong>AI recommendations:</strong> ChatGPT & Gemini suggest quality businesses</span>
                   </li>
                 </ul>
               </CardContent>
@@ -261,7 +316,7 @@ const Index = () => {
               trigger={
                 <Button variant="premium" size="xl" className="group">
                   <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                  Transform My Business Now
+                  Stop Losing Money Now
                 </Button>
               } 
             />
@@ -269,262 +324,278 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Features Showcase - Mobile-First Design */}
+      {/* HOW Section */}
       <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-background via-muted/10 to-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-20">
             <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 text-sm sm:text-base px-4 py-2">
               <Brain className="w-4 h-4 mr-2" />
-              Complete Business Intelligence Platform
+              HOW Our AI-Powered System Works
             </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-8 leading-tight">
-              What You Get: <span className="text-gradient-primary block sm:inline">Enterprise-Level Features</span>
+              Our Business Intelligence <span className="text-gradient-primary block sm:inline">Automation Engine</span>
             </h2>
             <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              A sophisticated platform that replaces multiple expensive tools with one comprehensive solution.
+              Advanced AI analyzes your industry, learns your brand voice, monitors competitors, and creates content that gets you discovered by Google and recommended by ChatGPT.
             </p>
           </div>
 
-          {/* Enhanced Core Feature Modules - Mobile Optimized */}
+          {/* Core Intelligence Modules */}
           <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12 mb-12 sm:mb-20">
-            {/* Enhanced Business Intelligence Dashboard */}
+            {/* AI Content Intelligence */}
             <Card className="p-4 sm:p-6 lg:p-8 hover-lift group bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-primary/50">
               <CardContent className="p-0">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6">
                   <div className="w-16 h-16 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <BarChart3 className="w-8 h-8 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
+                    <Brain className="w-8 h-8 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">Business Intelligence Dashboard</h3>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">AI Content Intelligence</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Advanced analytics with growth scoring, strategic recommendations, and automated insights to drive business decisions.
+                  Our AI learns your business, industry, and brand voice to create Google-crawlable blogs and engaging social content that gets you found and recommended.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Growth Score Tracking & Analysis</span>
+                    <span className="font-medium">Creates SEO-optimized blogs for Google discovery</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Strategic Content Recommendations</span>
+                    <span className="font-medium">Generates social content that builds authority</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Cross-Platform Performance Analytics</span>
+                    <span className="font-medium">Learns your brand voice for consistency</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">ROI & Engagement Reporting</span>
+                    <span className="font-medium">Produces content that ChatGPT can recommend</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* AI Content Creation Engine */}
+            {/* Competitor Intelligence Engine */}
             <Card className="p-8 hover-lift group bg-gradient-to-br from-secondary/5 to-accent/5 border-2 border-secondary/20 shadow-xl">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Brain className="w-6 h-6 text-white" />
+                    <Target className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">AI Content Creation Engine</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Competitor Intelligence Engine</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Generate professional blog posts, social media content, and ad copy with brand voice learning and consistency.
+                  Stop playing catch-up. Our system monitors your top competitors' content, posting patterns, and engagement metrics to identify winning strategies and content gaps.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Brand Voice Learning & Consistency</span>
+                    <span className="font-medium">Tracks competitor posting schedules automatically</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Blog, Social & Ad Copy Generation</span>
+                    <span className="font-medium">Analyzes their highest-performing content</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Industry-Specific Content Templates</span>
+                    <span className="font-medium">Identifies content gaps you can exploit</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">AI Prompt Library Integration</span>
+                    <span className="font-medium">Suggests content that outperforms theirs</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* Competitor Intelligence */}
+            {/* Smart Calendar Automation */}
             <Card className="p-8 hover-lift group bg-gradient-to-br from-accent/5 to-primary/5 border-2 border-accent/20 shadow-xl">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Target className="w-6 h-6 text-white" />
+                    <Calendar className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">Competitor Intelligence</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Smart Calendar Automation</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Stop guessing what content works. See exactly what your top 10 competitors post, when they post, what gets the most engagement, and which content gaps you can exploit.
+                  Your content calendar runs itself. AI suggests optimal posting times, automates publishing, and ensures consistent brand presence across all platforms.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Track competitors' posting schedules and frequency</span>
+                    <span className="font-medium">AI determines best posting times for your audience</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Analyze their highest-performing content by engagement</span>
+                    <span className="font-medium">Automatically publishes across all platforms</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Identify content gaps and untapped opportunities</span>
+                    <span className="font-medium">Visual drag-drop calendar interface</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Monitor their keyword rankings and SEO strategies</span>
+                    <span className="font-medium">Never miss a posting deadline again</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* Multi-Business Management */}
+            {/* Performance Analytics Dashboard */}
             <Card className="p-8 hover-lift group bg-gradient-to-br from-primary/5 to-muted/10 border-2 border-primary/20 shadow-xl">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Users className="w-6 h-6 text-white" />
+                    <BarChart3 className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">Multi-Business Management</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Performance Analytics Dashboard</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Manage multiple business profiles, share templates across brands, and get unified reporting for all your ventures.
+                  Know exactly what's working. Track Google rankings, social engagement, competitor performance, and ROI in real-time dashboards.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Business Profile Switching</span>
+                    <span className="font-medium">Google search ranking improvements</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Cross-Business Template Sharing</span>
+                    <span className="font-medium">Social media engagement metrics</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Unified Analytics & Reporting</span>
+                    <span className="font-medium">Competitor performance comparisons</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Role-Based Team Access Control</span>
+                    <span className="font-medium">ROI calculation and cost savings reports</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
           </div>
 
-          {/* Australian Services Highlight */}
-          <div className="text-center mb-12 sm:mb-16">
-            <Card className="p-6 sm:p-8 border-2 border-green-500/30 bg-gradient-to-r from-green-50/50 to-blue-50/50 dark:from-green-950/20 dark:to-blue-950/20 shadow-xl">
+        </div>
+      </section>
+
+      {/* WHAT Section */}
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+              <Sparkles className="w-4 h-4 mr-2" />
+              WHAT Exactly You Get & What Changes
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Your Complete <span className="text-gradient-hero">Digital Transformation</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Stop wondering what you'll actually receive. Here's the complete breakdown of tools, content, and results.
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* What You Get */}
+            <Card className="p-8 hover-lift border-primary/20 bg-gradient-to-br from-primary/5 to-background">
               <CardContent className="p-0">
-                <Badge className="mb-4 bg-green-600 text-white">
-                  🇦🇺 Australian Businesses Only
-                </Badge>
-                <h3 className="text-2xl sm:text-3xl font-bold mb-4">Specialized Australian Services</h3>
-                <p className="text-muted-foreground mb-6">
-                  Complete social media setup service and business name research designed exclusively for Australian businesses.
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2 mb-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600 mb-1">Quick-Start Social Setup</div>
-                    <div className="text-sm text-muted-foreground">From AU$199 - Full Facebook & Instagram setup</div>
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4">
+                    <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">Name & Domain Scout</div>
-                    <div className="text-sm text-muted-foreground">From AU$79 - ASIC & trademark research</div>
+                  <h3 className="text-2xl font-bold text-foreground">What You Actually Get</h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">SEO-Optimized Blog Posts:</strong>
+                      <p className="text-sm text-muted-foreground">4-8 monthly blogs targeting your industry keywords, written by AI that understands Google's ranking factors</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Social Media Content:</strong>
+                      <p className="text-sm text-muted-foreground">20+ monthly posts optimized for Facebook, Instagram, LinkedIn - all brand-consistent and engagement-focused</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Competitor Intelligence Reports:</strong>
+                      <p className="text-sm text-muted-foreground">Weekly analysis of your top 10 competitors' content strategy, posting patterns, and performance metrics</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Automated Publishing Calendar:</strong>
+                      <p className="text-sm text-muted-foreground">AI-determined optimal posting times with drag-drop scheduling and automatic publishing</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Performance Analytics Dashboard:</strong>
+                      <p className="text-sm text-muted-foreground">Real-time tracking of Google rankings, social engagement, ROI calculations, and competitor comparisons</p>
+                    </div>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* What Changes */}
+            <Card className="p-8 hover-lift border-success/20 bg-gradient-to-br from-success/5 to-background">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-success to-success/80 rounded-lg flex items-center justify-center mr-4">
+                    <TrendingUp className="w-6 h-6 text-white" />
                   </div>
+                  <h3 className="text-2xl font-bold text-foreground">What Actually Changes</h3>
                 </div>
-                <Link to="/australian-services">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white">
-                    Learn About Australian Services
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Enhanced Advanced Features Grid - Mobile First */}
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-16">
-            <Card className="p-4 sm:p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-muted/70">
-              <CardContent className="p-0">
-                <div className="w-14 h-14 sm:w-12 sm:h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Calendar className="w-7 h-7 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Smart Content Calendar</h3>
-                <p className="text-muted-foreground mb-4">
-                  Visual calendar shows your entire month of content at a glance. Drag, drop, reschedule. AI suggests optimal posting times based on your audience activity.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Visual timeline with drag-and-drop scheduling
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <ArrowRight className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Google Visibility:</strong>
+                      <p className="text-sm text-muted-foreground">From invisible to page 1 rankings within 3-6 months through consistent, keyword-optimized blog content</p>
+                    </div>
                   </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    AI-recommended posting times for maximum reach
+                  <li className="flex items-start">
+                    <ArrowRight className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">ChatGPT Recommendations:</strong>
+                      <p className="text-sm text-muted-foreground">AI agents start suggesting your business when people ask for industry recommendations in your area</p>
+                    </div>
                   </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Never miss a deadline with automated publishing
+                  <li className="flex items-start">
+                    <ArrowRight className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Your Daily Schedule:</strong>
+                      <p className="text-sm text-muted-foreground">20 hours weekly freed up from content creation, planning, and posting - focus on what generates revenue</p>
+                    </div>
                   </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Template Library</h3>
-                <p className="text-muted-foreground mb-4">
-                  Public and private templates with AI prompt integration for consistent content.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    AI prompt templates
+                  <li className="flex items-start">
+                    <ArrowRight className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Competitive Position:</strong>
+                      <p className="text-sm text-muted-foreground">From reactive to proactive - know what works before competitors do, capture market share strategically</p>
+                    </div>
                   </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Usage analytics
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Shield className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Enterprise Security</h3>
-                <p className="text-muted-foreground mb-4">
-                  Role-based access control, audit logs, and compliance monitoring for business safety.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    User role management
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Activity audit trails
+                  <li className="flex items-start">
+                    <ArrowRight className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <div>
+                      <strong className="text-foreground">Monthly Cash Flow:</strong>
+                      <p className="text-sm text-muted-foreground">$11,551 monthly savings from eliminated agency costs, tools, and time waste</p>
+                    </div>
                   </li>
                 </ul>
               </CardContent>
             </Card>
           </div>
 
-          {/* Value Proposition */}
-          <div className="text-center bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
+          {/* Cost Breakdown */}
+          <div className="text-center bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 border border-primary/20 mb-8">
             <h3 className="text-2xl font-bold mb-4 text-foreground">Replace $11,700 in Monthly Business Costs</h3>
             <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
               Stop paying separately for content agencies, business intelligence tools, competitive analysis services, and social media management platforms. Our $149/month solution replaces them all.
@@ -551,23 +622,52 @@ const Index = () => {
               Monthly Savings: $11,551 | Yearly Savings: $138,612
             </div>
           </div>
+
+          {/* Australian Services */}
+          <div className="text-center">
+            <Card className="p-6 sm:p-8 border-2 border-green-500/30 bg-gradient-to-r from-green-50/50 to-blue-50/50 dark:from-green-950/20 dark:to-blue-950/20 shadow-xl">
+              <CardContent className="p-0">
+                <Badge className="mb-4 bg-green-600 text-white">
+                  🇦🇺 Plus: Specialized Australian Services
+                </Badge>
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4">Available When You Need Them</h3>
+                <p className="text-muted-foreground mb-6">
+                  Complete social media setup service and business name research designed exclusively for Australian businesses.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600 mb-1">Quick-Start Social Setup</div>
+                    <div className="text-sm text-muted-foreground">From AU$199 - Full Facebook & Instagram setup</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">Name & Domain Scout</div>
+                    <div className="text-sm text-muted-foreground">From AU$79 - ASIC & trademark research</div>
+                  </div>
+                </div>
+                <Link to="/australian-services">
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    Learn About Australian Services
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
-      {/* How Modern Business Discovery Works - Education Section */}
+      {/* WHEN Section */}
       <section className="py-20 bg-gradient-to-b from-muted/30 to-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              <Brain className="w-3 h-3 mr-1" />
-              Business Education: How Customers Find You in 2025
+            <Badge className="mb-6 bg-accent/10 text-accent border-accent/20">
+              <Clock className="w-4 h-4 mr-2" />
+              WHEN Your New Reality Starts
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              The 3 Ways <span className="text-gradient-primary">Customers Discover</span> Your Business
+              Your New <span className="text-gradient-hero">Daily, Weekly & Monthly</span> Reality
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Understanding how Google algorithms, social platforms, and AI agents work isn't optional anymore. 
-              <strong> It's the difference between thriving and being forgotten.</strong>
+              Stop wondering when you'll see results. Here's exactly when your business transformation happens and what your new schedule looks like.
             </p>
           </div>
 
