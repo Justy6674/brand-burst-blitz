@@ -78,7 +78,7 @@ const Pricing = () => {
                 
                 <div className="mt-8">
                   <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
-                    Coming August 2025
+                    Get Started Now
                   </Button>
                 </div>
               </CardContent>
@@ -134,7 +134,7 @@ const Pricing = () => {
                 
                 <div className="mt-8">
                   <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
-                    Coming August 2025
+                    Get Started Now
                   </Button>
                 </div>
               </CardContent>
@@ -255,48 +255,156 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Aussie Setup Service Section */}
+      {/* Australian Services Section */}
       <section className="py-20 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <Badge className="mb-6 bg-green-600 text-white">
               🇦🇺 Australian Businesses Only
             </Badge>
-            <h2 className="text-3xl font-bold mb-6">Aussie Quick-Start Social Setup Service</h2>
+            <h2 className="text-4xl font-bold mb-6">Australian Business Services</h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Skip the hassle! Our Australian team personally sets up your Facebook Business Manager, 
-              Instagram Business profile, and connects everything to JBSAAS. From AU$199.
+              Specialized services designed exclusively for Australian businesses, with local expertise and compliance.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center p-6">
-              <Users className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <h3 className="font-bold mb-2">Complete Setup</h3>
-              <p className="text-sm text-muted-foreground">
-                Facebook Business Manager, Instagram Business, Meta App configuration
+
+          {/* Aussie Quick-Start Social Setup */}
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4">Aussie Quick-Start Social Setup</h3>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Our Australian team personally sets up your Facebook Business Manager, Instagram Business profile, and connects everything to JBSAAS.
               </p>
-            </Card>
-            <Card className="text-center p-6">
-              <Building className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="font-bold mb-2">Australian Focus</h3>
-              <p className="text-sm text-muted-foreground">
-                Local business verification, compliance, and market optimization
-              </p>
-            </Card>
-            <Card className="text-center p-6">
-              <Crown className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="font-bold mb-2">Professional Service</h3>
-              <p className="text-sm text-muted-foreground">
-                Done by our team in 2-5 business days with ongoing support
-              </p>
-            </Card>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
+              <Card className="p-6 border-2 hover:border-green-500 transition-colors">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-primary">S</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Starter Plan</h4>
+                  <div className="text-3xl font-bold text-primary mb-4">AU$299</div>
+                  <p className="text-muted-foreground mb-4">One-time setup fee</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Complete social setup</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />JBSAAS integration</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />ABN verification</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />2-5 day delivery</li>
+                  </ul>
+                </div>
+              </Card>
+              
+              <Card className="p-6 border-2 border-green-500 bg-green-50 dark:bg-green-950/20">
+                <div className="text-center">
+                  <Badge className="mb-4 bg-green-600 text-white">Popular</Badge>
+                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-green-600">P</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Professional Plan</h4>
+                  <div className="text-3xl font-bold text-green-600 mb-4">AU$199</div>
+                  <p className="text-muted-foreground mb-4">One-time setup fee (33% off)</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Everything in Starter</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Priority setup queue</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Advanced optimization</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Dedicated support</li>
+                  </ul>
+                </div>
+              </Card>
+              
+              <Card className="p-6 border-2 hover:border-primary transition-colors">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Crown className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Enterprise Plan</h4>
+                  <div className="text-3xl font-bold text-primary mb-4">Included</div>
+                  <p className="text-muted-foreground mb-4">No additional cost</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Everything in Professional</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Multi-business setup</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Custom configurations</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />White-glove service</li>
+                  </ul>
+                </div>
+              </Card>
+            </div>
           </div>
-          
-          <div className="text-center mt-8">
+
+          {/* Aussie Name & Domain Scout */}
+          <div className="mb-12">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4">Aussie Name & Domain Scout</h3>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Professional business name research including ASIC availability, domain checking, and optional trademark screening.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
+              <Card className="p-6 border-2 hover:border-blue-500 transition-colors">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-blue-600">S</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Starter/Professional</h4>
+                  <div className="text-3xl font-bold text-blue-600 mb-4">AU$99</div>
+                  <p className="text-muted-foreground mb-4">Complete name research</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />ASIC name checking</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Domain availability</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />AI analysis report</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />+AU$50 trademark screening</li>
+                  </ul>
+                </div>
+              </Card>
+              
+              <Card className="p-6 border-2 border-blue-500 bg-blue-50 dark:bg-blue-950/20">
+                <div className="text-center">
+                  <Badge className="mb-4 bg-blue-600 text-white">Best Value</Badge>
+                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-blue-600">P</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Professional Premium</h4>
+                  <div className="text-3xl font-bold text-blue-600 mb-4">AU$79</div>
+                  <p className="text-muted-foreground mb-4">Discounted rate (20% off)</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Everything in Standard</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />FREE trademark screening</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Priority processing</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Enhanced reporting</li>
+                  </ul>
+                </div>
+              </Card>
+              
+              <Card className="p-6 border-2 hover:border-primary transition-colors">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Crown className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Enterprise</h4>
+                  <div className="text-3xl font-bold text-primary mb-4">AU$69</div>
+                  <p className="text-muted-foreground mb-4">Maximum discount (30% off)</p>
+                  <ul className="text-sm space-y-2 text-left">
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Everything included</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Bulk name research</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Dedicated consultant</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" />Custom requirements</li>
+                  </ul>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link to="/australian-services">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mr-4">
+                Learn More About Australian Services
+              </Button>
+            </Link>
             <Link to="/aussie-setup-service">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
-                Learn More About Aussie Setup Service
+              <Button variant="outline" size="lg">
+                Quick-Start Setup Service
               </Button>
             </Link>
           </div>

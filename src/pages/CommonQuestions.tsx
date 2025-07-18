@@ -165,6 +165,84 @@ const CommonQuestions = () => {
           answer: "Our vision is to democratize enterprise-level marketing intelligence for businesses of all sizes. We're continuously expanding our AI capabilities, integrations, and features to help businesses compete more effectively in the digital marketplace."
         }
       ]
+    },
+    {
+      title: "Australian Services",
+      icon: Globe,
+      color: "text-green-600",
+      questions: [
+        {
+          question: "What is the Aussie Name & Domain Scout service?",
+          answer: "Our Name & Domain Scout service provides comprehensive business name research specifically for Australian businesses. We check ASIC name availability, domain availability across multiple extensions (.com.au, .com, .net.au), and offer optional trademark screening through IP Australia. You receive a detailed AI-generated report with recommendations and next steps."
+        },
+        {
+          question: "How does ABN validation work for Australian services?",
+          answer: "We integrate with official Australian Business Register (ABR) APIs to validate your ABN in real-time. This ensures your business is legitimately registered and eligible for our Australian-specific services. ABN validation is required for both our Quick-Start Social Setup and Name Scout services to maintain compliance with Australian business regulations."
+        },
+        {
+          question: "What does trademark screening include in the Name Scout service?",
+          answer: "Trademark screening searches IP Australia's trademark database for existing or pending trademarks that might conflict with your proposed business name. We identify similar marks, assess potential risks, and provide recommendations. Professional plan subscribers get this included free, while others can add it for AU$50."
+        },
+        {
+          question: "How long does the Aussie Quick-Start Social Setup take?",
+          answer: "Setup typically takes 2-5 business days from payment to completion. Professional subscribers get priority processing and may see completion in 1-3 days. Enterprise customers receive same-day processing for urgent requests. We'll keep you updated throughout the entire process with regular status updates."
+        },
+        {
+          question: "Do I need to be an Australian business to use these services?",
+          answer: "Yes, our Australian services are exclusively for businesses registered in Australia with valid ABNs. This allows us to provide specialized local expertise, comply with Australian business regulations, and offer services tailored to the Australian market. International businesses can still use our core JBSAAS platform."
+        },
+        {
+          question: "What's included in the social media setup service?",
+          answer: "We handle complete setup of your Facebook Business Manager, Instagram Business account, Meta App configuration, and integration with JBSAAS. This includes business verification, profile optimization, pixel installation, advertising account setup, and connection of all accounts to your JBSAAS dashboard for seamless content management."
+        },
+        {
+          question: "Can I get refunds for Australian services if I'm not satisfied?",
+          answer: "Yes, we offer a 14-day satisfaction guarantee for all Australian services. If the setup doesn't meet your expectations or we can't complete the service as promised, we'll provide a full refund. Our goal is 100% customer satisfaction with our specialized Australian business services."
+        },
+        {
+          question: "What makes your Australian services different from DIY setup?",
+          answer: "Our team has specialized expertise in Australian business compliance, local market optimization, and platform best practices. We handle complex configurations, ensure proper business verification, optimize for Australian audiences, and provide ongoing support. This saves you 10-15 hours of setup time and ensures everything is done correctly from the start."
+        }
+      ]
+    },
+    {
+      title: "Advanced Features",
+      icon: Clock,
+      color: "text-purple-600",
+      questions: [
+        {
+          question: "How does cross-business management work?",
+          answer: "Enterprise customers can manage multiple businesses from a single JBSAAS account. Each business gets its own profile, branding, content strategy, and analytics while sharing templates and insights across businesses. You can switch between businesses instantly and compare performance across your portfolio."
+        },
+        {
+          question: "Can I manage multiple brands in one account?",
+          answer: "Yes, our business profile system allows unlimited brands/businesses under Professional and Enterprise plans. Each brand maintains separate social accounts, content calendars, analytics, and brand voice settings. You can create content for specific brands or deploy campaigns across multiple brands simultaneously."
+        },
+        {
+          question: "What competitive analysis features are included?",
+          answer: "Our competitive analysis tracks competitor content performance, posting frequency, engagement rates, trending topics, and audience growth. You'll see what content works in your industry, optimal posting times, content gaps to exploit, and strategic recommendations. Professional and Enterprise plans include real-time competitor monitoring."
+        },
+        {
+          question: "How does the business intelligence dashboard work?",
+          answer: "The BI dashboard aggregates data from all your social accounts, content performance, competitor analysis, and industry trends. It provides strategic recommendations, ROI tracking, content optimization suggestions, and predictive insights. Enterprise customers get custom reporting and data export capabilities."
+        },
+        {
+          question: "What AI models power the content generation?",
+          answer: "We use multiple AI models including GPT-4, Claude, and proprietary models trained specifically for business content. The system combines general language understanding with business-specific training data, your brand voice, and performance feedback to create increasingly relevant content for your audience."
+        },
+        {
+          question: "Can I customize AI prompts and content templates?",
+          answer: "Professional and Enterprise customers can create custom AI prompts, modify content templates, and build brand-specific content frameworks. You can save successful prompts, create template libraries, and even share templates across multiple businesses. Enterprise customers get white-label template customization."
+        },
+        {
+          question: "How does the platform learn my brand voice?",
+          answer: "The AI analyzes your existing content, website copy, and manual inputs to understand your brand voice, tone, and messaging preferences. Over time, it learns from your edits, approvals, and performance data to create increasingly on-brand content. You can also upload brand guidelines and style documents for training."
+        },
+        {
+          question: "What integrations are available for enterprise customers?",
+          answer: "Enterprise customers get access to custom integrations including CRM systems (Salesforce, HubSpot), marketing automation (Marketo, Pardot), analytics platforms (Adobe Analytics, Mixpanel), and custom APIs. We also offer webhook integrations and can build custom connectors for specialized business systems."
+        }
+      ]
     }
   ];
 
@@ -261,11 +339,11 @@ const CommonQuestions = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">30</div>
+              <div className="text-3xl font-bold text-gradient-primary mb-2">46</div>
               <div className="text-sm text-muted-foreground">Questions Answered</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">4</div>
+              <div className="text-3xl font-bold text-gradient-primary mb-2">6</div>
               <div className="text-sm text-muted-foreground">Key Categories</div>
             </div>
             <div className="text-center">

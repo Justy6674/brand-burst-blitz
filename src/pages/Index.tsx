@@ -432,6 +432,36 @@ const Index = () => {
             </Card>
           </div>
 
+          {/* Australian Services Highlight */}
+          <div className="text-center mb-12 sm:mb-16">
+            <Card className="p-6 sm:p-8 border-2 border-green-500/30 bg-gradient-to-r from-green-50/50 to-blue-50/50 dark:from-green-950/20 dark:to-blue-950/20 shadow-xl">
+              <CardContent className="p-0">
+                <Badge className="mb-4 bg-green-600 text-white">
+                  🇦🇺 Australian Businesses Only
+                </Badge>
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4">Specialized Australian Services</h3>
+                <p className="text-muted-foreground mb-6">
+                  Complete social media setup service and business name research designed exclusively for Australian businesses.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600 mb-1">Quick-Start Social Setup</div>
+                    <div className="text-sm text-muted-foreground">From AU$199 - Full Facebook & Instagram setup</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">Name & Domain Scout</div>
+                    <div className="text-sm text-muted-foreground">From AU$79 - ASIC & trademark research</div>
+                  </div>
+                </div>
+                <Link to="/australian-services">
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    Learn About Australian Services
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Enhanced Advanced Features Grid - Mobile First */}
           <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-16">
             <Card className="p-4 sm:p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-muted/70">
