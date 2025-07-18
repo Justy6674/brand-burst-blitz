@@ -163,9 +163,9 @@ const Index = () => {
           </div>
         </HeroSection>
         
-        {/* Hero Bottom Border Effect */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent rounded-full"></div>
+        {/* Hero Bottom Border Effect - Made More Visible */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full"></div>
       </div>
 
       {/* WHO Section */}
@@ -173,8 +173,8 @@ const Index = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-            alt="Professional team collaboration background"
+            src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Blue starry night technology background"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
@@ -305,7 +305,7 @@ const Index = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
             alt="Blue starry night technology background"
             className="w-full h-full object-cover"
           />
