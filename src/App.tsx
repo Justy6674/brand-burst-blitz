@@ -9,6 +9,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
+import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import CommonQuestions from "./pages/CommonQuestions";
 import Dashboard from "./pages/Dashboard";
@@ -45,6 +46,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/features" element={<Features />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/common-questions" element={<CommonQuestions />} />

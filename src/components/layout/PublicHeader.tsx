@@ -43,7 +43,7 @@ const PublicHeader = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <a href="/#features">Features</a>
+                  <Link to="/features">Features</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -102,13 +102,13 @@ const PublicHeader = () => {
               >
                 Home
               </Link>
-              <a
-                href="/#features"
+              <Link
+                to="/features"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Features
-              </a>
+              </Link>
               <Link
                 to="/australian-services"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
