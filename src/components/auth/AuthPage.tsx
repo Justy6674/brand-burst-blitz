@@ -134,52 +134,51 @@ const AuthPage = () => {
       }}
     >
       {/* Smart overlay for better contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/40 via-amber-800/50 to-stone-900/60" />
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/40" />
       
       <div className="relative w-full max-w-md">
         {/* Back to Home Link */}
         <Link 
           to="/" 
-          className="inline-flex items-center text-white/90 hover:text-white mb-6 transition-colors backdrop-blur-sm bg-black/20 px-3 py-2 rounded-lg"
+          className="inline-flex items-center text-white hover:text-white/80 mb-6 transition-colors backdrop-blur-sm bg-white/10 px-3 py-2 rounded-lg border border-white/20"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
 
-        <Card className="backdrop-blur-md bg-white/90 border-orange-200/30 shadow-2xl shadow-orange-900/20">
+        <Card className="backdrop-blur-lg bg-white/10 border-white/20 shadow-2xl">
           <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+            <div className="mx-auto w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 border border-white/30">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold text-orange-900">
+            <CardTitle className="text-2xl font-bold text-white">
               Welcome to JB-SaaS
             </CardTitle>
-            <CardDescription className="text-orange-700/80">
+            <CardDescription className="text-white/80">
               AI-powered content automation for your business
             </CardDescription>
           </CardHeader>
 
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6 bg-orange-50/80 border border-orange-200/50">
+              <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/10 backdrop-blur-sm border border-white/20">
                 <TabsTrigger 
                   value="login" 
-                  className="font-medium text-orange-800 data-[state=active]:bg-orange-500 data-[state=active]:text-white"
+                  className="font-medium text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
                 >
                   Sign In
                 </TabsTrigger>
                 <TabsTrigger 
                   value="signup" 
-                  className="font-medium text-orange-800 data-[state=active]:bg-orange-500 data-[state=active]:text-white"
+                  className="font-medium text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
                 >
                   Sign Up
                 </TabsTrigger>
               </TabsList>
 
               {error && (
-                <Alert className="mb-4 border-red-400/50 bg-red-50/80 backdrop-blur-sm">
-                  <AlertDescription className="text-red-700">
+                <Alert className="mb-4 border-red-400/50 bg-red-900/20 backdrop-blur-sm">
+                  <AlertDescription className="text-red-200">
                     {error}
                   </AlertDescription>
                 </Alert>
@@ -188,7 +187,7 @@ const AuthPage = () => {
               <TabsContent value="login" className="space-y-4">
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-orange-800 font-medium">Email</Label>
+                    <Label htmlFor="email" className="text-white font-medium">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -196,11 +195,11 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password" className="text-orange-800 font-medium">Password</Label>
+                    <Label htmlFor="password" className="text-white font-medium">Password</Label>
                     <Input
                       id="password"
                       type="password"
@@ -208,12 +207,12 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    className="w-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur-sm border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -234,7 +233,7 @@ const AuthPage = () => {
               <TabsContent value="signup" className="space-y-4">
                 <form onSubmit={handleSignup} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="business-name" className="text-orange-800 font-medium">Business Name</Label>
+                    <Label htmlFor="business-name" className="text-white font-medium">Business Name</Label>
                     <Input
                       id="business-name"
                       type="text"
@@ -242,11 +241,11 @@ const AuthPage = () => {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email" className="text-orange-800 font-medium">Email</Label>
+                    <Label htmlFor="signup-email" className="text-white font-medium">Email</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -254,11 +253,11 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password" className="text-orange-800 font-medium">Password</Label>
+                    <Label htmlFor="signup-password" className="text-white font-medium">Password</Label>
                     <Input
                       id="signup-password"
                       type="password"
@@ -266,11 +265,11 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="confirm-password" className="text-orange-800 font-medium">Confirm Password</Label>
+                    <Label htmlFor="confirm-password" className="text-white font-medium">Confirm Password</Label>
                     <Input
                       id="confirm-password"
                       type="password"
@@ -278,12 +277,12 @@ const AuthPage = () => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
+                      className="bg-white/10 border-white/20 focus:border-white/40 focus:ring-white/20 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    className="w-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur-sm border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -304,7 +303,7 @@ const AuthPage = () => {
           </CardContent>
 
           <CardFooter className="text-center">
-            <p className="text-sm text-orange-700/80">
+            <p className="text-sm text-white/80">
               By continuing, you agree to our Terms of Service and Privacy Policy
             </p>
           </CardFooter>
@@ -312,17 +311,17 @@ const AuthPage = () => {
 
         {/* Features Preview */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
-            <Sparkles className="h-6 w-6 text-orange-500 mx-auto mb-2" />
-            <p className="text-xs text-orange-700">AI Content</p>
+          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+            <Sparkles className="h-6 w-6 text-white mx-auto mb-2" />
+            <p className="text-xs text-white/90">AI Content</p>
           </div>
-          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
-            <Zap className="h-6 w-6 text-amber-600 mx-auto mb-2" />
-            <p className="text-xs text-orange-700">Auto Posting</p>
+          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+            <Zap className="h-6 w-6 text-white mx-auto mb-2" />
+            <p className="text-xs text-white/90">Auto Posting</p>
           </div>
-          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
-            <Shield className="h-6 w-6 text-orange-600 mx-auto mb-2" />
-            <p className="text-xs text-orange-700">Compliance</p>
+          <div className="backdrop-blur-sm bg-white/10 p-4 rounded-lg border border-white/20">
+            <Shield className="h-6 w-6 text-white mx-auto mb-2" />
+            <p className="text-xs text-white/90">Compliance</p>
           </div>
         </div>
       </div>
