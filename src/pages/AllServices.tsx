@@ -264,37 +264,66 @@ const AllServices = () => {
             {/* Current Tools */}
             <div className="mb-12">
               <h3 className="text-2xl font-bold mb-8 text-center">Available Now</h3>
-              <div className="grid md:grid-cols-2 gap-8 items-stretch">
-                {currentTools.map((tool, index) => (
-                  <Card key={index} className="border-2 hover:border-secondary/30 transition-colors h-full">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-xl flex-1">{tool.name}</CardTitle>
-                        <Badge variant="secondary" className="text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px]">
-                          {tool.price}
-                        </Badge>
-                      </div>
-                      <CardDescription>{tool.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-1 flex flex-col">
-                      <ul className="space-y-2 mb-6 flex-1">
-                        {tool.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start">
-                            <CheckCircle className="w-4 h-4 text-secondary mr-2 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <ComingSoonPopup 
-                        trigger={
-                          <Button variant="secondary" className="w-full">
-                            Learn More
-                          </Button>
-                        } 
-                      />
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+                {/* First Tool - Blue Theme */}
+                <Card className="border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors h-full bg-blue-50/30">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <CardTitle className="text-lg sm:text-xl text-blue-700 flex-1">{currentTools[0].name}</CardTitle>
+                      <Badge className="bg-blue-500 hover:bg-blue-600 text-white text-base sm:text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px] border-0">
+                        {currentTools[0].price}
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-blue-600">{currentTools[0].description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col">
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {currentTools[0].features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-blue-800">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <ComingSoonPopup 
+                      trigger={
+                        <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0">
+                          Learn More
+                        </Button>
+                      } 
+                    />
+                  </CardContent>
+                </Card>
+
+                {/* Second Tool - Emerald Theme */}
+                <Card className="border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-colors h-full bg-emerald-50/30">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <CardTitle className="text-lg sm:text-xl text-emerald-700 flex-1">{currentTools[1].name}</CardTitle>
+                      <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white text-base sm:text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px] border-0">
+                        {currentTools[1].price}
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-emerald-600">{currentTools[1].description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col">
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {currentTools[1].features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-emerald-800">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <ComingSoonPopup 
+                      trigger={
+                        <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white border-0">
+                          Learn More
+                        </Button>
+                      } 
+                    />
+                  </CardContent>
+                </Card>
               </div>
             </div>
 
