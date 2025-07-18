@@ -9,6 +9,8 @@ import { Separator } from '@/components/ui/separator';
 import { Calendar, Clock, ArrowRight, Search, Filter, Star } from 'lucide-react';
 import { format } from 'date-fns';
 import PublicHeader from '@/components/layout/PublicHeader';
+import { HeroSection } from '@/components/layout/HeroSection';
+import futureContentHero from '@/assets/future-content-marketing-hero.jpg';
 
 interface BlogPost {
   id: string;
@@ -98,34 +100,30 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-          style={{
-            backgroundImage: "url('/src/assets/hero-image.jpg')"
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/90" />
-        
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient-hero fade-in">
-            Business Insights & Strategy
+      <HeroSection backgroundImage={futureContentHero} className="min-h-[60vh]">
+        <div className="max-w-4xl mx-auto text-center animate-fade-in">
+          <Badge className="mb-6 bg-blue-600 text-white border-blue-500 text-lg px-6 py-2">
+            🇦🇺 Australian Business Insights
+          </Badge>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Business Insights & <span className="text-primary">Strategy</span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 fade-in-delayed">
-            Discover proven strategies, AI-powered insights, and competitive intelligence to accelerate your business growth
+          
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-8">
+            Discover proven strategies, AI-powered insights, and competitive intelligence to accelerate your Australian business growth
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center fade-in-delayed-2">
-            <Button size="lg" className="bg-gradient-primary hover:scale-105 transition-all duration-300">
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
               Explore Articles
             </Button>
-            <Button variant="outline" size="lg" className="glass hover-lift">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
               Subscribe to Newsletter
             </Button>
           </div>
         </div>
-      </section>
+      </HeroSection>
 
       <div className="container mx-auto px-4 py-12">
         {/* Featured Posts */}

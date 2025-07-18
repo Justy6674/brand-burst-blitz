@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { HeroSection } from "@/components/layout/HeroSection";
 import { 
   Check,
   Star,
@@ -17,40 +18,40 @@ import {
   Phone,
   Mail
 } from "lucide-react";
+import seoSocialMediaHero from "@/assets/seo-social-media-hero.jpg";
 
 const AustralianServices = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary/5 to-secondary/5">
-        <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-6 bg-primary text-primary-foreground text-lg px-6 py-2">
+      <HeroSection backgroundImage={seoSocialMediaHero}>
+        <div className="max-w-4xl mx-auto text-center animate-fade-in">
+          <Badge className="mb-6 bg-green-600 text-white border-green-500 text-lg px-6 py-2">
             🇦🇺 Exclusively for Australian Businesses
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
             Professional <span className="text-primary">Australian Services</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-8">
             Skip the hassle with our specialized Australian business services. From social media setup 
             to business name research, we handle the complex stuff so you can focus on growing your business.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
               <Building className="w-5 h-5 mr-2" />
               Get Social Setup Service
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
               <FileSearch className="w-5 h-5 mr-2" />
               Try Name Scout Service
             </Button>
           </div>
         </div>
-      </section>
+      </HeroSection>
 
       {/* Services Overview */}
       <section className="py-20">
