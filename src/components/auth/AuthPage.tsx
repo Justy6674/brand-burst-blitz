@@ -150,7 +150,7 @@ const AuthPage = () => {
           <CardHeader className="text-center space-y-2">
             <div className="mx-auto w-16 h-16 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
               <img 
-                src="/lovable-uploads/c580afa0-51a7-4c7b-b9d0-9b8d1ae09e98.png" 
+                src="/lovable-uploads/a1f513c9-7ef7-4648-a7fc-8dd53f19335c.png" 
                 alt="JB-SaaS Logo" 
                 className="w-12 h-12 object-contain"
               />
