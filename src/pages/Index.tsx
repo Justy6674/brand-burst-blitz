@@ -200,7 +200,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              Why You Desperately <span className="text-gradient-primary">Need This Platform</span>
+              <span className="text-yellow-highlight">WHY</span> You Desperately <span className="text-gradient-primary">Need This Platform</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Five critical business problems destroying your growth every day you remain invisible.
@@ -211,31 +211,31 @@ const Index = () => {
             {[
               {
                 title: "🔍 Google Invisibility Crisis",
-                description: "Without regular, <span className='text-yellow-400 font-bold'>SEO-optimized content</span>, Google doesn't rank your business. <span className='text-yellow-400 font-bold'>70% of clicks</span> go to the first 5 search results - you're nowhere to be found.",
+                description: "Without regular, <span className='text-yellow-highlight'>SEO-optimised</span> <span className='text-yellow-highlight'>content</span>, Google doesn't rank your business. <span className='text-yellow-highlight'>Results</span> show that customers can't be <span className='text-yellow-highlight'>found</span> when they search for your services.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "🤖 AI Agent Exclusion",
-                description: "<span className='text-yellow-400 font-bold'>ChatGPT, Gemini</span>, and AI assistants only recommend businesses with <span className='text-yellow-400 font-bold'>quality online content</span>. Customers increasingly ask AI 'find me a good provider' - you're invisible.",
+                description: "<span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span className='text-yellow-highlight'>AI assistants</span> only recommend businesses with quality online <span className='text-yellow-highlight'>content</span>. <span className='text-yellow-highlight'>Customers</span> increasingly ask AI to find providers - you're invisible.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "⚖️ Compliance Nightmares",
-                description: "Generic content creators violate regulations: <span className='text-yellow-400 font-bold'>TGA fines</span> for health ($50K+), <span className='text-yellow-400 font-bold'>ASIC action</span> for finance, professional standards breaches across all industries.",
+                description: "Generic content creators violate regulations. Australian businesses need compliant <span className='text-yellow-highlight'>marketing</span> that protects your reputation and avoids costly fines.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
                 title: "👁️ Competitor Intelligence Blindness", 
-                description: "Your <span className='text-yellow-400 font-bold'>competitors</span> use content strategies you can't see or analyze. They capture <span className='text-yellow-400 font-bold'>customers</span> with approaches you don't know about.",
+                description: "Your competitors use <span className='text-yellow-highlight'>content</span> strategies you can't see or <span className='text-yellow-highlight'>analyse</span>. They capture <span className='text-yellow-highlight'>customers</span> and <span className='text-yellow-highlight'>patients</span> with <span className='text-yellow-highlight'>marketing</span> approaches you don't know about.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "Quality, compliant content takes <span className='text-yellow-400 font-bold'>20+ hours weekly</span>. You're either neglecting marketing or paying agencies <span className='text-yellow-400 font-bold'>$8,000+/month</span>.",
+                description: "Quality, compliant <span className='text-yellow-highlight'>content</span> takes 20+ hours weekly. You're either neglecting <span className='text-yellow-highlight'>marketing</span> or paying agencies thousands monthly for poor <span className='text-yellow-highlight'>results</span>.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }

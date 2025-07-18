@@ -30,6 +30,9 @@
     --warning: 32 95% 55%;
     --warning-foreground: 228 100% 99%;
 
+    /* Highlight Yellow */
+    --yellow-highlight: 48 100% 60%;
+
     --muted: 215 25% 12%;
     --muted-foreground: 217 32% 65%;
 
@@ -154,6 +157,12 @@
 
   .text-glow {
     text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+
+  /* Yellow Highlight for Keywords */
+  .text-yellow-highlight {
+    color: hsl(var(--yellow-highlight));
+    font-weight: 700;
   }
 
   /* Card Styles */
