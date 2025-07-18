@@ -101,7 +101,7 @@ export const NameScoutService = () => {
                 <Search className="h-6 w-6 text-white" />
               </div>
               <div>
-                <CardTitle className="text-xl">Aussie Name & Domain Scout</CardTitle>
+                <CardTitle className="text-xl">Australian Name & Domain Scout</CardTitle>
                 <CardDescription>
                   Business name: "{existingRequest.requested_name}"
                 </CardDescription>
@@ -208,7 +208,7 @@ export const NameScoutService = () => {
           </div>
           <div className="flex-1">
             <CardTitle className="text-xl text-gradient-primary">
-              Aussie Name & Domain Scout
+              Australian Name & Domain Scout
             </CardTitle>
             <CardDescription>
               Professional business name and domain research service

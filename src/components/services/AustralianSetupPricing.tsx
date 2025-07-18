@@ -33,7 +33,7 @@ interface PricingPlan {
   badgeColor?: string;
 }
 
-const AussieSetupPricing = () => {
+const AustralianSetupPricing = () => {
   const [abnNumber, setAbnNumber] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [isEligible, setIsEligible] = useState<boolean | null>(null);
@@ -188,7 +188,7 @@ const AussieSetupPricing = () => {
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold">
-              🇦🇺 Aussie Quick-Start Social Setup Service
+              🇦🇺 Australian Quick-Start Social Setup Service
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our team personally configures your Facebook Business Manager, Instagram Business profile, 
@@ -394,4 +394,4 @@ const AussieSetupPricing = () => {
   );
 };
 
-export default AussieSetupPricing;
+export default AustralianSetupPricing;

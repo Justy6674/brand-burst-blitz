@@ -27,7 +27,7 @@ import NotFound from "./pages/NotFound";
 import BlogPage from "./pages/BlogPage";
 import BlogAdmin from "./pages/BlogAdmin";
 import BlogPost from "./components/blog/BlogPost";
-import AussieSetupService from "./pages/AussieSetupService";
+import AustralianSetupService from "./pages/AustralianSetupService";
 import AustralianServices from "./pages/AustralianServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import Discover from "./pages/Discover";
@@ -48,7 +48,7 @@ const App = () => (
               <Route path="/discover" element={<Discover />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/common-questions" element={<CommonQuestions />} />
-              <Route path="/aussie-setup-service" element={<AussieSetupService />} />
+              <Route path="/australian-setup-service" element={<AustralianSetupService />} />
               <Route path="/australian-services" element={<AustralianServices />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/blog" element={<BlogPage />} />

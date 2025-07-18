@@ -280,7 +280,7 @@ const SocialMediaAudit = () => {
                     Ready to Optimize Your Australian Social Presence?
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    Our Aussie Quick-Start Social Setup service can implement these recommendations for you.
+                    Our Australian Quick-Start Social Setup service can implement these recommendations for you.
                   </p>
                   <Button size="lg" className="bg-gradient-primary">
                     Get Professional Setup - From AU$199

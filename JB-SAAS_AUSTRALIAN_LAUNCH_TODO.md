@@ -290,6 +290,7 @@
 8. ✅ **Implement soft geo-detection** with friendly international messaging
 9. ✅ **Surface industry templates** earlier in user journey
 10. ✅ **Add Privacy Act compliance** messaging and links
+11. ✅ **Remove stereotypical "Aussie"/"mate" language** - use professional Australian English
 
 ---
 

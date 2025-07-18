@@ -146,7 +146,7 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
               <Search className="h-6 w-6 text-white" />
             </div>
             <div>
-              <CardTitle className="text-xl">Aussie Name & Domain Scout</CardTitle>
+              <CardTitle className="text-xl">Australian Name & Domain Scout</CardTitle>
               <CardDescription>
                 Step {currentStep} of {totalSteps}
               </CardDescription>

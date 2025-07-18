@@ -416,7 +416,7 @@ const Pricing = () => {
                 Learn More About Australian Services
               </Button>
             </Link>
-            <Link to="/aussie-setup-service">
+            <Link to="/australian-setup-service">
               <Button variant="outline" size="lg">
                 Quick-Start Setup Service
               </Button>

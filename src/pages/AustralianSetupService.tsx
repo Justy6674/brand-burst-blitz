@@ -6,7 +6,7 @@ import PublicHeader from '@/components/layout/PublicHeader';
 import SocialMediaAudit from '@/components/services/SocialMediaAudit';
 import AustralianCompetitorAnalysis from '@/components/services/AustralianCompetitorAnalysis';
 import AustralianContentTemplates from '@/components/services/AustralianContentTemplates';
-import AussieSetupPricing from '@/components/services/AussieSetupPricing';
+import AustralianSetupPricing from '@/components/services/AustralianSetupPricing';
 import { 
   MapPin, 
   Shield, 
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const AussieSetupService = () => {
+const AustralianSetupService = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
@@ -34,7 +34,7 @@ const AussieSetupService = () => {
           </Badge>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Aussie Quick-Start <span className="text-gradient-primary">Social Setup Service</span>
+            Australian Quick-Start <span className="text-gradient-primary">Social Setup Service</span>
           </h1>
           
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -218,7 +218,7 @@ const AussieSetupService = () => {
             </TabsContent>
 
             <TabsContent value="pricing">
-              <AussieSetupPricing />
+              <AustralianSetupPricing />
             </TabsContent>
           </Tabs>
         </div>
@@ -317,4 +317,4 @@ const AussieSetupService = () => {
   );
 };
 
-export default AussieSetupService;
+export default AustralianSetupService;

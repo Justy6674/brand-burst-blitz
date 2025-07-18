@@ -52,7 +52,7 @@ const AustralianCompetitorAnalysis = () => {
     
     const mockCompetitors: CompetitorData[] = [
       {
-        name: 'Aussie Business Solutions',
+        name: 'Australian Business Solutions',
         website: 'ausbizsolutions.com.au',
         location: 'Sydney, NSW',
         industry: 'Business Consulting',
@@ -62,7 +62,7 @@ const AustralianCompetitorAnalysis = () => {
           linkedin: { followers: 12000, engagement: 6.1, posts_per_week: 3 }
         },
         contentStrategy: {
-          top_hashtags: ['#AussieB usiness', '#SME', '#BusinessGrowth', '#Entrepreneurship', '#AustralianBusiness'],
+          top_hashtags: ['#AustralianBusiness', '#SME', '#BusinessGrowth', '#Entrepreneurship', '#AustralianBusiness'],
           posting_times: ['9:00 AM', '1:00 PM', '6:00 PM'],
           content_types: [
             { type: 'Educational', percentage: 45 },
@@ -96,7 +96,7 @@ const AustralianCompetitorAnalysis = () => {
           linkedin: { followers: 6800, engagement: 4.8, posts_per_week: 2 }
         },
         contentStrategy: {
-          top_hashtags: ['#DigitalMarketing', '#Melbourne', '#SocialMedia', '#ContentCreation', '#AussieBiz'],
+          top_hashtags: ['#DigitalMarketing', '#Melbourne', '#SocialMedia', '#ContentCreation', '#AustralianBusiness'],
           posting_times: ['8:00 AM', '12:00 PM', '7:00 PM'],
           content_types: [
             { type: 'Behind the Scenes', percentage: 35 },
