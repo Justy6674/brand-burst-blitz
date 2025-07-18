@@ -276,6 +276,10 @@ const Index = () => {
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span className="text-muted-foreground"><strong>ChatGPT exclusion:</strong> AI agents won't recommend businesses without quality content</span>
                   </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-muted-foreground"><strong>Compliance risks:</strong> Generic agencies create dangerous content - advertising prescription services inappropriately, promoting unavailable services (e.g., doctor vs nurse practitioner), risking regulatory violations</span>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -305,6 +309,10 @@ const Index = () => {
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
                     <span className="text-foreground font-medium"><strong>AI recommendations:</strong> ChatGPT & Gemini suggest quality businesses</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
+                    <span className="text-foreground font-medium"><strong>Industry compliance:</strong> AHPRA, TGA, and sector-specific safeguards built into every piece of content</span>
                   </li>
                 </ul>
               </CardContent>
@@ -370,6 +378,10 @@ const Index = () => {
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
                     <span className="font-medium">Produces content that ChatGPT can recommend</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-4 h-4 text-success mr-3" />
+                    <span className="font-medium">Industry-specific compliance (AHPRA, TGA) built into every piece</span>
                   </li>
                 </ul>
               </CardContent>
