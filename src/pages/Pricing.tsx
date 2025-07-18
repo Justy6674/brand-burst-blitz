@@ -48,10 +48,11 @@ const Pricing = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Starter</h3>
                   <p className="text-muted-foreground mb-6">Perfect for small businesses getting started</p>
-                  <div className="mb-12">
-                    <span className="text-5xl font-bold text-primary">$49</span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
+                   <div className="mb-12">
+                     <span className="text-5xl font-bold text-primary">$49</span>
+                     <span className="text-muted-foreground">/month</span>
+                     <div className="text-sm text-muted-foreground mt-2">AUD, inc. GST for GST-registered businesses</div>
+                   </div>
                 </div>
                 
                 <ul className="space-y-4 mb-8 flex-1">
@@ -100,10 +101,12 @@ const Pricing = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Professional</h3>
                   <p className="text-muted-foreground mb-6">For growing businesses that need more power</p>
-                  <div className="mb-12">
-                    <span className="text-5xl font-bold text-primary">$149</span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
+                   <div className="mb-12">
+                     <span className="text-5xl font-bold text-primary">$149</span>
+                     <span className="text-muted-foreground">/month</span>
+                     <div className="text-sm text-muted-foreground mt-2">AUD, inc. GST for GST-registered businesses</div>
+                     <div className="text-xs text-muted-foreground">GST calculated automatically based on your ABN status</div>
+                   </div>
                 </div>
                 
                 <ul className="space-y-4 mb-8 flex-1">
@@ -131,10 +134,14 @@ const Pricing = () => {
                     <Check className="w-5 h-5 text-green-500 mr-3" />
                     <span>Priority support</span>
                   </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    <span>Custom templates</span>
-                  </li>
+                   <li className="flex items-center">
+                     <Check className="w-5 h-5 text-green-500 mr-3" />
+                     <span>Custom templates</span>
+                   </li>
+                   <li className="flex items-center">
+                     <Check className="w-5 h-5 text-green-500 mr-3" />
+                     <span>Automatic GST compliance for Australian businesses</span>
+                   </li>
                 </ul>
                 
                 <div className="mt-8">

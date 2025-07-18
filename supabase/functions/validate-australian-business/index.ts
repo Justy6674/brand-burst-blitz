@@ -16,8 +16,21 @@ interface ABNValidationResponse {
   abn?: string;
   gstRegistered?: boolean;
   status?: string;
+  entityType?: string;
+  postcodeState?: string;
+  gstStatusEffectiveFrom?: string;
+  businessRegistrationDate?: string;
   error?: string;
 }
+
+// Helper function to determine state from ABN (mock logic)
+const getStateFromABN = (abn: string): string => {
+  const stateMap: { [key: string]: string } = {
+    "1": "NSW", "2": "VIC", "3": "QLD", "4": "SA", 
+    "5": "WA", "6": "TAS", "7": "NT", "8": "ACT"
+  };
+  return stateMap[abn[0]] || "NSW";
+};
 
 // Helper logging function
 const logStep = (step: string, details?: any) => {
@@ -95,12 +108,17 @@ serve(async (req) => {
         "44444444444": "Canberra Creative Agency"
       };
 
+      // Enhanced business information with GST status
       response = {
         isValid: true,
         businessName: mockBusinessNames[abn as keyof typeof mockBusinessNames] || "Australian Business Pty Ltd",
         abn: abn,
-        gstRegistered: true,
-        status: "Active"
+        gstRegistered: Math.random() > 0.3, // 70% chance of GST registration (realistic)
+        status: "Active",
+        entityType: "Australian Proprietary Company",
+        postcodeState: getStateFromABN(abn),
+        gstStatusEffectiveFrom: "2023-01-01",
+        businessRegistrationDate: "2022-06-15"
       };
       
       logStep("ABN validation successful", response);
