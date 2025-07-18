@@ -291,7 +291,7 @@ const Index = () => {
               },
               {
                 title: "🔍 Name Scout Research Service",
-                description: "<span className='text-yellow-highlight'>ASIC availability</span>, domain research, and <span className='text-yellow-highlight'>trademark screening</span> for your business name. Complete business registration guidance. $69-99 value included.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>ASIC</span> availability, <span style='color: #ffd700; font-weight: 700;'>domain</span> research, and <span style='color: #ffd700; font-weight: 700;'>trademark</span> screening for your business name. Complete business registration guidance. $69-99 value included.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
