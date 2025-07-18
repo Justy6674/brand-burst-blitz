@@ -148,8 +148,12 @@ const AuthPage = () => {
 
         <Card className="backdrop-blur-md bg-white/5 border-white/10 shadow-2xl">
           <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 border border-white/20">
-              <Sparkles className="h-6 w-6 text-white" />
+            <div className="mx-auto w-16 h-16 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
+              <img 
+                src="/lovable-uploads/c580afa0-51a7-4c7b-b9d0-9b8d1ae09e98.png" 
+                alt="JB-SaaS Logo" 
+                className="w-12 h-12 object-contain"
+              />
             </div>
             <CardTitle className="text-2xl font-bold text-white">
               Welcome to JB-SaaS
