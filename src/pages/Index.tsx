@@ -201,49 +201,43 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-8">
+          <div className="grid gap-8">
             {[
               {
-                icon: "🔍",
                 title: "Google Invisibility Crisis",
-                description: "Without regular, SEO-optimized content, Google doesn't rank your business. 70% of clicks go to the first 5 search results.",
+                description: "Without regular, SEO-optimized content, Google doesn't rank your business. 70% of clicks go to the first 5 search results - you're nowhere to be found.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
-                icon: "🤖",
                 title: "AI Agent Exclusion",
-                description: "ChatGPT and AI assistants only recommend businesses with quality online content. You're invisible.",
+                description: "ChatGPT, Gemini, and AI assistants only recommend businesses with quality online content. Customers increasingly ask AI 'find me a good provider' - you're invisible.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                icon: "⚖️",
                 title: "Compliance Nightmares",
-                description: "Generic content violates regulations: TGA fines ($50K+), ASIC action, professional standards breaches.",
+                description: "Generic content creators violate regulations: TGA fines for health ($50K+), ASIC action for finance, professional standards breaches across all industries.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
-                icon: "👀",
-                title: "Competitor Blindness", 
-                description: "Your competitors use content strategies you can't see. They capture customers with unknown approaches.",
+                title: "Competitor Intelligence Blindness", 
+                description: "Your competitors use content strategies you can't see or analyze. They capture customers with approaches you don't know about.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
-                icon: "⏰",
-                title: "Content Bottleneck",
-                description: "Quality content takes 20+ hours weekly. You're either neglecting marketing or paying $8,000+/month.",
+                title: "Content Creation Bottleneck",
+                description: "Quality, compliant content takes 20+ hours weekly. You're either neglecting marketing or paying agencies $8,000+/month.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }
             ].map((problem, index) => (
               <Card key={index} className={`p-8 hover-lift ${problem.border} bg-gradient-to-br ${problem.gradient} transition-all duration-300`}>
                 <CardContent className="p-0">
-                  <div className="text-4xl mb-4">{problem.icon}</div>
-                  <h3 className="text-xl font-bold mb-4 leading-tight">{problem.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{problem.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{problem.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{problem.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -263,54 +257,49 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid gap-8">
             {[
               {
-                icon: Brain,
-                title: "Core Platform Features",
-                description: "Everything you need to dominate your market with AI-powered content and intelligence.",
-                features: [
-                  "SEO-Optimized Blog Engine",
-                  "AI Content Generation", 
-                  "Competitor Intelligence Scanning",
-                  "Multi-Platform Publishing",
-                  "Performance Analytics Dashboard",
-                  "Industry Compliance Safeguards",
-                  "Quality Review System",
-                  "Advanced Scheduling Calendar"
-                ]
+                title: "AI Content Generation Engine",
+                description: "Advanced AI creates SEO-optimized blogs, social posts, and marketing copy that gets you found on Google and recommended by ChatGPT. Industry-specific compliance built into every piece.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
               },
               {
-                icon: Shield,
-                title: "Australian Business Services",
-                description: "Expert setup and compliance services specifically for Australian businesses.",
-                features: [
-                  "Professional Social Media Setup ($199-299)",
-                  "Name Scout Research Service ($69-99)",
-                  "Social Media Audit (Included)",
-                  "ABN Validation & Verification",
-                  "Industry-Specific Compliance",
-                  "Australian Market Intelligence",
-                  "Local Business Registration Support",
-                  "Expert Configuration & Training"
-                ]
+                title: "Competitor Intelligence Scanning",
+                description: "Automated monitoring reveals exactly what content strategies are working for your competitors. Discover their winning approaches and market gaps you can exploit.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              },
+              {
+                title: "Advanced Publishing & Scheduling",
+                description: "Smart calendar-based publishing across Facebook, Instagram, LinkedIn, and your blog. Performance analytics track what's working and optimize automatically.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "Professional Social Media Setup",
+                description: "Expert configuration of Facebook Business Manager, Instagram Business, and LinkedIn with Australian compliance verification. $199-299 value included.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
+              },
+              {
+                title: "Name Scout Research Service",
+                description: "ASIC availability, domain research, and trademark screening for your business name. Complete business registration guidance. $69-99 value included.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
+              },
+              {
+                title: "Industry Compliance Safeguards",
+                description: "Built-in protection for AHPRA, TGA, ASIC, and all Australian industry regulations. Quality review system ensures every piece meets professional standards.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
               }
-            ].map((category, index) => (
-              <Card key={index} className="p-12 hover-lift border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
+            ].map((feature, index) => (
+              <Card key={index} className={`p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
                 <CardContent className="p-0">
-                  <div className="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center mb-8">
-                    <category.icon className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className="text-3xl font-bold mb-6">{category.title}</h3>
-                  <p className="text-muted-foreground text-xl mb-8 leading-relaxed">{category.description}</p>
-                  <ul className="space-y-4">
-                    {category.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-lg">
-                        <Check className="w-6 h-6 text-success mr-4 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{feature.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -323,54 +312,42 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              How Our <span className="text-gradient-primary">AI System Works</span>
+              How Our <span className="text-gradient-primary">Subscription Works</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Advanced AI analyzes your industry, learns your brand voice, monitors competitors, and creates content that gets you discovered.
+              Simple monthly subscription gives you everything you need to dominate your market and eliminate expensive agencies forever.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="grid gap-8">
             {[
               {
-                step: "01",
-                icon: Target,
-                title: "Business Analysis",
-                description: "AI analyzes your industry, compliance requirements, target audience, and competitive landscape.",
+                title: "Sign Up & Business Analysis",
+                description: "Choose your subscription plan and complete our business questionnaire. Our AI immediately analyzes your industry, competitors, and compliance requirements to create your custom strategy.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                step: "02", 
-                icon: Brain,
-                title: "Content Intelligence",
-                description: "Advanced AI generates SEO-optimized, compliant content tailored to your brand voice and industry.",
+                title: "Professional Setup & Configuration",
+                description: "Our experts configure your social media accounts, set up analytics tracking, and ensure everything meets Australian compliance standards. Complete setup within 48 hours.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "Automated Content Creation & Publishing",
+                description: "AI generates and publishes SEO-optimized content daily across all platforms. Competitor intelligence updates automatically, keeping you ahead of market trends.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
-                step: "03",
-                icon: BarChart3,
-                title: "Competitor Monitoring",
-                description: "Automated scanning reveals competitor strategies, content gaps, and market opportunities.",
-                gradient: "from-green-500/10 to-green-600/10", 
-                border: "border-green-500/20"
-              },
-              {
-                step: "04",
-                icon: Rocket,
-                title: "Automated Publishing",
-                description: "Smart scheduling publishes optimized content across all platforms while you focus on business.",
+                title: "Monthly Optimization & Reporting",
+                description: "Receive detailed performance reports and strategic recommendations. Our AI continuously learns and optimizes your content for maximum Google visibility and AI agent recommendations.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
             ].map((step, index) => (
-              <Card key={index} className={`p-8 hover-lift ${step.border} bg-gradient-to-br ${step.gradient} relative overflow-hidden`}>
+              <Card key={index} className={`p-8 hover-lift ${step.border} bg-gradient-to-br ${step.gradient}`}>
                 <CardContent className="p-0">
-                  <div className="text-6xl font-bold text-primary/20 absolute top-4 right-4">{step.step}</div>
-                  <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6">
-                    <step.icon className="w-8 h-8 text-white" />
-                  </div>
                   <h3 className="text-2xl font-bold mb-4 leading-tight">{step.title}</h3>
                   <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
                 </CardContent>
@@ -385,63 +362,50 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              When You Need <span className="text-gradient-primary">This Platform</span>
+              When You Need <span className="text-gradient-primary">This Subscription</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Critical moments when this platform becomes essential for your business survival and growth.
+              Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
             </p>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid gap-8">
             {[
               {
-                title: "🚨 Right Now If You're",
-                points: [
-                  "Invisible on Google search results",
-                  "Paying $8,000+ monthly for agencies",
-                  "Spending 20+ hours weekly on content", 
-                  "Losing customers to competitors",
-                  "Risking compliance violations"
-                ],
+                title: "Right Now - Emergency Visibility Crisis",
+                description: "You're invisible on Google, ignored by AI agents, and bleeding customers to competitors. Every day you wait costs you potential revenue and market share.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
-                title: "📈 Before You Scale If You're",
-                points: [
-                  "Planning business expansion",
-                  "Launching new services/products",
-                  "Entering new markets",
-                  "Building brand authority",
-                  "Establishing thought leadership"
-                ],
-                gradient: "from-blue-500/10 to-blue-600/10", 
+                title: "Agency Contract Renewal Time", 
+                description: "Your current agency wants $8,000+ monthly with no guarantee of results. Our subscription gives you better results for $149/month with full transparency and control.",
+                gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "💰 When ROI Matters Most",
-                points: [
-                  "Budget review periods approaching",
-                  "Agency contracts up for renewal",
-                  "Marketing costs spiraling out of control",
-                  "Need to prove marketing ROI",
-                  "Ready to automate for efficiency"
-                ],
+                title: "Business Scaling Phase",
+                description: "You're ready to expand but need consistent, compliant marketing that scales with you. Our AI handles increasing content demands without increasing costs.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
+              },
+              {
+                title: "Compliance Deadline Pressure",
+                description: "Industry regulations are tightening and generic content puts you at risk. Our built-in compliance safeguards protect you from costly violations and penalties.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
+              },
+              {
+                title: "ROI Justification Required",
+                description: "You need to prove marketing ROI to stakeholders or investors. Our detailed analytics and $11,551 monthly savings provide clear, measurable business value.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
               }
             ].map((timing, index) => (
-              <Card key={index} className={`p-10 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
+              <Card key={index} className={`p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-8 leading-tight">{timing.title}</h3>
-                  <ul className="space-y-4">
-                    {timing.points.map((point, idx) => (
-                      <li key={idx} className="flex items-start text-lg">
-                        <Check className="w-6 h-6 text-success mr-4 flex-shrink-0 mt-1" />
-                        <span className="text-muted-foreground">{point}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{timing.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{timing.description}</p>
                 </CardContent>
               </Card>
             ))}
