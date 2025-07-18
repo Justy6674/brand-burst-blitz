@@ -164,7 +164,7 @@ const PublicHeader = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Coming August 2025</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you an Australian current or future business owner? We're launching our comprehensive social media management platform in August 2025. 
+            Are you an Australian current or future business owner? We're launching our comprehensive business automation and content management platform in August 2025. 
             <br /><br />
             Please stay tuned and look out for our social media and website updates for early access and launch details!
           </AlertDialogDescription>
