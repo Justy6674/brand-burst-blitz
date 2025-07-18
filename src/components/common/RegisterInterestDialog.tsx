@@ -103,9 +103,23 @@ export function RegisterInterestDialog({ open, onOpenChange }: RegisterInterestD
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-interest-email', {
-        body: formData
-      });
+      // Store interest registration in Supabase instead of sending email
+      const { error } = await supabase
+        .from('interest_registrations')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          business_name: formData.businessName,
+          industry: formData.industry,
+          is_australian: formData.isAustralian,
+          current_challenges: formData.currentChallenges,
+          monthly_marketing_spend: formData.monthlyMarketingSpend,
+          team_size: formData.teamSize,
+          primary_goals: formData.primaryGoals,
+          wants_updates: formData.wantsUpdates,
+          heard_about_us: formData.heardAboutUs,
+          additional_notes: formData.additionalNotes,
+        }]);
 
       if (error) {
         throw error;
@@ -113,13 +127,13 @@ export function RegisterInterestDialog({ open, onOpenChange }: RegisterInterestD
 
       setIsSubmitted(true);
       toast({
-        title: "Registration Successful! 🎉",
-        description: "Thanks for your interest! We'll be in touch soon with updates.",
+        title: "Interest Registered! 🎉",
+        description: "Thanks for your interest! We'll contact you before our August 2025 launch.",
       });
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
-        title: "Something went wrong",
+        title: "Registration Failed",
         description: "Please try again or contact us directly at jbsaasai@gmail.com",
         variant: "destructive",
       });
