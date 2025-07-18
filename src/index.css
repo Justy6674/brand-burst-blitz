@@ -161,8 +161,8 @@
 
   /* Yellow Highlight for Keywords */
   .text-yellow-highlight {
-    color: hsl(var(--yellow-highlight));
-    font-weight: 700;
+    color: #ffd700 !important;
+    font-weight: 700 !important;
   }
 
   /* Card Styles */
