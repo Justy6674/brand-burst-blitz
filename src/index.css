@@ -165,6 +165,14 @@
     font-weight: 700 !important;
   }
 
+  /* Even more specific override for card content */
+  .text-muted-foreground .text-yellow-highlight,
+  p .text-yellow-highlight,
+  * .text-yellow-highlight {
+    color: #ffd700 !important;
+    font-weight: 700 !important;
+  }
+
   /* Card Styles */
   .card-dark {
     background: var(--gradient-dark);
