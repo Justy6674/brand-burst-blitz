@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { RegisterInterestDialog } from '@/components/common/RegisterInterestDialog';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription } from '@/components/ui/alert-dialog';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showRegisterDialog, setShowRegisterDialog] = useState(false);
+  const [showInfoDialog, setShowInfoDialog] = useState(false);
 
   return (
     <>
@@ -77,13 +77,7 @@ const PublicHeader = () => {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <Button 
-              variant="outline" 
-              onClick={() => setShowRegisterDialog(true)}
-            >
-              Join Waitlist
-            </Button>
-            <Button 
-              onClick={() => setShowRegisterDialog(true)}
+              onClick={() => setShowInfoDialog(true)}
               className="bg-gradient-primary"
             >
               Coming August 2025
@@ -149,19 +143,9 @@ const PublicHeader = () => {
               </Link>
               <div className="pt-4 border-t space-y-2">
                 <Button 
-                  variant="outline" 
-                  className="w-full justify-center"
-                  onClick={() => {
-                    setShowRegisterDialog(true);
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  Join Waitlist
-                </Button>
-                <Button 
                   className="w-full bg-gradient-primary"
                   onClick={() => {
-                    setShowRegisterDialog(true);
+                    setShowInfoDialog(true);
                     setMobileMenuOpen(false);
                   }}
                 >
@@ -174,11 +158,19 @@ const PublicHeader = () => {
       </div>
     </header>
 
-    {/* Register Interest Dialog */}
-    <RegisterInterestDialog 
-      open={showRegisterDialog} 
-      onOpenChange={setShowRegisterDialog} 
-    />
+    {/* Info Dialog */}
+    <AlertDialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Coming August 2025</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you an Australian current or future business owner? We're launching our comprehensive social media management platform in August 2025. 
+            <br /><br />
+            Please stay tuned and look out for our social media and website updates for early access and launch details!
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+      </AlertDialogContent>
+    </AlertDialog>
   </>
   );
 };
