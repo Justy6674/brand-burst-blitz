@@ -161,25 +161,25 @@ const Index = () => {
             {[
               {
                 title: "🎯 The Frustrated Owner",
-                description: "Paying <span className='text-yellow-400 font-bold'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-400 font-bold'>competitors</span> get more visibility with worse products.",
+                description: "Paying <span className='text-yellow-highlight'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-highlight'>competitors</span> get more visibility with worse products.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "⏰ The Time-Strapped Entrepreneur", 
-                description: "Spending <span className='text-yellow-400 font-bold'>20+ hours weekly</span> on content creation instead of running your business. Missing <span className='text-yellow-400 font-bold'>opportunities</span> while stuck in marketing tasks.",
+                description: "Spending <span className='text-yellow-highlight'>20+ hours weekly</span> on content creation instead of running your business. Missing <span className='text-yellow-highlight'>opportunities</span> while stuck in marketing tasks.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "🚀 The Growth-Ready Business",
-                description: "Ready to scale but <span className='text-yellow-400 font-bold'>invisible to Google</span> and ignored by <span className='text-yellow-400 font-bold'>ChatGPT</span>. Knows content marketing is critical but lacks the expertise.",
+                description: "Ready to scale but <span className='text-yellow-highlight'>invisible to Google</span> and ignored by <span className='text-yellow-highlight'>ChatGPT</span>. Knows content marketing is critical but lacks the expertise.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "💭 The Dreamer",
-                description: "Thinking about starting a business (large or small) but overwhelmed by <span className='text-yellow-400 font-bold'>marketing complexity</span>. Needs a simple, affordable solution that works from day one.",
+                description: "Thinking about starting a business (large or small) but overwhelmed by <span className='text-yellow-highlight'>marketing complexity</span>. Needs a simple, affordable solution that works from day one.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               }
@@ -267,37 +267,37 @@ const Index = () => {
             {[
               {
                 title: "🧠 AI Content Generation Engine",
-                description: "Advanced AI creates <span className='text-yellow-400 font-bold'>SEO-optimized blogs</span>, social posts, and marketing copy that gets you found on <span className='text-yellow-400 font-bold'>Google</span> and recommended by <span className='text-yellow-400 font-bold'>ChatGPT</span>. Industry-specific compliance built into every piece.",
+                description: "Advanced AI creates <span className='text-yellow-highlight'>SEO-optimised blogs</span>, social posts, and marketing copy that gets you found on <span className='text-yellow-highlight'>Google</span> and recommended by <span className='text-yellow-highlight'>ChatGPT</span>. Industry-specific compliance built into every piece.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "🕵️ Competitor Intelligence Scanning",
-                description: "<span className='text-yellow-400 font-bold'>Automated monitoring</span> reveals exactly what content strategies are working for your competitors. Discover their <span className='text-yellow-400 font-bold'>winning approaches</span> and market gaps you can exploit.",
+                description: "<span className='text-yellow-highlight'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and market gaps you can exploit.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "📅 Advanced Publishing & Scheduling",
-                description: "Smart <span className='text-yellow-400 font-bold'>calendar-based publishing</span> across Facebook, Instagram, LinkedIn, and your blog. <span className='text-yellow-400 font-bold'>Performance analytics</span> track what's working and optimize automatically.",
+                description: "Smart <span className='text-yellow-highlight'>calendar-based publishing</span> across Facebook, Instagram, LinkedIn, and your blog. <span className='text-yellow-highlight'>Performance analytics</span> track what's working and optimise automatically.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "⚙️ Professional Social Media Setup",
-                description: "Expert configuration of <span className='text-yellow-400 font-bold'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span className='text-yellow-400 font-bold'>Australian compliance</span> verification. $199-299 value included.",
+                description: "Expert configuration of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span className='text-yellow-highlight'>Australian compliance</span> verification. $199-299 value included.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               },
               {
                 title: "🔍 Name Scout Research Service",
-                description: "<span className='text-yellow-400 font-bold'>ASIC availability</span>, domain research, and <span className='text-yellow-400 font-bold'>trademark screening</span> for your business name. Complete business registration guidance. $69-99 value included.",
+                description: "<span className='text-yellow-highlight'>ASIC availability</span>, domain research, and <span className='text-yellow-highlight'>trademark screening</span> for your business name. Complete business registration guidance. $69-99 value included.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "🛡️ Industry Compliance Safeguards",
-                description: "Built-in protection for <span className='text-yellow-400 font-bold'>AHPRA, TGA, ASIC</span>, and all Australian industry regulations. <span className='text-yellow-400 font-bold'>Quality review system</span> ensures every piece meets professional standards.",
+                description: "Built-in protection for <span className='text-yellow-highlight'>AHPRA, TGA, ASIC</span>, and all Australian industry regulations. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional standards.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               }
@@ -329,25 +329,25 @@ const Index = () => {
             {[
               {
                 title: "📝 Sign Up & Business Analysis",
-                description: "Choose your <span className='text-yellow-400 font-bold'>subscription plan</span> and complete our business questionnaire. Our AI immediately analyzes your <span className='text-yellow-400 font-bold'>industry, competitors</span>, and compliance requirements to create your custom strategy.",
+                description: "Choose your <span className='text-yellow-highlight'>subscription plan</span> and complete our business questionnaire. Our AI immediately <span className='text-yellow-highlight'>analyses</span> your industry, competitors, and compliance requirements to create your custom strategy.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "⚙️ Professional Setup & Configuration",
-                description: "Our experts configure your <span className='text-yellow-400 font-bold'>social media accounts</span>, set up analytics tracking, and ensure everything meets <span className='text-yellow-400 font-bold'>Australian compliance standards</span>. Complete setup within 48 hours.",
+                description: "Our experts configure your <span className='text-yellow-highlight'>social media accounts</span>, set up analytics tracking, and ensure everything meets <span className='text-yellow-highlight'>Australian compliance standards</span>. Complete setup within 48 hours.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "🤖 Automated Content Creation & Publishing",
-                description: "AI generates and publishes <span className='text-yellow-400 font-bold'>SEO-optimized content daily</span> across all platforms. <span className='text-yellow-400 font-bold'>Competitor intelligence</span> updates automatically, keeping you ahead of market trends.",
+                description: "AI generates and publishes <span className='text-yellow-highlight'>SEO-optimised content</span> daily across all platforms. <span className='text-yellow-highlight'>Competitor intelligence</span> updates automatically, keeping you ahead of market trends.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
-                title: "📊 Monthly Optimization & Reporting",
-                description: "Receive detailed <span className='text-yellow-400 font-bold'>performance reports</span> and strategic recommendations. Our AI continuously learns and optimizes your content for maximum <span className='text-yellow-400 font-bold'>Google visibility</span> and AI agent recommendations.",
+                title: "📊 Monthly Optimisation & Reporting",
+                description: "Receive detailed <span className='text-yellow-highlight'>performance reports</span> and strategic recommendations. Our AI continuously learns and optimises your <span className='text-yellow-highlight'>content</span> for maximum <span className='text-yellow-highlight'>Google visibility</span> and AI agent recommendations.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
@@ -379,31 +379,31 @@ const Index = () => {
             {[
               {
                 title: "🚨 Right Now - Emergency Visibility Crisis",
-                description: "You're <span className='text-yellow-400 font-bold'>invisible on Google</span>, ignored by AI agents, and bleeding <span className='text-yellow-400 font-bold'>customers to competitors</span>. Every day you wait costs you potential revenue and market share.",
+                description: "You're <span className='text-yellow-highlight'>invisible on Google</span>, ignored by AI agents, and bleeding <span className='text-yellow-highlight'>customers</span> to competitors. Every day you wait costs you potential revenue and market share.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "📋 Agency Contract Renewal Time", 
-                description: "Your current agency wants <span className='text-yellow-400 font-bold'>$8,000+ monthly</span> with no guarantee of results. Our subscription gives you better results for <span className='text-yellow-400 font-bold'>$149/month</span> with full transparency and control.",
+                description: "Your current agency wants <span className='text-yellow-highlight'>$8,000+ monthly</span> with no guarantee of <span className='text-yellow-highlight'>results</span>. Our subscription gives you better <span className='text-yellow-highlight'>results</span> for <span className='text-yellow-highlight'>$149/month</span> with full transparency and control.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "📈 Business Scaling Phase",
-                description: "You're ready to <span className='text-yellow-400 font-bold'>expand</span> but need consistent, compliant marketing that scales with you. Our AI handles <span className='text-yellow-400 font-bold'>increasing content demands</span> without increasing costs.",
+                description: "You're ready to <span className='text-yellow-highlight'>expand</span> but need consistent, compliant <span className='text-yellow-highlight'>marketing</span> that scales with you. Our AI handles <span className='text-yellow-highlight'>increasing content demands</span> without increasing costs.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "⚠️ Compliance Deadline Pressure",
-                description: "<span className='text-yellow-400 font-bold'>Industry regulations</span> are tightening and generic content puts you at risk. Our built-in <span className='text-yellow-400 font-bold'>compliance safeguards</span> protect you from costly violations and penalties.",
+                description: "<span className='text-yellow-highlight'>Industry regulations</span> are tightening and generic <span className='text-yellow-highlight'>content</span> puts you at risk. Our built-in <span className='text-yellow-highlight'>compliance safeguards</span> protect you from costly violations and penalties.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
                 title: "💼 ROI Justification Required",
-                description: "You need to prove <span className='text-yellow-400 font-bold'>marketing ROI</span> to stakeholders or investors. Our detailed analytics and <span className='text-yellow-400 font-bold'>$11,551 monthly savings</span> provide clear, measurable business value.",
+                description: "You need to prove <span className='text-yellow-highlight'>marketing ROI</span> to stakeholders or investors. Our detailed <span className='text-yellow-highlight'>analytics</span> and <span className='text-yellow-highlight'>$11,551 monthly savings</span> provide clear, measurable business value.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               }
