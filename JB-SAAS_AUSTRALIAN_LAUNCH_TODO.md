@@ -285,11 +285,11 @@
 5. ✅ **Add Australian business checkbox** to signup flow with payment blocking
 
 **Next Priority Implementation:**
-6. [ ] **Create and implement hero images** for Pricing and CommonQuestions pages
-7. [ ] **Add Australian trust signals** throughout landing page
-8. [ ] **Implement soft geo-detection** with friendly international messaging
-9. [ ] **Surface industry templates** earlier in user journey
-10. [ ] **Add Privacy Act compliance** messaging and links
+6. ✅ **Create and implement hero images** for Pricing and CommonQuestions pages
+7. ✅ **Add Australian trust signals** throughout landing page
+8. ✅ **Implement soft geo-detection** with friendly international messaging
+9. ✅ **Surface industry templates** earlier in user journey
+10. ✅ **Add Privacy Act compliance** messaging and links
 
 ---
 

@@ -30,6 +30,8 @@ import BlogPost from "./components/blog/BlogPost";
 import AussieSetupService from "./pages/AussieSetupService";
 import AustralianServices from "./pages/AustralianServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
+import Discover from "./pages/Discover";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -43,10 +45,12 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/discover" element={<Discover />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/common-questions" element={<CommonQuestions />} />
               <Route path="/aussie-setup-service" element={<AussieSetupService />} />
               <Route path="/australian-services" element={<AustralianServices />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/auth" element={<AuthPage />} />
