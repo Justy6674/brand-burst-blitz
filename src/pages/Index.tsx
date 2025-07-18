@@ -98,7 +98,24 @@ const AdminAccess = () => {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Global Background Galaxy Effect */}
+      <div className="fixed inset-0 -z-10">
+        {/* Animated Galaxy Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/5 via-purple-900/5 to-blue-900/5"></div>
+        
+        {/* Floating Stars */}
+        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-yellow-400/60 rounded-full animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/3 w-0.5 h-0.5 bg-blue-400/40 rounded-full animate-ping"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-purple-400/50 rounded-full animate-pulse animation-delay-500"></div>
+        <div className="absolute top-2/3 right-1/4 w-0.5 h-0.5 bg-cyan-400/60 rounded-full animate-ping animation-delay-700"></div>
+        <div className="absolute bottom-1/3 right-2/3 w-1 h-1 bg-green-400/40 rounded-full animate-pulse animation-delay-300"></div>
+        <div className="absolute top-1/2 left-1/6 w-0.5 h-0.5 bg-red-400/50 rounded-full animate-ping animation-delay-1000"></div>
+        
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.005)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.005)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+      </div>
+      
       <GeoDetection />
       <PublicHeader />
 
@@ -146,7 +163,10 @@ const Index = () => {
       </HeroSection>
 
       {/* WHO Section */}
-      <section className="py-24 bg-background">
+      <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/5 to-transparent rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -196,7 +216,10 @@ const Index = () => {
       </section>
 
       {/* WHY Section */}
-      <section className="py-24 bg-gradient-to-b from-muted/20 to-background">
+      <section className="relative py-16 md:py-24 bg-gradient-to-b from-muted/20 to-background overflow-hidden">
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-red-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-yellow-500/5 to-transparent rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -252,7 +275,10 @@ const Index = () => {
       </section>
 
       {/* WHAT Section */}
-      <section className="py-24 bg-background">
+      <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/5 to-transparent rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -314,7 +340,10 @@ const Index = () => {
       </section>
 
       {/* HOW Section */}
-      <section className="py-24 bg-gradient-to-b from-muted/20 to-background">
+      <section className="relative py-16 md:py-24 bg-gradient-to-b from-muted/20 to-background overflow-hidden">
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/5 to-transparent rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -364,7 +393,10 @@ const Index = () => {
       </section>
 
       {/* WHEN Section */}
-      <section className="py-24 bg-background">
+      <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/5 to-transparent rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
