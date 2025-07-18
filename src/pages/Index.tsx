@@ -318,7 +318,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              How Our <span className="text-gradient-primary">Subscription Works</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Our <span className="text-gradient-primary">Subscription Works</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Simple monthly subscription gives you everything you need to dominate your market and eliminate expensive agencies forever.
