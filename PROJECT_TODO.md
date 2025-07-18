@@ -361,14 +361,14 @@
 
 ### **27. Service Definition & Business Model** ✅ COMPLETED
 - [x] **Service Name**: "Aussie Name & Domain Scout"
-- [ ] **Description**: Professional business name research including ASIC availability, domain status checks, and optional trademark screening
-- [ ] **Eligibility Requirements**:
-  - [ ] Australian users only (user.country === 'AU')
-  - [ ] Active subscription (any tier)
-- [ ] **Pricing Structure**:
-  - [ ] Starter/Professional Plan: AU$99 one-time fee
-  - [ ] Professional Plan Premium: AU$79 one-time fee (discounted)
-  - [ ] Trademark screening add-on: AU$50 (free for Professional users)
+- [x] **Description**: Professional business name research including ASIC availability, domain status checks, and optional trademark screening
+- [x] **Eligibility Requirements**:
+  - [x] Australian users only (user.country === 'AU')
+  - [x] Active subscription (any tier)
+- [x] **Pricing Structure**:
+  - [x] Starter/Professional Plan: AU$99 one-time fee
+  - [x] Professional Plan Premium: AU$79 one-time fee (discounted)
+  - [x] Trademark screening add-on: AU$50 (free for Professional users)
 
 ### **28. Database Schema Extensions** ✅ COMPLETED
 - [x] **Name Scout Requests Table**: Comprehensive schema implemented with:
@@ -415,18 +415,18 @@
 
 ### **30. Scout Wizard Interface** ✅ COMPLETED
 - [x] **Three-Step Wizard** (`/src/components/services/NameScoutWizard.tsx`):
-  - [ ] **Step 1**: Business name input with validation
-  - [ ] **Step 2**: Domain extension selection (checkboxes)
-  - [ ] **Step 3**: Trademark screening toggle with pricing
-- [ ] **Payment Integration**:
-  - [ ] Stripe Checkout for AU$99/AU$79
-  - [ ] Trademark add-on processing
-  - [ ] Payment confirmation handling
-- [ ] **Results Display** (`/src/components/scout/ScoutResults.tsx`):
-  - [ ] ASIC availability table
-  - [ ] Domain status grid
-  - [ ] Trademark hits summary
-  - [ ] AI-generated insights paragraph
+  - [x] **Step 1**: Business name input with validation
+  - [x] **Step 2**: Domain extension selection (checkboxes)
+  - [x] **Step 3**: Trademark screening toggle with pricing
+- [x] **Payment Integration**:
+  - [x] Stripe Checkout for AU$99/AU$79
+  - [x] Trademark add-on processing
+  - [x] Payment confirmation handling
+- [x] **Results Display**: Mock results implemented with:
+  - [x] ASIC availability table
+  - [x] Domain status grid
+  - [x] Trademark hits summary
+  - [x] AI-generated insights paragraph
 
 ### **31. Edge Functions for Scout Service** ✅ COMPLETED
 - [x] **`name-scout-checkout`**: Stripe payment processing
