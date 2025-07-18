@@ -124,49 +124,62 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-mesh opacity-50" />
-      <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" />
+    <div 
+      className="min-h-screen flex items-center justify-center p-4 relative"
+      style={{
+        backgroundImage: `url('/lovable-uploads/263fa670-c783-4f19-b63f-1ce967135c7a.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Smart overlay for better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/40 via-amber-800/50 to-stone-900/60" />
+      <div className="absolute inset-0 bg-black/20" />
       
       <div className="relative w-full max-w-md">
         {/* Back to Home Link */}
         <Link 
           to="/" 
-          className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="inline-flex items-center text-white/90 hover:text-white mb-6 transition-colors backdrop-blur-sm bg-black/20 px-3 py-2 rounded-lg"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
 
-        <Card className="glass-strong border-white/10">
+        <Card className="backdrop-blur-md bg-white/90 border-orange-200/30 shadow-2xl shadow-orange-900/20">
           <CardHeader className="text-center space-y-2">
-            <div className="mx-auto w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+            <div className="mx-auto w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold text-gradient-primary">
+            <CardTitle className="text-2xl font-bold text-orange-900">
               Welcome to JB-SaaS
             </CardTitle>
-            <CardDescription className="text-muted-foreground">
+            <CardDescription className="text-orange-700/80">
               AI-powered content automation for your business
             </CardDescription>
           </CardHeader>
 
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="login" className="font-medium">
+              <TabsList className="grid w-full grid-cols-2 mb-6 bg-orange-50/80 border border-orange-200/50">
+                <TabsTrigger 
+                  value="login" 
+                  className="font-medium text-orange-800 data-[state=active]:bg-orange-500 data-[state=active]:text-white"
+                >
                   Sign In
                 </TabsTrigger>
-                <TabsTrigger value="signup" className="font-medium">
+                <TabsTrigger 
+                  value="signup" 
+                  className="font-medium text-orange-800 data-[state=active]:bg-orange-500 data-[state=active]:text-white"
+                >
                   Sign Up
                 </TabsTrigger>
               </TabsList>
 
               {error && (
-                <Alert className="mb-4 border-destructive/50 bg-destructive/10">
-                  <AlertDescription className="text-destructive">
+                <Alert className="mb-4 border-red-400/50 bg-red-50/80 backdrop-blur-sm">
+                  <AlertDescription className="text-red-700">
                     {error}
                   </AlertDescription>
                 </Alert>
@@ -175,7 +188,7 @@ const AuthPage = () => {
               <TabsContent value="login" className="space-y-4">
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-orange-800 font-medium">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -183,11 +196,11 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-orange-800 font-medium">Password</Label>
                     <Input
                       id="password"
                       type="password"
@@ -195,12 +208,12 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-primary hover:scale-105 transition-all"
+                    className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -221,7 +234,7 @@ const AuthPage = () => {
               <TabsContent value="signup" className="space-y-4">
                 <form onSubmit={handleSignup} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="business-name">Business Name</Label>
+                    <Label htmlFor="business-name" className="text-orange-800 font-medium">Business Name</Label>
                     <Input
                       id="business-name"
                       type="text"
@@ -229,11 +242,11 @@ const AuthPage = () => {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
+                    <Label htmlFor="signup-email" className="text-orange-800 font-medium">Email</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -241,11 +254,11 @@ const AuthPage = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password" className="text-orange-800 font-medium">Password</Label>
                     <Input
                       id="signup-password"
                       type="password"
@@ -253,11 +266,11 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirm Password</Label>
+                    <Label htmlFor="confirm-password" className="text-orange-800 font-medium">Confirm Password</Label>
                     <Input
                       id="confirm-password"
                       type="password"
@@ -265,12 +278,12 @@ const AuthPage = () => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      className="bg-background/50 border-white/10"
+                      className="bg-white/80 border-orange-200 focus:border-orange-400 focus:ring-orange-200 text-orange-900 placeholder:text-orange-500"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-primary hover:scale-105 transition-all"
+                    className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -291,7 +304,7 @@ const AuthPage = () => {
           </CardContent>
 
           <CardFooter className="text-center">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-orange-700/80">
               By continuing, you agree to our Terms of Service and Privacy Policy
             </p>
           </CardFooter>
@@ -299,17 +312,17 @@ const AuthPage = () => {
 
         {/* Features Preview */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="glass p-4 rounded-lg">
-            <Sparkles className="h-6 w-6 text-primary mx-auto mb-2" />
-            <p className="text-xs text-muted-foreground">AI Content</p>
+          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
+            <Sparkles className="h-6 w-6 text-orange-500 mx-auto mb-2" />
+            <p className="text-xs text-orange-700">AI Content</p>
           </div>
-          <div className="glass p-4 rounded-lg">
-            <Zap className="h-6 w-6 text-secondary mx-auto mb-2" />
-            <p className="text-xs text-muted-foreground">Auto Posting</p>
+          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
+            <Zap className="h-6 w-6 text-amber-600 mx-auto mb-2" />
+            <p className="text-xs text-orange-700">Auto Posting</p>
           </div>
-          <div className="glass p-4 rounded-lg">
-            <Shield className="h-6 w-6 text-success mx-auto mb-2" />
-            <p className="text-xs text-muted-foreground">Compliance</p>
+          <div className="backdrop-blur-sm bg-white/80 p-4 rounded-lg border border-orange-200/50 shadow-lg">
+            <Shield className="h-6 w-6 text-orange-600 mx-auto mb-2" />
+            <p className="text-xs text-orange-700">Compliance</p>
           </div>
         </div>
       </div>
