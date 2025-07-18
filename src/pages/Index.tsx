@@ -161,7 +161,7 @@ const Index = () => {
             {[
               {
                 title: "🎯 The Frustrated Owner",
-                description: "Paying <span className='text-yellow-highlight'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-highlight'>competitors</span> get more <span className='text-yellow-highlight'>visibility</span> with worse products.",
+                description: "Paying <span style='color: #ffd700; font-weight: 700;'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span style='color: #ffd700; font-weight: 700;'>competitors</span> get more <span style='color: #ffd700; font-weight: 700;'>visibility</span> with worse products.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
@@ -211,7 +211,7 @@ const Index = () => {
             {[
               {
                 title: "🔍 Google Invisibility Crisis",
-                description: "Without regular, <span className='text-yellow-highlight'>SEO-optimised</span> <span className='text-yellow-highlight'>content</span>, Google doesn't rank your business. <span className='text-yellow-highlight'>Results</span> show that customers can't be <span className='text-yellow-highlight'>found</span> when they search for your services.",
+                description: "Without regular, <span style='color: #ffd700; font-weight: 700;'>SEO-optimised</span> <span style='color: #ffd700; font-weight: 700;'>content</span>, Google doesn't rank your business. <span style='color: #ffd700; font-weight: 700;'>Results</span> show that customers can't be <span style='color: #ffd700; font-weight: 700;'>found</span> when they search for your services.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
