@@ -419,24 +419,87 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-b from-primary/10 to-background">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">
-            Stop Being Invisible. <span className="text-gradient-primary">Start Dominating.</span>
+      {/* Final CTA - Dynamic Tech Section */}
+      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          {/* Floating Tech Particles */}
+          <div className="absolute top-10 left-10 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-20 right-20 w-1 h-1 bg-blue-400 rounded-full animate-bounce"></div>
+          <div className="absolute bottom-20 left-20 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+          <div className="absolute bottom-10 right-10 w-1 h-1 bg-red-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-ping"></div>
+          
+          {/* Firework Burst Effects */}
+          <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
+            <div className="relative">
+              <div className="absolute w-16 h-16 border border-yellow-400/30 rounded-full animate-ping"></div>
+              <div className="absolute w-12 h-12 border border-yellow-400/50 rounded-full animate-ping animation-delay-150"></div>
+              <div className="absolute w-8 h-8 border border-yellow-400/70 rounded-full animate-ping animation-delay-300"></div>
+            </div>
+          </div>
+          
+          {/* Grid Pattern Overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+          
+          {/* Glowing Orbs */}
+          <div className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/6 w-40 h-40 bg-gradient-to-r from-yellow-500/20 to-red-500/20 rounded-full blur-xl animate-pulse animation-delay-500"></div>
+        </div>
+        
+        {/* Main Content */}
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          {/* Tech Badge */}
+          <div className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Rocket className="w-5 h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide">NEXT-GEN AI MARKETING</span>
+            <Zap className="w-5 h-5 ml-2 text-yellow-400 animate-pulse" />
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent animate-fade-in">
+              Stop Being Invisible.
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent animate-fade-in animation-delay-300">
+              Start Dominating.
+            </span>
           </h2>
-          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            Join Australian businesses dominating their markets with AI-powered content.
+          
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed animate-fade-in animation-delay-500">
+            Join Australian businesses dominating their markets with <span style={{color: '#ffd700', fontWeight: 700}}>AI-powered content</span>.
           </p>
           
-          <ComingSoonPopup 
-            trigger={
-              <Button variant="premium" size="xl" className="text-xl px-12 py-6">
-                <Target className="w-6 h-6 mr-3" />
-                Start Your Transformation
-              </Button>
-            } 
-          />
+          {/* Dynamic CTA Button */}
+          <div className="relative inline-block animate-fade-in animation-delay-700">
+            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
+            <ComingSoonPopup 
+              trigger={
+                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0">
+                  <Target className="w-6 h-6 mr-3 animate-pulse" />
+                  Start Your Transformation
+                  <Sparkles className="w-6 h-6 ml-3 animate-spin" />
+                </Button>
+              } 
+            />
+          </div>
+          
+          {/* Tech Stats */}
+          <div className="flex flex-wrap justify-center gap-8 mt-16 animate-fade-in animation-delay-1000">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-yellow-400">98%</div>
+              <div className="text-sm text-gray-400">Success Rate</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-cyan-400">24/7</div>
+              <div className="text-sm text-gray-400">AI Working</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-green-400">$149</div>
+              <div className="text-sm text-gray-400">Per Month</div>
+            </div>
+          </div>
         </div>
       </section>
 
