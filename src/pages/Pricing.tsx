@@ -76,8 +76,8 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
-                    <Link to="/auth">Get Started Now</Link>
+                  <Button variant="hero" size="lg" className="w-full" asChild>
+                    <Link to="/auth">Start Free Trial</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -132,8 +132,8 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
-                    <Link to="/auth">Get Started Now</Link>
+                  <Button variant="premium" size="lg" className="w-full" asChild>
+                    <Link to="/auth">Start Free Trial</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -183,7 +183,7 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
+                  <Button variant="secondary" size="lg" className="w-full" asChild>
                     <Link to="/auth">Contact Sales</Link>
                   </Button>
                 </div>
