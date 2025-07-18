@@ -6,7 +6,7 @@
 ***AI MUST WEAR TWO HATS AT EVERY STAGE OF THE APP BUILD, AND ASSESS AFTER EVERY IMPLIMENTATION: 1. ONE AS AN EXPERT SENIOR FULL STACK APP DEVELOPER - THE BEST IN THE WORLD; 2. AS A FUSSY CONSUMER THAT DMANDS EXCELENCE AT ALL POINTS OF THIS APP, FROM RESEARCH, TO A PAYING CONSUMER!
 NEVER MOVE ON WITH A HALF BAKED SIMPLE SOLUTION - EVERYTHING MUST BE DONE PROPERLY
 NO HALLUCINATING
-AUSTRALIAN SPELLING - DONTS USE SLANG LIKE AUSSIE ETC AS ITS DEGRADING LIKE SAYING YANK. CLASSY AND PROFESSIONAL LANGUAGE ONLY
+AUSTRALIAN SPELLING
 NO PLACEHOLDERS, BE CRITICAL
 BE A PERFECTIONIST
 
@@ -21,7 +21,7 @@ BE A PERFECTIONIST
 - Australian trust signals ("100% Australian Owned") significantly boost local credibility
 - Businesses with regular blogs see 55% more traffic
 - 70% of Australian searches use long-tail keywords
-
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 ---
 
 ## 🎨 **HERO IMAGE REQUIREMENTS - CRITICAL UI UPDATE**
@@ -38,6 +38,7 @@ BE A PERFECTIONIST
 - [ ] **Maintain consistent overlay gradients** (`from-background/40 via-background/20 to-background/40`)
 
 ---
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 
 ## 🔥 **PHASE 1: IMMEDIATE FIXES - CRITICAL**
 *Fix confused customers first - sophisticated features won't matter if value proposition isn't clear*
@@ -56,7 +57,7 @@ BE A PERFECTIONIST
 - [ ] **Add Australian trust signals**
   - "Australian-owned and operated" messaging
   - Australian business registration details
-  - "Built for Aussie businesses by Aussie experts" tagline
+  - "Built for AussiE businesses by Aussie experts" tagline IS WRONG - AUSTRALIAN NOT SLANG - ITS DEGRADING
 
 ### **2. Journey-Optimized Page Structure**
 - [ ] **Create industry-focused discovery flow**
@@ -88,8 +89,9 @@ BE A PERFECTIONIST
 - [ ] **Ensure all pricing is accurate** across landing, pricing, and any other pages
 - [ ] **Emphasize Australian focus** on pricing page
 - [ ] **Add Australian payment methods** prominently (if applicable)
-
+ALL PRICING AND OPTIONS AND ADD-ONS NEED TO BE OUTLINED IN A REALLY CLEAR WAY, HOWEVER THE TWO SUBSCRIPTIONS ARE THE MAIN MONETISED OPTIONS. 
 ---
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 
 ## 📊 **PHASE 2: AUSTRALIAN POSITIONING & SOFT GEO-GATING**
 *Implement user-friendly Australian focus without alienating edge cases*
@@ -122,6 +124,7 @@ BE A PERFECTIONIST
   - Australian contact details and business hours
   - Local support messaging
   - Australian business registration display
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 
 ### **5. Industry-Specific Personalization Enhancement**
 - [ ] **Surface industry context earlier in journey**
@@ -136,8 +139,10 @@ BE A PERFECTIONIST
   - CFO vs technical user content differentiation
   - Role-specific pain points and solutions
   - Industry-specific performance benchmarks
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 
 ---
+
 
 ## 🚀 **PHASE 3: TECHNICAL EXCELLENCE & AUTOMATION**
 *Implement sophisticated features that scale with user growth*
@@ -169,6 +174,7 @@ BE A PERFECTIONIST
   - Learn from user engagement and approval patterns
   - Suggest optimal posting times based on Australian audience data
   - Industry trend-based content suggestions
+EVERY ENTRY POINT TO THE GENERAL PUBLIC NEEDS TO PRODUCE THE POP UP TO JOIN WAIT LIST
 
 ### **8. Enhanced Geo-Detection & User Experience**
 - [ ] **Multi-factor geo-detection system**
@@ -183,7 +189,7 @@ BE A PERFECTIONIST
   - Scalable architecture for future market expansion
   - Waitlist management system for international prospects
   - Market research data collection from international visitors
-
+REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABILITY, STYLING CONSISTENCY AND GENERAL AWESOMENESS WITH A CRITICAL EYE, AS A DEVELOPER AND A CONSUMER
 ---
 
 ## 📈 **PHASE 4: OPTIMIZATION & SCALE**
@@ -226,6 +232,7 @@ BE A PERFECTIONIST
   - Australian business trend analysis and reporting
   - Industry expert interviews and insights
   - Local business success story documentation
+REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABILITY, STYLING CONSISTENCY AND GENERAL AWESOMENESS WITH A CRITICAL EYE, AS A DEVELOPER AND A CONSUMER
 
 ---
 
@@ -333,5 +340,6 @@ BE A PERFECTIONIST
 - [ ] **Phase 4: Optimization & Scale** - Data-driven growth and expansion preparation
 
 **Success Criteria:** Clear value proposition → Established Australian market authority → Technical sophistication → Scalable growth platform
+REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABILITY, STYLING CONSISTENCY AND GENERAL AWESOMENESS WITH A CRITICAL EYE, AS A DEVELOPER AND A CONSUMER
 
 *Priority Principle: Fix customer confusion first, build trust second, implement sophistication third.*
