@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Sparkles, 
   Zap, 
@@ -87,45 +88,11 @@ const AdminAccess = () => {
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="container mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <img 
-                src="/jbsaaslogo.png" 
-                alt="JBSAAS Logo" 
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">JB-Software-As-A-Service</span>
-            </div>
-            
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <Link to="/auth">
-                <Button size="sm" className="bg-gradient-primary shadow-glow">Sign In</Button>
-              </Link>
-            </div>
-            
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
-              <Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
-              <Link to="/common-questions" className="text-muted-foreground hover:text-foreground transition-colors">Common Questions</Link>
-              <Link to="/auth">
-                <Button variant="outline" size="sm">Sign In</Button>
-              </Link>
-              <Link to="/auth">
-                <Button size="sm" className="bg-gradient-primary shadow-glow">Get Started</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Use standardized PublicHeader */}
+      <PublicHeader />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Hero Background Image */}
         <div 
           className="absolute inset-0 z-0"

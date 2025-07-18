@@ -21,12 +21,15 @@ const PublicHeader = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-3">
             <img 
               src="/jbsaaslogo.png" 
               alt="JB-SaaS" 
               className="h-8 w-auto"
             />
+            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">
+              JB-Software-As-A-Service
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -35,6 +38,16 @@ const PublicHeader = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link to="/">Home</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <a href="/#features">Features</a>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link to="/australian-services">🇦🇺 Services</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -86,6 +99,20 @@ const PublicHeader = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
+              </Link>
+              <a
+                href="/#features"
+                className="block py-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Features
+              </a>
+              <Link
+                to="/australian-services"
+                className="block py-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                🇦🇺 Australian Services
               </Link>
               <Link
                 to="/blog"
