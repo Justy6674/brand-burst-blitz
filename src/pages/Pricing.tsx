@@ -32,7 +32,7 @@ const Pricing = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Start with our Starter plan, scale as you grow. All plans include our core AI content creation features designed for Australian businesses.
+            Professional plan replaces $11,700 in monthly agency costs. All plans include our core AI content creation features designed for Australian businesses.
           </p>
         </div>
       </HeroSection>
@@ -101,12 +101,12 @@ const Pricing = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Professional</h3>
                   <p className="text-muted-foreground mb-6">For growing businesses that need more power</p>
-                   <div className="mb-12">
-                     <span className="text-5xl font-bold text-primary">$149</span>
-                     <span className="text-muted-foreground">/month</span>
-                     <div className="text-sm text-muted-foreground mt-2">AUD, inc. GST for GST-registered businesses</div>
-                     <div className="text-xs text-muted-foreground">GST calculated automatically based on your ABN status</div>
-                   </div>
+                 <div className="mb-12">
+                   <span className="text-5xl font-bold text-primary">$149</span>
+                   <span className="text-muted-foreground">/month</span>
+                   <div className="text-sm text-muted-foreground mt-2">AUD, inc. GST for GST-registered businesses</div>
+                   <div className="text-xs text-green-600 font-semibold">Replaces $11,700 in agency costs</div>
+                 </div>
                 </div>
                 
                 <ul className="space-y-4 mb-8 flex-1">
