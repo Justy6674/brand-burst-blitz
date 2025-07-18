@@ -329,25 +329,25 @@ const Index = () => {
             {[
               {
                 title: "📝 Sign Up & Business Analysis",
-                description: "Choose your <span className='text-yellow-highlight'>subscription plan</span> and complete our business questionnaire. Our AI immediately <span className='text-yellow-highlight'>analyses</span> your industry, competitors, and compliance requirements to create your custom strategy.",
+                description: "Choose your <span style='color: #ffd700; font-weight: 700;'>subscription</span> plan and complete our business questionnaire. Our AI immediately <span style='color: #ffd700; font-weight: 700;'>analyses</span> your industry, <span style='color: #ffd700; font-weight: 700;'>competitors</span>, and <span style='color: #ffd700; font-weight: 700;'>compliance</span> requirements to create your custom <span style='color: #ffd700; font-weight: 700;'>strategy</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "⚙️ Professional Setup & Configuration",
-                description: "Our experts configure your <span className='text-yellow-highlight'>social media accounts</span>, set up analytics tracking, and ensure everything meets <span className='text-yellow-highlight'>Australian compliance standards</span>. Complete setup within 48 hours.",
+                description: "Our experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your <span style='color: #ffd700; font-weight: 700;'>social media</span> accounts, set up <span style='color: #ffd700; font-weight: 700;'>analytics</span> tracking, and ensure everything meets Australian <span style='color: #ffd700; font-weight: 700;'>compliance</span> standards. Complete setup within 48 hours.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "🤖 Automated Content Creation & Publishing",
-                description: "AI generates and publishes <span className='text-yellow-highlight'>SEO-optimised content</span> daily across all platforms. <span className='text-yellow-highlight'>Competitor intelligence</span> updates automatically, keeping you ahead of market trends.",
+                description: "AI generates and publishes <span style='color: #ffd700; font-weight: 700;'>SEO-optimised content</span> daily across all platforms. <span style='color: #ffd700; font-weight: 700;'>Competitor intelligence</span> updates automatically, keeping you ahead of market trends.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "📊 Monthly Optimisation & Reporting",
-                description: "Receive detailed <span className='text-yellow-highlight'>performance reports</span> and strategic recommendations. Our AI continuously learns and optimises your <span className='text-yellow-highlight'>content</span> for maximum <span className='text-yellow-highlight'>Google visibility</span> and AI agent recommendations.",
+                description: "Receive detailed <span style='color: #ffd700; font-weight: 700;'>performance reports</span> and strategic recommendations. Our AI continuously <span style='color: #ffd700; font-weight: 700;'>learns and optimises</span> your <span className='text-yellow-highlight'>content</span> for maximum <span style='color: #ffd700; font-weight: 700;'>Google</span> visibility and <span style='color: #ffd700; font-weight: 700;'>AI agent</span> recommendations.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
