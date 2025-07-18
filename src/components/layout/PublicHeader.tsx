@@ -28,8 +28,8 @@ const PublicHeader = () => {
               alt="JB-SaaS" 
               className="h-8 w-auto"
             />
-            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">
-              JB-Software-As-A-Service
+            <span className="hidden sm:block text-xl font-bold text-primary">
+              JB-SaaS
             </span>
           </Link>
 
