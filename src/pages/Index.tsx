@@ -111,47 +111,58 @@ const Index = () => {
         {/* Hero Content */}
         <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
           <div className="max-w-4xl mx-auto animate-fade-in">
-            <Badge className="mb-6 sm:mb-8 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-sm sm:text-base">
-              <Rocket className="w-4 h-4 mr-2" />
-              Transform Your Business Today
+            <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
+              🇦🇺 Australian Businesses Only
             </Badge>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              <span className="text-gradient-hero block mb-2">AI-Powered Content</span> 
-              <span className="text-gradient-primary block">Creation Platform</span>
+              <span className="text-gradient-hero block mb-2">AI Marketing Content</span> 
+              <span className="text-gradient-primary block">for Australian Businesses</span>
             </h1>
             
             {/* Simplified tagline - removed redundant text */}
             
             <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Generate professional social media posts, blogs, and marketing content in seconds. 
-              <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
+              <strong className="text-foreground block mt-2">Plans from $49/month - No more expensive agencies or endless hours writing content.</strong>
             </p>
             
-            <div className="flex justify-center mb-8 sm:mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
               <Button 
                 variant="hero" 
                 size="xl" 
-                className="cursor-not-allowed opacity-75 text-lg px-8 py-4"
-                disabled
+                className="text-lg px-8 py-4"
+                asChild
               >
-                <Rocket className="w-5 h-5 mr-3" />
-                Coming August 2025
+                <Link to="/auth">
+                  <Rocket className="w-5 h-5 mr-3" />
+                  Start Free Trial
+                </Link>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="xl" 
+                className="text-lg px-8 py-4 border-white/30 text-white hover:bg-white/10"
+                asChild
+              >
+                <Link to="/pricing">
+                  View Pricing
+                </Link>
               </Button>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-muted-foreground">
               <div className="flex items-center">
                 <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Enterprise-Grade Security
+                Australian-Owned & Operated
               </div>
               <div className="flex items-center">
                 <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Advanced AI Technology
+                Industry-Specific AI Content
               </div>
               <div className="flex items-center">
                 <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Professional Support
+                Local Business Support
               </div>
             </div>
           </div>
@@ -249,7 +260,7 @@ const Index = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Pay just $49/month for unlimited content</span>
+                    <span className="text-foreground font-medium">Plans from $49/month for up to 100 posts</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />

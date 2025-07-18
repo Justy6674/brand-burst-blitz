@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { HeroSection } from "@/components/layout/HeroSection";
 import { 
   Accordion,
   AccordionContent,
@@ -17,8 +18,10 @@ import {
   Building,
   Clock,
   Users,
-  Globe
+  Globe,
+  ArrowRight
 } from "lucide-react";
+import aiContentHero from "@/assets/ai-content-creation-hero.jpg";
 
 const CommonQuestions = () => {
   const questionCategories = [
@@ -29,35 +32,35 @@ const CommonQuestions = () => {
       questions: [
         {
           question: "How does the AI content generation actually work?",
-          answer: "Our AI uses advanced language models trained specifically for business content creation. It learns your brand voice, analyzes your industry, and generates content that matches your style and messaging. The AI considers factors like your target audience, brand guidelines, and content performance data to create highly relevant posts."
+          answer: "Our AI uses advanced language models trained specifically for Australian business content creation. It learns your brand voice, analyzes your industry, and generates content that matches your style and messaging. The AI considers factors like your target audience, brand guidelines, and Australian market context to create highly relevant posts."
         },
         {
           question: "What social media platforms does JB-SaaS integrate with?",
-          answer: "JB-SaaS currently supports Facebook, Instagram, LinkedIn, and Twitter. We provide content creation and scheduling instructions for all platforms. For Australian customers, we offer full setup and management services for an additional fee."
+          answer: "JB-SaaS currently supports Facebook, Instagram, LinkedIn, and Twitter. We provide content creation and scheduling specifically optimized for Australian businesses. Our Australian Quick-Start service handles complete setup and integration for local businesses."
         },
         {
           question: "How secure is my business data on the JB-SaaS platform?",
-          answer: "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, geo-redundant servers with 99.9% uptime guarantee. We never share your data with third parties and you maintain full ownership of all content created."
+          answer: "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, geo-redundant servers with 99.9% uptime guarantee. We comply with Australian Privacy Principles and never share your data with third parties."
         },
         {
           question: "Can I export my content and data if I decide to leave?",
-          answer: "Absolutely. You have full data portability rights. You can export all your content, analytics data, and account information in standard formats (CSV, JSON) at any time. There are no lock-in contracts or data retention fees."
+          answer: "Absolutely. You have full data portability rights under Australian privacy law. You can export all your content, analytics data, and account information in standard formats (CSV, JSON) at any time. There are no lock-in contracts or data retention fees."
         },
         {
           question: "What makes JB-SaaS different from other AI content tools?",
-          answer: "JB-SaaS is specifically designed for business growth, not just content creation. We combine AI content generation with competitor analysis, business intelligence, and strategic recommendations. Our system learns and adapts to your business outcomes, not just content metrics."
+          answer: "JB-SaaS is specifically designed for Australian businesses with local market understanding, compliance features, and industry-specific content. We combine AI content generation with competitor analysis, business intelligence, and strategic recommendations tailored to the Australian market."
         },
         {
           question: "How often is the AI model updated and improved?",
-          answer: "Our AI models are continuously updated with the latest advancements in language technology. We deploy improvements monthly and major updates quarterly. The system also learns from your feedback and performance data to improve personalized recommendations."
+          answer: "Our AI models are continuously updated with the latest advancements in language technology and Australian business context. We deploy improvements monthly and major updates quarterly. The system also learns from your feedback and performance data to improve personalized recommendations."
         },
         {
           question: "Does JB-SaaS work for all industries and business types?",
-          answer: "Yes, JB-SaaS is industry-agnostic and works for B2B, B2C, e-commerce, professional services, healthcare, finance, and more. The AI adapts to your specific industry language, compliance requirements, and audience preferences."
+          answer: "Yes, JB-SaaS is designed for all Australian business types including B2B, B2C, e-commerce, professional services, healthcare, finance, and more. The AI adapts to your specific industry language, Australian compliance requirements, and local audience preferences."
         },
         {
           question: "What API integrations are available?",
-          answer: "We offer REST APIs for content management, analytics, and scheduling. Popular integrations include CRM systems (Salesforce, HubSpot), email marketing tools (Mailchimp, ConvertKit), and analytics platforms (Google Analytics, Facebook Insights)."
+          answer: "We offer REST APIs for content management, analytics, and scheduling. Popular integrations include Australian CRM systems, email marketing tools, and analytics platforms. We also provide ABN validation and ASIC business registry integrations for Australian businesses."
         }
       ]
     },
@@ -68,35 +71,35 @@ const CommonQuestions = () => {
       questions: [
         {
           question: "Why do blogs matter so much for Google rankings in 2025?",
-          answer: "Google's AI algorithms now prioritize helpful, original content that demonstrates expertise. Regular blogging with strategic keywords helps establish topical authority, increases indexed pages, and provides fresh content signals. Businesses with active blogs get 55% more website visitors and 97% more inbound links."
+          answer: "Google's AI algorithms prioritize helpful, original content that demonstrates expertise. Regular blogging with Australian-focused keywords helps establish topical authority, increases indexed pages, and provides fresh content signals. Australian businesses with active blogs get 55% more website visitors and 97% more inbound links."
         },
         {
-          question: "How does competitor analysis actually help my business grow?",
-          answer: "Our competitor analysis reveals content gaps, successful strategies, and market opportunities. You'll see what content performs best in your industry, optimal posting times, trending topics, and messaging that resonates. This intelligence helps you stay ahead rather than playing catch-up."
+          question: "How does competitor analysis help Australian businesses grow?",
+          answer: "Our competitor analysis reveals content gaps, successful strategies, and market opportunities specific to the Australian market. You'll see what content performs best in your Australian industry, optimal posting times for Australian audiences, trending topics, and messaging that resonates locally."
         },
         {
-          question: "What's the ROI of consistent social media marketing?",
-          answer: "Consistent social media marketing typically delivers 3-5x ROI within 6 months. Benefits include increased brand awareness (2.5x), website traffic (3x), lead generation (2x), and customer retention (40% improvement). JB-SaaS customers see results 60% faster due to AI optimization."
+          question: "What's the ROI of consistent social media marketing for Australian SMEs?",
+          answer: "Consistent social media marketing typically delivers 3-5x ROI within 6 months for Australian businesses. Benefits include increased brand awareness (2.5x), website traffic (3x), lead generation (2x), and customer retention (40% improvement). Australian JB-SaaS customers see results 60% faster due to local AI optimization."
         },
         {
-          question: "How will AI agents discover my business in the future?",
-          answer: "AI agents like ChatGPT and future AI assistants will recommend businesses based on comprehensive online presence, content quality, and relevance. Having consistent, high-quality content across platforms ensures your business appears in AI recommendations when customers ask for solutions."
+          question: "How will AI agents discover my Australian business in the future?",
+          answer: "AI agents like ChatGPT and future AI assistants will recommend businesses based on comprehensive online presence, content quality, and local relevance. Having consistent, high-quality Australian-focused content across platforms ensures your business appears in AI recommendations when Australian customers ask for solutions."
         },
         {
-          question: "Should I focus more on SEO or social media marketing?",
-          answer: "Both are essential and work synergistically. SEO provides long-term organic traffic, while social media offers immediate engagement and brand building. JB-SaaS creates content optimized for both, ensuring your message reaches audiences through multiple channels for maximum impact."
+          question: "Should Australian businesses focus more on SEO or social media marketing?",
+          answer: "Both are essential for Australian businesses and work synergistically. SEO provides long-term organic traffic for Australian searches, while social media offers immediate engagement and local brand building. JB-SaaS creates content optimized for both Australian SEO and social media audiences."
         },
         {
-          question: "How much should a business spend on content marketing?",
-          answer: "Most successful businesses allocate 6-10% of revenue to marketing, with 25-30% of that on content. JB-SaaS reduces content costs by 80-90% compared to agencies while improving quality and consistency. You get enterprise-level content strategy at a fraction of traditional costs."
+          question: "How much should an Australian business spend on content marketing?",
+          answer: "Most successful Australian businesses allocate 6-10% of revenue to marketing, with 25-30% of that on content. JB-SaaS reduces content costs by 80-90% compared to Australian agencies while improving quality and consistency. You get enterprise-level Australian content strategy at a fraction of traditional costs."
         },
         {
-          question: "What content types perform best for B2B vs B2C?",
-          answer: "B2B audiences prefer educational content, case studies, and industry insights that demonstrate expertise. B2C audiences engage more with entertaining, emotional, and visual content. JB-SaaS automatically adapts content style, tone, and format based on your target audience and industry."
+          question: "What content types perform best for Australian B2B vs B2C?",
+          answer: "Australian B2B audiences prefer educational content, local case studies, and industry insights that demonstrate expertise. Australian B2C audiences engage more with entertaining, emotional, and visual content that reflects local culture. JB-SaaS automatically adapts content style based on your Australian target audience and industry."
         },
         {
-          question: "How do I measure content marketing success?",
-          answer: "Key metrics include engagement rates, website traffic, lead generation, conversion rates, and brand mention growth. JB-SaaS provides comprehensive analytics showing content performance, audience growth, competitor comparisons, and ROI tracking across all platforms."
+          question: "How do I measure content marketing success for my Australian business?",
+          answer: "Key metrics include engagement rates, Australian website traffic, local lead generation, conversion rates, and brand mention growth. JB-SaaS provides comprehensive analytics showing content performance, Australian audience growth, local competitor comparisons, and ROI tracking across all platforms."
         }
       ]
     },

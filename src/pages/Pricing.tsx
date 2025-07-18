@@ -19,19 +19,33 @@ const Pricing = () => {
       <PublicHeader />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
-            <DollarSign className="w-4 h-4 mr-2" />
-            Simple, Transparent Pricing
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Hero Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(/src/assets/roi-data-driven-hero.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-background/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <Badge className="mb-6 bg-green-600 text-white border-green-500">
+            🇦🇺 Australian Businesses Only
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
             Choose Your <span className="text-gradient-primary">Growth Plan</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Start free, scale as you grow. All plans include our core AI content creation features.
+          <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
+            Start with our Starter plan, scale as you grow. All plans include our core AI content creation features designed for Australian businesses.
           </p>
         </div>
       </section>
@@ -77,8 +91,8 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
-                    Get Started Now
+                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
+                    <Link to="/auth">Get Started Now</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -133,8 +147,8 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
-                    Get Started Now
+                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
+                    <Link to="/auth">Get Started Now</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -184,8 +198,8 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500">
-                    Contact Sales
+                  <Button className="w-full h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 hover:from-purple-600 hover:to-blue-500" asChild>
+                    <Link to="/auth">Contact Sales</Link>
                   </Button>
                 </div>
               </CardContent>
