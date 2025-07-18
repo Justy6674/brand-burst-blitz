@@ -267,7 +267,7 @@ const Index = () => {
             {[
               {
                 title: "🧠 AI Content Generation Engine",
-                description: "Advanced AI creates <span className='text-yellow-highlight'>SEO-optimised blogs</span>, social posts, and marketing copy that gets you found on <span className='text-yellow-highlight'>Google</span> and recommended by <span className='text-yellow-highlight'>ChatGPT</span>. Industry-specific compliance built into every piece.",
+                description: "Advanced AI creates <span style='color: #ffd700; font-weight: 700;'>SEO-optimised blogs</span>, social posts, and <span style='color: #ffd700; font-weight: 700;'>marketing</span> copy that gets you <span style='color: #ffd700; font-weight: 700;'>found</span> on <span style='color: #ffd700; font-weight: 700;'>Google</span> and recommended by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Industry-specific compliance built into every piece.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
