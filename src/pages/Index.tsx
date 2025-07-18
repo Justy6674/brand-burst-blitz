@@ -200,8 +200,8 @@ const Index = () => {
               <div className="text-xs sm:text-sm text-muted-foreground">Platform Availability</div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">Aug</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">2025 Launch Date</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">5min</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Weekly Time Savings</div>
             </div>
           </div>
         </div>
