@@ -58,7 +58,8 @@ serve(async (req) => {
 
     logStep("Validating ABN", { abn });
 
-    // Real ABN validation using ATO ABN Lookup Web Services
+    // Simulate ABN validation (in production, integrate with ATO ABN Lookup API)
+    // For demo purposes, we'll validate format and return mock data
     const isValidFormat = /^\d{11}$/.test(abn);
     
     if (!isValidFormat) {
@@ -73,76 +74,43 @@ serve(async (req) => {
       });
     }
 
-    // Real ATO ABN Lookup API call
-    const atoApiUrl = `https://abr.business.gov.au/json/AbnDetails.aspx?abn=${abn}&callback=`;
-    logStep("Calling ATO ABN Lookup API", { url: atoApiUrl });
+    // Mock validation logic (in production, call ATO API)
+    const mockValidABNs = [
+      "12345678901", "98765432109", "11111111111", 
+      "22222222222", "33333333333", "44444444444"
+    ];
     
-    try {
-      const atoResponse = await fetch(atoApiUrl, {
-        headers: {
-          'User-Agent': 'JBSAAS ABN Validation Service',
-          'Accept': 'application/json'
-        }
-      });
+    const isValid = mockValidABNs.includes(abn);
+    
+    let response: ABNValidationResponse;
+    
+    if (isValid) {
+      // Mock business data (in production, from ATO API response)
+      const mockBusinessNames = {
+        "12345678901": "Sydney Digital Solutions Pty Ltd",
+        "98765432109": "Melbourne Marketing Co",
+        "11111111111": "Brisbane Business Hub",
+        "22222222222": "Perth Tech Services",
+        "33333333333": "Adelaide Consulting Group",
+        "44444444444": "Canberra Creative Agency"
+      };
+
+      response = {
+        isValid: true,
+        businessName: mockBusinessNames[abn as keyof typeof mockBusinessNames] || "Australian Business Pty Ltd",
+        abn: abn,
+        gstRegistered: true,
+        status: "Active"
+      };
       
-      if (!atoResponse.ok) {
-        throw new Error(`ATO API returned ${atoResponse.status}: ${atoResponse.statusText}`);
-      }
-      
-      const responseText = await atoResponse.text();
-      logStep("ATO API raw response", { response: responseText.substring(0, 200) });
-      
-      // Parse JSONP response (remove callback wrapper if present)
-      const jsonString = responseText.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
-      const atoData = JSON.parse(jsonString);
-      
-      logStep("Parsed ATO data", atoData);
-      
-      // Check if ABN is valid and active
-      const isActive = atoData?.Abn?.AbnStatus === '1'; // '1' means active
-      const businessName = atoData?.Abn?.EntityName?.[0]?.OrganisationName || 
-                          atoData?.Abn?.EntityName?.[0]?.PersonNameDetails?.GivenName + ' ' + 
-                          atoData?.Abn?.EntityName?.[0]?.PersonNameDetails?.FamilyName;
-      
-      // Check GST registration
-      const gstRegistered = atoData?.Abn?.Goods_and_Services_Tax?.[0]?.EffectiveTo === '0001-01-01T00:00:00+00:00';
-      
-      let response: ABNValidationResponse;
-      
-      if (isActive && businessName) {
-        response = {
-          isValid: true,
-          businessName: businessName.trim(),
-          abn: abn,
-          gstRegistered: gstRegistered,
-          status: "Active"
-        };
-        
-        logStep("ABN validation successful", response);
-      } else if (!isActive) {
-        response = {
-          isValid: false,
-          error: "ABN exists but is not currently active"
-        };
-        
-        logStep("ABN inactive", { abn });
-      } else {
-        response = {
-          isValid: false,
-          error: "ABN not found in Australian Business Register"
-        };
-        
-        logStep("ABN not found", { abn });
-      }
-      
-    } catch (apiError) {
-      logStep("ATO API error", { error: apiError });
-      
-      // Fallback to basic validation if ATO API fails
+      logStep("ABN validation successful", response);
+    } else {
       response = {
         isValid: false,
-        error: "Unable to verify ABN at this time. Please try again later."
+        error: "ABN not found in Australian Business Register"
       };
+      
+      logStep("ABN validation failed", { abn });
     }
 
     return new Response(JSON.stringify(response), {

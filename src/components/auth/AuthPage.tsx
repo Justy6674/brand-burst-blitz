@@ -16,7 +16,6 @@ const AuthPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [businessName, setBusinessName] = useState('');
-  const [isAustralianBusiness, setIsAustralianBusiness] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('login');
   const navigate = useNavigate();
@@ -70,8 +69,20 @@ const AuthPage = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('Sign up is temporarily disabled. JB-SaaS is launching soon - please join our waitlist for early access notifications.');
-    return;
+    setIsLoading(true);
+    setError('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const redirectUrl = `${window.location.origin}/dashboard`;
@@ -142,9 +153,6 @@ const AuthPage = () => {
                 src="/lovable-uploads/a1f513c9-7ef7-4648-a7fc-8dd53f19335c.png" 
                 alt="JB-SaaS Logo" 
                 className="w-12 h-12 object-contain"
-                width="48"
-                height="48"
-                loading="eager"
               />
             </div>
             <CardTitle className="text-2xl font-bold text-white">
@@ -166,10 +174,9 @@ const AuthPage = () => {
                 </TabsTrigger>
                 <TabsTrigger 
                   value="signup" 
-                  className="font-medium text-white/50 data-[state=active]:bg-red-900/20 data-[state=active]:text-red-200 cursor-not-allowed"
-                  disabled
+                  className="font-medium text-white data-[state=active]:bg-white/15 data-[state=active]:text-white"
                 >
-                  Sign Up (Coming Soon)
+                  Sign Up
                 </TabsTrigger>
               </TabsList>
 
@@ -228,19 +235,73 @@ const AuthPage = () => {
               </TabsContent>
 
               <TabsContent value="signup" className="space-y-4">
-                <div className="text-center p-8 bg-red-900/10 rounded-lg border border-red-400/30">
-                  <div className="text-4xl mb-4">🚧</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Sign Up Temporarily Disabled</h3>
-                  <p className="text-white/80 mb-4">
-                    JB-SaaS is launching soon! We're putting the finishing touches on our platform.
-                  </p>
+                <form onSubmit={handleSignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="business-name" className="text-white font-medium">Business Name</Label>
+                    <Input
+                      id="business-name"
+                      type="text"
+                      placeholder="Your business name"
+                      value={businessName}
+                      onChange={(e) => setBusinessName(e.target.value)}
+                      required
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email" className="text-white font-medium">Email</Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-password" className="text-white font-medium">Password</Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      placeholder="Create a password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirm-password" className="text-white font-medium">Confirm Password</Label>
+                    <Input
+                      id="confirm-password"
+                      type="password"
+                      placeholder="Confirm your password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
+                    />
+                  </div>
                   <Button 
-                    onClick={() => window.open('mailto:hello@jb-saas.com?subject=Early Access Waitlist&body=Hi JB-SaaS Team,%0A%0AI would like to join the early access waitlist for JB-SaaS.%0A%0ABusiness Name: [Your Business]%0AIndustry: [Your Industry]%0A%0AThanks!')}
-                    className="bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/20"
+                    type="submit" 
+                    className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    disabled={isLoading}
                   >
-                    Join Early Access Waitlist
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Creating account...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="mr-2 h-4 w-4" />
+                        Create Account
+                      </>
+                    )}
                   </Button>
-                </div>
+                </form>
               </TabsContent>
             </Tabs>
           </CardContent>

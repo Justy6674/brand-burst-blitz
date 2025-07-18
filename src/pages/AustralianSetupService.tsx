@@ -305,9 +305,6 @@ const AustralianSetupService = () => {
                 src="/jbsaaslogo.png" 
                 alt="JBSAAS Logo" 
                 className="w-8 h-8 object-contain"
-                width="32"
-                height="32"
-                loading="lazy"
               />
               <span className="text-xl font-bold text-gradient-primary">JB-Software-As-A-Service</span>
             </div>

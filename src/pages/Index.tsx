@@ -5,9 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { 
   Sparkles, 
   Zap, 
@@ -36,8 +34,6 @@ const AdminAccess = () => {
   const [clickCount, setClickCount] = useState(0);
   const [showDialog, setShowDialog] = useState(false);
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleLogoClick = () => {
     setClickCount(prev => prev + 1);
@@ -49,33 +45,12 @@ const AdminAccess = () => {
     setTimeout(() => setClickCount(0), 3000);
   };
 
-  const handlePasswordSubmit = async (e: React.FormEvent) => {
+  const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
-    
-    try {
-      const { data, error } = await supabase.functions.invoke('admin-auth', {
-        body: { action: 'login', password }
-      });
-
-      if (error) {
-        setError('Authentication service unavailable');
-        return;
-      }
-
-      if (data?.success) {
-        localStorage.setItem('admin_session_token', data.sessionToken);
-        window.location.href = "/dashboard/blog-admin";
-      } else {
-        setError(data?.error || 'Invalid password');
-        setPassword("");
-      }
-    } catch (err) {
-      setError('Login failed. Please try again.');
+    if (password === "jbsaas2025") {
+      window.location.href = "/dashboard/blog-admin";
+    } else {
       setPassword("");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -95,21 +70,15 @@ const AdminAccess = () => {
             <DialogTitle>Admin Access</DialogTitle>
           </DialogHeader>
           <form onSubmit={handlePasswordSubmit} className="space-y-4">
-            {error && (
-              <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
-                {error}
-              </div>
-            )}
             <Input
               type="password"
               placeholder="Enter admin password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              disabled={isLoading}
               autoFocus
             />
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Authenticating..." : "Access Blog Admin"}
+            <Button type="submit" className="w-full">
+              Access Blog Admin
             </Button>
           </form>
         </DialogContent>
@@ -119,8 +88,6 @@ const AdminAccess = () => {
 };
 
 const Index = () => {
-  const [showInfoDialog, setShowInfoDialog] = useState(false);
-
   return (
     <div className="min-h-screen bg-background">
       {/* Geo Detection Banner */}
@@ -132,8 +99,8 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection backgroundImage={heroImage}>
         <div className="max-w-4xl mx-auto animate-fade-in">
-          <Badge className="mb-6 sm:mb-8 bg-orange-600 text-white border-orange-500 hover:bg-orange-700 text-sm sm:text-base">
-            🚀 Coming August 2025 - Australian Businesses Only
+          <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
+            🇦🇺 Australian Businesses Only
           </Badge>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
@@ -143,25 +110,26 @@ const Index = () => {
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
             Generate professional social media posts, blogs, and marketing content in seconds. 
-            <strong className="text-white block mt-2">Launching August 2025 - Plans from $49/month with unlimited content generation.</strong>
+            <strong className="text-white block mt-2">Plans from $49/month - Professional plans include unlimited content generation.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
             <Button 
               variant="hero" 
               size="lg" 
-              onClick={() => setShowInfoDialog(true)}
-              className="bg-gradient-primary text-white"
+              asChild
             >
-              <Target className="w-5 h-5 mr-3" />
-              Join Waitlist - August 2025
+              <Link to="/discover">
+                <Target className="w-5 h-5 mr-3" />
+                Find My Industry Solution
+              </Link>
             </Button>
             <Button 
               variant="outline-white" 
               size="lg" 
               asChild
             >
-              <Link to="/discover">
+              <Link to="/auth">
                 <Rocket className="w-5 h-5 mr-3" />
                 Start Free Trial
               </Link>
@@ -202,8 +170,8 @@ const Index = () => {
               <div className="text-xs sm:text-sm text-muted-foreground">Platform Availability</div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">5min</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Weekly Time Savings</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">Aug</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">2025 Launch Date</div>
             </div>
           </div>
         </div>
@@ -293,14 +261,9 @@ const Index = () => {
           </div>
           
           <div className="text-center">
-            <Button 
-              variant="premium" 
-              size="xl" 
-              className="group bg-gradient-primary text-white"
-              onClick={() => setShowInfoDialog(true)}
-            >
+            <Button variant="premium" size="xl" className="group">
               <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Start Free Trial
+              Transform My Business Now
             </Button>
           </div>
         </div>
@@ -768,10 +731,12 @@ const Index = () => {
               variant="glass" 
               size="xl" 
               className="group"
-              onClick={() => setShowInfoDialog(true)}
+              asChild
             >
-              <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Join Waitlist - August 2025
+              <Link to="/auth">
+                <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                Start Your Free Trial
+              </Link>
             </Button>
             <Button 
               variant="outline-white" 
@@ -780,7 +745,7 @@ const Index = () => {
             >
               <Link to="/pricing">
                 <DollarSign className="w-5 h-5 mr-2" />
-                View Future Pricing
+                View Pricing Plans
               </Link>
             </Button>
           </div>
@@ -804,9 +769,6 @@ const Index = () => {
                   src="/jbsaaslogo.png" 
                   alt="JB-SaaS Logo" 
                   className="w-8 h-8"
-                  width="32"
-                  height="32"
-                  loading="lazy"
                 />
                 <span className="text-xl font-bold text-gradient-primary">JB-SaaS</span>
               </div>
@@ -863,23 +825,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-
-      {/* Info Dialog */}
-      <AlertDialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Coming August 2025</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you an Australian current or future business owner? We're launching our comprehensive business automation and content management platform in August 2025. 
-              <br /><br />
-              Please stay tuned and look out for our social media and website updates for early access and launch details!
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogAction onClick={() => setShowInfoDialog(false)}>
-            Got it
-          </AlertDialogAction>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };
