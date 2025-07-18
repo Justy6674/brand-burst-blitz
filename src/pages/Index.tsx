@@ -297,7 +297,7 @@ const Index = () => {
               },
               {
                 title: "🛡️ Industry Compliance Safeguards",
-                description: "Built-in protection for <span className='text-yellow-highlight'>AHPRA, TGA, ASIC</span>, and all Australian industry regulations. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional standards.",
+                description: "Built-in protection for <span style='color: #ffd700; font-weight: 700;'>AHPRA, TGA, ASIC</span>, and all Australian industry <span style='color: #ffd700; font-weight: 700;'>regulations</span>. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional <span style='color: #ffd700; font-weight: 700;'>standards</span>.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               }
