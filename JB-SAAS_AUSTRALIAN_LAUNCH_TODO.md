@@ -297,6 +297,9 @@ REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABIL
 4. ✅ **Remove "Coming August 2025"** from all CTAs, replace with active signup
 5. ✅ **Add Australian business checkbox** to signup flow with payment blocking
 
+**URGENT ARCHITECTURE FIX:**
+6. ✅ **RESTRUCTURE SERVICES ARCHITECTURE** - Eliminate confusion between Features/Services pages ✅
+
 **Next Priority Implementation:**
 6. ✅ **Create and implement hero images** for Pricing and CommonQuestions pages
 7. ✅ **Add Australian trust signals** throughout landing page
@@ -304,6 +307,64 @@ REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABIL
 9. ✅ **Surface industry templates** earlier in user journey
 10. ✅ **Add Privacy Act compliance** messaging and links
 11. ✅ **Remove stereotypical "Aussie"/"mate" language** - use professional Australian English
+
+---
+
+## 🏗️ **CRITICAL ARCHITECTURE RESTRUCTURE**
+*Clear distinction between SaaS Platform vs Standalone Tools*
+
+### **🎯 PROPOSED CLEAR ARCHITECTURE**
+
+#### **Core SaaS Platform (Monthly Subscriptions)**
+**What subscribers get access to in the member app:**
+
+**Starter Plan ($49/month)**
+- AI Content Generation: 100 posts/month
+- Social Media Management: 3 accounts
+- Content Scheduling & Publishing
+- Basic Analytics Dashboard
+- Industry-Specific Templates
+- Email Support
+
+**Professional Plan ($149/month)** 
+- **Everything in Starter PLUS:**
+- **Unlimited** AI Content Generation
+- Social Media Management: 10 accounts  
+- Advanced Analytics & Insights
+- Competitor Analysis Tools
+- Brand Voice Training
+- Custom Content Templates
+- Priority Support
+- Business Intelligence Dashboard
+
+**Enterprise Plan (Custom - Coming 2025)**
+- Everything in Professional
+- Unlimited team members & accounts
+- White-label solution
+- Custom integrations
+- Dedicated success manager
+
+#### **Additional Standalone Tools (One-time purchases)**
+**Helpful tools for business startups and owners:**
+
+**Current Tools:**
+- Australian Quick-Start Social Setup ($199-299)
+- Name & Domain Scout ($69-99 + optional trademark screening)
+
+**Future Tools (Expanding toolkit):**
+- ASIC Business Search Tool
+- Domain Research & Ideas Generator  
+- Website Design Concept Generator
+- Medicare Provider Tools (for healthcare professionals)
+- Postcode Search for Medicare Telehealth Eligibility
+- Industry-Specific Professional Tools
+- Business Registration Assistant
+
+#### **Implementation Plan:**
+- [x] **Create "All Services" page** - Clear overview of platform vs tools ✅ 
+- [ ] **Update Pricing page** - Detailed descriptions of what's included in each plan
+- [x] **Simplify navigation** - Distinguish Platform vs Additional Tools ✅
+- [x] **Eliminate Features/Services page confusion** ✅
 
 ---
 
@@ -334,7 +395,8 @@ REMEMBER - AI TWO HATS - CHECK SECURITY, CHECL ALL SYNTAX, CHECK UI AND VIEWABIL
 
 ## 🎯 **COMPLETION STATUS & MILESTONES**
 
-- [ ] **Phase 1: Critical Fixes** - Foundation for conversion optimization
+- [x] **Phase 1: Critical Fixes** - Foundation for conversion optimization ✅
+- [x] **Phase 1.5: Architecture Restructure** - Clear SaaS vs Tools distinction ✅
 - [ ] **Phase 2: Australian Positioning** - Market differentiation and trust building  
 - [ ] **Phase 3: Technical Excellence** - Sophisticated features and automation
 - [ ] **Phase 4: Optimization & Scale** - Data-driven growth and expansion preparation

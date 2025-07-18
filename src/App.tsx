@@ -30,6 +30,7 @@ import BlogAdmin from "./pages/BlogAdmin";
 import BlogPost from "./components/blog/BlogPost";
 import AustralianSetupService from "./pages/AustralianSetupService";
 import AustralianServices from "./pages/AustralianServices";
+import AllServices from "./pages/AllServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import Discover from "./pages/Discover";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -47,6 +48,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/features" element={<Features />} />
+              <Route path="/all-services" element={<AllServices />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/common-questions" element={<CommonQuestions />} />

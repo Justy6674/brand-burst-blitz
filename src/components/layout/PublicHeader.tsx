@@ -43,7 +43,7 @@ const PublicHeader = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/features">Features</Link>
+                  <Link to="/all-services">All Services</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -74,7 +74,7 @@ const PublicHeader = () => {
             <ComingSoonPopup 
               trigger={
                 <Button className="bg-gradient-primary text-primary-foreground px-6 py-2 font-semibold">
-                  Join Waitlist - August 2025
+                  Get Early Access
                 </Button>
               } 
             />
@@ -103,11 +103,11 @@ const PublicHeader = () => {
                 Home
               </Link>
               <Link
-                to="/features"
+                to="/all-services"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Features
+                All Services
               </Link>
               <Link
                 to="/australian-services"
@@ -141,7 +141,7 @@ const PublicHeader = () => {
                 <ComingSoonPopup 
                   trigger={
                     <Button className="w-full bg-gradient-primary text-primary-foreground font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                      Join Waitlist - August 2025
+                      Get Early Access
                     </Button>
                   } 
                 />
