@@ -120,8 +120,17 @@ const Index = () => {
       <PublicHeader />
 
       {/* Hero Section */}
-      <div className="relative">
-        <HeroSection backgroundImage={heroImage} overlayIntensity="heavy">
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src={heroImage}
+            alt="AI Marketing Hero Background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-900/85 to-purple-900/90"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
             <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
               🎯 Complete AI Marketing Automation & SEO Platform
@@ -161,12 +170,8 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </HeroSection>
-        
-        {/* Hero Bottom Border Effect - Made More Visible */}
-        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
-        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-2 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"></div>
-      </div>
+        </div>
+      </section>
 
       {/* WHO Section */}
       <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
@@ -175,7 +180,7 @@ const Index = () => {
           <img 
             src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Blue starry night technology background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
         </div>
@@ -238,7 +243,7 @@ const Index = () => {
           <img 
             src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Modern workspace with laptop background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-red-900/80 to-yellow-900/85"></div>
         </div>
@@ -306,8 +311,8 @@ const Index = () => {
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-            alt="Blue starry night technology background"
-            className="w-full h-full object-cover"
+            alt="Matrix code digital background"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
         </div>
@@ -382,7 +387,7 @@ const Index = () => {
           <img 
             src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Colorful programming code background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-cyan-900/80 to-pink-900/85"></div>
         </div>
@@ -445,7 +450,7 @@ const Index = () => {
           <img 
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Circuit board technology background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-violet-900/80 to-emerald-900/85"></div>
         </div>
