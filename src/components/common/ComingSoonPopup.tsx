@@ -50,8 +50,8 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
       }
 
       toast({
-        title: "Welcome to the waitlist!",
-        description: "You're now registered for early access. We'll notify you as soon as we launch in August 2025.",
+        title: "Welcome to early access!",
+        description: "You're now registered for early access. We'll be in touch soon with your account details.",
       });
 
       // Reset form and close popup
@@ -107,7 +107,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                 <div className="space-y-4">
                   <Badge className="bg-gradient-primary text-primary-foreground px-6 py-2 text-lg">
                     <Rocket className="w-5 h-5 mr-2" />
-                    Coming August 2025
+                    Early Access Available
                   </Badge>
                   
                   <DialogTitle className="text-3xl md:text-4xl font-bold">
@@ -116,7 +116,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                   </DialogTitle>
                   
                   <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                    We're putting the finishing touches on Australia's most comprehensive business automation and content management platform. Join thousands of Australian businesses already on our waitlist.
+                    Australia's most comprehensive business automation and content management platform. Join thousands of Australian businesses getting early access to our AI-powered marketing tools.
                   </p>
                 </div>
               </DialogHeader>
@@ -142,24 +142,24 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                     <Calendar className="w-6 h-6 text-primary mr-2" />
                     <h3 className="text-xl font-bold">Launch Timeline</h3>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Beta Testing</span>
-                      <Badge variant="secondary">June 2025</Badge>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Early Access</span>
+                        <Badge variant="secondary">Available Now</Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Full Platform</span>
+                        <Badge className="bg-gradient-primary text-primary-foreground">Coming Soon</Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Early Bird Pricing</span>
+                        <Badge variant="outline">Limited Time</Badge>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Public Launch</span>
-                      <Badge className="bg-gradient-primary text-primary-foreground">August 2025</Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Early Bird Pricing</span>
-                      <Badge variant="outline">Limited Time</Badge>
-                    </div>
-                  </div>
                 </div>
                 
                 <div className="text-center space-y-4">
-                  <h4 className="font-bold text-foreground">Be the first to know when we launch</h4>
+                  <h4 className="font-bold text-foreground">Get early access to JB-SaaS</h4>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button 
                       size="lg" 
