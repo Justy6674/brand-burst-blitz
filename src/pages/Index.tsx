@@ -502,32 +502,17 @@ const Index = () => {
       </section>
 
       {/* Final CTA - Dynamic Tech Section */}
-      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {/* Floating Tech Particles */}
-          <div className="absolute top-10 left-10 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-20 right-20 w-1 h-1 bg-blue-400 rounded-full animate-bounce"></div>
-          <div className="absolute bottom-20 left-20 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
-          <div className="absolute bottom-10 right-10 w-1 h-1 bg-red-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-ping"></div>
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Clean Background */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"></div>
           
-          {/* Firework Burst Effects */}
-          <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
-            <div className="relative">
-              <div className="absolute w-16 h-16 border border-yellow-400/30 rounded-full animate-ping"></div>
-              <div className="absolute w-12 h-12 border border-yellow-400/50 rounded-full animate-ping animation-delay-150"></div>
-              <div className="absolute w-8 h-8 border border-yellow-400/70 rounded-full animate-ping animation-delay-300"></div>
-            </div>
-          </div>
-          
-          {/* Grid Pattern Overlay */}
+          {/* Clean Grid Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
           
-          {/* Glowing Orbs */}
-          <div className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-40 h-40 bg-gradient-to-r from-yellow-500/20 to-red-500/20 rounded-full blur-xl animate-pulse animation-delay-500"></div>
+          {/* Subtle Glowing Orbs */}
+          <div className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-1/4 right-1/6 w-40 h-40 bg-gradient-to-r from-yellow-500/10 to-red-500/10 rounded-full blur-xl"></div>
         </div>
         
         {/* Main Content */}
