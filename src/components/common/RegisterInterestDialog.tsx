@@ -103,23 +103,10 @@ export function RegisterInterestDialog({ open, onOpenChange }: RegisterInterestD
     setIsSubmitting(true);
 
     try {
-      // Store interest registration in Supabase instead of sending email
-      const { error } = await supabase
-        .from('interest_registrations')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          business_name: formData.businessName,
-          industry: formData.industry,
-          is_australian: formData.isAustralian,
-          current_challenges: formData.currentChallenges,
-          monthly_marketing_spend: formData.monthlyMarketingSpend,
-          team_size: formData.teamSize,
-          primary_goals: formData.primaryGoals,
-          wants_updates: formData.wantsUpdates,
-          heard_about_us: formData.heardAboutUs,
-          additional_notes: formData.additionalNotes,
-        }]);
+      // Save interest registration via edge function
+      const { error } = await supabase.functions.invoke('save-interest', {
+        body: formData
+      });
 
       if (error) {
         throw error;

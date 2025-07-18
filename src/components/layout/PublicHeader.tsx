@@ -12,11 +12,14 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { RegisterInterestDialog } from '@/components/common/RegisterInterestDialog';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showRegisterDialog, setShowRegisterDialog] = useState(false);
 
   return (
+    <>
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
@@ -73,11 +76,17 @@ const PublicHeader = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link to="/auth">Sign In</Link>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowRegisterDialog(true)}
+            >
+              Join Waitlist
             </Button>
-            <Button asChild className="bg-gradient-primary">
-              <Link to="/auth">Get Started</Link>
+            <Button 
+              onClick={() => setShowRegisterDialog(true)}
+              className="bg-gradient-primary"
+            >
+              Coming August 2025
             </Button>
           </div>
 
@@ -139,11 +148,24 @@ const PublicHeader = () => {
                 FAQ
               </Link>
               <div className="pt-4 border-t space-y-2">
-                <Button variant="ghost" asChild className="w-full justify-start">
-                  <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-center"
+                  onClick={() => {
+                    setShowRegisterDialog(true);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Join Waitlist
                 </Button>
-                <Button asChild className="w-full bg-gradient-primary">
-                  <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
+                <Button 
+                  className="w-full bg-gradient-primary"
+                  onClick={() => {
+                    setShowRegisterDialog(true);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Coming August 2025
                 </Button>
               </div>
             </nav>
@@ -151,6 +173,13 @@ const PublicHeader = () => {
         )}
       </div>
     </header>
+
+    {/* Register Interest Dialog */}
+    <RegisterInterestDialog 
+      open={showRegisterDialog} 
+      onOpenChange={setShowRegisterDialog} 
+    />
+  </>
   );
 };
 

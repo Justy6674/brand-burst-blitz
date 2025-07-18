@@ -753,6 +753,60 @@ export type Database = {
           },
         ]
       }
+      interest_registrations: {
+        Row: {
+          additional_notes: string | null
+          business_name: string
+          created_at: string
+          current_challenges: string[] | null
+          email: string
+          heard_about_us: string | null
+          id: string
+          industry: string | null
+          is_australian: boolean
+          monthly_marketing_spend: string | null
+          name: string
+          primary_goals: string[] | null
+          team_size: string | null
+          updated_at: string
+          wants_updates: boolean | null
+        }
+        Insert: {
+          additional_notes?: string | null
+          business_name: string
+          created_at?: string
+          current_challenges?: string[] | null
+          email: string
+          heard_about_us?: string | null
+          id?: string
+          industry?: string | null
+          is_australian?: boolean
+          monthly_marketing_spend?: string | null
+          name: string
+          primary_goals?: string[] | null
+          team_size?: string | null
+          updated_at?: string
+          wants_updates?: boolean | null
+        }
+        Update: {
+          additional_notes?: string | null
+          business_name?: string
+          created_at?: string
+          current_challenges?: string[] | null
+          email?: string
+          heard_about_us?: string | null
+          id?: string
+          industry?: string | null
+          is_australian?: boolean
+          monthly_marketing_spend?: string | null
+          name?: string
+          primary_goals?: string[] | null
+          team_size?: string | null
+          updated_at?: string
+          wants_updates?: boolean | null
+        }
+        Relationships: []
+      }
       name_scout_requests: {
         Row: {
           ai_summary: string | null
