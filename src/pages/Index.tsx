@@ -105,13 +105,13 @@ const Index = () => {
           </Badge>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
-            <span className="block mb-2">AI Marketing Content</span> 
-            <span className="text-gradient-hero block">for Australian Businesses</span>
+            <span className="block mb-2">Stop Being Invisible</span> 
+            <span className="text-gradient-hero block">to Google & AI Agents</span>
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-            Industry-specific content that understands your market. Generate professional social media posts, blogs, and marketing content in seconds. 
-            <strong className="text-white block mt-2">Plans from $49/month - Professional plan includes unlimited content generation.</strong>
+            Australian businesses lose $12,500/month on agencies and wasted time. Our AI creates Google-crawlable blogs and engaging social content that gets you found by search engines AND recommended by ChatGPT.
+            <strong className="text-white block mt-2">Replace $11,700/month in costs with our $149 solution.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
@@ -179,11 +179,10 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              The <span className="text-gradient-hero">$10,000 Problem</span> Every Business Faces
+              Why Your Business Is <span className="text-gradient-hero">Losing $11,700 Monthly</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Business owners waste thousands on agencies and weeks on content creation. 
-              There's a better way.
+              You're invisible to Google, ignored by AI agents, and outplayed by competitors who understand modern discovery. Here's the brutal math.
             </p>
           </div>
           
@@ -200,23 +199,23 @@ const Index = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Pay $5,000-$15,000 to agencies monthly</span>
+                    <span className="text-muted-foreground"><strong>Agency costs:</strong> $8,000/month for content that doesn't understand your business</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Wait weeks for content approval</span>
+                    <span className="text-muted-foreground"><strong>Your time:</strong> 20 hours weekly × $200/hour = $3,200/month in lost earning time</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Spend 20+ hours weekly on social media</span>
+                    <span className="text-muted-foreground"><strong>Tools & subscriptions:</strong> $500/month for multiple platforms that don't talk to each other</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Struggle with brand consistency</span>
+                    <span className="text-muted-foreground"><strong>Google invisibility:</strong> No fresh content = no search rankings = lost customers daily</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Miss posting schedules constantly</span>
+                    <span className="text-muted-foreground"><strong>AI exclusion:</strong> ChatGPT won't recommend businesses without quality online presence</span>
                   </li>
                 </ul>
               </CardContent>
@@ -234,23 +233,23 @@ const Index = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Plans from $49/month - Professional plan includes unlimited content</span>
+                    <span className="text-foreground font-medium"><strong>Total cost:</strong> $149/month = $11,551 monthly savings</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Generate posts in under 30 seconds</span>
+                    <span className="text-foreground font-medium"><strong>Time back:</strong> 20 hours weekly freed up = 80 hours monthly to earn revenue</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Spend 5 minutes weekly on content</span>
+                    <span className="text-foreground font-medium"><strong>Google ranking:</strong> Fresh blogs get your business found in search results</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">AI maintains perfect brand voice</span>
+                    <span className="text-foreground font-medium"><strong>AI recommendations:</strong> Quality content gets you suggested by ChatGPT & Gemini</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Never miss a post with auto-scheduling</span>
+                    <span className="text-foreground font-medium"><strong>Competitor advantage:</strong> Know exactly what works before you post</span>
                   </li>
                 </ul>
               </CardContent>
@@ -354,34 +353,34 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Competitive Intelligence */}
+            {/* Competitor Intelligence */}
             <Card className="p-8 hover-lift group bg-gradient-to-br from-accent/5 to-primary/5 border-2 border-accent/20 shadow-xl">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
                     <Target className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">Competitive Intelligence</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Competitor Intelligence</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Automated competitor monitoring, content analysis, and actionable insights to stay ahead of your competition.
+                  Stop guessing what content works. See exactly what your top 10 competitors post, when they post, what gets the most engagement, and which content gaps you can exploit.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Automated Competitor Monitoring</span>
+                    <span className="font-medium">Track competitors' posting schedules and frequency</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Content Performance Analysis</span>
+                    <span className="font-medium">Analyze their highest-performing content by engagement</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Actionable Strategic Insights</span>
+                    <span className="font-medium">Identify content gaps and untapped opportunities</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Market Gap Identification</span>
+                    <span className="font-medium">Monitor their keyword rankings and SEO strategies</span>
                   </li>
                 </ul>
               </CardContent>
@@ -458,18 +457,22 @@ const Index = () => {
                 <div className="w-14 h-14 sm:w-12 sm:h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
                   <Calendar className="w-7 h-7 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Content Calendar</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Smart Content Calendar</h3>
                 <p className="text-muted-foreground mb-4">
-                  Visual scheduling with timeline management and multi-platform coordination.
+                  Visual calendar shows your entire month of content at a glance. Drag, drop, reschedule. AI suggests optimal posting times based on your audience activity.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Timeline visualization
+                    Visual timeline with drag-and-drop scheduling
                   </li>
                   <li className="flex items-center">
                     <Check className="w-3 h-3 text-success mr-2" />
-                    Publishing queue management
+                    AI-recommended posting times for maximum reach
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="w-3 h-3 text-success mr-2" />
+                    Never miss a deadline with automated publishing
                   </li>
                 </ul>
               </CardContent>
@@ -522,35 +525,49 @@ const Index = () => {
 
           {/* Value Proposition */}
           <div className="text-center bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">Replace $10,000+ in Business Tools</h3>
+            <h3 className="text-2xl font-bold mb-4 text-foreground">Replace $11,700 in Monthly Business Costs</h3>
             <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
-              Our platform combines the functionality of expensive business intelligence tools, content agencies, 
-              competitive analysis services, and social media management platforms into one comprehensive solution.
+              Stop paying separately for content agencies, business intelligence tools, competitive analysis services, and social media management platforms. Our $149/month solution replaces them all.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span>• Business Intelligence Tools ($500+/month)</span>
-              <span>• Content Agencies ($5,000+/month)</span>
-              <span>• Competitive Analysis ($300+/month)</span>
-              <span>• Social Media Management ($200+/month)</span>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+              <div className="bg-background/50 p-3 rounded-lg">
+                <div className="font-semibold text-destructive">Content Agency</div>
+                <div className="text-muted-foreground">$8,000/month</div>
+              </div>
+              <div className="bg-background/50 p-3 rounded-lg">
+                <div className="font-semibold text-destructive">Your Time Cost</div>
+                <div className="text-muted-foreground">$3,200/month</div>
+              </div>
+              <div className="bg-background/50 p-3 rounded-lg">
+                <div className="font-semibold text-destructive">Multiple Tools</div>
+                <div className="text-muted-foreground">$500/month</div>
+              </div>
+              <div className="bg-background/50 p-3 rounded-lg">
+                <div className="font-semibold text-success">JB-SaaS Total</div>
+                <div className="text-success font-bold">$149/month</div>
+              </div>
+            </div>
+            <div className="mt-6 text-xl font-bold text-success">
+              Monthly Savings: $11,551 | Yearly Savings: $138,612
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why This Matters - Education Section */}
+      {/* How Modern Business Discovery Works - Education Section */}
       <section className="py-20 bg-gradient-to-b from-muted/30 to-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
               <Brain className="w-3 h-3 mr-1" />
-              Why Content Strategy Matters
+              Business Education: How Customers Find You in 2025
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              How Businesses <span className="text-gradient-primary">Get Discovered</span> Online
+              The 3 Ways <span className="text-gradient-primary">Customers Discover</span> Your Business
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Most businesses struggle with trial and error in digital marketing. 
-              Understanding how search engines, social platforms, and AI agents work is crucial for success.
+              Understanding how Google algorithms, social platforms, and AI agents work isn't optional anymore. 
+              <strong> It's the difference between thriving and being forgotten.</strong>
             </p>
           </div>
 
@@ -561,23 +578,31 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-6 shadow-glow">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Search Engine Visibility</h3>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">1. Google Search Discovery</h3>
                 <p className="text-muted-foreground mb-6">
-                  Google and Bing algorithms prioritize websites with fresh, relevant blog content. 
-                  Without regular content updates, your business becomes invisible in search results.
+                  <strong>The Reality:</strong> Google crawls websites looking for fresh, relevant content. Businesses with regular blogs rank 434% higher. 
+                  <strong className="text-foreground"> No blog content = invisible in search results = lost customers.</strong>
                 </p>
+                <div className="bg-primary/5 p-4 rounded-lg mb-4">
+                  <p className="text-sm font-medium text-primary">What Google's Algorithm Looks For:</p>
+                  <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                    <li>• Fresh content published regularly (blogs, articles, guides)</li>
+                    <li>• Industry expertise demonstrated through valuable content</li>
+                    <li>• Active website signals (recent posts, updates, engagement)</li>
+                  </ul>
+                </div>
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Regular blog posts improve search rankings</span>
+                    <span><strong>SEO-optimized blogs</strong> target keywords your customers search for</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>SEO-optimized content drives organic traffic</span>
+                    <span><strong>Educational content</strong> positions you as the industry expert</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Fresh content signals active business to search engines</span>
+                    <span><strong>Regular publishing</strong> signals active business to search engines</span>
                   </li>
                 </ul>
               </CardContent>
@@ -589,23 +614,31 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-6 shadow-glow">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Social Media Discovery</h3>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">2. Social Media Engagement</h3>
                 <p className="text-muted-foreground mb-6">
-                  Consistent, creative social media content builds brand awareness and trust. 
-                  Platform algorithms favor accounts that post regularly with engaging, authentic content.
+                  <strong>The Reality:</strong> Social platforms prioritize accounts that post consistently with engaging content. 
+                  <strong className="text-foreground"> Irregular posting = algorithm ignores you = followers never see your content.</strong>
                 </p>
+                <div className="bg-secondary/5 p-4 rounded-lg mb-4">
+                  <p className="text-sm font-medium text-secondary">Different Content, Different Purpose:</p>
+                  <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                    <li>• <strong>Blogs:</strong> Build authority, answer questions, drive Google rankings</li>
+                    <li>• <strong>Social:</strong> Create emotional connection, build community, drive engagement</li>
+                    <li>• <strong>Both needed:</strong> Blogs get you found, social media converts browsers into buyers</li>
+                  </ul>
+                </div>
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Regular posting increases algorithm visibility</span>
+                    <span><strong>Consistent posting</strong> increases algorithm visibility and reach</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Authentic content builds customer relationships</span>
+                    <span><strong>Authentic storytelling</strong> builds emotional customer relationships</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Cross-platform presence expands reach</span>
+                    <span><strong>Cross-platform presence</strong> captures customers wherever they spend time</span>
                   </li>
                 </ul>
               </CardContent>
@@ -617,53 +650,64 @@ const Index = () => {
                 <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-6 shadow-glow">
                   <Brain className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">AI Agent Recognition</h3>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">3. AI Agent Recommendations</h3>
                 <p className="text-muted-foreground mb-6">
-                  The future is AI agents recommending businesses. They analyze content quality, 
-                  consistency, and relevance to suggest services. Quality content = AI recommendations.
+                  <strong>The Future is Now:</strong> ChatGPT, Gemini, and Grok analyze business content quality when making recommendations. 
+                  <strong className="text-foreground"> Poor online presence = excluded from AI suggestions = missed opportunities.</strong>
                 </p>
+                <div className="bg-accent/5 p-4 rounded-lg mb-4">
+                  <p className="text-sm font-medium text-accent">What AI Agents Analyze:</p>
+                  <ul className="text-xs text-muted-foreground mt-2 space-y-1">
+                    <li>• Content quality, accuracy, and helpfulness</li>
+                    <li>• Consistency of posting and messaging</li>
+                    <li>• Industry expertise demonstrated through valuable content</li>
+                    <li>• Customer engagement and satisfaction signals</li>
+                  </ul>
+                </div>
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>AI agents analyze content for recommendations</span>
+                    <span><strong>Quality content</strong> gets your business recommended by AI assistants</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Quality content improves AI trust scores</span>
+                    <span><strong>Expert positioning</strong> through blogs builds AI trust scores</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Consistent messaging builds AI understanding</span>
+                    <span><strong>Consistent messaging</strong> helps AI understand your value proposition</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
           </div>
 
-          {/* The Problem */}
+          {/* The Brutal Reality */}
           <div className="text-center bg-gradient-to-r from-destructive/5 via-destructive/10 to-destructive/5 rounded-2xl p-8 mb-12 border border-destructive/20">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">The Reality Most Businesses Face</h3>
+            <h3 className="text-2xl font-bold mb-4 text-foreground">The Brutal Truth About "Trial and Error" Marketing</h3>
             <p className="text-lg text-muted-foreground mb-6 max-w-4xl mx-auto">
-              Creating creative, accurate, honest, regular, and relatable content is <strong className="text-foreground">extremely time-consuming and expensive</strong>. 
-              Most businesses resort to trial and error, wasting months and thousands of dollars on ineffective strategies.
+              Most businesses waste months and thousands on <strong className="text-foreground">"let's try this and see what happens"</strong> marketing. 
+              Meanwhile, their competitors are using data to know exactly what works BEFORE they post.
             </p>
             <div className="grid md:grid-cols-2 gap-6 mt-8">
               <div className="text-left">
-                <h4 className="font-semibold text-destructive mb-3">Common Struggles:</h4>
+                <h4 className="font-semibold text-destructive mb-3">What "Trial and Error" Costs You:</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Inconsistent posting schedules</li>
-                  <li>• Generic, boring content that doesn't engage</li>
-                  <li>• No understanding of what competitors are doing</li>
-                  <li>• Wasting money on agencies that don't understand your business</li>
+                  <li>• $3,000+ monthly on content that doesn't convert</li>
+                  <li>• 6+ months to discover what messaging actually works</li>
+                  <li>• Lost customers to competitors with better strategy</li>
+                  <li>• Missed opportunities while you're "experimenting"</li>
+                  <li>• No Google rankings because content isn't optimized</li>
                 </ul>
               </div>
               <div className="text-left">
-                <h4 className="font-semibold text-destructive mb-3">The Cost:</h4>
+                <h4 className="font-semibold text-success mb-3">What Data-Driven Content Gets You:</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• 20+ hours weekly on content creation</li>
-                  <li>• $5,000-$15,000 monthly on agencies</li>
-                  <li>• Missed opportunities due to poor online presence</li>
-                  <li>• Lost customers to competitors with better content</li>
+                  <li>• Know what works from competitor analysis</li>
+                  <li>• Content optimized for Google rankings</li>
+                  <li>• Consistent posting that builds authority</li>
+                  <li>• AI-recommended content that engages</li>
+                  <li>• 20 hours weekly freed up for revenue generation</li>
                 </ul>
               </div>
             </div>
