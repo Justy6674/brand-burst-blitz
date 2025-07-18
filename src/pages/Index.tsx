@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Sparkles, 
@@ -46,11 +47,21 @@ const AdminAccess = () => {
     setTimeout(() => setClickCount(0), 3000);
   };
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "jbsaas2025") {
+    try {
+      // Use Supabase edge function to verify admin password securely
+      const { data, error } = await supabase.functions.invoke('verify-admin-access', {
+        body: { password }
+      });
+      
+      if (error || !data?.isValid) {
+        setPassword("");
+        return;
+      }
+      
       window.location.href = "/dashboard/blog-admin";
-    } else {
+    } catch (error) {
       setPassword("");
     }
   };

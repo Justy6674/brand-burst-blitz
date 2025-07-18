@@ -14,13 +14,14 @@ import {
   Building,
   Crown
 } from "lucide-react";
+import roiDataHero from "@/assets/roi-data-driven-hero.jpg";
 
 const Pricing = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      <HeroSection backgroundImage="/roi-data-driven-hero.jpg">
+      <HeroSection backgroundImage={roiDataHero}>
         <div className="max-w-4xl mx-auto animate-fade-in">
           <Badge className="mb-6 bg-green-600 text-white border-green-500">
             🇦🇺 Australian Businesses Only
