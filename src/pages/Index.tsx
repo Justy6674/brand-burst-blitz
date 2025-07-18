@@ -514,16 +514,14 @@ const Index = () => {
 
       {/* Final CTA - Dynamic Tech Section */}
       <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        {/* Clean Background */}
+        {/* Background Image - Success/Growth Theme */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"></div>
-          
-          {/* Clean Grid Pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-          
-          {/* Subtle Glowing Orbs */}
-          <div className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-xl"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-40 h-40 bg-gradient-to-r from-yellow-500/10 to-red-500/10 rounded-full blur-xl"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Financial growth charts and technology success background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-purple-900/85 to-slate-900/90"></div>
         </div>
         
         {/* Main Content */}
