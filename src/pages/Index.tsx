@@ -279,7 +279,7 @@ const Index = () => {
               },
               {
                 title: "📅 Advanced Publishing & Scheduling",
-                description: "Smart <span className='text-yellow-highlight'>calendar-based publishing</span> across Facebook, Instagram, LinkedIn, and your blog. <span className='text-yellow-highlight'>Performance analytics</span> track what's working and optimise automatically.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Smart calendar-based</span> publishing across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn</span>, and your <span style='color: #ffd700; font-weight: 700;'>blog</span>. Performance <span style='color: #ffd700; font-weight: 700;'>analytics</span> track what's working and optimise automatically.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
