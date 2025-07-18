@@ -150,7 +150,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              Who <span className="text-gradient-primary">Desperately Needs This</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Australian business owners trapped in expensive, ineffective marketing solutions who are losing ground to competitors daily.
