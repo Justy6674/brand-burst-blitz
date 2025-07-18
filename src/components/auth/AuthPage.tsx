@@ -16,6 +16,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [businessName, setBusinessName] = useState('');
+  const [isAustralianBusiness, setIsAustralianBusiness] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('login');
   const navigate = useNavigate();
@@ -80,6 +81,13 @@ const AuthPage = () => {
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
+      setIsLoading(false);
+      return;
+    }
+
+    // Check Australian business requirement
+    if (!isAustralianBusiness) {
+      setError('JB-SaaS currently serves Australian businesses only. Please check the Australian business checkbox or join our international waitlist.');
       setIsLoading(false);
       return;
     }
@@ -287,10 +295,30 @@ const AuthPage = () => {
                       className="bg-white/5 border-white/15 focus:border-white/30 focus:ring-white/10 text-white placeholder:text-white/60 backdrop-blur-sm"
                     />
                   </div>
+                  
+                  {/* Australian Business Validation */}
+                  <div className="space-y-3 p-4 bg-white/5 rounded-lg border border-green-400/30">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        id="australian-business"
+                        type="checkbox"
+                        checked={isAustralianBusiness}
+                        onChange={(e) => setIsAustralianBusiness(e.target.checked)}
+                        className="w-4 h-4 text-green-600 bg-white/10 border-white/30 rounded focus:ring-green-500 focus:ring-2"
+                      />
+                      <Label htmlFor="australian-business" className="text-white font-medium text-sm">
+                        🇦🇺 I confirm this is an Australian business
+                      </Label>
+                    </div>
+                    <p className="text-xs text-white/70">
+                      JB-SaaS currently serves Australian businesses only. International expansion coming soon.
+                    </p>
+                  </div>
+                  
                   <Button 
                     type="submit" 
                     className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-                    disabled={isLoading}
+                    disabled={isLoading || !isAustralianBusiness}
                   >
                     {isLoading ? (
                       <>
