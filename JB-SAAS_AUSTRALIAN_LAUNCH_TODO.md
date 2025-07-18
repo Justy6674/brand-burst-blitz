@@ -3,6 +3,51 @@
 
 ---
 
+## 🎨 **HERO IMAGE REQUIREMENTS - CRITICAL UI UPDATE**
+**Every page needs a modern hero image in the same style as Index page**
+
+### Current Hero Style Analysis (Index.tsx):
+- Full-screen hero section with background image overlay
+- Gradient overlays: `from-background/40 via-background/20 to-background/40`
+- Additional gradient: `from-background/30 via-transparent to-background/50`
+- Background properties: `cover`, `center`, `no-repeat`
+- Text overlay with strong contrast and readability
+
+### Pages Requiring Hero Images:
+
+**❌ Missing Hero Images:**
+- [ ] **Pricing.tsx** - Has basic gradient hero, needs proper background image  
+- [ ] **CommonQuestions.tsx** - No hero section at all
+- [ ] **AussieSetupService.tsx** - Needs assessment
+- [ ] **AustralianServices.tsx** - Needs assessment
+- [ ] **BlogPage.tsx** - Needs assessment
+
+**✅ Available Assets:**
+- `ai-content-creation-hero.jpg`
+- `brand-consistency-hero.jpg` 
+- `features-image.jpg`
+- `future-content-marketing-hero.jpg`
+- `hero-image.jpg` (already used on Index)
+- `roi-data-driven-hero.jpg`
+- `seo-social-media-hero.jpg`
+- `social-media-strategy-hero.jpg`
+
+### Recommended Hero Images by Page:
+- [ ] **Pricing**: Use `roi-data-driven-hero.jpg` (matches pricing/ROI theme)
+- [ ] **CommonQuestions**: Use `ai-content-creation-hero.jpg` (matches FAQ theme)
+- [ ] **AussieSetupService**: Use `social-media-strategy-hero.jpg` (matches service)
+- [ ] **AustralianServices**: Use `seo-social-media-hero.jpg` (broad services)
+- [ ] **Blog**: Use `brand-consistency-hero.jpg` or create dedicated blog hero
+
+### Implementation Tasks:
+- [ ] **Create reusable `HeroSection` component** with consistent styling
+- [ ] **Add hero sections to all pages** using existing assets
+- [ ] **Ensure mobile responsiveness** and text readability across all heroes
+- [ ] **Maintain consistent overlay gradients** and animations
+- [ ] **Test hero image performance** and optimize for loading speed
+
+---
+
 ## **IMMEDIATE PRIORITY (Week 1) - CRITICAL FIXES**
 
 ### **1. Landing Page Messaging Consistency** 
