@@ -70,18 +70,11 @@ const PublicHeader = () => {
           </NavigationMenu>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center">
             <ComingSoonPopup 
               trigger={
-                <Button variant="ghost">
+                <Button className="bg-gradient-primary text-primary-foreground px-6 py-2 font-semibold">
                   Join Waitlist - August 2025
-                </Button>
-              } 
-            />
-            <ComingSoonPopup 
-              trigger={
-                <Button className="bg-gradient-primary">
-                  Get Started
                 </Button>
               } 
             />
@@ -144,18 +137,11 @@ const PublicHeader = () => {
               >
                 FAQ
               </Link>
-              <div className="pt-4 border-t space-y-2">
+              <div className="pt-4 border-t">
                 <ComingSoonPopup 
                   trigger={
-                    <Button variant="ghost" className="w-full justify-start" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full bg-gradient-primary text-primary-foreground font-semibold" onClick={() => setMobileMenuOpen(false)}>
                       Join Waitlist - August 2025
-                    </Button>
-                  } 
-                />
-                <ComingSoonPopup 
-                  trigger={
-                    <Button className="w-full bg-gradient-primary" onClick={() => setMobileMenuOpen(false)}>
-                      Get Started
                     </Button>
                   } 
                 />
