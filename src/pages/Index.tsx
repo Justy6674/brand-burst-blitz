@@ -161,7 +161,7 @@ const Index = () => {
             {[
               {
                 title: "🎯 The Frustrated Owner",
-                description: "Paying <span className='text-yellow-highlight'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-highlight'>competitors</span> get more visibility with worse products.",
+                description: "Paying <span className='text-yellow-highlight'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-highlight'>competitors</span> get more <span className='text-yellow-highlight'>visibility</span> with worse products.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
