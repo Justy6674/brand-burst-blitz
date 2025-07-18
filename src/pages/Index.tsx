@@ -229,7 +229,7 @@ const Index = () => {
               },
               {
                 title: "👁️ Competitor Intelligence Blindness", 
-                description: "Your competitors use <span className='text-yellow-highlight'>content</span> strategies you can't see or <span className='text-yellow-highlight'>analyse</span>. They capture <span className='text-yellow-highlight'>customers</span> and <span className='text-yellow-highlight'>patients</span> with <span className='text-yellow-highlight'>marketing</span> approaches you don't know about.",
+                description: "Your <span style='color: #ffd700; font-weight: 700;'>competitors</span> use <span className='text-yellow-highlight'>content</span> strategies you can't see or <span style='color: #ffd700; font-weight: 700;'>analyse</span>. They capture <span className='text-yellow-highlight'>customers</span> and <span className='text-yellow-highlight'>patients</span> with <span style='color: #ffd700; font-weight: 700;'>marketing</span> approaches you don't know about.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
