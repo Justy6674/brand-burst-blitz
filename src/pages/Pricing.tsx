@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { HeroSection } from "@/components/layout/HeroSection";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { 
   Check,
   Star,
@@ -15,6 +17,8 @@ import {
 } from "lucide-react";
 
 const Pricing = () => {
+  const [showInfoDialog, setShowInfoDialog] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
@@ -76,8 +80,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="hero" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Start Free Trial</Link>
+                  <Button 
+                    variant="hero" 
+                    size="lg" 
+                    className="w-full"
+                    onClick={() => setShowInfoDialog(true)}
+                  >
+                    Coming August 2025
                   </Button>
                 </div>
               </CardContent>
@@ -132,8 +141,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="premium" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Start Free Trial</Link>
+                  <Button 
+                    variant="premium" 
+                    size="lg" 
+                    className="w-full"
+                    onClick={() => setShowInfoDialog(true)}
+                  >
+                    Coming August 2025
                   </Button>
                 </div>
               </CardContent>
@@ -183,8 +197,13 @@ const Pricing = () => {
                 </ul>
                 
                 <div className="mt-8">
-                  <Button variant="secondary" size="lg" className="w-full" asChild>
-                    <Link to="/auth">Contact Sales</Link>
+                  <Button 
+                    variant="secondary" 
+                    size="lg" 
+                    className="w-full"
+                    onClick={() => setShowInfoDialog(true)}
+                  >
+                    Coming August 2025
                   </Button>
                 </div>
               </CardContent>
@@ -417,12 +436,14 @@ const Pricing = () => {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of businesses already using AI to create better content faster.
           </p>
-          <Link to="/auth">
-            <Button size="xl" className="bg-gradient-primary shadow-glow">
-              Get Started Today
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
+          <Button 
+            size="xl" 
+            className="bg-gradient-primary shadow-glow"
+            onClick={() => setShowInfoDialog(true)}
+          >
+            Coming August 2025
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </section>
 
@@ -447,6 +468,23 @@ const Pricing = () => {
           </div>
         </div>
       </footer>
+
+      {/* Info Dialog */}
+      <AlertDialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Coming August 2025</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you an Australian current or future business owner? We're launching our comprehensive business automation and content management platform in August 2025. 
+              <br /><br />
+              Please stay tuned and look out for our social media and website updates for early access and launch details!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogAction onClick={() => setShowInfoDialog(false)}>
+            Got it
+          </AlertDialogAction>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

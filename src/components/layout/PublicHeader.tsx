@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction } from '@/components/ui/alert-dialog';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -169,6 +169,9 @@ const PublicHeader = () => {
             Please stay tuned and look out for our social media and website updates for early access and launch details!
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <AlertDialogAction onClick={() => setShowInfoDialog(false)}>
+          Got it
+        </AlertDialogAction>
       </AlertDialogContent>
     </AlertDialog>
   </>

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
-import { RegisterInterestDialog } from "@/components/common/RegisterInterestDialog";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { 
   Sparkles, 
   Zap, 
@@ -119,7 +119,7 @@ const AdminAccess = () => {
 };
 
 const Index = () => {
-  const [showRegisterDialog, setShowRegisterDialog] = useState(false);
+  const [showInfoDialog, setShowInfoDialog] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -150,7 +150,7 @@ const Index = () => {
             <Button 
               variant="hero" 
               size="lg" 
-              onClick={() => setShowRegisterDialog(true)}
+              onClick={() => setShowInfoDialog(true)}
             >
               <Target className="w-5 h-5 mr-3" />
               Register Your Interest
@@ -296,7 +296,7 @@ const Index = () => {
               variant="premium" 
               size="xl" 
               className="group"
-              onClick={() => setShowRegisterDialog(true)}
+              onClick={() => setShowInfoDialog(true)}
             >
               <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
               Join the Waitlist - August 2025
@@ -767,7 +767,7 @@ const Index = () => {
               variant="glass" 
               size="xl" 
               className="group"
-              onClick={() => setShowRegisterDialog(true)}
+              onClick={() => setShowInfoDialog(true)}
             >
               <Rocket className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
               Join Waitlist - August 2025
@@ -863,11 +863,22 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Register Interest Dialog */}
-      <RegisterInterestDialog 
-        open={showRegisterDialog} 
-        onOpenChange={setShowRegisterDialog} 
-      />
+      {/* Info Dialog */}
+      <AlertDialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Coming August 2025</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you an Australian current or future business owner? We're launching our comprehensive business automation and content management platform in August 2025. 
+              <br /><br />
+              Please stay tuned and look out for our social media and website updates for early access and launch details!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogAction onClick={() => setShowInfoDialog(false)}>
+            Got it
+          </AlertDialogAction>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
