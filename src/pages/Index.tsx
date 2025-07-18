@@ -179,7 +179,7 @@ const Index = () => {
               },
               {
                 title: "💭 The Dreamer",
-                description: "Thinking about starting a <span style={{color: '#ffd700', fontWeight: 700}}>business</span> (large or small) but overwhelmed by <span style={{color: '#ffd700', fontWeight: 700}}>marketing complexity</span>. Needs a simple, affordable solution that works from day one.",
+                description: "Thinking about starting a <span style='color: #ffd700; font-weight: 700;'>business</span> (large or small) but overwhelmed by <span style='color: #ffd700; font-weight: 700;'>marketing complexity</span>. Needs a simple, affordable solution that works from day one.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               }
