@@ -27,6 +27,7 @@ import {
 import heroImage from "@/assets/hero-image.jpg";
 import featuresImage from "@/assets/features-image.jpg";
 import { GeoDetection } from "@/components/geo/GeoDetection";
+import { HeroSection } from "@/components/layout/HeroSection";
 
 // Hidden Admin Access Component
 const AdminAccess = () => {
@@ -96,90 +97,63 @@ const Index = () => {
       <PublicHeader />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Hero Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-background/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50"></div>
-        </div>
-        
-        {/* Hero Content */}
-        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
-              🇦🇺 Australian Businesses Only
-            </Badge>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              <span className="text-gradient-hero block mb-2">AI Marketing Content</span> 
-              <span className="text-gradient-primary block">for Australian Businesses</span>
-            </h1>
-            
-            {/* Simplified tagline - removed redundant text */}
-            
-            <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-              Generate professional social media posts, blogs, and marketing content in seconds. 
-              <strong className="text-foreground block mt-2">Plans from $49/month - No more expensive agencies or endless hours writing content.</strong>
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
-              <Button 
-                variant="hero" 
-                size="xl" 
-                className="text-lg px-8 py-4"
-                asChild
-              >
-                <Link to="/discover">
-                  <Target className="w-5 h-5 mr-3" />
-                  Find My Industry Solution
-                </Link>
-              </Button>
-              <Button 
-                variant="outline" 
-                size="xl" 
-                className="text-lg px-8 py-4 border-white/30 text-white hover:bg-white/10"
-                asChild
-              >
-                <Link to="/auth">
-                  <Rocket className="w-5 h-5 mr-3" />
-                  Start Free Trial
-                </Link>
-              </Button>
+      <HeroSection backgroundImage={heroImage}>
+        <div className="max-w-4xl mx-auto animate-fade-in">
+          <Badge className="mb-6 sm:mb-8 bg-green-600 text-white border-green-500 hover:bg-green-700 text-sm sm:text-base">
+            🇦🇺 Australian Businesses Only
+          </Badge>
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight text-white">
+            <span className="block mb-2">AI Marketing Content</span> 
+            <span className="text-gradient-hero block">for Australian Businesses</span>
+          </h1>
+          
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
+            Generate professional social media posts, blogs, and marketing content in seconds. 
+            <strong className="text-white block mt-2">Plans from $49/month - No more expensive agencies or endless hours writing content.</strong>
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
+            <Button 
+              variant="hero" 
+              size="xl" 
+              className="text-lg px-8 py-4"
+              asChild
+            >
+              <Link to="/discover">
+                <Target className="w-5 h-5 mr-3" />
+                Find My Industry Solution
+              </Link>
+            </Button>
+            <Button 
+              variant="outline" 
+              size="xl" 
+              className="text-lg px-8 py-4 border-white/30 text-white hover:bg-white/10"
+              asChild
+            >
+              <Link to="/auth">
+                <Rocket className="w-5 h-5 mr-3" />
+                Start Free Trial
+              </Link>
+            </Button>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-white/80">
+            <div className="flex items-center">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+              Australian-Owned & Operated
             </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-muted-foreground">
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Australian-Owned & Operated
-              </div>
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Industry-Specific AI Content
-              </div>
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Local Business Support
-              </div>
+            <div className="flex items-center">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+              Industry-Specific AI Content
+            </div>
+            <div className="flex items-center">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
+              Local Business Support
             </div>
           </div>
         </div>
-        
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </section>
+      </HeroSection>
 
       {/* Stats Section */}
       <section className="py-8 sm:py-10 bg-gradient-to-b from-muted/40 via-muted/20 to-background">

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { HeroSection } from "@/components/layout/HeroSection";
 import { 
   Check,
   Star,
@@ -18,37 +19,21 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Hero Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(/src/assets/roi-data-driven-hero.jpg)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-background/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
+      <HeroSection backgroundImage="/src/assets/roi-data-driven-hero.jpg">
+        <div className="max-w-4xl mx-auto animate-fade-in">
           <Badge className="mb-6 bg-green-600 text-white border-green-500">
             🇦🇺 Australian Businesses Only
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Choose Your <span className="text-gradient-primary">Growth Plan</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Choose Your <span className="text-gradient-hero">Growth Plan</span>
           </h1>
           
-          <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
             Start with our Starter plan, scale as you grow. All plans include our core AI content creation features designed for Australian businesses.
           </p>
         </div>
-      </section>
+      </HeroSection>
 
       {/* Pricing Cards */}
       <section className="py-20">
