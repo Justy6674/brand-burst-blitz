@@ -368,7 +368,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              When You Need <span className="text-gradient-primary">This Subscription</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>When</span> You Need <span className="text-gradient-primary">This Subscription</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
