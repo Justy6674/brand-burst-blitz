@@ -132,31 +132,31 @@ const AllServices = () => {
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8 mb-12 items-start">
-              {/* Starter Plan - Green Theme */}
-              <Card className="relative border-2 hover:border-green-400/50 transition-all duration-300 bg-gradient-to-br from-green-50/50 to-emerald-50/30 h-full">
+            <div className="grid lg:grid-cols-3 gap-8 mb-12 items-stretch">
+              {/* Starter Plan */}
+              <Card className="relative border-2 hover:border-primary/30 transition-colors h-full">
                 <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Building className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Building className="w-8 h-8 text-primary" />
                   </div>
-                  <CardTitle className="text-2xl text-green-700">Starter</CardTitle>
-                  <CardDescription className="text-green-600">Perfect for small businesses</CardDescription>
-                  <div className="text-4xl font-bold text-green-600 mt-4">
+                  <CardTitle className="text-2xl">Starter</CardTitle>
+                  <CardDescription>Perfect for small businesses</CardDescription>
+                  <div className="text-4xl font-bold text-primary mt-4">
                     $49<span className="text-lg text-muted-foreground">/month</span>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-8">
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-3 mb-8 flex-1">
                     {starterFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-green-800">{feature}</span>
+                        <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <ComingSoonPopup 
                     trigger={
-                      <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 border-0 shadow-lg">
+                      <Button className="w-full">
                         Start Free Trial
                       </Button>
                     } 
@@ -164,36 +164,36 @@ const AllServices = () => {
                 </CardContent>
               </Card>
 
-              {/* Professional Plan - Blue Theme */}
-              <Card className="relative border-2 border-blue-400 bg-gradient-to-br from-blue-50/50 to-indigo-50/30 shadow-xl h-full">
+              {/* Professional Plan */}
+              <Card className="relative border-2 border-primary bg-primary/5 h-full">
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                  <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-1 shadow-lg">
+                  <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-1">
                     <Star className="w-3 h-3 mr-1" />
                     Most Popular
                   </Badge>
                 </div>
                 <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Target className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-primary-foreground" />
                   </div>
-                  <CardTitle className="text-2xl text-blue-700">Professional</CardTitle>
-                  <CardDescription className="text-blue-600">For growing businesses</CardDescription>
-                  <div className="text-4xl font-bold text-blue-600 mt-4">
+                  <CardTitle className="text-2xl">Professional</CardTitle>
+                  <CardDescription>For growing businesses</CardDescription>
+                  <div className="text-4xl font-bold text-primary mt-4">
                     $149<span className="text-lg text-muted-foreground">/month</span>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-8">
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-3 mb-8 flex-1">
                     {professionalFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className={`text-sm text-blue-800 ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
+                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                        <span className={`text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <ComingSoonPopup 
                     trigger={
-                      <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 border-0 shadow-lg">
+                      <Button className="w-full bg-primary hover:bg-primary/90">
                         Start Free Trial
                       </Button>
                     } 
@@ -201,31 +201,31 @@ const AllServices = () => {
                 </CardContent>
               </Card>
 
-              {/* Enterprise Plan - Purple Theme */}
-              <Card className="relative border-2 hover:border-purple-400/50 transition-all duration-300 bg-gradient-to-br from-purple-50/50 to-violet-50/30 h-full">
+              {/* Enterprise Plan */}
+              <Card className="relative border-2 hover:border-secondary/30 transition-colors h-full">
                 <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Crown className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Crown className="w-8 h-8 text-secondary" />
                   </div>
-                  <CardTitle className="text-2xl text-purple-700">Enterprise</CardTitle>
-                  <CardDescription className="text-purple-600">For large organizations</CardDescription>
-                  <div className="text-4xl font-bold text-purple-600 mt-4">
+                  <CardTitle className="text-2xl">Enterprise</CardTitle>
+                  <CardDescription>For large organizations</CardDescription>
+                  <div className="text-4xl font-bold text-secondary mt-4">
                     Custom<span className="text-lg text-muted-foreground">/month</span>
                   </div>
-                  <Badge variant="outline" className="mt-2 border-purple-300 text-purple-600">Coming 2025</Badge>
+                  <Badge variant="outline" className="mt-2">Coming 2025</Badge>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-8">
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-3 mb-8 flex-1">
                     {enterpriseFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-purple-800">{feature}</span>
+                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <ComingSoonPopup 
                     trigger={
-                      <Button className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 border-0 shadow-lg">
+                      <Button variant="secondary" className="w-full">
                         Contact Sales
                       </Button>
                     } 
@@ -264,66 +264,37 @@ const AllServices = () => {
             {/* Current Tools */}
             <div className="mb-12">
               <h3 className="text-2xl font-bold mb-8 text-center">Available Now</h3>
-              <div className="grid md:grid-cols-2 gap-8 items-start">
-                {/* Australian Social Setup - Orange Theme */}
-                <Card className="border-2 hover:border-orange-400/50 transition-all duration-300 bg-gradient-to-br from-orange-50/50 to-amber-50/30 h-full">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl text-orange-700">{currentTools[0].name}</CardTitle>
-                      <Badge className="text-lg px-3 py-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0">
-                        {currentTools[0].price}
-                      </Badge>
-                    </div>
-                    <CardDescription className="text-orange-600">{currentTools[0].description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      {currentTools[0].features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle className="w-4 h-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-orange-800">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <ComingSoonPopup 
-                      trigger={
-                        <Button className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 border-0 shadow-lg">
-                          Learn More
-                        </Button>
-                      } 
-                    />
-                  </CardContent>
-                </Card>
-
-                {/* Name & Domain Scout - Teal Theme */}
-                <Card className="border-2 hover:border-teal-400/50 transition-all duration-300 bg-gradient-to-br from-teal-50/50 to-cyan-50/30 h-full">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl text-teal-700">{currentTools[1].name}</CardTitle>
-                      <Badge className="text-lg px-3 py-1 bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-0">
-                        {currentTools[1].price}
-                      </Badge>
-                    </div>
-                    <CardDescription className="text-teal-600">{currentTools[1].description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      {currentTools[1].features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-teal-800">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <ComingSoonPopup 
-                      trigger={
-                        <Button className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 border-0 shadow-lg">
-                          Learn More
-                        </Button>
-                      } 
-                    />
-                  </CardContent>
-                </Card>
+              <div className="grid md:grid-cols-2 gap-8 items-stretch">
+                {currentTools.map((tool, index) => (
+                  <Card key={index} className="border-2 hover:border-secondary/30 transition-colors h-full">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-xl">{tool.name}</CardTitle>
+                        <Badge variant="secondary" className="text-lg px-3 py-1">
+                          {tool.price}
+                        </Badge>
+                      </div>
+                      <CardDescription>{tool.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1 flex flex-col">
+                      <ul className="space-y-2 mb-6 flex-1">
+                        {tool.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start">
+                            <CheckCircle className="w-4 h-4 text-secondary mr-2 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <ComingSoonPopup 
+                        trigger={
+                          <Button variant="secondary" className="w-full">
+                            Learn More
+                          </Button>
+                        } 
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
 
