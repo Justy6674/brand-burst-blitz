@@ -40,17 +40,12 @@ const PublicHeader = () => {
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link to="/">Home</Link>
                 </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/all-services">All Services</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/australian-services">🇦🇺 Services</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+               </NavigationMenuItem>
+               <NavigationMenuItem>
+                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                   <Link to="/all-services">Services</Link>
+                 </NavigationMenuLink>
+               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link to="/blog">Blog</Link>
@@ -102,20 +97,13 @@ const PublicHeader = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/all-services"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                All Services
-              </Link>
-              <Link
-                to="/australian-services"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                🇦🇺 Australian Services
-              </Link>
+               <Link
+                 to="/all-services"
+                 className="block py-2 text-foreground hover:text-primary transition-colors"
+                 onClick={() => setMobileMenuOpen(false)}
+               >
+                 Services
+               </Link>
               <Link
                 to="/blog"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
