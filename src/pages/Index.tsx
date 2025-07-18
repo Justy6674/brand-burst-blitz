@@ -623,35 +623,6 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Australian Services */}
-          <div className="text-center">
-            <Card className="p-6 sm:p-8 border-2 border-green-500/30 bg-gradient-to-r from-green-50/50 to-blue-50/50 dark:from-green-950/20 dark:to-blue-950/20 shadow-xl">
-              <CardContent className="p-0">
-                <Badge className="mb-4 bg-green-600 text-white">
-                  🇦🇺 Plus: Specialized Australian Services
-                </Badge>
-                <h3 className="text-2xl sm:text-3xl font-bold mb-4">Available When You Need Them</h3>
-                <p className="text-muted-foreground mb-6">
-                  Complete social media setup service and business name research designed exclusively for Australian businesses.
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2 mb-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600 mb-1">Quick-Start Social Setup</div>
-                    <div className="text-sm text-muted-foreground">From AU$199 - Full Facebook & Instagram setup</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">Name & Domain Scout</div>
-                    <div className="text-sm text-muted-foreground">From AU$79 - ASIC & trademark research</div>
-                  </div>
-                </div>
-                <Link to="/australian-services">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white">
-                    Learn About Australian Services
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
