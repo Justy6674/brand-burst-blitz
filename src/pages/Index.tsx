@@ -164,8 +164,8 @@ const Index = () => {
         </HeroSection>
         
         {/* Hero Bottom Border Effect - Made More Visible */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-2 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"></div>
       </div>
 
       {/* WHO Section */}
