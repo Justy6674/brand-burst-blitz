@@ -20,7 +20,7 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      <HeroSection backgroundImage="/src/assets/roi-data-driven-hero.jpg">
+      <HeroSection backgroundImage="/roi-data-driven-hero.jpg">
         <div className="max-w-4xl mx-auto animate-fade-in">
           <Badge className="mb-6 bg-green-600 text-white border-green-500">
             🇦🇺 Australian Businesses Only

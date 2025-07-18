@@ -110,8 +110,8 @@ const Index = () => {
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-            Generate professional social media posts, blogs, and marketing content in seconds. 
-            <strong className="text-white block mt-2">Plans from $49/month - Professional plans include unlimited content generation.</strong>
+            Industry-specific content that understands your market. Generate professional social media posts, blogs, and marketing content in seconds. 
+            <strong className="text-white block mt-2">Plans from $49/month - Professional plan includes unlimited content generation.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12">
@@ -119,7 +119,7 @@ const Index = () => {
               trigger={
                 <Button variant="hero" size="lg">
                   <Target className="w-5 h-5 mr-3" />
-                  Find My Industry Solution
+                  Get Started
                 </Button>
               } 
             />
@@ -127,7 +127,7 @@ const Index = () => {
               trigger={
                 <Button variant="outline-white" size="lg">
                   <Rocket className="w-5 h-5 mr-3" />
-                  Start Free Trial
+                  View Pricing
                 </Button>
               } 
             />
@@ -167,8 +167,8 @@ const Index = () => {
               <div className="text-xs sm:text-sm text-muted-foreground">Platform Availability</div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">Aug</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">2025 Launch Date</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">90%</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Time Savings</div>
             </div>
           </div>
         </div>
@@ -234,7 +234,7 @@ const Index = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Starter: $49/month (100 posts) • Professional: $149/month (unlimited)</span>
+                    <span className="text-foreground font-medium">Plans from $49/month - Professional plan includes unlimited content</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
