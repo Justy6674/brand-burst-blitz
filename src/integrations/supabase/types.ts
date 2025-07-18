@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_credentials: {
+        Row: {
+          created_at: string
+          id: string
+          last_changed_at: string
+          password_hash: string
+          salt: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_changed_at?: string
+          password_hash: string
+          salt: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_changed_at?: string
+          password_hash?: string
+          salt?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      admin_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          ip_address: string | null
+          session_token: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          ip_address?: string | null
+          session_token: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          ip_address?: string | null
+          session_token?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       analytics: {
         Row: {
           collected_at: string | null
@@ -1245,6 +1302,14 @@ export type Database = {
         Args: { responses: Json }
         Returns: number
       }
+      create_admin_session: {
+        Args: {
+          admin_user_id: string
+          ip_addr?: string
+          user_agent_str?: string
+        }
+        Returns: string
+      }
       generate_questionnaire_insights: {
         Args: { user_id_param: string; responses_param: Json }
         Returns: Json
@@ -1263,6 +1328,17 @@ export type Database = {
       is_admin: {
         Args: { _user_id: string }
         Returns: boolean
+      }
+      validate_admin_session: {
+        Args: { token: string }
+        Returns: boolean
+      }
+      verify_admin_password: {
+        Args: { input_password: string }
+        Returns: {
+          is_valid: boolean
+          user_id: string
+        }[]
       }
     }
     Enums: {

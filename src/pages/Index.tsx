@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Sparkles, 
@@ -34,6 +35,8 @@ const AdminAccess = () => {
   const [clickCount, setClickCount] = useState(0);
   const [showDialog, setShowDialog] = useState(false);
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLogoClick = () => {
     setClickCount(prev => prev + 1);
@@ -45,12 +48,33 @@ const AdminAccess = () => {
     setTimeout(() => setClickCount(0), 3000);
   };
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "jbsaas2025") {
-      window.location.href = "/dashboard/blog-admin";
-    } else {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('admin-auth', {
+        body: { action: 'login', password }
+      });
+
+      if (error) {
+        setError('Authentication service unavailable');
+        return;
+      }
+
+      if (data?.success) {
+        localStorage.setItem('admin_session_token', data.sessionToken);
+        window.location.href = "/dashboard/blog-admin";
+      } else {
+        setError(data?.error || 'Invalid password');
+        setPassword("");
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
       setPassword("");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,15 +94,21 @@ const AdminAccess = () => {
             <DialogTitle>Admin Access</DialogTitle>
           </DialogHeader>
           <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            {error && (
+              <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
+                {error}
+              </div>
+            )}
             <Input
               type="password"
               placeholder="Enter admin password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
               autoFocus
             />
-            <Button type="submit" className="w-full">
-              Access Blog Admin
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Authenticating..." : "Access Blog Admin"}
             </Button>
           </form>
         </DialogContent>
