@@ -48,7 +48,7 @@ const PublicHeader = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <a href="/#features">Features</a>
+                  <a href="#features">Features</a>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
