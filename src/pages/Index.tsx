@@ -151,9 +151,10 @@ const Index = () => {
               variant="hero" 
               size="lg" 
               onClick={() => setShowInfoDialog(true)}
+              className="bg-gradient-primary text-white"
             >
               <Target className="w-5 h-5 mr-3" />
-              Register Your Interest
+              Join Waitlist - August 2025
             </Button>
             <Button 
               variant="outline-white" 
@@ -162,7 +163,7 @@ const Index = () => {
             >
               <Link to="/discover">
                 <Rocket className="w-5 h-5 mr-3" />
-                Explore Features
+                Start Free Trial
               </Link>
             </Button>
           </div>
@@ -295,11 +296,11 @@ const Index = () => {
             <Button 
               variant="premium" 
               size="xl" 
-              className="group"
+              className="group bg-gradient-primary text-white"
               onClick={() => setShowInfoDialog(true)}
             >
               <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Join the Waitlist - August 2025
+              Start Free Trial
             </Button>
           </div>
         </div>

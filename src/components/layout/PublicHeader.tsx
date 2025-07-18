@@ -78,9 +78,9 @@ const PublicHeader = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Button 
               onClick={() => setShowInfoDialog(true)}
-              className="bg-gradient-primary"
+              className="bg-gradient-primary text-white"
             >
-              Coming August 2025
+              Join Waitlist - August 2025
             </Button>
           </div>
 
@@ -143,13 +143,13 @@ const PublicHeader = () => {
               </Link>
               <div className="pt-4 border-t space-y-2">
                 <Button 
-                  className="w-full bg-gradient-primary"
+                  className="w-full bg-gradient-primary text-white"
                   onClick={() => {
                     setShowInfoDialog(true);
                     setMobileMenuOpen(false);
                   }}
                 >
-                  Coming August 2025
+                  Join Waitlist - August 2025
                 </Button>
               </div>
             </nav>
