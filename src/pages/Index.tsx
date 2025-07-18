@@ -100,28 +100,31 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Global Background Galaxy Effect */}
-      <div className="fixed inset-0 -z-10">
-        {/* Animated Galaxy Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-purple-900/15 to-blue-900/20"></div>
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Dark Galaxy Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/30 via-purple-800/20 to-blue-800/30"></div>
         
-        {/* Large Floating Stars */}
-        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50"></div>
-        <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400 rounded-full animate-ping shadow-lg shadow-blue-400/50"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-4 h-4 bg-purple-400 rounded-full animate-pulse animation-delay-500 shadow-lg shadow-purple-400/50"></div>
-        <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping animation-delay-700 shadow-lg shadow-cyan-400/50"></div>
-        <div className="absolute bottom-1/3 right-2/3 w-3 h-3 bg-green-400 rounded-full animate-pulse animation-delay-300 shadow-lg shadow-green-400/50"></div>
-        <div className="absolute top-1/2 left-1/6 w-2 h-2 bg-red-400 rounded-full animate-ping animation-delay-1000 shadow-lg shadow-red-400/50"></div>
+        {/* MASSIVE Floating Stars */}
+        <div className="absolute top-20 left-20 w-8 h-8 bg-yellow-300 rounded-full animate-pulse shadow-2xl shadow-yellow-300/80"></div>
+        <div className="absolute top-32 right-32 w-6 h-6 bg-blue-300 rounded-full animate-ping shadow-2xl shadow-blue-300/80"></div>
+        <div className="absolute bottom-32 left-32 w-10 h-10 bg-purple-300 rounded-full animate-pulse animation-delay-500 shadow-2xl shadow-purple-300/80"></div>
+        <div className="absolute top-64 right-20 w-6 h-6 bg-cyan-300 rounded-full animate-ping animation-delay-700 shadow-2xl shadow-cyan-300/80"></div>
+        <div className="absolute bottom-40 right-64 w-8 h-8 bg-green-300 rounded-full animate-pulse animation-delay-300 shadow-2xl shadow-green-300/80"></div>
+        <div className="absolute top-48 left-48 w-6 h-6 bg-red-300 rounded-full animate-ping animation-delay-1000 shadow-2xl shadow-red-300/80"></div>
         
-        {/* Medium Stars */}
-        <div className="absolute top-1/5 right-1/5 w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse animation-delay-200 shadow-md shadow-orange-400/50"></div>
-        <div className="absolute bottom-1/5 left-1/5 w-1.5 h-1.5 bg-pink-400 rounded-full animate-ping animation-delay-800 shadow-md shadow-pink-400/50"></div>
+        {/* More Giant Stars */}
+        <div className="absolute top-16 right-48 w-5 h-5 bg-orange-300 rounded-full animate-pulse animation-delay-200 shadow-xl shadow-orange-300/80"></div>
+        <div className="absolute bottom-20 left-64 w-5 h-5 bg-pink-300 rounded-full animate-ping animation-delay-800 shadow-xl shadow-pink-300/80"></div>
+        <div className="absolute top-72 left-16 w-7 h-7 bg-indigo-300 rounded-full animate-pulse animation-delay-400 shadow-xl shadow-indigo-300/80"></div>
+        <div className="absolute bottom-16 right-16 w-7 h-7 bg-emerald-300 rounded-full animate-ping animation-delay-600 shadow-xl shadow-emerald-300/80"></div>
         
-        {/* Visible Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Bright Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
         
-        {/* Moving Gradients */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-radial from-blue-500/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-radial from-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+        {/* HUGE Moving Gradients */}
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-radial from-blue-400/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-radial from-purple-400/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-gradient-radial from-yellow-400/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500"></div>
       </div>
       
       <GeoDetection />
