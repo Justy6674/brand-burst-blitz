@@ -217,13 +217,13 @@ const Index = () => {
               },
               {
                 title: "🤖 AI Agent Exclusion",
-                description: "<span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span className='text-yellow-highlight'>AI assistants</span> only recommend businesses with quality online <span className='text-yellow-highlight'>content</span>. <span className='text-yellow-highlight'>Customers</span> increasingly ask AI to find providers - you're invisible.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend businesses with quality <span style='color: #ffd700; font-weight: 700;'>online content</span>. <span className='text-yellow-highlight'>Customers</span> increasingly ask AI to find providers - you're invisible.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "⚖️ Compliance Nightmares",
-                description: "Generic content creators violate regulations. Australian businesses need compliant <span className='text-yellow-highlight'>marketing</span> that protects your reputation and avoids costly fines.",
+                description: "Generic content creators violate regulations. Australian businesses need compliant <span style='color: #ffd700; font-weight: 700;'>marketing</span> that protects your reputation and avoids costly fines.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
