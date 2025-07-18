@@ -24,14 +24,14 @@ const AustralianServices = () => {
       <PublicHeader />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-6 text-center">
-          <Badge className="mb-6 bg-green-600 text-white text-lg px-6 py-2">
+          <Badge className="mb-6 bg-primary text-primary-foreground text-lg px-6 py-2">
             🇦🇺 Exclusively for Australian Businesses
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Professional <span className="text-gradient-primary">Australian Services</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+            Professional <span className="text-primary">Australian Services</span>
           </h1>
           
           <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
@@ -40,11 +40,11 @@ const AustralianServices = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Building className="w-5 h-5 mr-2" />
               Get Social Setup Service
             </Button>
-            <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
+            <Button size="lg" variant="outline">
               <FileSearch className="w-5 h-5 mr-2" />
               Try Name Scout Service
             </Button>
@@ -58,60 +58,60 @@ const AustralianServices = () => {
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             
             {/* Aussie Quick-Start Social Setup */}
-            <Card className="p-8 border-2 border-green-200 bg-gradient-to-br from-green-50 to-white dark:from-green-950/10 dark:to-background">
+            <Card className="p-8 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mr-4">
-                    <Users className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mr-4">
+                    <Users className="w-8 h-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-green-800 dark:text-green-600">Aussie Quick-Start</h3>
-                    <p className="text-green-600 dark:text-green-400">Social Media Setup</p>
+                    <h3 className="text-2xl font-bold text-foreground">Aussie Quick-Start</h3>
+                    <p className="text-primary font-medium">Social Media Setup</p>
                   </div>
                 </div>
                 
-                <p className="text-muted-foreground mb-6 text-lg">
+                <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
                   Our Australian team personally sets up your Facebook Business Manager, 
                   Instagram Business profile, and connects everything to JBSAAS. Done professionally in 2-5 business days.
                 </p>
                 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Complete Facebook Business Manager setup</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Complete Facebook Business Manager setup</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Instagram Business profile configuration</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Instagram Business profile configuration</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Meta App setup and verification</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Meta App setup and verification</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Australian business compliance verification</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Australian business compliance verification</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Full integration with JBSAAS platform</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Full integration with JBSAAS platform</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-600 mr-3" />
-                    <span>Quality assurance testing</span>
+                    <Check className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Quality assurance testing</span>
                   </div>
                 </div>
                 
-                <div className="bg-white dark:bg-muted/20 rounded-lg p-4 mb-6">
-                  <h4 className="font-bold mb-2">Tier-Based Pricing:</h4>
-                  <div className="space-y-1 text-sm">
-                    <div>• <strong>Starter Plan:</strong> AU$299 one-time</div>
-                    <div>• <strong>Professional Plan:</strong> AU$199 one-time (33% off)</div>
-                    <div>• <strong>Enterprise Plan:</strong> Included free (Save AU$299)</div>
+                <div className="bg-muted/30 rounded-lg p-4 mb-6 border border-border">
+                  <h4 className="font-bold mb-2 text-foreground">Tier-Based Pricing:</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="text-foreground">• <strong>Starter Plan:</strong> AU$299 one-time</div>
+                    <div className="text-foreground">• <strong>Professional Plan:</strong> AU$199 one-time (33% off)</div>
+                    <div className="text-foreground">• <strong>Enterprise Plan:</strong> Included free (Save AU$299)</div>
                   </div>
                 </div>
                 
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                   <Building className="w-5 h-5 mr-2" />
                   Start Social Setup Service
                 </Button>
@@ -119,63 +119,63 @@ const AustralianServices = () => {
             </Card>
 
             {/* Aussie Name & Domain Scout */}
-            <Card className="p-8 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white dark:from-blue-950/10 dark:to-background">
+            <Card className="p-8 border-2 border-secondary/20 bg-gradient-to-br from-secondary/5 to-background">
               <CardContent className="p-0">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mr-4">
-                    <FileSearch className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-secondary rounded-xl flex items-center justify-center mr-4">
+                    <FileSearch className="w-8 h-8 text-secondary-foreground" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-blue-800 dark:text-blue-600">Aussie Name & Domain</h3>
-                    <p className="text-blue-600 dark:text-blue-400">Business Scout Service</p>
+                    <h3 className="text-2xl font-bold text-foreground">Aussie Name & Domain</h3>
+                    <p className="text-secondary font-medium">Business Scout Service</p>
                   </div>
                 </div>
                 
-                <p className="text-muted-foreground mb-6 text-lg">
+                <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
                   Professional business name research including ASIC availability checking, 
                   domain availability across multiple extensions, and optional trademark screening with AI-generated reports.
                 </p>
                 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>ASIC business name availability checking</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">ASIC business name availability checking</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>Domain availability (.com.au, .com, .net.au, .io)</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Domain availability (.com.au, .com, .net.au, .io)</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>Similar name analysis and risk assessment</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Similar name analysis and risk assessment</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>Optional trademark screening (AU$50 add-on)</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Optional trademark screening (AU$50 add-on)</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>AI-generated research summary and insights</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">AI-generated research summary and insights</span>
                   </div>
                   <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3" />
-                    <span>Professional PDF report delivered</span>
+                    <Check className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
+                    <span className="text-foreground">Professional PDF report delivered</span>
                   </div>
                 </div>
                 
-                <div className="bg-white dark:bg-muted/20 rounded-lg p-4 mb-6">
-                  <h4 className="font-bold mb-2">Tier-Based Pricing:</h4>
-                  <div className="space-y-1 text-sm">
-                    <div>• <strong>Starter Plan:</strong> AU$99 one-time</div>
-                    <div>• <strong>Professional Plan:</strong> AU$79 one-time (20% off)</div>
-                    <div>• <strong>Enterprise Plan:</strong> AU$69 one-time (30% off)</div>
+                <div className="bg-muted/30 rounded-lg p-4 mb-6 border border-border">
+                  <h4 className="font-bold mb-2 text-foreground">Tier-Based Pricing:</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="text-foreground">• <strong>Starter Plan:</strong> AU$99 one-time</div>
+                    <div className="text-foreground">• <strong>Professional Plan:</strong> AU$79 one-time (20% off)</div>
+                    <div className="text-foreground">• <strong>Enterprise Plan:</strong> AU$69 one-time (30% off)</div>
                     <div className="text-xs text-muted-foreground mt-2">
                       * Trademark screening: AU$50 (free for Professional+ plans)
                     </div>
                   </div>
                 </div>
                 
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                   <FileSearch className="w-5 h-5 mr-2" />
                   Start Name Scout Service
                 </Button>
@@ -198,51 +198,51 @@ const AustralianServices = () => {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="p-6">
-              <h3 className="text-xl font-bold mb-4 flex items-center">
-                <Building className="w-6 h-6 mr-2 text-green-600" />
+              <h3 className="text-xl font-bold mb-4 flex items-center text-foreground">
+                <Building className="w-6 h-6 mr-2 text-primary" />
                 Business Requirements
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Valid Australian Business Number (ABN)</span>
+                  <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Valid Australian Business Number (ABN)</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Australian-registered business address</span>
+                  <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Australian-registered business address</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Active JBSAAS subscription (any tier)</span>
+                  <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Active JBSAAS subscription (any tier)</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Valid business contact information</span>
+                  <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Valid business contact information</span>
                 </li>
               </ul>
             </Card>
             
             <Card className="p-6">
-              <h3 className="text-xl font-bold mb-4 flex items-center">
-                <Globe className="w-6 h-6 mr-2 text-blue-600" />
+              <h3 className="text-xl font-bold mb-4 flex items-center text-foreground">
+                <Globe className="w-6 h-6 mr-2 text-secondary" />
                 Geographic Requirements
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Business must be registered in Australia</span>
+                  <Check className="w-4 h-4 text-secondary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Business must be registered in Australia</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Services delivered during Australian business hours</span>
+                  <Check className="w-4 h-4 text-secondary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Services delivered during Australian business hours</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Support provided by Australian team</span>
+                  <Check className="w-4 h-4 text-secondary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Support provided by Australian team</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="w-4 h-4 text-success mr-3" />
-                  <span>Compliance with Australian business regulations</span>
+                  <Check className="w-4 h-4 text-secondary mr-3 flex-shrink-0" />
+                  <span className="text-foreground">Compliance with Australian business regulations</span>
                 </li>
               </ul>
             </Card>
