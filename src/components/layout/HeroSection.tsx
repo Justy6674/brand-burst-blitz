@@ -27,7 +27,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className={cn("relative min-h-screen flex items-center justify-center overflow-hidden pt-16", className)}>
+    <section className={cn("relative h-[60vh] sm:h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden pt-16", className)}>
       {/* Hero Background Image */}
       <div 
         className="absolute inset-0 z-0"
@@ -38,20 +38,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           backgroundRepeat: 'no-repeat'
         }}
       >
-        {/* Overlay for better text readability */}
+        {/* Enhanced overlay for better text readability */}
         <div className={cn("absolute inset-0 bg-gradient-to-r", overlayClasses[overlayIntensity])}></div>
         <div className={cn("absolute inset-0 bg-gradient-to-b", verticalOverlayClasses[overlayIntensity])}></div>
+        <div className="absolute inset-0 bg-background/20"></div>
       </div>
       
       {/* Hero Content */}
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        {children}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div className="max-w-4xl mx-auto">
+          {children}
+        </div>
       </div>
       
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+      {/* Scroll Indicator - hidden on mobile */}
+      <div className="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+        <div className="w-6 h-10 border-2 border-foreground/40 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-foreground/60 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
