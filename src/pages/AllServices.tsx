@@ -269,8 +269,8 @@ const AllServices = () => {
                   <Card key={index} className="border-2 hover:border-secondary/30 transition-colors h-full">
                     <CardHeader>
                       <div className="flex items-center justify-between">
-                        <CardTitle className="text-xl">{tool.name}</CardTitle>
-                        <Badge variant="secondary" className="text-lg px-3 py-1">
+                        <CardTitle className="text-xl flex-1">{tool.name}</CardTitle>
+                        <Badge variant="secondary" className="text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px]">
                           {tool.price}
                         </Badge>
                       </div>
