@@ -102,18 +102,26 @@ const Index = () => {
       {/* Global Background Galaxy Effect */}
       <div className="fixed inset-0 -z-10">
         {/* Animated Galaxy Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/5 via-purple-900/5 to-blue-900/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-purple-900/15 to-blue-900/20"></div>
         
-        {/* Floating Stars */}
-        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-yellow-400/60 rounded-full animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/3 w-0.5 h-0.5 bg-blue-400/40 rounded-full animate-ping"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-purple-400/50 rounded-full animate-pulse animation-delay-500"></div>
-        <div className="absolute top-2/3 right-1/4 w-0.5 h-0.5 bg-cyan-400/60 rounded-full animate-ping animation-delay-700"></div>
-        <div className="absolute bottom-1/3 right-2/3 w-1 h-1 bg-green-400/40 rounded-full animate-pulse animation-delay-300"></div>
-        <div className="absolute top-1/2 left-1/6 w-0.5 h-0.5 bg-red-400/50 rounded-full animate-ping animation-delay-1000"></div>
+        {/* Large Floating Stars */}
+        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50"></div>
+        <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400 rounded-full animate-ping shadow-lg shadow-blue-400/50"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-4 h-4 bg-purple-400 rounded-full animate-pulse animation-delay-500 shadow-lg shadow-purple-400/50"></div>
+        <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping animation-delay-700 shadow-lg shadow-cyan-400/50"></div>
+        <div className="absolute bottom-1/3 right-2/3 w-3 h-3 bg-green-400 rounded-full animate-pulse animation-delay-300 shadow-lg shadow-green-400/50"></div>
+        <div className="absolute top-1/2 left-1/6 w-2 h-2 bg-red-400 rounded-full animate-ping animation-delay-1000 shadow-lg shadow-red-400/50"></div>
         
-        {/* Subtle Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.005)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.005)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+        {/* Medium Stars */}
+        <div className="absolute top-1/5 right-1/5 w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse animation-delay-200 shadow-md shadow-orange-400/50"></div>
+        <div className="absolute bottom-1/5 left-1/5 w-1.5 h-1.5 bg-pink-400 rounded-full animate-ping animation-delay-800 shadow-md shadow-pink-400/50"></div>
+        
+        {/* Visible Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        
+        {/* Moving Gradients */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-radial from-blue-500/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-radial from-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
       </div>
       
       <GeoDetection />
@@ -165,8 +173,8 @@ const Index = () => {
       {/* WHO Section */}
       <section className="relative py-16 md:py-24 bg-background overflow-hidden">
         {/* Section Background Effects */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -218,8 +226,8 @@ const Index = () => {
       {/* WHY Section */}
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-muted/20 to-background overflow-hidden">
         {/* Section Background Effects */}
-        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-red-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-yellow-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-red-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-yellow-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-700"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -277,8 +285,8 @@ const Index = () => {
       {/* WHAT Section */}
       <section className="relative py-16 md:py-24 bg-background overflow-hidden">
         {/* Section Background Effects */}
-        <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-600"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -342,8 +350,8 @@ const Index = () => {
       {/* HOW Section */}
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-muted/20 to-background overflow-hidden">
         {/* Section Background Effects */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-800"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
@@ -395,8 +403,8 @@ const Index = () => {
       {/* WHEN Section */}
       <section className="relative py-16 md:py-24 bg-background overflow-hidden">
         {/* Section Background Effects */}
-        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/5 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-900"></div>
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
