@@ -120,55 +120,61 @@ const Index = () => {
       <PublicHeader />
 
       {/* Hero Section */}
-      <HeroSection backgroundImage={heroImage} overlayIntensity="heavy">
-        <div className="max-w-5xl mx-auto animate-fade-in text-center">
-          <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
-            🎯 Complete AI Marketing Automation & SEO Platform
-          </Badge>
-          
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
-            Be Found on <span className="text-yellow-400">Google</span><br />
-            Recommended by <span className="text-yellow-400">AI Agents</span>
-          </h1>
-          
-          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
-            Automated content creation, competitor intelligence, and professional setup for Australian businesses across all industries.
-          </p>
-          
-          <div className="mb-12">
-            <p className="text-2xl font-bold text-yellow-400 mb-8">
-              $149/month replaces $11,700 in agency costs
+      <div className="relative">
+        <HeroSection backgroundImage={heroImage} overlayIntensity="heavy">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+              🎯 Complete AI Marketing Automation & SEO Platform
+            </Badge>
+            
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+              Be Found on <span className="text-yellow-400">Google</span><br />
+              Recommended by <span className="text-yellow-400">AI Agents</span>
+            </h1>
+            
+            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+              Automated content creation, competitor intelligence, and professional setup for Australian businesses across all industries.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <ComingSoonPopup 
-                trigger={
-                  <Button variant="hero" size="xl" className="text-xl px-12 py-6">
-                    <Target className="w-6 h-6 mr-3" />
-                    Get Started Now
-                  </Button>
-                } 
-              />
-              <ComingSoonPopup 
-                trigger={
-                  <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
-                    <Rocket className="w-6 h-6 mr-3" />
-                    View Pricing
-                  </Button>
-                } 
-              />
+            <div className="mb-12">
+              <p className="text-2xl font-bold text-yellow-400 mb-8">
+                $149/month replaces $11,700 in agency costs
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <ComingSoonPopup 
+                  trigger={
+                    <Button variant="hero" size="xl" className="text-xl px-12 py-6">
+                      <Target className="w-6 h-6 mr-3" />
+                      Get Started Now
+                    </Button>
+                  } 
+                />
+                <ComingSoonPopup 
+                  trigger={
+                    <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
+                      <Rocket className="w-6 h-6 mr-3" />
+                      View Pricing
+                    </Button>
+                  } 
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </HeroSection>
+        </HeroSection>
+        
+        {/* Hero Bottom Border Effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-4 right-4 md:left-8 md:right-8 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent rounded-full"></div>
+      </div>
 
       {/* WHO Section */}
       <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-            alt="Modern laptop workspace background"
+            src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Professional team collaboration background"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
@@ -230,8 +236,8 @@ const Index = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-            alt="Modern building architecture background"
+            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Modern workspace with laptop background"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-red-900/80 to-yellow-900/85"></div>
