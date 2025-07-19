@@ -15,6 +15,7 @@ import Pricing from "./pages/Pricing";
 import CommonQuestions from "./pages/CommonQuestions";
 import Dashboard from "./pages/Dashboard";
 import { CreateContent } from "./pages/CreateContent";
+import { Blog } from "./pages/Blog";
 import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
 import Posts from "./pages/Posts";
