@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { BusinessSetupWizard } from '@/components/onboarding/BusinessSetupWizard';
-import { BlogIntegrationWizard } from '@/components/blog/BlogIntegrationWizard';
+import { SmartIntegrationWizard } from '@/components/blog/SmartIntegrationWizard';
 import { 
   Building2, 
   Globe, 
@@ -47,9 +47,8 @@ export const BusinessOnboardingDashboard = () => {
     const selectedBusiness = businessProfiles?.find(p => p.id === selectedBusinessId);
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <BlogIntegrationWizard
+        <SmartIntegrationWizard
           businessId={selectedBusinessId}
-          businessName={selectedBusiness?.business_name || 'Business'}
           onComplete={() => {
             setShowBlogIntegration(false);
             navigate('/dashboard');

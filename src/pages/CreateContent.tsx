@@ -6,7 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { BusinessOnboardingDashboard } from '@/components/onboarding/BusinessOnboardingDashboard';
 import { AIContentGenerator } from '@/components/content/AIContentGenerator';
-import { BlogIntegrationWizard } from '@/components/blog/BlogIntegrationWizard';
+import { SmartIntegrationWizard } from '@/components/blog/SmartIntegrationWizard';
 import { ArrowLeft, Settings } from 'lucide-react';
 
 export const CreateContent = () => {
@@ -37,9 +37,8 @@ export const CreateContent = () => {
           </Button>
         </div>
         
-        <BlogIntegrationWizard
+        <SmartIntegrationWizard
           businessId={selectedBusinessId}
-          businessName={selectedBusiness?.business_name || 'Business'}
           onComplete={() => setShowBlogIntegration(false)}
         />
       </div>
