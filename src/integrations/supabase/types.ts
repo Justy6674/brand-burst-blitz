@@ -887,6 +887,42 @@ export type Database = {
           },
         ]
       }
+      oauth_states: {
+        Row: {
+          code_verifier: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          platform: string
+          redirect_uri: string | null
+          state_token: string
+          used: boolean | null
+          user_id: string
+        }
+        Insert: {
+          code_verifier?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          platform: string
+          redirect_uri?: string | null
+          state_token: string
+          used?: boolean | null
+          user_id: string
+        }
+        Update: {
+          code_verifier?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          platform?: string
+          redirect_uri?: string | null
+          state_token?: string
+          used?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           ai_prompt: string | null
@@ -1106,16 +1142,65 @@ export type Database = {
           },
         ]
       }
+      publishing_queue_status: {
+        Row: {
+          created_at: string | null
+          error_message: string | null
+          id: string
+          platform_response: Json | null
+          processed_at: string | null
+          published_url: string | null
+          queue_item_id: string
+          retry_count: number | null
+          status: string
+        }
+        Insert: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          platform_response?: Json | null
+          processed_at?: string | null
+          published_url?: string | null
+          queue_item_id: string
+          retry_count?: number | null
+          status?: string
+        }
+        Update: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          platform_response?: Json | null
+          processed_at?: string | null
+          published_url?: string | null
+          queue_item_id?: string
+          retry_count?: number | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publishing_queue_status_queue_item_id_fkey"
+            columns: ["queue_item_id"]
+            isOneToOne: false
+            referencedRelation: "publishing_queue"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       social_accounts: {
         Row: {
           access_token: string
+          account_avatar: string | null
           account_id: string
           account_name: string | null
+          account_username: string | null
           business_profile_id: string | null
           created_at: string | null
           expires_at: string | null
           id: string
           is_active: boolean | null
+          last_sync_at: string | null
+          oauth_refresh_token: string | null
+          oauth_scope: string | null
           page_id: string | null
           platform: Database["public"]["Enums"]["social_platform"]
           refresh_token: string | null
@@ -1124,13 +1209,18 @@ export type Database = {
         }
         Insert: {
           access_token: string
+          account_avatar?: string | null
           account_id: string
           account_name?: string | null
+          account_username?: string | null
           business_profile_id?: string | null
           created_at?: string | null
           expires_at?: string | null
           id?: string
           is_active?: boolean | null
+          last_sync_at?: string | null
+          oauth_refresh_token?: string | null
+          oauth_scope?: string | null
           page_id?: string | null
           platform: Database["public"]["Enums"]["social_platform"]
           refresh_token?: string | null
@@ -1139,13 +1229,18 @@ export type Database = {
         }
         Update: {
           access_token?: string
+          account_avatar?: string | null
           account_id?: string
           account_name?: string | null
+          account_username?: string | null
           business_profile_id?: string | null
           created_at?: string | null
           expires_at?: string | null
           id?: string
           is_active?: boolean | null
+          last_sync_at?: string | null
+          oauth_refresh_token?: string | null
+          oauth_scope?: string | null
           page_id?: string | null
           platform?: Database["public"]["Enums"]["social_platform"]
           refresh_token?: string | null
