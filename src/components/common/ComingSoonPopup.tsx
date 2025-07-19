@@ -90,7 +90,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
       {triggerWithProps}
       
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
           {!showWaitlistForm ? (
             // Main Coming Soon View
             <>
@@ -98,10 +98,10 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute right-4 top-4 p-0 h-6 w-6"
+                  className="absolute right-2 sm:right-4 top-2 sm:top-4 p-2 h-8 w-8 sm:h-6 sm:w-6 z-50 bg-background/80 hover:bg-background rounded-full"
                   onClick={() => setIsOpen(false)}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4 sm:h-3 sm:w-3" />
                 </Button>
                 
                 <div className="space-y-4">
@@ -188,33 +188,39 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
           ) : (
             // Waitlist Form View
             <>
-              <DialogHeader>
+              <DialogHeader className="relative">
+                {/* Single close button - consolidated functionality */}
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute right-4 top-4 p-0 h-6 w-6"
-                  onClick={() => setIsOpen(false)}
+                  className="absolute right-2 sm:right-4 top-2 sm:top-4 p-2 h-8 w-8 sm:h-6 sm:w-6 z-50 bg-background/80 hover:bg-background rounded-full"
+                  onClick={() => {
+                    setShowWaitlistForm(false);
+                    setIsOpen(false);
+                  }}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4 sm:h-3 sm:w-3" />
                 </Button>
+                
+                {/* Back button for larger screens only */}
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute left-4 top-4 p-0 h-6 w-6"
+                  className="hidden sm:block absolute left-4 top-4 p-2 h-6 w-6 hover:bg-muted rounded-full"
                   onClick={() => setShowWaitlistForm(false)}
                 >
                   ←
                 </Button>
-                <DialogTitle className="text-2xl font-bold text-center">
+                <DialogTitle className="text-xl sm:text-2xl font-bold text-center pt-2 sm:pt-0">
                   Join the Priority Waitlist
                 </DialogTitle>
-                <p className="text-muted-foreground text-center">
+                <p className="text-sm sm:text-base text-muted-foreground text-center px-4 sm:px-0">
                   Get early access and exclusive launch pricing for Australian businesses
                 </p>
               </DialogHeader>
 
-              <form onSubmit={handleWaitlistSubmit} className="space-y-4 mt-6">
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleWaitlistSubmit} className="space-y-4 mt-6 px-4 sm:px-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">
                       <User className="w-4 h-4 inline mr-1" />

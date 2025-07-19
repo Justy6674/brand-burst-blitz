@@ -553,7 +553,7 @@ const Index = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
             <ComingSoonPopup 
               trigger={
-                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0">
+                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0 w-full sm:w-auto">
                   <Target className="w-6 h-6 mr-3 animate-pulse" />
                   Start Your Transformation
                   <Sparkles className="w-6 h-6 ml-3 animate-spin" />
