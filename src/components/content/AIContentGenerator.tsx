@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Wand2, Sparkles, FileText, MessageSquare, Megaphone } from 'lucide-react';
+import { Wand2, Sparkles, FileText, MessageSquare, Megaphone, Brain, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAIGeneration } from '@/hooks/useAIGeneration';
 import { useContentTemplates } from '@/hooks/useContentTemplates';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
+import { AdvancedContentEngine } from '@/components/ai/AdvancedContentEngine';
 
 const contentTypes = [
   { value: 'blog', label: 'Blog Post', icon: FileText },
@@ -30,6 +32,7 @@ interface AIContentGeneratorProps {
 }
 
 export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorProps) => {
+  const [mode, setMode] = useState<"quick" | "advanced">("quick");
   const [prompt, setPrompt] = useState('');
   const [selectedType, setSelectedType] = useState<'blog' | 'social' | 'ad'>('blog');
   const [selectedTone, setSelectedTone] = useState('professional');
@@ -83,11 +86,24 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
             <CardTitle>AI Content Generator</CardTitle>
           </div>
           <CardDescription>
-            Create engaging content using AI. Choose your content type, tone, and provide a prompt.
+            Choose between quick generation or advanced AI-powered content creation
           </CardDescription>
         </CardHeader>
         
-        <CardContent className="space-y-6">
+        <CardContent>
+          <Tabs value={mode} onValueChange={(value: any) => setMode(value)} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="quick" className="flex items-center gap-2">
+                <Zap className="h-4 w-4" />
+                Quick Generate
+              </TabsTrigger>
+              <TabsTrigger value="advanced" className="flex items-center gap-2">
+                <Brain className="h-4 w-4" />
+                Advanced Engine
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="quick" className="space-y-6">
           {/* Business/Website Selection */}
           {!profilesLoading && businessProfiles && businessProfiles.length > 0 && (
             <div className="space-y-2">
@@ -215,11 +231,17 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
               <span>Business context will be included</span>
             </div>
           )}
+            </TabsContent>
+
+            <TabsContent value="advanced">
+              <AdvancedContentEngine />
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
 
       {/* Generated Content Preview */}
-      {generatedContent && (
+      {generatedContent && mode === "quick" && (
         <Card>
           <CardHeader>
             <div className="flex items-center space-x-2">
