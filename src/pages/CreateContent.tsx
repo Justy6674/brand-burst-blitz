@@ -26,18 +26,6 @@ export const CreateContent = () => {
         </p>
       </div>
       
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-        <div className="flex items-start space-x-3">
-          <div className="text-yellow-600">⚠️</div>
-          <div>
-            <h3 className="font-medium text-yellow-800">AI Configuration Required</h3>
-            <p className="text-yellow-700 text-sm mt-1">
-              To use the AI content generator, please configure your OpenAI or Gemini API keys in the edge function settings.
-            </p>
-          </div>
-        </div>
-      </div>
-      
       <AIContentGenerator onContentGenerated={handleContentGenerated} />
     </div>
   );
