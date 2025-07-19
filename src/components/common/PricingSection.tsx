@@ -15,7 +15,8 @@ const pricingPlans = [
       "Advanced analytics", 
       "AI content generation",
       "Priority support",
-      "Content templates"
+      "Content templates",
+      "Australian compliance"
     ],
     popular: true,
     originalPrice: "$79"
@@ -32,8 +33,7 @@ const pricingPlans = [
       "AI content generation",
       "Priority support",
       "Team collaboration",
-      "Custom branding",
-      "Multi-business management"
+      "Custom branding"
     ],
     popular: false,
     originalPrice: "$249"
