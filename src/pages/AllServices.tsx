@@ -3,390 +3,463 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import PublicHeader from '@/components/layout/PublicHeader';
 import { HeroSection } from '@/components/layout/HeroSection';
 import { ComingSoonPopup } from '@/components/common/ComingSoonPopup';
 import { 
-  Zap, 
+  Brain, 
   Users, 
   BarChart3, 
-  Brain, 
-  Target, 
-  Shield,
-  Building,
-  FileSearch,
-  Globe,
+  Calendar,
+  Target,
+  Settings,
+  FileText,
+  Zap,
   ArrowRight,
   CheckCircle,
-  Crown,
-  Mail,
+  Star,
+  PenTool,
+  Search,
+  TrendingUp,
+  Shield,
+  Globe,
+  Lightbulb,
   Clock,
-  Star
+  Rocket,
+  Eye,
+  MessageSquare,
+  Building
 } from 'lucide-react';
 import featuresImage from '@/assets/features-image.jpg';
 
 const AllServices = () => {
-  const starterFeatures = [
-    'AI Content Generation: 100 posts/month',
-    'Social Media Management: 3 accounts',
-    'Content Scheduling & Publishing',
-    'Basic Analytics Dashboard',
-    'Industry-Specific Templates',
-    'Email Support'
-  ];
-
-  const professionalFeatures = [
-    'Everything in Starter PLUS:',
-    'Unlimited AI Content Generation',
-    'Social Media Management: 10 accounts',
-    'Advanced Analytics & Insights',
-    'Competitor Analysis Tools',
-    'Brand Voice Training',
-    'Custom Content Templates',
-    'Priority Support',
-    'Business Intelligence Dashboard'
-  ];
-
-  const enterpriseFeatures = [
-    'Everything in Professional',
-    'Unlimited team members & accounts',
-    'White-label solution',
-    'Custom integrations',
-    'Dedicated success manager'
-  ];
-
-  const currentTools = [
+  // Core Platform Features - What's in the Dashboard
+  const platformFeatures = [
     {
-      name: 'Australian Quick-Start Social Setup',
-      price: '$199-299',
-      description: 'Complete Facebook Business Manager, Instagram Business profile setup and JBSAAS integration',
+      icon: <Brain className="w-8 h-8" />,
+      title: "AI Content Creation",
+      description: "Generate professional, compliant content at scale",
       features: [
-        'Facebook Business Manager setup',
-        'Instagram Business configuration',
-        'Meta App setup and verification',
-        'Australian business compliance',
-        'Full JBSAAS integration',
-        'Quality assurance testing'
-      ]
+        "Industry-specific AI content generation",
+        "Blog posts, social media, marketing copy",
+        "Australian compliance built-in",
+        "Brand voice training and consistency",
+        "SEO optimization for Google visibility",
+        "Multiple content formats and styles"
+      ],
+      route: "/dashboard/create",
+      gradient: "from-blue-500/10 to-blue-600/10",
+      border: "border-blue-500/20",
+      color: "blue-500"
     },
     {
-      name: 'Name & Domain Scout',
-      price: '$69-99',
-      description: 'Professional business name research including ASIC availability and domain checking',
+      icon: <FileText className="w-8 h-8" />,
+      title: "Content Management",
+      description: "Organize, edit, and optimize all your content",
       features: [
-        'ASIC business name availability',
-        'Domain availability checking',
-        'Similar name analysis',
-        'Optional trademark screening',
-        'AI-generated research summary',
-        'Professional PDF report'
-      ]
+        "Draft, scheduled, and published content library",
+        "Content versioning and revision history",
+        "Bulk editing and batch operations",
+        "Content performance tracking",
+        "Tag and category organization",
+        "Search and filter functionality"
+      ],
+      route: "/dashboard/posts",
+      gradient: "from-green-500/10 to-green-600/10",
+      border: "border-green-500/20",
+      color: "green-500"
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: "Social Media Management",
+      description: "Unified social media control center",
+      features: [
+        "Facebook, Instagram, LinkedIn integration",
+        "Multi-account management",
+        "Cross-platform publishing",
+        "Social media account setup service",
+        "Automated posting schedules",
+        "Social media analytics"
+      ],
+      route: "/dashboard/social",
+      gradient: "from-purple-500/10 to-purple-600/10",
+      border: "border-purple-500/20",
+      color: "purple-500"
+    },
+    {
+      icon: <Calendar className="w-8 h-8" />,
+      title: "Content Calendar",
+      description: "Strategic content planning and scheduling",
+      features: [
+        "Visual content calendar interface",
+        "Drag-and-drop scheduling",
+        "Multi-platform publishing",
+        "Campaign planning and coordination",
+        "Automated posting queues",
+        "Content gap identification"
+      ],
+      route: "/dashboard/calendar",
+      gradient: "from-orange-500/10 to-orange-600/10",
+      border: "border-orange-500/20",
+      color: "orange-500"
+    },
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "Competitor Intelligence",
+      description: "AI-powered competitor analysis and monitoring",
+      features: [
+        "Automated competitor content tracking",
+        "Market gap analysis and opportunities",
+        "Content performance comparisons",
+        "Strategic recommendations",
+        "Industry trend identification",
+        "Competitive advantage insights"
+      ],
+      route: "/dashboard/competitors",
+      gradient: "from-red-500/10 to-red-600/10",
+      border: "border-red-500/20",
+      color: "red-500"
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: "Analytics Dashboard",
+      description: "Comprehensive performance insights",
+      features: [
+        "Real-time content performance metrics",
+        "Social media engagement analytics",
+        "SEO ranking and visibility tracking",
+        "ROI and conversion reporting",
+        "Custom dashboard widgets",
+        "Automated performance alerts"
+      ],
+      route: "/dashboard/analytics",
+      gradient: "from-cyan-500/10 to-cyan-600/10",
+      border: "border-cyan-500/20",
+      color: "cyan-500"
+    },
+    {
+      icon: <PenTool className="w-8 h-8" />,
+      title: "Content Templates",
+      description: "Professional templates for every industry",
+      features: [
+        "Industry-specific content templates",
+        "Custom template creation",
+        "Template library and sharing",
+        "Variable placeholders and automation",
+        "Brand-consistent formatting",
+        "Template performance tracking"
+      ],
+      route: "/dashboard/templates",
+      gradient: "from-emerald-500/10 to-emerald-600/10",
+      border: "border-emerald-500/20",
+      color: "emerald-500"
+    },
+    {
+      icon: <MessageSquare className="w-8 h-8" />,
+      title: "AI Prompt Library",
+      description: "Advanced AI prompts for superior content",
+      features: [
+        "Professional prompt engineering",
+        "Industry-specific prompt collections",
+        "Custom prompt creation and testing",
+        "Prompt performance optimization",
+        "Community prompt sharing",
+        "A/B testing for prompts"
+      ],
+      route: "/dashboard/prompts",
+      gradient: "from-violet-500/10 to-violet-600/10",
+      border: "border-violet-500/20",
+      color: "violet-500"
+    },
+    {
+      icon: <Building className="w-8 h-8" />,
+      title: "Business Management",
+      description: "Multi-business profile management",
+      features: [
+        "Multiple business profile support",
+        "Cross-business content sharing",
+        "Brand-specific customization",
+        "Business compliance settings",
+        "Team collaboration tools",
+        "Business performance comparison"
+      ],
+      route: "/dashboard/business-settings",
+      gradient: "from-indigo-500/10 to-indigo-600/10",
+      border: "border-indigo-500/20",
+      color: "indigo-500"
     }
   ];
 
-  const futureTools = [
-    'ASIC Business Search Tool',
-    'Domain Research & Ideas Generator',
-    'Website Design Concept Generator',
-    'Medicare Provider Tools',
-    'Postcode Search for Medicare Telehealth',
-    'Industry-Specific Professional Tools',
-    'Business Registration Assistant'
+  // Professional Services
+  const professionalServices = [
+    {
+      name: 'Australian Social Setup Service',
+      price: '$199-299',
+      description: 'Complete Facebook Business Manager, Instagram Business, and LinkedIn setup with Australian compliance',
+      features: [
+        'Facebook Business Manager configuration',
+        'Instagram Business profile setup',
+        'LinkedIn Business page optimization',
+        'Meta App setup and verification',
+        'Australian business compliance check',
+        'Full platform integration testing',
+        'Quality assurance and handoff'
+      ],
+      route: '/australian-setup-service'
+    },
+    {
+      name: 'Name & Domain Scout Service',
+      price: '$69-99',
+      description: 'Professional business name research with ASIC availability and domain analysis',
+      features: [
+        'ASIC business name availability check',
+        'Domain availability across extensions',
+        'Similar business name analysis',
+        'Optional trademark screening',
+        'AI-generated business name alternatives',
+        'Professional PDF research report'
+      ],
+      route: '/australian-services'
+    }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
-      <HeroSection 
-        backgroundImage={featuresImage}
-        overlayIntensity="medium"
-        className="h-[60vh] sm:h-[70vh]"
-      >
-        <Badge className="mb-6 bg-primary/20 text-white border-white/20 hover:bg-primary/30">
-          🇦🇺 Complete Australian Business Solutions
-        </Badge>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
-          Everything Your <span className="text-primary-foreground/90">Business Needs</span>
-        </h1>
-        <p className="text-xl sm:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Choose our comprehensive SaaS platform for ongoing content management, plus specialized tools for business setup and growth.
-        </p>
-      </HeroSection>
-
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-        <div className="container mx-auto px-4 py-16">
-          
-          {/* Platform Overview Section */}
-          <section className="mb-20">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 bg-primary/10 text-primary">
-                <Zap className="w-4 h-4 mr-2" />
-                AI-Powered Platform
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Complete <span className="text-gradient-primary">Content Solution</span>
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Our core SaaS platform handles all your content creation, social media management, and business intelligence needs.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-8 mb-12 items-stretch">
-              
-              {/* AI Content Generation */}
-              <Card className="border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors h-full">
-                <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Brain className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl">AI Content Engine</CardTitle>
-                  <CardDescription>Generate professional content at scale</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <ul className="space-y-3 mb-8 flex-1">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Industry-specific content templates</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Australian compliance built-in</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Brand voice training</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Multi-platform publishing</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Social Media Management */}
-              <Card className="border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full">
-                <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl">Social Media Hub</CardTitle>
-                  <CardDescription>Manage all your social accounts</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <ul className="space-y-3 mb-8 flex-1">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Multi-account management</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Automated scheduling</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Analytics & insights</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Content calendar</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Business Intelligence */}
-              <Card className="border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full">
-                <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <BarChart3 className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl">Business Intelligence</CardTitle>
-                  <CardDescription>Data-driven insights & competitor analysis</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <ul className="space-y-3 mb-8 flex-1">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Performance tracking</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Competitor monitoring</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Strategic recommendations</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">ROI reporting</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="text-center">
+      
+      {/* Hero Section - Same style as home page */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src={featuresImage}
+            alt="Platform Features Background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+              🚀 Complete Members Platform & Professional Services
+            </Badge>
+            
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+              Everything You Get <span className="text-yellow-400">Inside</span>
+            </h1>
+            
+            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+              Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <ComingSoonPopup 
+                trigger={
+                  <Button variant="hero" size="xl" className="text-xl px-12 py-6">
+                    <Rocket className="w-6 h-6 mr-3" />
+                    Start Your Membership
+                  </Button>
+                } 
+              />
               <Link to="/pricing">
-                <Button size="lg" className="bg-gradient-primary">
-                  <ArrowRight className="w-4 h-4 mr-2" />
+                <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
+                  <Eye className="w-6 h-6 mr-3" />
                   View Pricing Plans
                 </Button>
               </Link>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          <Separator className="my-16" />
+      {/* Core Platform Features */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Technology dashboard background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>Members</span> <span className="text-gradient-primary">Dashboard Features</span>
+            </h2>
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Your complete AI marketing command center. Every tool you need to dominate your market.
+            </p>
+          </div>
 
-          {/* Additional Tools Section */}
-          <section className="mb-20">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 bg-secondary/10 text-secondary">
-                <FileSearch className="w-4 h-4 mr-2" />
-                Additional Tools
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Standalone <span className="text-gradient-secondary">Business Tools</span>
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Specialized one-time purchase tools to help with business setup, research, and professional requirements.
-              </p>
-            </div>
-
-            {/* Current Tools */}
-            <div className="mb-12">
-              <h3 className="text-2xl font-bold mb-8 text-center">Available Now</h3>
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-stretch">
-                {/* First Tool - Blue Accents */}
-                <Card className="border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors h-full">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                      <CardTitle className="text-lg sm:text-xl flex-1">{currentTools[0].name}</CardTitle>
-                      <Badge className="bg-blue-500 hover:bg-blue-600 text-white text-base sm:text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px] border-0">
-                        {currentTools[0].price}
-                      </Badge>
-                    </div>
-                    <CardDescription>{currentTools[0].description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <ul className="space-y-2 mb-6 flex-1">
-                      {currentTools[0].features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <ComingSoonPopup 
-                      trigger={
-                        <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0">
-                          Learn More
-                        </Button>
-                      } 
-                    />
-                  </CardContent>
-                </Card>
-
-                {/* Second Tool - Emerald Accents */}
-                <Card className="border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-colors h-full">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                      <CardTitle className="text-lg sm:text-xl flex-1">{currentTools[1].name}</CardTitle>
-                      <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white text-base sm:text-lg px-4 py-2 font-semibold flex items-center justify-center min-w-[100px] border-0">
-                        {currentTools[1].price}
-                      </Badge>
-                    </div>
-                    <CardDescription>{currentTools[1].description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <ul className="space-y-2 mb-6 flex-1">
-                      {currentTools[1].features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle className="w-4 h-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <ComingSoonPopup 
-                      trigger={
-                        <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white border-0">
-                          Learn More
-                        </Button>
-                      } 
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
-            {/* Future Tools */}
-            <div>
-              <h3 className="text-2xl font-bold mb-8 text-center">Coming Soon</h3>
-              <Card className="bg-muted/30 border-dashed border-2">
-                <CardHeader className="text-center">
-                  <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                  <CardTitle>Expanding Toolkit</CardTitle>
-                  <CardDescription>
-                    More specialized tools to support Australian business owners and startups
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {futureTools.map((tool, index) => (
-                      <div key={index} className="flex items-center p-3 rounded-lg bg-background/50">
-                        <Clock className="w-4 h-4 text-muted-foreground mr-3" />
-                        <span className="text-sm">{tool}</span>
+          <div className="grid gap-8">
+            {platformFeatures.map((feature, index) => (
+              <Card key={index} className={`p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient} transition-all duration-300`}>
+                <CardContent className="p-0">
+                  <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-16 h-16 bg-${feature.color} rounded-full flex items-center justify-center text-white`}>
+                          {feature.icon}
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
+                          <p className="text-muted-foreground text-lg">{feature.description}</p>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 text-center">
-                    <ComingSoonPopup 
-                      trigger={
-                        <Button variant="outline">
-                          <Mail className="w-4 h-4 mr-2" />
-                          Get Notified of New Tools
-                        </Button>
-                      } 
-                    />
+                      
+                      <div className="grid md:grid-cols-2 gap-3 mb-6">
+                        {feature.features.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <CheckCircle className={`w-4 h-4 text-${feature.color} flex-shrink-0 mt-0.5`} />
+                            <span className="text-sm">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="lg:ml-6">
+                      <ComingSoonPopup 
+                        trigger={
+                          <Button className={`bg-${feature.color} hover:bg-${feature.color}/90 text-white border-0 px-6 py-3`}>
+                            <ArrowRight className="w-4 h-4 mr-2" />
+                            Explore Feature
+                          </Button>
+                        } 
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </section>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* CTA Section */}
-          <section className="text-center">
-            <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
-              <CardContent className="p-12">
-                <h3 className="text-3xl font-bold mb-4">
-                  Ready to Transform Your Business?
-                </h3>
-                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Start with our comprehensive platform or choose the specific tools your business needs.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button size="lg" className="bg-gradient-primary">
-                        <Zap className="w-5 h-5 mr-2" />
-                        Get Started - $179/month
-                      </Button>
-                    }
-                  />
-                  <Link to="/australian-services">
-                    <Button size="lg" variant="outline">
-                      <FileSearch className="w-5 h-5 mr-2" />
-                      Browse Business Tools
+      {/* Professional Services */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Professional services background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>Professional</span> <span className="text-gradient-primary">Setup Services</span>
+            </h2>
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Expert-level business setup services to get you operational fast with full Australian compliance.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+            {professionalServices.map((service, index) => (
+              <Card key={index} className="border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors h-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                <CardHeader>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <CardTitle className="text-xl flex-1">{service.name}</CardTitle>
+                    <Badge className="bg-orange-500 hover:bg-orange-600 text-white text-lg px-4 py-2 font-semibold border-0">
+                      {service.price}
+                    </Badge>
+                  </div>
+                  <CardDescription className="text-lg">{service.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <CheckCircle className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to={service.route}>
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Learn More
                     </Button>
                   </Link>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Success transformation background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-purple-900/85 to-slate-900/90"></div>
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <div className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Star className="w-5 h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide">EVERYTHING YOU NEED TO SUCCEED</span>
+            <Zap className="w-5 h-5 ml-2 text-yellow-400 animate-pulse" />
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+              Ready to Transform
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+              Your Business?
+            </span>
+          </h2>
+          
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+            Get access to every feature shown above plus professional setup services. Start dominating your market today.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="relative inline-block">
+              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
+              <ComingSoonPopup 
+                trigger={
+                  <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0">
+                    <Target className="w-6 h-6 mr-3" />
+                    Start Membership - $179/month
+                  </Button>
+                } 
+              />
+            </div>
+            <Link to="/pricing">
+              <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
+                <TrendingUp className="w-6 h-6 mr-3" />
+                Compare All Plans
+              </Button>
+            </Link>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-8 mt-16">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-yellow-400">9</div>
+              <div className="text-sm text-gray-400">Core Features</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-cyan-400">2</div>
+              <div className="text-sm text-gray-400">Pro Services</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
+              <div className="text-2xl font-bold text-green-400">$11,521</div>
+              <div className="text-sm text-gray-400">Monthly Savings</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
