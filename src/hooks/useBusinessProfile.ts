@@ -18,12 +18,14 @@ interface UseBusinessProfileReturn {
   updateBusinessProfile: (id: string, data: Partial<TablesUpdate<'business_profiles'>>) => Promise<BusinessProfile>;
   deleteBusinessProfile: (id: string) => Promise<void>;
   refreshBusinessProfiles: () => void;
+  switchBusiness: (businessId: string) => void;
 }
 
 export const useBusinessProfile = (): UseBusinessProfileReturn => {
   const [profile, setProfile] = useState<BusinessProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentBusinessId, setCurrentBusinessId] = useState<string | null>(null);
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -132,9 +134,31 @@ export const useBusinessProfile = (): UseBusinessProfileReturn => {
     }
   };
 
+  const switchBusiness = (businessId: string) => {
+    const selectedBusiness = businessProfiles?.find(b => b.id === businessId);
+    if (selectedBusiness) {
+      setProfile(selectedBusiness);
+      setCurrentBusinessId(businessId);
+      // Store in localStorage for persistence
+      localStorage.setItem('currentBusinessId', businessId);
+    }
+  };
+
   useEffect(() => {
+    // Check for stored business preference
+    const storedBusinessId = localStorage.getItem('currentBusinessId');
+    if (storedBusinessId && businessProfiles) {
+      const storedBusiness = businessProfiles.find(b => b.id === storedBusinessId);
+      if (storedBusiness) {
+        setProfile(storedBusiness);
+        setCurrentBusinessId(storedBusinessId);
+        return;
+      }
+    }
+    
+    // Fallback to fetching primary profile
     fetchProfile();
-  }, [user]);
+  }, [user, businessProfiles]);
 
   // Check if the user has completed the questionnaire
   const hasCompletedQuestionnaire = Boolean(
@@ -165,5 +189,6 @@ export const useBusinessProfile = (): UseBusinessProfileReturn => {
       updateMutation.mutateAsync({ id, data }),
     deleteBusinessProfile: deleteMutation.mutateAsync,
     refreshBusinessProfiles: () => refetchProfiles(),
+    switchBusiness,
   };
 };
