@@ -46,7 +46,7 @@ const Features = () => {
             trigger={
               <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold">
                 <Rocket className="w-6 h-6 mr-3" />
-                Start Free Trial - August 2025
+                Join Priority Waitlist
               </Button>
             } 
           />

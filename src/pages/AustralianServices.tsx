@@ -366,7 +366,7 @@ const AustralianServices = () => {
               <ComingSoonPopup 
                 trigger={
                   <Button size="lg" variant="outline">
-                    Start Free Trial
+                    Join Waitlist
                   </Button>
                 } 
               />

@@ -379,10 +379,10 @@ const CommonQuestions = () => {
               Our Australian team is here to help you succeed. Get personalized answers about how JB-SaaS can transform your business with AI-powered marketing automation.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/auth">
+              <Link to="/pricing">
                 <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-lg px-12 py-6">
                   <ArrowRight className="w-6 h-6 mr-3" />
-                  Start Free Trial
+                  Get Started Now
                 </Button>
               </Link>
               <Button variant="outline-white" size="xl" className="text-lg px-12 py-6">
