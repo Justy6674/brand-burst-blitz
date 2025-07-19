@@ -36,6 +36,7 @@ import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionna
 import Discover from "./pages/Discover";
 import Onboarding from "./pages/Onboarding";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/embed/blog" element={<EmbeddableBlog />} />
               <Route path="/auth" element={
                 <ProtectedRoute requireAuth={false}>
                   <AuthPage />
