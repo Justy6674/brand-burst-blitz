@@ -186,7 +186,7 @@ const Discover = () => {
 
       <HeroSection backgroundImage={aiContentHero} className="min-h-[60vh]">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 text-base px-4 py-2">
+          <Badge className="mb-6 bg-black/40 backdrop-blur-sm text-white border-white/30 text-base px-4 py-2 font-semibold">
             🇦🇺 Industry-Specific AI Content for Australian Businesses
           </Badge>
           

@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
 
       <HeroSection backgroundImage={aiContentHero} className="min-h-[40vh]">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <Badge className="mb-6 bg-green-600 text-white border-green-500 text-base px-4 py-2">
+          <Badge className="mb-6 bg-black/40 backdrop-blur-sm text-white border-white/30 text-base px-4 py-2 font-semibold">
             🇦🇺 Australian Privacy Act 1988 Compliant
           </Badge>
           

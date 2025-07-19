@@ -30,7 +30,7 @@ const AustralianSetupService = () => {
       
       <HeroSection backgroundImage={socialMediaStrategyHero}>
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <Badge className="mb-6 bg-green-600 text-white border-green-500 text-lg px-6 py-2">
+          <Badge className="mb-6 bg-black/40 backdrop-blur-sm text-white border-white/30 text-lg px-6 py-2 font-semibold">
             🇦🇺 Exclusively for Australian Businesses
           </Badge>
           
