@@ -142,7 +142,7 @@ const AllServices = () => {
                   <CardTitle className="text-2xl">Starter</CardTitle>
                   <CardDescription>Perfect for small businesses</CardDescription>
                   <div className="text-4xl font-bold text-green-600 mt-4">
-                    $449<span className="text-lg text-muted-foreground">/month</span>
+                    $49<span className="text-lg text-muted-foreground">/month</span>
                   </div>
                   <Badge variant="secondary" className="mt-2">Limited Time - Then $79/month</Badge>
                 </CardHeader>
@@ -158,7 +158,7 @@ const AllServices = () => {
                   <ComingSoonPopup 
                     trigger={
                       <Button className="w-full bg-green-500 hover:bg-green-600 text-white border-0">
-                        Get Started - $449/month
+                        Get Started - $49/month
                       </Button>
                     } 
                   />
@@ -180,7 +180,7 @@ const AllServices = () => {
                   <CardTitle className="text-2xl">Professional</CardTitle>
                   <CardDescription>For growing businesses</CardDescription>
                   <div className="text-4xl font-bold text-blue-600 mt-4">
-                    $449<span className="text-lg text-muted-foreground">/month</span>
+                    $49<span className="text-lg text-muted-foreground">/month</span>
                   </div>
                   <Badge variant="secondary" className="mt-2">Limited Time - Then $79/month</Badge>
                 </CardHeader>
@@ -196,7 +196,7 @@ const AllServices = () => {
                   <ComingSoonPopup 
                     trigger={
                       <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0">
-                        Get Started - $449/month
+                        Get Started - $49/month
                       </Button>
                     } 
                   />
@@ -379,7 +379,7 @@ const AllServices = () => {
                     trigger={
                       <Button size="lg" className="bg-gradient-primary">
                         <Zap className="w-5 h-5 mr-2" />
-                        Get Started - $449/month
+                        Get Started - $49/month
                       </Button>
                     }
                   />
