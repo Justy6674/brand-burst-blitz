@@ -27,35 +27,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className={cn("relative h-[60vh] sm:h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden pt-16", className)}>
+    <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
       {/* Hero Background Image */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        {/* Enhanced overlay for better text readability */}
-        <div className={cn("absolute inset-0 bg-gradient-to-r", overlayClasses[overlayIntensity])}></div>
-        <div className={cn("absolute inset-0 bg-gradient-to-b", verticalOverlayClasses[overlayIntensity])}></div>
-        <div className="absolute inset-0 bg-background/20"></div>
+      <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+        <img 
+          src={backgroundImage}
+          alt="Hero Background"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
       </div>
       
       {/* Hero Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <div className="max-w-4xl mx-auto">
-          {children}
-        </div>
-      </div>
-      
-      {/* Scroll Indicator - hidden on mobile */}
-      <div className="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 border-2 border-foreground/40 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-foreground/60 rounded-full mt-2 animate-pulse"></div>
-        </div>
+      <div className="relative z-20 container mx-auto px-6">
+        {children}
       </div>
     </section>
   );
