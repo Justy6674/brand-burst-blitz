@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
@@ -47,8 +47,7 @@ const App = () => (
           <ErrorBoundary>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
-            <Routes>
+          <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/features" element={<Features />} />
               <Route path="/all-services" element={<AllServices />} />
@@ -101,7 +100,6 @@ const App = () => (
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </BrowserRouter>
           </ErrorBoundary>
         </UserProfileProvider>
       </AuthProvider>
