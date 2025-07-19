@@ -43,32 +43,6 @@ const Pricing = () => {
         </div>
       </HeroSection>
 
-      {/* Development Status Alert */}
-      <section className="py-12 bg-amber-50/50 border-b border-amber-200">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <AlertTriangle className="h-12 w-12 text-amber-600 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-amber-800 mb-4">Platform Development Status</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-700">15%</div>
-                <div className="text-sm text-amber-600">Platform Complete</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-700">100%</div>
-                <div className="text-sm text-green-600">Authentication Working</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-700">5</div>
-                <div className="text-sm text-blue-600">Phases to Launch</div>
-              </div>
-            </div>
-            <p className="text-amber-700 mt-4 max-w-2xl mx-auto">
-              JB-SaaS is currently in active development. These prices secure your early access position with significant savings when we launch.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Early Access Pricing Cards */}
       <section className="py-20">
