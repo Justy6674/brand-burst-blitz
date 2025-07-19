@@ -235,10 +235,10 @@ JBSAAS is a feature-complete business automation platform that enables Australia
 ## Pricing & Subscription Model
 
 ### Subscription Tiers
-- **Trial**: Limited features with content generation limits
-- **Starter Plan**: Full platform access with basic features
-- **Professional Plan**: Advanced features with priority support
-- **Enterprise Plan**: Multi-business support with dedicated account management
+- **Trial**: NO TRIal - can opt out of subscription any time
+- **General Plan**: Full platform access with basic features - starting price $49 limited time then $79 - up to three businesses
+- **Large Plan**: Advanced features with priority support - 4 plus businesses
+- **Enterprise Plan**: Multi-business support with dedicated account management - in 2026 when successfull and can employ a developer or two 
 
 ### Australian Service Add-ons
 - **Aussie Quick-Start Social Setup**: AU$299 (Starter) / AU$199 (Professional) / Included (Enterprise)
