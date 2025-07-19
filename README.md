@@ -1,7 +1,8 @@
 # JBSAAS: AI-Powered Business Content & Social Automation Platform
 
 JBSAAS is a comprehensive, full-stack SaaS platform that empowers Australian businesses with AI-driven content creation, social media management, blog publishing, competitive analysis, and specialized business services. Built on React with Supabase backend and powered by OpenAI, JBSAAS provides businesses with a complete digital marketing automation solution.
-
+DONT OVERWRIGHT CODE WITHOUT APPROVAL
+THE MEMBERS AREA NEEDS TO PROVIDE FOR NON-TECHNICALLY ADEPT USERS AND ALL OF THEIR TECHNICAL NEEDS - E.G IF GO-DADDY WEBSITE THEY HAVE A BLOG SYSTEM, HOWEVER IF ANOTHER SYESTEM WE CAN EMBED, ALL THE WAY TO JUST A CONTENT AND IMAGE GENRATOR AND PLANNER. BE SMART-
 ---
 
 ## 📖 Table of Contents
@@ -66,16 +67,6 @@ JBSAAS is a feature-complete business automation platform that enables Australia
   - Optional trademark screening
   - AI-generated research reports
   - Pricing: AU$99-AU$69 based on subscription tier
-
-### 💰 **Enhanced Australian SME Features**
-- **AI-Searchable Template Library**: Industry-categorized templates (Retail, Trades, Hospitality, etc.) with keyword filtering
-- **Local Market Data Feeds**: Real-time ABS data integration with automated "Did you know?" posts
-- **Geo-Targeted Content**: State/postcode-based local event suggestions and hashtag automation
-- **AI FAQ & Chatbot Generator**: One-click industry-specific FAQ creation with embeddable chat widgets
-- **Local SEO Metadata Creator**: Automated meta titles, descriptions, and JSON-LD schema generation
-- **Testimonial & Case Study Builder**: AI-powered conversion of bullet points to polished testimonials with branded visuals
-- **"Day in the Life" Series Creator**: Industry-specific story prompts with automated week-long content series
-- **Compliance & Regulation Hub**: AI-searchable industry compliance guides with quick-search functionality
 
 ### 🛠 **Advanced Features**
 - **Prompt Library**: Curated AI prompts with usage tracking and categorization
