@@ -342,9 +342,9 @@ const AllServices = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section - Same style as home page */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      {/* Hero Section - Optimized for Mobile */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src={featuresImage}
             alt="Platform Features Background"
@@ -353,30 +353,30 @@ const AllServices = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
-            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+            <Badge className="mb-6 md:mb-8 bg-primary/10 text-primary border-primary/20 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3">
               🚀 Complete Members Platform & Professional Services
             </Badge>
             
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
               Everything You Get <span className="text-yellow-400">Inside</span>
             </h1>
             
-            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
               Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
               <Link to="/pricing">
-                <Button variant="hero" size="xl" className="text-xl px-12 py-6">
-                  <Rocket className="w-6 h-6 mr-3" />
+                <Button variant="hero" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
+                  <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                   Start Your Membership
                 </Button>
               </Link>
               <Link to="/pricing">
-                <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
-                  <Eye className="w-6 h-6 mr-3" />
+                <Button variant="outline-white" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
+                  <Eye className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                   View Pricing Plans
                 </Button>
               </Link>
@@ -386,7 +386,7 @@ const AllServices = () => {
       </section>
 
       {/* Core Platform Features */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
@@ -396,12 +396,12 @@ const AllServices = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>Complete</span> <span className="text-gradient-primary">Members Dashboard</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Your complete AI marketing command center. Every tool, feature, and capability in your members area.
             </p>
           </div>
@@ -451,8 +451,8 @@ const AllServices = () => {
       </section>
 
       {/* Bonus Professional Services */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Professional services and tools background"
@@ -461,24 +461,24 @@ const AllServices = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-indigo-900/80 to-purple-900/85"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>Profession-Specific</span> <span className="text-gradient-primary">Bonus Tools</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Industry-specific tools and services tailored to your profession's unique requirements and compliance needs.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
             {bonusServices.map((service, index) => (
-              <Card key={index} className={`p-6 hover-lift ${service.border} bg-gradient-to-br ${service.gradient} transition-all duration-300`}>
+              <Card key={index} className={`p-4 md:p-6 hover-lift ${service.border} bg-gradient-to-br ${service.gradient} transition-all duration-300`}>
                 <CardContent className="p-0">
                   <div className={`w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-4`}>
                     {service.icon}
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{service.title}</h3>
+                  <h3 className="text-base md:text-lg font-bold mb-2">{service.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-primary mb-2">Perfect for:</p>
@@ -506,8 +506,8 @@ const AllServices = () => {
       </section>
 
       {/* Core Setup Services */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Professional services background"
@@ -516,12 +516,12 @@ const AllServices = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>Core</span> <span className="text-gradient-primary">Setup Services</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Expert-level business setup services to get you operational fast with full Australian compliance.
             </p>
           </div>
@@ -563,8 +563,8 @@ const AllServices = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Success transformation background"
@@ -573,14 +573,14 @@ const AllServices = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-purple-900/85 to-slate-900/90"></div>
         </div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
-            <Star className="w-5 h-5 mr-2 text-cyan-400 animate-bounce" />
-            <span className="text-cyan-300 font-semibold tracking-wide">EVERYTHING YOU NEED TO SUCCEED</span>
-            <Zap className="w-5 h-5 ml-2 text-yellow-400 animate-pulse" />
+        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
+          <div className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Star className="w-4 h-4 md:w-5 md:h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide text-xs md:text-sm">EVERYTHING YOU NEED TO SUCCEED</span>
+            <Zap className="w-4 h-4 md:w-5 md:h-5 ml-2 text-yellow-400 animate-pulse" />
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
               Ready to Transform
             </span>
@@ -590,40 +590,40 @@ const AllServices = () => {
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed px-2">
             Get access to every feature shown above plus professional setup services. Start dominating your market today.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
             <div className="relative inline-block">
               <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
               <Link to="/pricing">
-                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0">
-                  <Target className="w-6 h-6 mr-3" />
+                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0 w-full sm:w-auto">
+                  <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                   Start Membership - $49/month
                 </Button>
               </Link>
             </div>
             <Link to="/pricing">
-              <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
-                <TrendingUp className="w-6 h-6 mr-3" />
+              <Button variant="outline-white" size="xl" className="text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 w-full sm:w-auto">
+                <TrendingUp className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                 Compare All Plans
               </Button>
             </Link>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-8 mt-16">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-yellow-400">10</div>
-              <div className="text-sm text-gray-400">Dashboard Features</div>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-yellow-400">10</div>
+              <div className="text-xs md:text-sm text-gray-400">Dashboard Features</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-cyan-400">8</div>
-              <div className="text-sm text-gray-400">Bonus Tools</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-cyan-400">8</div>
+              <div className="text-xs md:text-sm text-gray-400">Bonus Tools</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-green-400">$11,521</div>
-              <div className="text-sm text-gray-400">Monthly Savings</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-green-400">$11,521</div>
+              <div className="text-xs md:text-sm text-gray-400">Monthly Savings</div>
             </div>
           </div>
         </div>
