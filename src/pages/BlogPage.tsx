@@ -100,32 +100,44 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
-      <HeroSection backgroundImage={heroImage}>
-        <div className="max-w-5xl mx-auto animate-fade-in text-center">
-          <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
-            🇦🇺 Australian Business Intelligence & Growth
-          </Badge>
-          
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
-            Business <span className="text-yellow-400">Insights</span><br />
-            & <span className="text-yellow-400">Strategy</span>
-          </h1>
-          
-          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
-            Discover proven strategies, AI-powered insights, and competitive intelligence to accelerate your Australian business growth.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-xl px-12 py-6">
-              <ArrowRight className="w-6 h-6 mr-3" />
-              Explore Articles
-            </Button>
-            <Button size="xl" variant="outline-white" className="text-xl px-12 py-6">
-              Subscribe to Newsletter
-            </Button>
+      {/* Hero Section */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src={heroImage}
+            alt="AI Marketing Hero Background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+              🇦🇺 Australian Business Intelligence & Growth
+            </Badge>
+            
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+              Business <span className="text-yellow-400">Insights</span><br />
+              & <span className="text-yellow-400">Strategy</span>
+            </h1>
+            
+            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+              Discover proven strategies, AI-powered insights, and competitive intelligence to accelerate your Australian business growth.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-xl px-12 py-6">
+                <ArrowRight className="w-6 h-6 mr-3" />
+                Explore Articles
+              </Button>
+              <Button size="xl" variant="outline-white" className="text-xl px-12 py-6">
+                Subscribe to Newsletter
+              </Button>
+            </div>
           </div>
         </div>
-      </HeroSection>
+      </section>
 
       {/* Featured Posts Section */}
       {featuredPosts.length > 0 && (
