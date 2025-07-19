@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Save, Plus, Building, Globe, Palette, Settings2 } from 'lucide-react';
+import { Save, Plus, Building, Globe, Palette, Settings2, Eye, BarChart3, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useBusinessProfiles, BusinessProfile } from '@/hooks/useBusinessProfiles';
 import { useUserProfile } from '@/contexts/UserProfileContext';
 import { useToast } from '@/hooks/use-toast';
+import { BusinessBrandingSetup } from './BusinessBrandingSetup';
 
 const industries = [
   { value: 'general', label: 'General' },
@@ -39,7 +42,11 @@ interface FormData {
   is_primary: boolean;
 }
 
-export const BusinessProfileManager = () => {
+interface BusinessProfileManagerProps {
+  onOpenIntegration?: (businessId: string) => void;
+}
+
+export const BusinessProfileManager: React.FC<BusinessProfileManagerProps> = ({ onOpenIntegration }) => {
   const { profile: userProfile, updateProfile: updateUserProfile } = useUserProfile();
   const { 
     businessProfiles, 
@@ -53,7 +60,29 @@ export const BusinessProfileManager = () => {
   const [editingProfile, setEditingProfile] = useState<BusinessProfile | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('overview');
+  const [selectedBusinessId, setSelectedBusinessId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  const getBrandingStatus = (business: BusinessProfile) => {
+    try {
+      const branding = typeof business.brand_colors === 'string' 
+        ? JSON.parse(business.brand_colors)
+        : business.brand_colors;
+      return branding ? 'configured' : 'default';
+    } catch {
+      return 'default';
+    }
+  };
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>();
 
@@ -168,71 +197,262 @@ export const BusinessProfileManager = () => {
         </CardContent>
       </Card>
 
-      {/* Business Profiles List */}
+      {/* Business Profiles Grid */}
       {businessProfiles.length > 0 && !showCreateForm && !editingProfile && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Building className="h-5 w-5 mr-2" />
-              Business Profiles
-            </CardTitle>
-            <CardDescription>Manage your business profiles</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {businessProfiles.map((profile) => (
-                <div
-                  key={profile.id}
-                  className={`p-4 border rounded-lg ${
-                    activeProfile?.id === profile.id ? 'border-primary bg-primary/5' : 'border-border'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div>
-                        <h3 className="font-semibold flex items-center">
-                          {profile.business_name}
-                          {profile.is_primary && (
-                            <Badge variant="default" className="ml-2">Primary</Badge>
-                          )}
-                          {activeProfile?.id === profile.id && (
-                            <Badge variant="outline" className="ml-2">Active</Badge>
-                          )}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {industries.find(i => i.value === profile.industry)?.label || profile.industry}
-                        </p>
-                        {profile.website_url && (
-                          <p className="text-sm text-muted-foreground">
-                            <Globe className="h-3 w-3 inline mr-1" />
-                            {profile.website_url}
-                          </p>
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Building className="h-5 w-5 mr-2" />
+                Business Profiles
+              </CardTitle>
+              <CardDescription>Manage your business profiles and their settings</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {businessProfiles.map((profile) => (
+                  <Card 
+                    key={profile.id} 
+                    className={`cursor-pointer transition-all hover:shadow-md ${
+                      activeProfile?.id === profile.id ? 'ring-2 ring-primary' : ''
+                    }`}
+                    onClick={() => setSelectedBusinessId(profile.id)}
+                  >
+                    <CardContent className="pt-4">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-12 w-12">
+                            <AvatarImage src={profile.favicon_url || profile.logo_url || ''} />
+                            <AvatarFallback className="bg-primary/10 text-primary">
+                              {getInitials(profile.business_name)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="font-medium">{profile.business_name}</h3>
+                            <p className="text-sm text-muted-foreground capitalize">
+                              {profile.industry || 'General'}
+                            </p>
+                          </div>
+                        </div>
+                        {profile.is_primary && (
+                          <Badge variant="secondary" className="text-xs">Primary</Badge>
                         )}
                       </div>
+
+                      <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+                        <div>
+                          <p className="text-muted-foreground">Branding</p>
+                          <Badge 
+                            variant={getBrandingStatus(profile) === 'configured' ? 'default' : 'outline'}
+                            className="text-xs"
+                          >
+                            {getBrandingStatus(profile) === 'configured' ? 'Custom' : 'Default'}
+                          </Badge>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Status</p>
+                          <Badge 
+                            variant={activeProfile?.id === profile.id ? 'default' : 'outline'}
+                            className="text-xs"
+                          >
+                            {activeProfile?.id === profile.id ? 'Active' : 'Inactive'}
+                          </Badge>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveProfile(profile);
+                          }}
+                          disabled={activeProfile?.id === profile.id}
+                          className="flex-1"
+                        >
+                          {activeProfile?.id === profile.id ? 'Active' : 'Set Active'}
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenIntegration?.(profile.id);
+                          }}
+                        >
+                          <Globe className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Detailed Management for Selected Business */}
+          {selectedBusinessId && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings2 className="w-5 h-5" />
+                  Business Settings
+                </CardTitle>
+                <CardDescription>
+                  Configure detailed settings for {businessProfiles.find(b => b.id === selectedBusinessId)?.business_name}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+                  <TabsList className="grid w-full grid-cols-4">
+                    <TabsTrigger value="overview" className="flex items-center gap-2">
+                      <Eye className="w-4 h-4" />
+                      Overview
+                    </TabsTrigger>
+                    <TabsTrigger value="branding" className="flex items-center gap-2">
+                      <Palette className="w-4 h-4" />
+                      Branding
+                    </TabsTrigger>
+                    <TabsTrigger value="integrations" className="flex items-center gap-2">
+                      <Globe className="w-4 h-4" />
+                      Integrations
+                    </TabsTrigger>
+                    <TabsTrigger value="analytics" className="flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4" />
+                      Analytics
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="overview" className="mt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-lg">Business Information</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          {(() => {
+                            const business = businessProfiles.find(b => b.id === selectedBusinessId);
+                            if (!business) return null;
+
+                            return (
+                              <div className="space-y-3">
+                                <div>
+                                  <label className="text-sm font-medium text-muted-foreground">Business Name</label>
+                                  <p className="font-medium">{business.business_name}</p>
+                                </div>
+                                <div>
+                                  <label className="text-sm font-medium text-muted-foreground">Industry</label>
+                                  <p className="capitalize">{business.industry || 'General'}</p>
+                                </div>
+                                {business.website_url && (
+                                  <div>
+                                    <label className="text-sm font-medium text-muted-foreground">Website</label>
+                                    <p className="text-blue-600 hover:underline">
+                                      <a href={business.website_url} target="_blank" rel="noopener noreferrer">
+                                        {business.website_url}
+                                      </a>
+                                    </p>
+                                  </div>
+                                )}
+                                <div>
+                                  <label className="text-sm font-medium text-muted-foreground">Default AI Tone</label>
+                                  <p className="capitalize">{business.default_ai_tone || 'Professional'}</p>
+                                </div>
+                              </div>
+                            );
+                          })()}
+                        </CardContent>
+                      </Card>
+
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-lg">Quick Actions</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                          <Button 
+                            variant="outline" 
+                            className="w-full justify-start"
+                            onClick={() => setSelectedTab('branding')}
+                          >
+                            <Palette className="w-4 h-4 mr-2" />
+                            Customize Branding
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            className="w-full justify-start"
+                            onClick={() => onOpenIntegration?.(selectedBusinessId)}
+                          >
+                            <Globe className="w-4 h-4 mr-2" />
+                            Setup Platform Integration
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            className="w-full justify-start"
+                            onClick={() => setEditingProfile(businessProfiles.find(b => b.id === selectedBusinessId) || null)}
+                          >
+                            <Settings2 className="w-4 h-4 mr-2" />
+                            Edit Business Details
+                          </Button>
+                        </CardContent>
+                      </Card>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setActiveProfile(profile)}
-                        disabled={activeProfile?.id === profile.id}
-                      >
-                        {activeProfile?.id === profile.id ? 'Active' : 'Set Active'}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setEditingProfile(profile)}
-                      >
-                        Edit
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                  </TabsContent>
+
+                  <TabsContent value="branding" className="mt-6">
+                    <BusinessBrandingSetup businessId={selectedBusinessId} />
+                  </TabsContent>
+
+                  <TabsContent value="integrations" className="mt-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Platform Integrations</CardTitle>
+                        <CardDescription>
+                          Configure how your content is published to different platforms
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-center py-8">
+                          <Globe className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                          <h3 className="text-lg font-medium mb-2">Platform Integration Setup</h3>
+                          <p className="text-muted-foreground mb-4">
+                            Configure blog integrations for your website platform
+                          </p>
+                          <Button onClick={() => onOpenIntegration?.(selectedBusinessId)}>
+                            Setup Integration
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  <TabsContent value="analytics" className="mt-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Business Analytics</CardTitle>
+                        <CardDescription>
+                          Track performance and engagement for this business
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-center py-8">
+                          <BarChart3 className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                          <h3 className="text-lg font-medium mb-2">Analytics Dashboard</h3>
+                          <p className="text-muted-foreground mb-4">
+                            Content performance analytics coming soon
+                          </p>
+                          <Button variant="outline" disabled>
+                            View Analytics
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       )}
 
       {/* Create/Edit Form */}
