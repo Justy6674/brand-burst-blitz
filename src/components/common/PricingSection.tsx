@@ -72,11 +72,11 @@ export const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {pricingPlans.map((plan, index) => (
             <Card 
               key={index} 
-              className={`relative ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''}`}
+              className={`relative flex flex-col h-full ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''}`}
             >
               {plan.popular && (
                 <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
@@ -84,7 +84,7 @@ export const PricingSection = () => {
                 </Badge>
               )}
               
-               <CardHeader className="text-center pb-2">
+              <CardHeader className="text-center pb-2 flex-shrink-0">
                 <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
                 <CardDescription className="text-sm">{plan.description}</CardDescription>
                 <div className="mt-4">
@@ -99,8 +99,8 @@ export const PricingSection = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-4">
-                <ul className="space-y-3 mb-8">
+              <CardContent className="flex-1 flex flex-col justify-between pt-4">
+                <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start gap-3">
                       <Check className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
@@ -109,13 +109,15 @@ export const PricingSection = () => {
                   ))}
                 </ul>
 
-                <StandardButton 
-                  action="waitlist" 
-                  variant="primary"
-                  className="w-full"
-                >
-                  Join Waitlist
-                </StandardButton>
+                <div className="mt-auto">
+                  <StandardButton 
+                    action="waitlist" 
+                    variant="primary"
+                    className="w-full"
+                  >
+                    Join Waitlist
+                  </StandardButton>
+                </div>
               </CardContent>
             </Card>
           ))}
