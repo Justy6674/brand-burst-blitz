@@ -346,6 +346,111 @@ const Pricing = () => {
         </div>
       </section>
 
+      {/* Professional Services Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Professional services background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-orange-900/80 to-red-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>Professional</span> <span className="text-gradient-primary">Setup Services</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              One-time professional services to get you started quickly
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+            
+            {/* Australian Social Setup Service */}
+            <Card className="relative border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+              <CardHeader className="text-center pb-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                </div>
+                <CardTitle className="text-xl md:text-2xl">Australian Social Setup Service</CardTitle>
+                <CardDescription className="text-sm md:text-base">Complete social media account setup with Australian compliance</CardDescription>
+                <div className="text-3xl md:text-4xl font-bold text-orange-600 mt-4">
+                  $199-299<span className="text-base md:text-lg text-muted-foreground">/once</span>
+                </div>
+                <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
+                  {[
+                    'Facebook Business Manager configuration',
+                    'Instagram Business profile setup',
+                    'LinkedIn Business page optimization',
+                    'Meta App setup and verification',
+                    'Australian business compliance check',
+                    'Full platform integration testing',
+                    'Quality assurance and handoff'
+                  ].map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-orange-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-xs md:text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
+                      Get Setup Service
+                    </Button>
+                  } 
+                />
+              </CardContent>
+            </Card>
+
+            {/* Name & Domain Scout Service */}
+            <Card className="relative border-2 border-red-500/30 hover:border-red-500/50 transition-colors bg-gradient-to-br from-red-500/10 to-red-600/10">
+              <CardHeader className="text-center pb-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                </div>
+                <CardTitle className="text-xl md:text-2xl">Name & Domain Scout Service</CardTitle>
+                <CardDescription className="text-sm md:text-base">Professional business name research with ASIC availability and domain analysis</CardDescription>
+                <div className="text-3xl md:text-4xl font-bold text-red-600 mt-4">
+                  $69-99<span className="text-base md:text-lg text-muted-foreground">/once</span>
+                </div>
+                <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
+                  {[
+                    'ASIC business name availability check',
+                    'Domain availability across extensions',
+                    'Similar business name analysis',
+                    'Optional trademark screening',
+                    'AI-generated business name alternatives',
+                    'Professional PDF research report'
+                  ].map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-red-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-xs md:text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ComingSoonPopup 
+                  trigger={
+                    <Button className="w-full bg-red-500 hover:bg-red-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
+                      Get Scout Service
+                    </Button>
+                  } 
+                />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
