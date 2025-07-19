@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useSocialMedia } from '@/hooks/useSocialMedia';
 import { 
   Facebook, 
   Instagram, 
@@ -31,6 +33,7 @@ interface SocialPlatform {
 export const SocialAccountSetup: React.FC = () => {
   const { toast } = useToast();
   const [connectingPlatform, setConnectingPlatform] = useState<string | null>(null);
+  const { platforms: connectedPlatforms, refetch } = useSocialMedia();
 
   const platforms: SocialPlatform[] = [
     {
@@ -39,7 +42,7 @@ export const SocialAccountSetup: React.FC = () => {
       icon: Facebook,
       color: 'bg-blue-600',
       description: 'Connect your Facebook Page to publish posts and stories',
-      status: 'not_connected',
+      status: connectedPlatforms.find(p => p.id === 'facebook')?.isConnected ? 'connected' : 'not_connected',
       features: [
         'Post text, images, and videos',
         'Schedule posts for optimal timing',
@@ -57,7 +60,7 @@ export const SocialAccountSetup: React.FC = () => {
       icon: Instagram,
       color: 'bg-pink-600',
       description: 'Connect your Instagram Business account for posts and stories',
-      status: 'not_connected',
+      status: connectedPlatforms.find(p => p.id === 'instagram')?.isConnected ? 'connected' : 'not_connected',
       features: [
         'Post photos and videos',
         'Instagram Stories',
@@ -75,7 +78,7 @@ export const SocialAccountSetup: React.FC = () => {
       icon: Linkedin,
       color: 'bg-blue-700',
       description: 'Connect your LinkedIn profile or company page',
-      status: 'not_connected',
+      status: connectedPlatforms.find(p => p.id === 'linkedin')?.isConnected ? 'connected' : 'not_connected',
       features: [
         'Professional content publishing',
         'Company page management',
@@ -93,7 +96,7 @@ export const SocialAccountSetup: React.FC = () => {
       icon: Twitter,
       color: 'bg-gray-900',
       description: 'Connect your Twitter/X account for real-time updates',
-      status: 'not_connected',
+      status: connectedPlatforms.find(p => p.id === 'twitter')?.isConnected ? 'connected' : 'not_connected',
       features: [
         'Tweet publishing',
         'Thread creation',
@@ -108,24 +111,39 @@ export const SocialAccountSetup: React.FC = () => {
     }
   ];
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   const handleConnect = async (platformId: string) => {
     setConnectingPlatform(platformId);
     
     try {
-      // Simulate OAuth flow - In real implementation, this would redirect to platform OAuth
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast({
-        title: "Coming Soon",
-        description: `${platforms.find(p => p.id === platformId)?.name} integration is currently being developed. You'll be notified when it's ready!`,
+      // Initialize OAuth flow using the social-oauth-init edge function
+      const { data, error } = await supabase.functions.invoke('social-oauth-init', {
+        body: {
+          platform: platformId,
+          redirectUri: `${window.location.origin}/auth/callback`
+        }
       });
-    } catch (error) {
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data?.authUrl) {
+        // Redirect to the OAuth provider
+        window.location.href = data.authUrl;
+      } else {
+        throw new Error('No authorization URL returned');
+      }
+    } catch (error: any) {
+      console.error('OAuth initialization error:', error);
       toast({
         title: "Connection failed",
-        description: "Please try again or contact support if the issue persists.",
+        description: error.message || "Please try again or contact support if the issue persists.",
         variant: "destructive",
       });
-    } finally {
       setConnectingPlatform(null);
     }
   };
@@ -166,16 +184,16 @@ export const SocialAccountSetup: React.FC = () => {
       </div>
 
       {/* Important Notice */}
-      <Alert className="border-orange-200 bg-orange-50">
-        <AlertCircle className="h-4 w-4 text-orange-600" />
-        <AlertDescription className="text-orange-800">
-          <strong>Development Notice:</strong> Social media integrations are currently being implemented. 
-          You can review the setup process, but actual connections will be available soon.
+      <Alert className="border-blue-200 bg-blue-50">
+        <AlertCircle className="h-4 w-4 text-blue-600" />
+        <AlertDescription className="text-blue-800">
+          <strong>Social Media Integration:</strong> Click "Connect" to authenticate with your social media accounts. 
+          You'll be redirected to the platform's OAuth flow and then back to complete the connection.
           <a 
             href="mailto:support@jbsaas.com.au" 
-            className="inline-flex items-center ml-2 text-orange-600 hover:text-orange-800"
+            className="inline-flex items-center ml-2 text-blue-600 hover:text-blue-800"
           >
-            Contact us for updates <ExternalLink className="w-3 h-3 ml-1" />
+            Need help? Contact support <ExternalLink className="w-3 h-3 ml-1" />
           </a>
         </AlertDescription>
       </Alert>
