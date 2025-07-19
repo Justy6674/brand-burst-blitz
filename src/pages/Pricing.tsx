@@ -370,7 +370,7 @@ const Pricing = () => {
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             
             {/* Australian Social Setup Service */}
-            <Card className="relative border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+            <Card className="relative border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10 h-full flex flex-col">
               <CardHeader className="text-center pb-6">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
@@ -382,8 +382,8 @@ const Pricing = () => {
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
+              <CardContent className="flex-1 flex flex-col">
+                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
                   {[
                     'Facebook Business Manager configuration',
                     'Instagram Business profile setup',
@@ -410,7 +410,7 @@ const Pricing = () => {
             </Card>
 
             {/* Name & Domain Scout Service */}
-            <Card className="relative border-2 border-red-500/30 hover:border-red-500/50 transition-colors bg-gradient-to-br from-red-500/10 to-red-600/10">
+            <Card className="relative border-2 border-red-500/30 hover:border-red-500/50 transition-colors bg-gradient-to-br from-red-500/10 to-red-600/10 h-full flex flex-col">
               <CardHeader className="text-center pb-6">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
@@ -422,8 +422,8 @@ const Pricing = () => {
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
+              <CardContent className="flex-1 flex flex-col">
+                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
                   {[
                     'ASIC business name availability check',
                     'Domain availability across extensions',
