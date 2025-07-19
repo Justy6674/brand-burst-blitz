@@ -39,7 +39,10 @@ import {
   Scale,
   Briefcase,
   Phone,
-  Mail
+  Mail,
+  Sparkles,
+  Tags,
+  Database
 } from 'lucide-react';
 import featuresImage from '@/assets/features-image.jpg';
 
@@ -178,6 +181,63 @@ const AllServices = () => {
       gradient: "from-emerald-500/10 to-emerald-600/10",
       border: "border-emerald-500/20",
       color: "emerald-500"
+    },
+    {
+      icon: <Sparkles className="w-8 h-8" />,
+      title: "AI-Searchable Template Library",
+      description: "Industry-tailored templates for Australian SMEs with AI-powered customization",
+      features: [
+        "Templates organized by industry (Retail, Trades, Hospitality, etc.)",
+        "AI-searchable by keywords and hashtags",
+        "EOFY, Melbourne Cup, local event templates",
+        "Auto-insert city/industry hashtags",
+        "One-click template customization",
+        "Australian business context awareness",
+        "Seasonal and trending content templates",
+        "Local market optimization"
+      ],
+      route: "/dashboard/ai-templates",
+      gradient: "from-purple-500/10 to-pink-600/10",
+      border: "border-purple-500/20",
+      color: "purple-500"
+    },
+    {
+      icon: <Database className="w-8 h-8" />,
+      title: "Local Market Data Feeds",
+      description: "Real-time Australian business statistics for content creation",
+      features: [
+        "Live ABS business confidence data",
+        "Small Business insights and trends",
+        "Auto-generate 'Did you know?' posts",
+        "Monthly confidence index commentary",
+        "Industry-specific market data",
+        "Regional growth statistics",
+        "Consumer behavior insights",
+        "Automated content series generation"
+      ],
+      route: "/dashboard/market-data",
+      gradient: "from-green-500/10 to-teal-600/10",
+      border: "border-green-500/20",
+      color: "green-500"
+    },
+    {
+      icon: <Tags className="w-8 h-8" />,
+      title: "Geo-Targeted Content Engine",
+      description: "Location-specific content suggestions and optimization",
+      features: [
+        "State/postcode-based content suggestions",
+        "Local event integration (Melbourne Cup, etc.)",
+        "City-specific hashtag insertion",
+        "Regional business trend awareness",
+        "Local SEO optimization",
+        "Community event suggestions",
+        "State-based compliance reminders",
+        "Suburb-level market insights"
+      ],
+      route: "/dashboard/geo-content",
+      gradient: "from-orange-500/10 to-red-600/10",
+      border: "border-orange-500/20",
+      color: "orange-500"
     },
     {
       icon: <MessageSquare className="w-8 h-8" />,
