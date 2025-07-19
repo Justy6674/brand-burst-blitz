@@ -70,9 +70,9 @@ export const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{display: 'grid', gridTemplateRows: '1fr'}}>
           {plans.map((plan, index) => (
-            <Card key={index} className={`relative h-full flex flex-col ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''}`}>
+            <Card key={index} className={`relative flex flex-col h-full min-h-[550px] ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''}`} style={{height: '550px'}}>
               {plan.popular && (
                 <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground z-10">
                   Most Popular
