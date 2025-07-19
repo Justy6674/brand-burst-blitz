@@ -34,6 +34,7 @@ import AustralianServices from "./pages/AustralianServices";
 import AllServices from "./pages/AllServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import Discover from "./pages/Discover";
+import Onboarding from "./pages/Onboarding";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
@@ -72,6 +73,11 @@ const App = () => (
               <Route path="/questionnaire-required" element={
                 <ProtectedRoute>
                   <BusinessQuestionnaire />
+                </ProtectedRoute>
+              } />
+              <Route path="/onboarding" element={
+                <ProtectedRoute>
+                  <Onboarding />
                 </ProtectedRoute>
               } />
               <Route path="/dashboard" element={
