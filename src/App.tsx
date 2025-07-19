@@ -37,6 +37,8 @@ import Discover from "./pages/Discover";
 import Onboarding from "./pages/Onboarding";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
+import { BlogEmbedWizard } from './components/blog/BlogEmbedWizard';
+import { ComprehensiveContentStudio } from './components/studio/ComprehensiveContentStudio';
 
 const queryClient = new QueryClient();
 
@@ -99,6 +101,8 @@ const App = () => (
                 <Route path="blog-admin" element={<BlogAdmin />} />
                 <Route path="admin" element={<AdminPanel />} />
                 <Route path="prompts" element={<PromptsPage />} />
+                <Route path="content-studio" element={<ComprehensiveContentStudio />} />
+                <Route path="blog-embed" element={<BlogEmbedWizard />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

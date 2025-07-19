@@ -278,6 +278,44 @@ const AllServices = () => {
       color: "indigo-500"
     },
     {
+      icon: <Palette className="w-8 h-8" />,
+      title: "Comprehensive Content Studio",
+      description: "All-in-one content creation ecosystem with AI-powered tools",
+      features: [
+        "AI content generation with OpenAI & Gemini",
+        "AI-searchable template library with 500+ templates",
+        "Website content scanner for competitor analysis",
+        "Professional image bank and asset management",
+        "Smart content scheduler with automation",
+        "Export hub with multiple format options",
+        "Embeddable widget for external websites",
+        "Unified content workflow management"
+      ],
+      route: "/dashboard/content-studio",
+      gradient: "from-pink-500/10 to-rose-600/10",
+      border: "border-pink-500/20",
+      color: "pink-500"
+    },
+    {
+      icon: <Code className="w-8 h-8" />,
+      title: "Blog Embed System",
+      description: "Easy blog embedding for any website platform",
+      features: [
+        "Universal embed codes for WordPress, Squarespace, Wix",
+        "Smart setup wizard for top 10 platforms",
+        "Downloadable platform-specific instructions",
+        "Live preview and customization options",
+        "Responsive design across all devices",
+        "SEO-optimized embedded content",
+        "Custom styling and branding options",
+        "Analytics tracking for embedded content"
+      ],
+      route: "/dashboard/blog-embed",
+      gradient: "from-emerald-500/10 to-teal-600/10",
+      border: "border-emerald-500/20",
+      color: "emerald-500"
+    },
+    {
       icon: <Globe2 className="w-8 h-8" />,
       title: "Cross-Business Features",
       description: "Enterprise-level business management capabilities",
