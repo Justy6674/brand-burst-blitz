@@ -37,76 +37,71 @@ const PricingTierIntegration = () => {
 
   const pricingTiers: PricingTier[] = [
     {
-      id: 'starter',
-      name: 'Starter',
-      description: 'Perfect for small businesses getting started',
-      price: billingInterval === 'month' ? 29 : 290,
+      id: 'standard',
+      name: 'Standard',
+      description: 'Up to 3 businesses - Opening sale price',
+      price: billingInterval === 'month' ? 49 : 490,
       interval: billingInterval,
+      popular: true,
       features: [
-        'Up to 5 social media accounts',
-        '50 posts per month',
-        'Basic analytics',
-        'Email support',
-        'Content calendar'
+        'Up to 3 businesses',
+        'Unlimited posts',
+        'Advanced analytics',
+        'AI content generation',
+        'Priority support',
+        'Content templates'
       ],
       blogFeatures: [
-        'Basic blog setup',
-        '3 blog posts per month',
-        'Standard templates',
-        'Basic SEO optimization'
+        'Basic blog integration',
+        'Unlimited blog posts',
+        'SEO optimization'
       ],
       icon: <Zap className="w-6 h-6" />
     },
     {
-      id: 'professional',
-      name: 'Professional',
-      description: 'Ideal for growing businesses with advanced needs',
-      price: billingInterval === 'month' ? 79 : 790,
+      id: 'large',
+      name: 'Large',
+      description: 'More than 3 businesses - Opening sale price',
+      price: billingInterval === 'month' ? 179 : 1790,
       interval: billingInterval,
-      popular: true,
       features: [
-        'Up to 15 social media accounts',
-        '200 posts per month',
-        'Advanced analytics & reporting',
+        'Unlimited businesses',
+        'Unlimited posts',
+        'Advanced analytics',
         'AI content generation',
         'Priority support',
-        'Team collaboration tools',
-        'Custom branding'
+        'Team collaboration',
+        'Custom branding',
+        'Multi-business management'
       ],
       blogFeatures: [
-        'Professional blog setup',
-        '12 blog posts per month',
-        'Premium templates',
+        'Advanced blog management',
+        'Unlimited blog posts',
         'Advanced SEO tools',
-        'Custom domain support',
-        'Analytics integration'
+        'Content calendar integration'
       ],
       icon: <Crown className="w-6 h-6" />
     },
     {
       id: 'enterprise',
       name: 'Enterprise',
-      description: 'Comprehensive solution for large organizations',
-      price: billingInterval === 'month' ? 199 : 1990,
+      description: 'Advanced enterprise features - Coming 2026',
+      price: 0,
       interval: billingInterval,
       features: [
-        'Unlimited social media accounts',
-        'Unlimited posts',
-        'Enterprise analytics',
-        'Dedicated account manager',
+        'Everything in Large',
+        'White-label solution',
         'Custom integrations',
-        'White-label solutions',
-        'API access',
-        'Advanced security'
+        '24/7 phone support',
+        'Dedicated account manager',
+        'Custom compliance',
+        'SLA guarantees'
       ],
       blogFeatures: [
-        'Multi-domain blog management',
-        'Unlimited blog posts',
-        'Custom template development',
-        'Enterprise SEO suite',
-        'Priority support',
-        'Training & consultation',
-        'Custom workflows'
+        'Enterprise blog solutions',
+        'Multi-site management',
+        'Custom integrations',
+        'Dedicated support'
       ],
       icon: <Building className="w-6 h-6" />
     }
@@ -223,10 +218,10 @@ const PricingTierIntegration = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="text-4xl font-bold text-foreground">
-                    ${tier.price}
-                    <span className="text-lg text-muted-foreground">/{tier.interval}</span>
+                    {tier.price === 0 ? 'Coming 2026' : `$${tier.price}`}
+                    {tier.price > 0 && <span className="text-lg text-muted-foreground">/{tier.interval}</span>}
                   </div>
-                  {billingInterval === 'year' && (
+                  {billingInterval === 'year' && tier.price > 0 && (
                     <p className="text-sm text-muted-foreground">
                       Billed annually • Save ${Math.round(tier.price * 12 * yearlyDiscount)}
                     </p>

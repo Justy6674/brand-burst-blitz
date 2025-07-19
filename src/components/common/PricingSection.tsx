@@ -5,49 +5,52 @@ import { StandardButton } from "./StandardButton";
 
 const pricingPlans = [
   {
-    name: "Starter",
-    price: "$29",
+    name: "Standard",
+    price: "$49",
     period: "/month",
-    description: "Perfect for small businesses getting started",
+    description: "Up to 3 businesses - Opening sale price",
     features: [
-      "Up to 3 social media accounts",
-      "50 posts per month",
-      "Basic analytics",
-      "Email support",
+      "Up to 3 businesses",
+      "Unlimited posts",
+      "Advanced analytics", 
+      "AI content generation",
+      "Priority support",
       "Content templates"
     ],
-    popular: false
+    popular: true,
+    originalPrice: "$79"
   },
   {
-    name: "Professional",
-    price: "$79", 
+    name: "Large",
+    price: "$179",
     period: "/month",
-    description: "Ideal for growing businesses",
+    description: "More than 3 businesses - Opening sale price",
     features: [
-      "Up to 10 social media accounts",
+      "Unlimited businesses",
       "Unlimited posts",
       "Advanced analytics",
-      "Priority support",
       "AI content generation",
+      "Priority support",
       "Team collaboration",
-      "Custom branding"
+      "Custom branding",
+      "Multi-business management"
     ],
-    popular: true
+    popular: false,
+    originalPrice: "$249"
   },
   {
     name: "Enterprise",
-    price: "$199",
-    period: "/month", 
-    description: "For large organizations",
+    price: "Coming 2026",
+    period: "",
+    description: "Advanced enterprise features",
     features: [
-      "Unlimited social media accounts",
-      "Unlimited posts",
-      "Enterprise analytics",
-      "24/7 phone support",
-      "Advanced AI features",
-      "Multi-team management",
+      "Everything in Large",
       "White-label solution",
-      "Custom integrations"
+      "Custom integrations",
+      "24/7 phone support",
+      "Dedicated account manager",
+      "Custom compliance",
+      "SLA guarantees"
     ],
     popular: false
   }
@@ -81,12 +84,18 @@ export const PricingSection = () => {
                 </Badge>
               )}
               
-              <CardHeader className="text-center pb-2">
+               <CardHeader className="text-center pb-2">
                 <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
                 <CardDescription className="text-sm">{plan.description}</CardDescription>
                 <div className="mt-4">
                   <span className="text-4xl font-bold">{plan.price}</span>
                   <span className="text-muted-foreground">{plan.period}</span>
+                  {plan.originalPrice && (
+                    <div className="text-sm text-muted-foreground mt-1">
+                      <span className="line-through">{plan.originalPrice}/month</span>
+                      <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
+                    </div>
+                  )}
                 </div>
               </CardHeader>
 

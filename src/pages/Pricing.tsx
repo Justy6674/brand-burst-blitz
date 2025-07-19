@@ -28,37 +28,35 @@ import {
 import roiDataHero from "@/assets/roi-data-driven-hero.jpg";
 
 const Pricing = () => {
-  const starterFeatures = [
-    'AI Content Generation: 100 posts/month',
-    'Social Media Management: 3 accounts',
-    'Content Scheduling & Publishing',
-    'Basic Analytics Dashboard',
-    'Industry-Specific Templates',
-    'Australian Compliance Check',
-    'Email Support'
+  const standardFeatures = [
+    'Up to 3 businesses',
+    'Unlimited posts',
+    'Advanced analytics',
+    'AI content generation',
+    'Priority support',
+    'Content templates',
+    'Australian compliance'
   ];
 
-  const professionalFeatures = [
-    'Everything in Starter PLUS:',
-    'Unlimited AI Content Generation',
-    'Social Media Management: 10 accounts',
-    'Advanced Analytics & Insights',
-    'Competitor Analysis Tools',
-    'Brand Voice Training',
-    'Custom Content Templates',
-    'Priority Support',
-    'Business Intelligence Dashboard',
-    'Australian Compliance Suite'
+  const largeFeatures = [
+    'Everything in Standard PLUS:',
+    'Unlimited businesses',
+    'Team collaboration',
+    'Custom branding',
+    'Multi-business management',
+    'Advanced analytics',
+    'Business intelligence',
+    'Cross-business templates'
   ];
 
   const enterpriseFeatures = [
-    'Everything in Professional',
-    'Unlimited team members & accounts',
+    'Everything in Large',
     'White-label solution',
     'Custom integrations',
-    'Dedicated success manager',
-    'SLA guarantees',
-    'Custom compliance workflows'
+    '24/7 phone support',
+    'Dedicated account manager',
+    'Custom compliance',
+    'SLA guarantees'
   ];
 
   return (
@@ -138,29 +136,33 @@ const Pricing = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>Choose</span> <span className="text-gradient-primary">Your Plan</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Start at $49/month and scale as your business grows. All plans include Australian compliance and professional support.
+            Opening sale prices: Standard $49/month (then $79), Large $179/month (then $249). All plans include Australian compliance.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
             
-            {/* Starter Plan */}
+            {/* Standard Plan */}
             <Card className="relative border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full bg-gradient-to-br from-green-500/10 to-green-600/10">
               <CardHeader className="text-center pb-6 md:pb-8">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Building className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl md:text-2xl">Starter</CardTitle>
-                <CardDescription className="text-sm md:text-base">Perfect for small businesses</CardDescription>
+                <CardTitle className="text-xl md:text-2xl">Standard</CardTitle>
+                <CardDescription className="text-sm md:text-base">Up to 3 businesses</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-green-600 mt-4">
                   $49<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Great for getting started</Badge>
+                <div className="text-sm text-muted-foreground mt-1">
+                  <span className="line-through">$79/month</span>
+                  <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
+                </div>
+                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Up to 3 businesses</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {starterFeatures.map((feature, index) => (
+                  {standardFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
                       <span className="text-xs md:text-sm">{feature}</span>
@@ -177,7 +179,7 @@ const Pricing = () => {
               </CardContent>
             </Card>
 
-            {/* Professional Plan - Most Popular */}
+            {/* Large Plan - Most Popular */}
             <Card className="relative border-2 border-blue-500 h-full bg-gradient-to-br from-blue-500/10 to-blue-600/10">
               <div className="absolute -top-2 md:-top-3 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 md:px-4 py-1 text-xs md:text-sm">
@@ -189,17 +191,21 @@ const Pricing = () => {
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl md:text-2xl">Professional</CardTitle>
-                <CardDescription className="text-sm md:text-base">For growing businesses</CardDescription>
+                <CardTitle className="text-xl md:text-2xl">Large</CardTitle>
+                <CardDescription className="text-sm md:text-base">More than 3 businesses</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-blue-600 mt-4">
-                  $149<span className="text-base md:text-lg text-muted-foreground">/month</span>
+                  $179<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Best value for growth</Badge>
+                <div className="text-sm text-muted-foreground mt-1">
+                  <span className="line-through">$249/month</span>
+                  <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
+                </div>
+                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Unlimited businesses</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {professionalFeatures.map((feature, index) => (
+                  {largeFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-blue-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
                       <span className={`text-xs md:text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
@@ -209,7 +215,7 @@ const Pricing = () => {
                 <ComingSoonPopup 
                   trigger={
                     <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                      Get Started - $149/month
+                      Get Started - $179/month
                     </Button>
                   } 
                 />
@@ -223,11 +229,11 @@ const Pricing = () => {
                   <Crown className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl md:text-2xl">Enterprise</CardTitle>
-                <CardDescription className="text-sm md:text-base">For large organizations</CardDescription>
+                <CardDescription className="text-sm md:text-base">Advanced enterprise features</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-purple-600 mt-4">
-                  Custom<span className="text-base md:text-lg text-muted-foreground">/month</span>
+                  Coming 2026<span className="text-base md:text-lg text-muted-foreground"></span>
                 </div>
-                <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600 text-xs md:text-sm">Contact Sales</Badge>
+                <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600 text-xs md:text-sm">Coming Soon</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
@@ -315,8 +321,8 @@ const Pricing = () => {
               <CardContent>
                 <ul className="space-y-2 md:space-y-3">
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>Professional Plan</span>
-                    <span className="font-bold">$149/month</span>
+                    <span>Large Plan</span>
+                    <span className="font-bold">$179/month</span>
                   </li>
                   <li className="flex justify-between text-gray-500 text-sm md:text-base">
                     <span>Setup (one-time)</span>
@@ -324,14 +330,14 @@ const Pricing = () => {
                   </li>
                   <li className="flex justify-between border-t pt-2 font-bold text-base md:text-lg">
                     <span>Monthly Ongoing</span>
-                    <span className="text-green-600">$149/month</span>
+                    <span className="text-green-600">$179/month</span>
                   </li>
                   <li className="flex justify-between border-t pt-2 font-bold text-xl md:text-2xl">
                     <span className="text-green-600">You Save</span>
-                    <span className="text-green-600">$11,551/month</span>
+                    <span className="text-green-600">$11,521/month</span>
                   </li>
                   <li className="text-center text-green-600 font-bold text-sm md:text-base">
-                    That's $138,612 per year!
+                    That's $138,252 per year!
                   </li>
                 </ul>
               </CardContent>
