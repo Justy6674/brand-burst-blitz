@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PlatformDetector } from './PlatformDetector';
+import { SmartIntegrationOptions } from './SmartIntegrationOptions';
 import { ManualExportTools } from './ManualExportTools';
 import { PlatformInstructions } from './PlatformInstructions';
 import { EmbedCodeGenerator } from './EmbedCodeGenerator';
@@ -23,6 +24,7 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
 }) => {
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('detect');
+  const [selectedIntegration, setSelectedIntegration] = useState<string>('');
   const { currentProfile } = useBusinessProfile();
 
   const platform = selectedPlatform ? getPlatformCapabilities(selectedPlatform) : null;
@@ -100,100 +102,29 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
         </TabsContent>
 
         <TabsContent value="integration" className="space-y-6">
-          {platform && (
-            <>
-              <Alert>
-                <CheckCircle className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Platform: {platform.name}</strong> - 
-                  Showing {availableIntegrations.length} available integration methods.
-                  {platform.limitations.length > 0 && (
-                    <span className="block mt-1 text-amber-600">
-                      Note: Some features aren't available due to {platform.name} limitations.
-                    </span>
-                  )}
-                </AlertDescription>
-              </Alert>
-
-              <Tabs defaultValue={availableIntegrations[0]} className="w-full">
-                <TabsList className="grid w-full" style={{ gridTemplateColumns: `repeat(${availableIntegrations.length}, 1fr)` }}>
-                  {availableIntegrations.map((integration) => (
-                    <TabsTrigger key={integration} value={integration}>
-                      {getTabIcon(integration)} {getTabLabel(integration)}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-
-                {availableIntegrations.includes('embed') && (
-                  <TabsContent value="embed">
-                    <EmbedCodeGenerator 
-                      businessId={businessId}
-                      platform={platform}
-                    />
-                  </TabsContent>
-                )}
-
-                {availableIntegrations.includes('api') && (
-                  <TabsContent value="api">
-                    <APIIntegrationSetup 
-                      businessId={businessId}
-                      platform={platform}
-                    />
-                  </TabsContent>
-                )}
-
-                {availableIntegrations.includes('rss') && (
-                  <TabsContent value="rss">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>RSS Feed Integration</CardTitle>
-                        <CardDescription>
-                          Automatically syndicate your blog content via RSS
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div className="p-4 bg-muted rounded-lg">
-                            <label className="block text-sm font-medium mb-2">Your RSS Feed URL</label>
-                            <div className="flex gap-2">
-                              <input 
-                                type="text" 
-                                readOnly 
-                                value={`https://api.jbsaas.com/rss/${businessId}`}
-                                className="flex-1 p-2 border rounded"
-                              />
-                              <Button variant="outline">Copy</Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                )}
-
-                <TabsContent value="manual">
-                  <ManualExportTools 
-                    businessId={businessId}
-                    platform={platform}
-                  />
-                </TabsContent>
-              </Tabs>
-
-              <div className="flex justify-center">
-                <Button onClick={() => setActiveTab('instructions')}>
-                  Get Setup Instructions
-                </Button>
-              </div>
-            </>
-          )}
+          <SmartIntegrationOptions
+            selectedPlatform={selectedPlatform}
+            businessId={businessId}
+            onSelectIntegration={(type) => {
+              setSelectedIntegration(type);
+              setActiveTab('instructions');
+            }}
+          />
         </TabsContent>
 
         <TabsContent value="instructions" className="space-y-6">
-          {platform && (
+          {platform && selectedIntegration && (
             <PlatformInstructions 
               platform={platform}
               businessId={businessId}
               onComplete={onComplete}
+            />
+          )}
+          
+          {selectedIntegration === 'manual' && platform && (
+            <ManualExportTools 
+              platform={platform}
+              businessId={businessId}
             />
           )}
         </TabsContent>
