@@ -146,7 +146,7 @@ const Pricing = () => {
             </Card>
 
             {/* Early Bird Professional - Most Popular */}
-            <Card className="relative p-8 border-2 border-green-500 shadow-xl h-full flex flex-col bg-green-50/30">
+            <Card className="relative p-8 border-2 border-green-500 shadow-xl h-full flex flex-col">
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-emerald-500 text-white">
                 <Star className="w-3 h-3 mr-1" />
                 Most Popular
