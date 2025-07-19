@@ -28,7 +28,17 @@ import {
   Rocket,
   Eye,
   MessageSquare,
-  Building
+  Building,
+  MapPin,
+  Globe2,
+  Palette,
+  Code,
+  FileCheck,
+  Stethoscope,
+  Scale,
+  Briefcase,
+  Phone,
+  Mail
 } from 'lucide-react';
 import featuresImage from '@/assets/features-image.jpg';
 
@@ -37,15 +47,17 @@ const AllServices = () => {
   const platformFeatures = [
     {
       icon: <Brain className="w-8 h-8" />,
-      title: "AI Content Creation",
-      description: "Generate professional, compliant content at scale",
+      title: "AI Content Creation Hub",
+      description: "Advanced AI content generation with Australian compliance",
       features: [
         "Industry-specific AI content generation",
         "Blog posts, social media, marketing copy",
-        "Australian compliance built-in",
+        "Australian compliance built-in (AHPRA, TGA, ASIC)",
         "Brand voice training and consistency",
         "SEO optimization for Google visibility",
-        "Multiple content formats and styles"
+        "Multiple content formats and styles",
+        "Bulk content generation",
+        "Content optimization suggestions"
       ],
       route: "/dashboard/create",
       gradient: "from-blue-500/10 to-blue-600/10",
@@ -54,15 +66,17 @@ const AllServices = () => {
     },
     {
       icon: <FileText className="w-8 h-8" />,
-      title: "Content Management",
-      description: "Organize, edit, and optimize all your content",
+      title: "Content Management System",
+      description: "Complete content library and publishing workflow",
       features: [
         "Draft, scheduled, and published content library",
         "Content versioning and revision history",
         "Bulk editing and batch operations",
         "Content performance tracking",
         "Tag and category organization",
-        "Search and filter functionality"
+        "Search and filter functionality",
+        "Content templates and reusable blocks",
+        "Publishing status management"
       ],
       route: "/dashboard/posts",
       gradient: "from-green-500/10 to-green-600/10",
@@ -71,15 +85,17 @@ const AllServices = () => {
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Social Media Management",
-      description: "Unified social media control center",
+      title: "Social Media Command Center",
+      description: "Unified social media management platform",
       features: [
         "Facebook, Instagram, LinkedIn integration",
-        "Multi-account management",
+        "Multi-account management dashboard",
         "Cross-platform publishing",
         "Social media account setup service",
         "Automated posting schedules",
-        "Social media analytics"
+        "Social media analytics and insights",
+        "Engagement tracking and reporting",
+        "Social media compliance monitoring"
       ],
       route: "/dashboard/social",
       gradient: "from-purple-500/10 to-purple-600/10",
@@ -88,15 +104,17 @@ const AllServices = () => {
     },
     {
       icon: <Calendar className="w-8 h-8" />,
-      title: "Content Calendar",
-      description: "Strategic content planning and scheduling",
+      title: "Smart Content Calendar",
+      description: "Strategic content planning and automated scheduling",
       features: [
         "Visual content calendar interface",
         "Drag-and-drop scheduling",
-        "Multi-platform publishing",
+        "Multi-platform publishing calendar",
         "Campaign planning and coordination",
         "Automated posting queues",
-        "Content gap identification"
+        "Content gap identification",
+        "Editorial calendar planning",
+        "Team collaboration on schedules"
       ],
       route: "/dashboard/calendar",
       gradient: "from-orange-500/10 to-orange-600/10",
@@ -105,15 +123,17 @@ const AllServices = () => {
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: "Competitor Intelligence",
-      description: "AI-powered competitor analysis and monitoring",
+      title: "Competitor Intelligence Suite",
+      description: "AI-powered competitor analysis and market monitoring",
       features: [
         "Automated competitor content tracking",
         "Market gap analysis and opportunities",
         "Content performance comparisons",
-        "Strategic recommendations",
+        "Strategic recommendations engine",
         "Industry trend identification",
-        "Competitive advantage insights"
+        "Competitive advantage insights",
+        "Competitor pricing analysis",
+        "Market positioning reports"
       ],
       route: "/dashboard/competitors",
       gradient: "from-red-500/10 to-red-600/10",
@@ -122,15 +142,17 @@ const AllServices = () => {
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Analytics Dashboard",
-      description: "Comprehensive performance insights",
+      title: "Advanced Analytics Dashboard",
+      description: "Comprehensive performance insights and reporting",
       features: [
         "Real-time content performance metrics",
         "Social media engagement analytics",
         "SEO ranking and visibility tracking",
         "ROI and conversion reporting",
         "Custom dashboard widgets",
-        "Automated performance alerts"
+        "Automated performance alerts",
+        "Audience insights and demographics",
+        "Competitive benchmarking"
       ],
       route: "/dashboard/analytics",
       gradient: "from-cyan-500/10 to-cyan-600/10",
@@ -139,15 +161,17 @@ const AllServices = () => {
     },
     {
       icon: <PenTool className="w-8 h-8" />,
-      title: "Content Templates",
-      description: "Professional templates for every industry",
+      title: "Professional Content Templates",
+      description: "Industry-specific templates for every business need",
       features: [
         "Industry-specific content templates",
-        "Custom template creation",
+        "Custom template creation tools",
         "Template library and sharing",
         "Variable placeholders and automation",
         "Brand-consistent formatting",
-        "Template performance tracking"
+        "Template performance tracking",
+        "A/B testing for templates",
+        "Template optimization suggestions"
       ],
       route: "/dashboard/templates",
       gradient: "from-emerald-500/10 to-emerald-600/10",
@@ -156,15 +180,17 @@ const AllServices = () => {
     },
     {
       icon: <MessageSquare className="w-8 h-8" />,
-      title: "AI Prompt Library",
-      description: "Advanced AI prompts for superior content",
+      title: "AI Prompt Engineering Library",
+      description: "Advanced AI prompts for superior content generation",
       features: [
-        "Professional prompt engineering",
+        "Professional prompt engineering database",
         "Industry-specific prompt collections",
         "Custom prompt creation and testing",
         "Prompt performance optimization",
         "Community prompt sharing",
-        "A/B testing for prompts"
+        "A/B testing for prompts",
+        "Prompt version control",
+        "Advanced prompt techniques"
       ],
       route: "/dashboard/prompts",
       gradient: "from-violet-500/10 to-violet-600/10",
@@ -173,20 +199,41 @@ const AllServices = () => {
     },
     {
       icon: <Building className="w-8 h-8" />,
-      title: "Business Management",
-      description: "Multi-business profile management",
+      title: "Multi-Business Management",
+      description: "Complete business profile and team management",
       features: [
         "Multiple business profile support",
         "Cross-business content sharing",
         "Brand-specific customization",
         "Business compliance settings",
         "Team collaboration tools",
-        "Business performance comparison"
+        "Business performance comparison",
+        "Role-based access control",
+        "Business workflow automation"
       ],
       route: "/dashboard/business-settings",
       gradient: "from-indigo-500/10 to-indigo-600/10",
       border: "border-indigo-500/20",
       color: "indigo-500"
+    },
+    {
+      icon: <Globe2 className="w-8 h-8" />,
+      title: "Cross-Business Features",
+      description: "Enterprise-level business management capabilities",
+      features: [
+        "Cross-business analytics and reporting",
+        "Unified brand management",
+        "Business performance comparisons",
+        "Consolidated billing and invoicing",
+        "Enterprise-level security",
+        "Advanced user permissions",
+        "Business relationship mapping",
+        "Portfolio management tools"
+      ],
+      route: "/dashboard/cross-business",
+      gradient: "from-pink-500/10 to-pink-600/10",
+      border: "border-pink-500/20",
+      color: "pink-500"
     }
   ];
 
@@ -220,6 +267,74 @@ const AllServices = () => {
         'Professional PDF research report'
       ],
       route: '/australian-services'
+    }
+  ];
+
+  // Profession-Specific Bonus Services
+  const bonusServices = [
+    {
+      icon: <MapPin className="w-6 h-6" />,
+      title: "Postcode Search Tools",
+      description: "Medicare telehealth eligibility and postcode verification",
+      professions: ["Healthcare", "Allied Health", "Psychology"],
+      gradient: "from-green-500/10 to-emerald-500/10",
+      border: "border-green-500/20"
+    },
+    {
+      icon: <Stethoscope className="w-6 h-6" />,
+      title: "Medicare Compliance Suite",
+      description: "AHPRA regulations, Medicare rules, and healthcare compliance",
+      professions: ["Doctors", "Specialists", "Allied Health"],
+      gradient: "from-blue-500/10 to-cyan-500/10",
+      border: "border-blue-500/20"
+    },
+    {
+      icon: <Scale className="w-6 h-6" />,
+      title: "Legal Industry Tools",
+      description: "Legal compliance, court rules, and professional standards",
+      professions: ["Lawyers", "Barristers", "Legal Services"],
+      gradient: "from-purple-500/10 to-violet-500/10",
+      border: "border-purple-500/20"
+    },
+    {
+      icon: <Briefcase className="w-6 h-6" />,
+      title: "Financial Services Kit",
+      description: "ASIC compliance, financial product disclosure, and advisory standards",
+      professions: ["Financial Advisors", "Accountants", "Brokers"],
+      gradient: "from-yellow-500/10 to-orange-500/10",
+      border: "border-yellow-500/20"
+    },
+    {
+      icon: <Globe2 className="w-6 h-6" />,
+      title: "Domain Research Engine",
+      description: "Advanced domain availability, pricing, and acquisition tools",
+      professions: ["All Businesses", "Startups", "Tech Companies"],
+      gradient: "from-indigo-500/10 to-blue-500/10",
+      border: "border-indigo-500/20"
+    },
+    {
+      icon: <FileCheck className="w-6 h-6" />,
+      title: "Business Name Generator",
+      description: "AI-powered business name creation with ASIC verification",
+      professions: ["Startups", "New Businesses", "Entrepreneurs"],
+      gradient: "from-red-500/10 to-pink-500/10",
+      border: "border-red-500/20"
+    },
+    {
+      icon: <Palette className="w-6 h-6" />,
+      title: "Professional Logo Design",
+      description: "AI-generated logos with brand guidelines and variations",
+      professions: ["All Businesses", "Startups", "Rebranding"],
+      gradient: "from-pink-500/10 to-purple-500/10",
+      border: "border-pink-500/20"
+    },
+    {
+      icon: <Code className="w-6 h-6" />,
+      title: "Website Development",
+      description: "Professional website creation with SEO optimization",
+      professions: ["All Businesses", "Service Providers", "E-commerce"],
+      gradient: "from-cyan-500/10 to-teal-500/10",
+      border: "border-cyan-500/20"
     }
   ];
 
@@ -286,10 +401,10 @@ const AllServices = () => {
         <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Members</span> <span className="text-gradient-primary">Dashboard Features</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>Complete</span> <span className="text-gradient-primary">Members Dashboard</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Your complete AI marketing command center. Every tool you need to dominate your market.
+              Your complete AI marketing command center. Every tool, feature, and capability in your members area.
             </p>
           </div>
 
@@ -337,7 +452,62 @@ const AllServices = () => {
         </div>
       </section>
 
-      {/* Professional Services */}
+      {/* Bonus Professional Services */}
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Professional services and tools background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-indigo-900/80 to-purple-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>Profession-Specific</span> <span className="text-gradient-primary">Bonus Tools</span>
+            </h2>
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Industry-specific tools and services tailored to your profession's unique requirements and compliance needs.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {bonusServices.map((service, index) => (
+              <Card key={index} className={`p-6 hover-lift ${service.border} bg-gradient-to-br ${service.gradient} transition-all duration-300`}>
+                <CardContent className="p-0">
+                  <div className={`w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-4`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold text-primary mb-2">Perfect for:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {service.professions.map((prof, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs px-2 py-1">
+                          {prof}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <ComingSoonPopup 
+                    trigger={
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-white border-0 text-sm">
+                        <Lightbulb className="w-3 h-3 mr-2" />
+                        Get Access
+                      </Button>
+                    } 
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Core Setup Services */}
       <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
@@ -351,7 +521,7 @@ const AllServices = () => {
         <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Professional</span> <span className="text-gradient-primary">Setup Services</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>Core</span> <span className="text-gradient-primary">Setup Services</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Expert-level business setup services to get you operational fast with full Australian compliance.
@@ -379,12 +549,14 @@ const AllServices = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link to={service.route}>
-                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0">
-                      <Settings className="w-4 h-4 mr-2" />
-                      Learn More
-                    </Button>
-                  </Link>
+                  <ComingSoonPopup 
+                    trigger={
+                      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Join Waitlist
+                      </Button>
+                    } 
+                  />
                 </CardContent>
               </Card>
             ))}
@@ -446,12 +618,12 @@ const AllServices = () => {
           
           <div className="flex flex-wrap justify-center gap-8 mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-yellow-400">9</div>
-              <div className="text-sm text-gray-400">Core Features</div>
+              <div className="text-2xl font-bold text-yellow-400">10</div>
+              <div className="text-sm text-gray-400">Dashboard Features</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-cyan-400">2</div>
-              <div className="text-sm text-gray-400">Pro Services</div>
+              <div className="text-2xl font-bold text-cyan-400">8</div>
+              <div className="text-sm text-gray-400">Bonus Tools</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
               <div className="text-2xl font-bold text-green-400">$11,521</div>
