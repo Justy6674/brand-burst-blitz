@@ -131,28 +131,29 @@ export const BusinessSetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) 
         business_name: businessData.business_name,
         industry: businessData.industry as any,
         website_url: businessData.website_url,
-        brand_colors: businessData.brand_colors,
+        brand_colors: JSON.stringify(businessData.brand_colors),
         default_ai_tone: businessData.default_ai_tone as any,
         is_primary: true,
-        compliance_settings: {
-          description: businessData.description,
-          target_audience: businessData.target_audience,
-          goals: businessData.goals,
-          platforms: businessData.platforms
-        }
+        compliance_settings: JSON.stringify({
+          questionnaire_data: {
+            description: businessData.description,
+            target_audience: businessData.target_audience,
+            goals: { primary: businessData.goals },
+            platforms: businessData.platforms
+          }
+        })
       };
 
-      const success = await createBusinessProfile(profileData);
+      const newProfile = await createBusinessProfile(profileData);
       
-      if (success) {
-        toast({
-          title: "Business Profile Created!",
-          description: "Your business profile has been set up successfully.",
-        });
-        onComplete();
-        navigate('/dashboard');
-      }
+      toast({
+        title: "Business Profile Created!",
+        description: "Your business profile has been set up successfully.",
+      });
+      onComplete();
+      navigate('/dashboard');
     } catch (error) {
+      console.error('Failed to create business profile:', error);
       toast({
         title: "Error",
         description: "Failed to create business profile. Please try again.",
