@@ -223,7 +223,11 @@ const CustomerBlogDeployment: React.FC<CustomerBlogDeploymentProps> = ({
     { id: 'backup', name: 'Automatic Backups', description: 'Daily automated backups' },
     { id: 'comments', name: 'Comment System', description: 'Built-in comment management' },
     { id: 'newsletter', name: 'Newsletter Integration', description: 'Email subscription forms' },
-    { id: 'social-sharing', name: 'Social Sharing', description: 'One-click social media sharing' }
+    { id: 'social-sharing', name: 'Social Sharing', description: 'One-click social media sharing' },
+    { id: 'api-access', name: 'API Access', description: 'Full REST API for content management' },
+    { id: 'webhook-integration', name: 'Webhook Support', description: 'Real-time event notifications' },
+    { id: 'embed-widgets', name: 'Embed Widgets', description: 'JavaScript widgets for external sites' },
+    { id: 'rss-feeds', name: 'RSS Feeds', description: 'Automatic RSS feed generation' }
   ];
 
   return (
@@ -418,6 +422,67 @@ const CustomerBlogDeployment: React.FC<CustomerBlogDeploymentProps> = ({
                       </div>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Website Integration Options */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="w-5 h-5" />
+                  Website Integration Options
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Choose how you want to integrate this blog with your existing website after deployment.
+                    </AlertDescription>
+                  </Alert>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 border rounded-lg space-y-2">
+                      <h4 className="font-medium">JavaScript Embed Widget</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Add blog posts to any website with a simple script tag
+                      </p>
+                      <Badge variant="secondary">Easy Setup</Badge>
+                    </div>
+                    
+                    <div className="p-4 border rounded-lg space-y-2">
+                      <h4 className="font-medium">REST API Access</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Full programmatic access to your blog content and management
+                      </p>
+                      <Badge variant="secondary">Developer Friendly</Badge>
+                    </div>
+                    
+                    <div className="p-4 border rounded-lg space-y-2">
+                      <h4 className="font-medium">RSS Feed</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Syndicate content to other platforms and RSS readers
+                      </p>
+                      <Badge variant="secondary">Universal</Badge>
+                    </div>
+                    
+                    <div className="p-4 border rounded-lg space-y-2">
+                      <h4 className="font-medium">Webhook Integration</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Real-time notifications when new content is published
+                      </p>
+                      <Badge variant="secondary">Real-time</Badge>
+                    </div>
+                  </div>
+                  
+                  <Alert>
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      All integration methods will be available after deployment with detailed setup instructions.
+                    </AlertDescription>
+                  </Alert>
                 </div>
               </CardContent>
             </Card>
