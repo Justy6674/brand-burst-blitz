@@ -603,7 +603,7 @@ const AllServices = () => {
                 trigger={
                   <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0">
                     <Target className="w-6 h-6 mr-3" />
-                    Start Membership - $179/month
+                    Start Membership - $49/month
                   </Button>
                 } 
               />
