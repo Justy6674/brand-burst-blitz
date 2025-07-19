@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import PublicHeader from '@/components/layout/PublicHeader';
 import { StandardButton } from '@/components/common/StandardButton';
-
+import { PricingSection } from '@/components/common/PricingSection';
 import { ComingSoonPopup } from '@/components/common/ComingSoonPopup';
 import { 
   Brain, 
