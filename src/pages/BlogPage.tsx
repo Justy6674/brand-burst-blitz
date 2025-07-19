@@ -10,7 +10,7 @@ import { Calendar, Clock, ArrowRight, Search, Filter, Star } from 'lucide-react'
 import { format } from 'date-fns';
 import PublicHeader from '@/components/layout/PublicHeader';
 import { HeroSection } from '@/components/layout/HeroSection';
-import futureContentHero from '@/assets/future-content-marketing-hero.jpg';
+import heroImage from '@/assets/hero-image.jpg';
 
 interface BlogPost {
   id: string;
@@ -100,7 +100,7 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
-      <HeroSection backgroundImage={futureContentHero}>
+      <HeroSection backgroundImage={heroImage}>
         <div className="max-w-5xl mx-auto animate-fade-in text-center">
           <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
             🇦🇺 Australian Business Intelligence & Growth
