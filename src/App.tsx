@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AuthPage from "@/components/auth/AuthPage";
@@ -41,7 +42,8 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <ErrorBoundary>
+        <UserProfileProvider>
+          <ErrorBoundary>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -57,7 +59,11 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/auth" element={
+                <ProtectedRoute requireAuth={false}>
+                  <AuthPage />
+                </ProtectedRoute>
+              } />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>
                   <BusinessQuestionnaire />
@@ -90,7 +96,8 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </UserProfileProvider>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>

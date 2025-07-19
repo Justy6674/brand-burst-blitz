@@ -1,5 +1,5 @@
-import { BusinessDashboard } from '@/components/dashboard/BusinessDashboard';
+import { SimpleDashboard } from '@/components/dashboard/SimpleDashboard';
 
 export default function Dashboard() {
-  return <BusinessDashboard />;
+  return <SimpleDashboard />;
 }

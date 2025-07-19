@@ -5,9 +5,13 @@ import { Loader2 } from 'lucide-react';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  requireAuth?: boolean;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
+  children, 
+  requireAuth = true 
+}) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
@@ -22,9 +26,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     );
   }
 
-  if (!user) {
+  if (requireAuth && !user) {
     // Redirect to auth page with the current location
     return <Navigate to="/auth" state={{ from: location }} replace />;
+  }
+
+  if (!requireAuth && user) {
+    // User is logged in but trying to access public route (like auth page)
+    const from = (location.state as any)?.from?.pathname || '/dashboard';
+    return <Navigate to={from} replace />;
   }
 
   return <>{children}</>;

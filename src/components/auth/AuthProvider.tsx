@@ -43,7 +43,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // Create user profile if it doesn't exist
           if (session?.user) {
             setTimeout(async () => {
-              const { error } = await supabase
+              // Check if profile exists
+              const { data: existingProfile } = await supabase
+                .from('profiles')
+                .select('id')
+                .eq('user_id', session.user.id)
+                .single();
+
+              if (!existingProfile) {
+                // Create profile if it doesn't exist
+                const { error } = await supabase
+                  .from('profiles')
+                  .insert({
+                    user_id: session.user.id,
+                    full_name: session.user.user_metadata?.business_name || session.user.email?.split('@')[0]
+                  });
+
+                if (error) {
+                  console.error('Error creating user profile:', error);
+                }
+              }
+
+              // Also create/update users table entry for compatibility
+              const { error: userError } = await supabase
                 .from('users')
                 .upsert({
                   id: session.user.id,
@@ -54,8 +76,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                   onConflict: 'id'
                 });
 
-              if (error) {
-                console.error('Error creating user profile:', error);
+              if (userError) {
+                console.error('Error creating user entry:', userError);
               }
             }, 0);
           }
