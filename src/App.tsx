@@ -40,6 +40,7 @@ import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
 import { BlogEmbedWizard } from './components/blog/BlogEmbedWizard';
 import { ComprehensiveContentStudio } from './components/studio/ComprehensiveContentStudio';
 import OAuthCallback from './pages/OAuthCallback';
+import PublishingPipelinePage from './pages/PublishingPipeline';
 
 const queryClient = new QueryClient();
 

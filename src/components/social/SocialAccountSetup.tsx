@@ -1,79 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ExternalLink, AlertCircle, CheckCircle2, Loader2, Settings } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
-import { useSocialMedia } from '@/hooks/useSocialMedia';
-import { useBusinessProfile } from '@/hooks/useBusinessProfile';
-import { SocialCredentialsManager } from './SocialCredentialsManager';
 import { Button } from '@/components/ui/button';
-import { 
-  Facebook, 
-  Instagram, 
-  Linkedin, 
-  Twitter
-} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { LoadingState } from '@/components/common/LoadingState';
+import { SocialCredentialsManager } from './SocialCredentialsManager';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { Facebook, Linkedin, Twitter } from 'lucide-react';
 
-export const SocialAccountSetup = () => {
-  const { toast } = useToast();
-  const { platforms, connectPlatform, refetch } = useSocialMedia();
-  const { profile } = useBusinessProfile();
-  const [connecting, setConnecting] = useState<string | null>(null);
-  const [userCredentials, setUserCredentials] = useState<Record<string, boolean>>({});
+interface SocialPlatform {
+  id: string;
+  name: string;
+  icon: React.ComponentType<any>;
+  color: string;
+  connected: boolean;
+  accountData?: any;
+}
 
-  const socialPlatforms = [
+export function SocialAccountSetup() {
+  const [platforms, setPlatforms] = useState<SocialPlatform[]>([
     {
       id: 'facebook',
       name: 'Facebook',
       icon: Facebook,
-      color: '#1877F2',
-      description: 'Connect your Facebook Page to publish posts and stories',
-      setupGuide: 'https://developers.facebook.com/docs/facebook-login'
+      color: 'bg-blue-600',
+      connected: false
     },
     {
       id: 'linkedin',
       name: 'LinkedIn',
       icon: Linkedin,
-      color: '#0A66C2',
-      description: 'Connect your LinkedIn profile or company page',
-      setupGuide: 'https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow'
+      color: 'bg-blue-700',
+      connected: false
     },
     {
       id: 'twitter',
-      name: 'Twitter/X',
+      name: 'Twitter / X',
       icon: Twitter,
-      color: '#000000',
-      description: 'Connect your Twitter/X account for real-time updates',
-      setupGuide: 'https://developer.twitter.com/en/docs/authentication/oauth-2-0'
+      color: 'bg-gray-900',
+      connected: false
     }
-  ];
+  ]);
+  
+  const [loading, setLoading] = useState(false);
+  const [hasCredentials, setHasCredentials] = useState(false);
+  const { toast } = useToast();
 
+  // Listen for OAuth callback messages
   useEffect(() => {
-    // Check which platforms have user credentials
-    if (profile?.user_id) {
-      checkUserCredentials();
-    }
-  }, [profile?.user_id]);
-
-  useEffect(() => {
-    // Listen for OAuth callback messages
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return;
       
       if (event.data.type === 'OAUTH_SUCCESS') {
-        setConnecting(null);
-        refetch();
+        const { platform, account } = event.data;
+        setPlatforms(prev => prev.map(p => 
+          p.id === platform 
+            ? { ...p, connected: true, accountData: account }
+            : p
+        ));
         toast({
-          title: "Success!",
-          description: `${event.data.platform} account connected successfully`
+          title: "Account Connected",
+          description: `Successfully connected ${account.name} to ${platform}`,
         });
+        checkUserCredentials();
       } else if (event.data.type === 'OAUTH_ERROR') {
-        setConnecting(null);
         toast({
           title: "Connection Failed",
-          description: event.data.error || "Failed to connect account",
+          description: event.data.error,
           variant: "destructive"
         });
       }
@@ -81,53 +75,40 @@ export const SocialAccountSetup = () => {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [refetch, toast]);
+  }, [toast]);
 
   const checkUserCredentials = async () => {
-    if (!profile?.user_id) return;
-
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
       const { data, error } = await supabase
         .from('user_social_credentials')
         .select('platform')
-        .eq('user_id', profile.user_id);
+        .eq('user_id', user.id);
 
       if (error) throw error;
-
-      const credentialsMap: Record<string, boolean> = {};
-      data?.forEach(cred => {
-        credentialsMap[cred.platform] = true;
-      });
-
-      setUserCredentials(credentialsMap);
+      setHasCredentials(data && data.length > 0);
     } catch (error) {
       console.error('Error checking credentials:', error);
     }
   };
 
   const handleConnect = async (platformId: string) => {
-    if (!profile?.user_id) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to connect social media accounts",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Check if user has credentials for this platform
-    if (!userCredentials[platformId]) {
+    if (!hasCredentials) {
       toast({
         title: "API Credentials Required",
-        description: `Please add your ${platformId} API credentials first in the API Credentials tab`,
+        description: "Please add your API credentials in the API Credentials tab first",
         variant: "destructive"
       });
       return;
     }
 
-    setConnecting(platformId);
-
+    setLoading(true);
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+
       const redirectUri = `${window.location.origin}/auth/callback`;
       
       const { data, error } = await supabase.functions.invoke('social-oauth-init', {
@@ -139,152 +120,122 @@ export const SocialAccountSetup = () => {
 
       if (error) throw error;
 
-      // Open OAuth window
-      const popup = window.open(
-        data.authUrl,
-        'oauth',
-        'width=600,height=600,scrollbars=yes,resizable=yes'
-      );
+      if (data?.authUrl) {
+        // Open popup window for OAuth
+        const popup = window.open(
+          data.authUrl,
+          'oauth',
+          'width=500,height=600,scrollbars=yes,resizable=yes'
+        );
 
-      // Poll for window close
-      const pollTimer = setInterval(() => {
-        if (popup?.closed) {
-          clearInterval(pollTimer);
-          setConnecting(null);
-        }
-      }, 1000);
-
-    } catch (error) {
-      console.error('Error initiating OAuth:', error);
-      setConnecting(null);
+        // Monitor popup window
+        const checkClosed = setInterval(() => {
+          if (popup?.closed) {
+            clearInterval(checkClosed);
+            setLoading(false);
+          }
+        }, 1000);
+      }
+    } catch (error: any) {
+      console.error('OAuth error:', error);
       toast({
         title: "Connection Failed",
-        description: error.message || "Failed to start connection process",
+        description: error.message || "Failed to initiate OAuth flow",
         variant: "destructive"
       });
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    checkUserCredentials();
+  }, []);
+
   return (
-    <Tabs defaultValue="connect" className="space-y-6">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="connect">Connect Accounts</TabsTrigger>
-        <TabsTrigger value="credentials">
-          <Settings className="h-4 w-4 mr-2" />
-          API Credentials
-        </TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="connect" className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold mb-2">Connect Social Media Platforms</h2>
-          <p className="text-muted-foreground">
-            Connect your social media accounts to enable automated publishing and analytics.
-            Make sure you've added your API credentials first.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {socialPlatforms.map((platform) => {
-            const connectedPlatform = platforms.find(p => p.id === platform.id);
-            const isConnected = connectedPlatform?.isConnected || false;
-            const isConnecting = connecting === platform.id;
-            const hasCredentials = userCredentials[platform.id];
-
-            return (
-              <Card key={platform.id} className="relative">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <platform.icon className="h-5 w-5" style={{ color: platform.color }} />
-                      {platform.name}
-                    </CardTitle>
-                    {isConnected ? (
-                      <Badge variant="default" className="bg-green-100 text-green-800">
-                        <CheckCircle2 className="h-3 w-3 mr-1" />
-                        Connected
-                      </Badge>
-                    ) : hasCredentials ? (
-                      <Badge variant="secondary">
-                        <AlertCircle className="h-3 w-3 mr-1" />
-                        Ready to Connect
-                      </Badge>
-                    ) : (
-                      <Badge variant="outline" className="text-orange-600">
-                        <AlertCircle className="h-3 w-3 mr-1" />
-                        Needs API Keys
-                      </Badge>
-                    )}
-                  </div>
-                  <CardDescription>{platform.description}</CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <div className="space-y-4">
-                    {!hasCredentials ? (
-                      <div className="text-sm text-orange-600 bg-orange-50 p-3 rounded-md">
-                        <AlertCircle className="h-4 w-4 inline mr-2" />
-                        Add your {platform.name} API credentials first in the API Credentials tab
-                      </div>
-                    ) : isConnected ? (
-                      <div className="space-y-2">
-                        {connectedPlatform?.account && (
-                          <div className="text-sm text-muted-foreground">
-                            Connected as: <span className="font-medium">{connectedPlatform.account.account_name}</span>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Social Media Account Setup</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="connect" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="connect">Connect Accounts</TabsTrigger>
+              <TabsTrigger value="credentials">API Credentials</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="connect" className="space-y-4">
+              {!hasCredentials && (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                  <p className="text-amber-800 text-sm">
+                    ⚠️ You need to add your API credentials in the "API Credentials" tab before you can connect social media accounts.
+                  </p>
+                </div>
+              )}
+              
+              <div className="grid gap-4">
+                {platforms.map((platform) => {
+                  const IconComponent = platform.icon;
+                  return (
+                    <Card key={platform.id} className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className={`p-2 rounded-lg ${platform.color} text-white`}>
+                            <IconComponent className="h-5 w-5" />
                           </div>
-                        )}
-                        <Button 
-                          variant="outline" 
-                          className="w-full"
-                          onClick={() => handleConnect(platform.id)}
-                          disabled={isConnecting}
-                        >
-                          {isConnecting ? (
-                            <>
-                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                              Reconnecting...
-                            </>
-                          ) : (
-                            'Reconnect Account'
+                          <div>
+                            <h3 className="font-medium">{platform.name}</h3>
+                            {platform.connected && platform.accountData && (
+                              <p className="text-sm text-muted-foreground">
+                                Connected as {platform.accountData.name}
+                              </p>
+                            )}
+                          </div>
+                          {platform.connected && (
+                            <Badge variant="secondary" className="ml-2">
+                              Connected
+                            </Badge>
                           )}
-                        </Button>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {platform.connected ? (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => {
+                                // Handle disconnect
+                                setPlatforms(prev => prev.map(p => 
+                                  p.id === platform.id 
+                                    ? { ...p, connected: false, accountData: undefined }
+                                    : p
+                                ));
+                              }}
+                            >
+                              Disconnect
+                            </Button>
+                          ) : (
+                            <Button 
+                              onClick={() => handleConnect(platform.id)}
+                              disabled={loading || !hasCredentials}
+                              size="sm"
+                            >
+                              {loading ? 'Connecting...' : 'Connect'}
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    ) : (
-                      <Button 
-                        className="w-full" 
-                        onClick={() => handleConnect(platform.id)}
-                        disabled={isConnecting || !hasCredentials}
-                      >
-                        {isConnecting ? (
-                          <>
-                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                            Connecting...
-                          </>
-                        ) : (
-                          <>
-                            Connect {platform.name}
-                          </>
-                        )}
-                      </Button>
-                    )}
-                    
-                    <Button variant="outline" size="sm" asChild className="w-full">
-                      <a href={platform.setupGuide} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        Setup Guide
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </TabsContent>
-
-      <TabsContent value="credentials">
-        <SocialCredentialsManager />
-      </TabsContent>
-    </Tabs>
+                    </Card>
+                  );
+                })}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="credentials">
+              <SocialCredentialsManager />
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+    </div>
   );
-};
+}
