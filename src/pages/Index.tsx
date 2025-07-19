@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { SystemLockdownBanner } from "@/components/common/SystemLockdownBanner";
 import { 
   Sparkles, 
   Zap, 
@@ -99,6 +100,8 @@ const AdminAccess = () => {
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
+      <SystemLockdownBanner />
+      
       {/* Modern Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Modern Gradient Background */}
