@@ -265,7 +265,8 @@ const AllServices = () => {
         'Similar business name analysis',
         'Optional trademark screening',
         'AI-generated business name alternatives',
-        'Professional PDF research report'
+        'Professional PDF research report',
+        'Strategic naming recommendations'
       ],
       route: '/australian-services'
     }
@@ -518,13 +519,13 @@ const AllServices = () => {
 
           <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
             {professionalServices.map((service, index) => (
-              <Card key={index} className="border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+              <Card key={index} className="border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10 h-full flex flex-col">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-lg">{service.name}</CardTitle>
                   <CardDescription className="text-sm">{service.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-6">
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-2 mb-6 flex-1">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
                         <CheckCircle className="w-4 h-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" />
