@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { SmartAIAssistant } from '@/components/ai/SmartAIAssistant';
 import { AppSidebar } from './AppSidebar';
 import { AppHeader } from './AppHeader';
 import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
@@ -19,6 +20,7 @@ const AppLayout = () => {
                 <Outlet />
               </main>
             </div>
+            <SmartAIAssistant />
           </div>
         </SidebarProvider>
       </BusinessThemeProvider>
