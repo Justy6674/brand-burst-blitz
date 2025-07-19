@@ -162,14 +162,12 @@ const Index = () => {
                     </Button>
                   } 
                 />
-                <ComingSoonPopup 
-                  trigger={
-                    <Button variant="outline-white" size="xl" className="text-xl px-12 py-6">
-                      <Rocket className="w-6 h-6 mr-3" />
-                      View Pricing
-                    </Button>
-                  } 
-                />
+                <Button variant="outline-white" size="xl" className="text-xl px-12 py-6" asChild>
+                  <Link to="/pricing">
+                    <Rocket className="w-6 h-6 mr-3" />
+                    View Pricing
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
