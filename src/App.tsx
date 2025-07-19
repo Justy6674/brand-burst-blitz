@@ -39,7 +39,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
 import { BlogEmbedWizard } from './components/blog/BlogEmbedWizard';
 import { ComprehensiveContentStudio } from './components/studio/ComprehensiveContentStudio';
-import { OAuthCallback } from './components/auth/OAuthCallback';
+import OAuthCallback from './pages/OAuthCallback';
 
 const queryClient = new QueryClient();
 
@@ -69,11 +69,7 @@ const App = () => (
                   <AuthPage />
                 </ProtectedRoute>
               } />
-              <Route path="/auth/callback" element={
-                <ProtectedRoute>
-                  <OAuthCallback />
-                </ProtectedRoute>
-              } />
+              <Route path="/auth/callback" element={<OAuthCallback />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>
                   <BusinessQuestionnaire />
