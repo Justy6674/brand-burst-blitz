@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { SystemLockdownBanner } from "@/components/common/SystemLockdownBanner";
 import { StandardButton } from "@/components/common/StandardButton";
-import { PricingSection } from "@/components/common/PricingSection";
+
 import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { 
   Sparkles, 
@@ -572,8 +572,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <PricingSection />
 
       {/* Footer */}
       <footer className="py-16 bg-muted/20 border-t">

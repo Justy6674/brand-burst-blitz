@@ -608,8 +608,6 @@ const AllServices = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <PricingSection />
     </div>
   );
 };
