@@ -9,6 +9,7 @@ interface GenerateContentParams {
   tone: string;
   type: 'blog' | 'social' | 'ad';
   businessContext?: string;
+  businessProfileId?: string;
   targetAudience?: string;
   keywords?: string[];
 }
@@ -43,6 +44,7 @@ export const useAIGeneration = () => {
             tone: params.tone,
             type: params.type,
             businessContext: params.businessContext,
+            businessProfileId: params.businessProfileId,
             target_audience: params.targetAudience,
             keywords: params.keywords || [],
           },

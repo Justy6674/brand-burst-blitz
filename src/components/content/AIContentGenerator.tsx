@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { useAIGeneration } from '@/hooks/useAIGeneration';
 import { useContentTemplates } from '@/hooks/useContentTemplates';
-import { useBusinessProfile } from '@/hooks/useBusinessProfile';
+import { useBusinessProfiles } from '@/hooks/useBusinessProfiles';
 
 const contentTypes = [
   { value: 'blog', label: 'Blog Post', icon: FileText },
@@ -34,11 +34,16 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
   const [selectedType, setSelectedType] = useState<'blog' | 'social' | 'ad'>('blog');
   const [selectedTone, setSelectedTone] = useState('professional');
   const [selectedTemplate, setSelectedTemplate] = useState<string | undefined>();
+  const [selectedBusinessId, setSelectedBusinessId] = useState<string>('');
   const [generatedContent, setGeneratedContent] = useState('');
 
   const { generateContent, isGenerating } = useAIGeneration();
   const { templates } = useContentTemplates();
-  const { profile } = useBusinessProfile();
+  const { businessProfiles, activeProfile, isLoading: profilesLoading } = useBusinessProfiles();
+
+  const selectedProfile = selectedBusinessId 
+    ? businessProfiles.find(p => p.id === selectedBusinessId) 
+    : activeProfile;
 
   const filteredTemplates = templates.filter(template => template.type === selectedType);
 
@@ -46,8 +51,8 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
     if (!prompt.trim()) return;
 
     try {
-      const businessContext = profile ? 
-        `Business: ${profile.business_name}, Industry: ${profile.industry}` : 
+      const businessContext = selectedProfile ? 
+        `Business: ${selectedProfile.business_name}, Industry: ${selectedProfile.industry}, Website: ${selectedProfile.website_url || 'N/A'}` : 
         undefined;
 
       const result = await generateContent({
@@ -55,7 +60,8 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
         templateId: selectedTemplate,
         tone: selectedTone,
         type: selectedType,
-        businessContext
+        businessContext,
+        businessProfileId: selectedProfile?.id
       });
 
       setGeneratedContent(result.content);
@@ -81,11 +87,37 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
         </CardHeader>
         
         <CardContent className="space-y-6">
+          {/* Business/Website Selection */}
+          {!profilesLoading && businessProfiles.length > 0 && (
+            <div className="space-y-2">
+              <Label>Select Business/Website</Label>
+              <Select 
+                value={selectedBusinessId || activeProfile?.id || ''} 
+                onValueChange={setSelectedBusinessId}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose business/website..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {businessProfiles.map((profile) => (
+                    <SelectItem key={profile.id} value={profile.id}>
+                      <div className="flex flex-col">
+                        <span>{profile.business_name}</span>
+                        {profile.website_url && (
+                          <span className="text-xs text-muted-foreground">{profile.website_url}</span>
+                        )}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
           {/* Content Type Selection */}
           <div className="space-y-2">
             <Label>Content Type</Label>
-            <div className="grid grid-cols-3 gap-2">
-              {contentTypes.map((type) => {
+            <div className="grid grid-cols-3 gap-2">{contentTypes.map((type) => {
                 const Icon = type.icon;
                 return (
                   <Button
@@ -171,11 +203,14 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
           </Button>
 
           {/* Business Context Display */}
-          {profile && (
+          {selectedProfile && (
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Badge variant="secondary">
-                {profile.business_name} - {profile.industry}
+                {selectedProfile.business_name} - {selectedProfile.industry}
               </Badge>
+              {selectedProfile.website_url && (
+                <Badge variant="outline">{selectedProfile.website_url}</Badge>
+              )}
               <span>Business context will be included</span>
             </div>
           )}

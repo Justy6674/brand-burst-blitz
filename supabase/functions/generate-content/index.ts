@@ -134,6 +134,7 @@ async function generateContent(requestBody: any, req: Request) {
     tone = 'professional', 
     type = 'blog',
     businessContext,
+    businessProfileId,
     target_audience,
     keywords = []
   } = requestBody;
@@ -206,6 +207,7 @@ async function generateContent(requestBody: any, req: Request) {
     .from('posts')
     .insert({
       user_id: user.id,
+      business_profile_id: businessProfileId || null,
       type,
       content: generatedContent.content,
       title: generatedContent.title,
@@ -216,7 +218,8 @@ async function generateContent(requestBody: any, req: Request) {
       status: 'draft',
       metadata: {
         seo_data: generatedContent.seo_data,
-        generated_at: new Date().toISOString()
+        generated_at: new Date().toISOString(),
+        business_context: businessContext
       }
     })
     .select()
