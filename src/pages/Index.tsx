@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -9,6 +8,9 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { SystemLockdownBanner } from "@/components/common/SystemLockdownBanner";
+import { StandardButton } from "@/components/common/StandardButton";
+import { PricingSection } from "@/components/common/PricingSection";
+import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { 
   Sparkles, 
   Zap, 
@@ -154,20 +156,14 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
-                <ComingSoonPopup 
-                  trigger={
-                    <Button variant="hero" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
-                      <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                      Get Started Now
-                    </Button>
-                  } 
-                />
-                <Button variant="outline-white" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6" asChild>
-                  <Link to="/pricing">
-                    <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                    View Pricing
-                  </Link>
-                </Button>
+                <StandardButton action="waitlist" variant="primary">
+                  <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                  Join Waitlist
+                </StandardButton>
+                <StandardButton action="pricing" variant="secondary">
+                  <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                  View Pricing
+                </StandardButton>
               </div>
             </div>
           </div>
@@ -551,15 +547,11 @@ const Index = () => {
           {/* Dynamic CTA Button */}
           <div className="relative inline-block animate-fade-in animation-delay-700">
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
-            <ComingSoonPopup 
-              trigger={
-                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0 w-full sm:w-auto">
-                  <Target className="w-6 h-6 mr-3 animate-pulse" />
-                  Start Your Transformation
-                  <Sparkles className="w-6 h-6 ml-3 animate-spin" />
-                </Button>
-              } 
-            />
+            <StandardButton action="waitlist" variant="primary">
+              <Target className="w-6 h-6 mr-3" />
+              Join Waitlist Now
+              <Sparkles className="w-6 h-6 ml-3" />
+            </StandardButton>
           </div>
           
           {/* Tech Stats */}
@@ -579,6 +571,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
 
       {/* Footer */}
       <footer className="py-16 bg-muted/20 border-t">

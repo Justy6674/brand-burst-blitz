@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicHeader from '@/components/layout/PublicHeader';
-import { HeroSection } from '@/components/layout/HeroSection';
+import { StandardButton } from '@/components/common/StandardButton';
+import { PricingSection } from '@/components/common/PricingSection';
 import { ComingSoonPopup } from '@/components/common/ComingSoonPopup';
 import { 
   Brain, 
@@ -369,18 +370,14 @@ const AllServices = () => {
             </p>
             
             <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
-              <Link to="/pricing">
-                <Button variant="hero" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
-                  <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  Start Your Membership
-                </Button>
-              </Link>
-              <Link to="/pricing">
-                <Button variant="outline-white" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
-                  <Eye className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  View Pricing Plans
-                </Button>
-              </Link>
+              <StandardButton action="waitlist" variant="primary">
+                <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                Join Waitlist
+              </StandardButton>
+              <StandardButton action="pricing" variant="secondary">
+                <Eye className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                View Pricing Plans
+              </StandardButton>
             </div>
           </div>
         </div>
@@ -434,14 +431,10 @@ const AllServices = () => {
                     </div>
                     
                     <div className="lg:ml-6">
-                      <ComingSoonPopup 
-                        trigger={
-                          <Button className={`bg-${feature.color} hover:bg-${feature.color}/90 text-white border-0 px-6 py-3`}>
-                            <ArrowRight className="w-4 h-4 mr-2" />
-                            Explore Feature
-                          </Button>
-                        } 
-                      />
+                      <StandardButton action="waitlist" variant="primary" size="default">
+                        <ArrowRight className="w-4 h-4 mr-2" />
+                        Join Waitlist
+                      </StandardButton>
                     </div>
                   </div>
                 </CardContent>
@@ -491,14 +484,10 @@ const AllServices = () => {
                       ))}
                     </div>
                   </div>
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button className="w-full bg-primary hover:bg-primary/90 text-white border-0 text-sm">
-                        <Lightbulb className="w-3 h-3 mr-2" />
-                        Get Access
-                      </Button>
-                    } 
-                  />
+                  <StandardButton action="waitlist" variant="primary" size="sm" className="w-full">
+                    <Lightbulb className="w-3 h-3 mr-2" />
+                    Join Waitlist
+                  </StandardButton>
                 </CardContent>
               </Card>
             ))}
@@ -548,14 +537,10 @@ const AllServices = () => {
                       </li>
                     ))}
                   </ul>
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Join Waitlist
-                      </Button>
-                    } 
-                  />
+                  <StandardButton action="waitlist" variant="primary" className="w-full">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Join Waitlist
+                  </StandardButton>
                 </CardContent>
               </Card>
             ))}
@@ -596,21 +581,14 @@ const AllServices = () => {
           </p>
           
           <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
-            <div className="relative inline-block">
-              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
-              <Link to="/pricing">
-                <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0 w-full sm:w-auto">
-                  <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  Start Membership - $49/month
-                </Button>
-              </Link>
-            </div>
-            <Link to="/pricing">
-              <Button variant="outline-white" size="xl" className="text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 w-full sm:w-auto">
-                <TrendingUp className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                Compare All Plans
-              </Button>
-            </Link>
+            <StandardButton action="waitlist" variant="primary">
+              <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+              Join Waitlist Now
+            </StandardButton>
+            <StandardButton action="pricing" variant="secondary">
+              <TrendingUp className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+              View All Pricing
+            </StandardButton>
           </div>
           
           <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16">
@@ -629,6 +607,9 @@ const AllServices = () => {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
     </div>
   );
 };
