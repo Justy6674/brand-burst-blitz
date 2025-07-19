@@ -152,6 +152,90 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_customizations: {
+        Row: {
+          branding: Json
+          business_id: string
+          color_scheme: Json
+          created_at: string
+          id: string
+          image_settings: Json
+          layout_style: string
+          post_display: Json
+          seo_settings: Json
+          typography: Json
+          updated_at: string
+        }
+        Insert: {
+          branding?: Json
+          business_id: string
+          color_scheme?: Json
+          created_at?: string
+          id?: string
+          image_settings?: Json
+          layout_style?: string
+          post_display?: Json
+          seo_settings?: Json
+          typography?: Json
+          updated_at?: string
+        }
+        Update: {
+          branding?: Json
+          business_id?: string
+          color_scheme?: Json
+          created_at?: string
+          id?: string
+          image_settings?: Json
+          layout_style?: string
+          post_display?: Json
+          seo_settings?: Json
+          typography?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blog_images: {
+        Row: {
+          alt_text: string | null
+          business_id: string
+          created_at: string
+          dimensions: Json
+          filename: string
+          folder: string | null
+          id: string
+          size: number
+          tags: string[] | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          alt_text?: string | null
+          business_id: string
+          created_at?: string
+          dimensions: Json
+          filename: string
+          folder?: string | null
+          id?: string
+          size: number
+          tags?: string[] | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          alt_text?: string | null
+          business_id?: string
+          created_at?: string
+          dimensions?: Json
+          filename?: string
+          folder?: string | null
+          id?: string
+          size?: number
+          tags?: string[] | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author: string | null
@@ -206,6 +290,45 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_templates: {
+        Row: {
+          business_id: string | null
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          name: string
+          template_data: Json
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          business_id?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name: string
+          template_data: Json
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          business_id?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name?: string
+          template_data?: Json
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: []
+      }
       business_profiles: {
         Row: {
           blog_integrations: Json | null
@@ -214,6 +337,7 @@ export type Database = {
           compliance_settings: Json | null
           created_at: string | null
           default_ai_tone: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url: string | null
           id: string
           industry: Database["public"]["Enums"]["industry_type"] | null
           is_primary: boolean | null
@@ -229,6 +353,7 @@ export type Database = {
           compliance_settings?: Json | null
           created_at?: string | null
           default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url?: string | null
           id?: string
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
@@ -244,6 +369,7 @@ export type Database = {
           compliance_settings?: Json | null
           created_at?: string | null
           default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url?: string | null
           id?: string
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
@@ -1577,6 +1703,7 @@ export type Database = {
       }
       website_integrations: {
         Row: {
+          business_id: string | null
           business_profile_id: string | null
           configuration: Json
           created_at: string | null
@@ -1589,6 +1716,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          business_id?: string | null
           business_profile_id?: string | null
           configuration?: Json
           created_at?: string | null
@@ -1601,6 +1729,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          business_id?: string | null
           business_profile_id?: string | null
           configuration?: Json
           created_at?: string | null

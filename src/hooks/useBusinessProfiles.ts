@@ -10,6 +10,7 @@ export interface BusinessProfile {
   industry: 'general' | 'tech' | 'health' | 'finance' | 'legal' | 'fitness' | 'beauty';
   website_url: string | null;
   logo_url: string | null;
+  favicon_url: string | null;
   is_primary: boolean;
   default_ai_tone: 'professional' | 'friendly' | 'casual' | 'authoritative' | 'empathetic' | 'exciting';
   brand_colors: any;
@@ -94,6 +95,7 @@ export const useBusinessProfiles = (): UseBusinessProfilesReturn => {
           industry: data.industry || 'general',
           website_url: data.website_url || null,
           logo_url: data.logo_url || null,
+          favicon_url: data.favicon_url || null,
           is_primary: isFirstProfile || data.is_primary || false,
           default_ai_tone: data.default_ai_tone || 'professional',
           brand_colors: data.brand_colors || null,
@@ -145,6 +147,7 @@ export const useBusinessProfiles = (): UseBusinessProfilesReturn => {
           industry: data.industry,
           website_url: data.website_url,
           logo_url: data.logo_url,
+          favicon_url: data.favicon_url,
           is_primary: data.is_primary,
           default_ai_tone: data.default_ai_tone,
           brand_colors: data.brand_colors,

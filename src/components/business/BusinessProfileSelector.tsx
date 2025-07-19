@@ -66,7 +66,7 @@ export const BusinessProfileSelector: React.FC = () => {
             className="flex items-center gap-2 hover:bg-muted/50 px-2 py-1 h-auto"
           >
             <Avatar className="h-6 w-6">
-              <AvatarImage src={activeProfile?.logo_url || ''} />
+              <AvatarImage src={activeProfile?.favicon_url || activeProfile?.logo_url || ''} />
               <AvatarFallback className="text-xs bg-primary/10 text-primary">
                 {activeProfile ? getInitials(activeProfile.business_name) : 'B'}
               </AvatarFallback>
@@ -103,7 +103,7 @@ export const BusinessProfileSelector: React.FC = () => {
               onClick={() => switchProfile(profile.id)}
             >
               <Avatar className="h-8 w-8">
-                <AvatarImage src={profile.logo_url || ''} />
+                <AvatarImage src={profile.favicon_url || profile.logo_url || ''} />
                 <AvatarFallback className="text-xs bg-primary/10 text-primary">
                   {getInitials(profile.business_name)}
                 </AvatarFallback>

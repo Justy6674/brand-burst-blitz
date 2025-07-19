@@ -40,6 +40,7 @@ interface FormData {
   website_url: string;
   default_ai_tone: string;
   is_primary: boolean;
+  favicon_url: string;
 }
 
 const industries = [
@@ -75,6 +76,7 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
       website_url: '',
       default_ai_tone: 'professional',
       is_primary: allProfiles.length === 0, // First business is primary by default
+      favicon_url: '',
     },
   });
 
@@ -85,6 +87,7 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
         business_name: data.business_name,
         industry: data.industry as any,
         website_url: data.website_url || null,
+        favicon_url: data.favicon_url || null,
         default_ai_tone: data.default_ai_tone as any,
         is_primary: data.is_primary,
       });
@@ -171,6 +174,27 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
                   </FormControl>
                   <FormDescription>
                     Used for competitor analysis and content optimization
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="favicon_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Favicon URL (Optional)</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="https://example.com/favicon.png" 
+                      type="url" 
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Small icon for easy business identification (16x16 or 32x32 pixels)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

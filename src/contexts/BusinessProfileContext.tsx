@@ -9,6 +9,7 @@ interface BusinessProfile {
   industry: string | null;
   website_url: string | null;
   logo_url: string | null;
+  favicon_url: string | null;
   is_primary: boolean | null;
   created_at: string | null;
   updated_at: string | null;
