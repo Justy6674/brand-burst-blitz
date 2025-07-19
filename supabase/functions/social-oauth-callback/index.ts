@@ -59,13 +59,13 @@ serve(async (req) => {
     switch (platform) {
       case 'facebook':
       case 'instagram':
-        tokenResponse = await exchangeFacebookToken(code, oauthState.redirect_uri);
+        tokenResponse = await exchangeFacebookToken(code, oauthState.redirect_uri, oauthState.user_id);
         break;
       case 'linkedin':
-        tokenResponse = await exchangeLinkedInToken(code, oauthState.redirect_uri);
+        tokenResponse = await exchangeLinkedInToken(code, oauthState.redirect_uri, oauthState.user_id);
         break;
       case 'twitter':
-        tokenResponse = await exchangeTwitterToken(code, oauthState.redirect_uri, oauthState.code_verifier);
+        tokenResponse = await exchangeTwitterToken(code, oauthState.redirect_uri, oauthState.code_verifier, oauthState.user_id);
         break;
       default:
         throw new Error('Unsupported platform');
@@ -126,13 +126,27 @@ serve(async (req) => {
   }
 });
 
-async function exchangeFacebookToken(code: string, redirectUri: string) {
-  const clientId = Deno.env.get('FACEBOOK_APP_ID');
-  const clientSecret = Deno.env.get('FACEBOOK_APP_SECRET');
-  
+async function exchangeFacebookToken(code: string, redirectUri: string, userId: string) {
+  // Get user's Facebook credentials
+  const supabaseService = createClient(
+    Deno.env.get('SUPABASE_URL') ?? '',
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+  );
+
+  const { data: credentialsData, error: credentialsError } = await supabaseService
+    .from('user_social_credentials')
+    .select('app_id, app_secret')
+    .eq('user_id', userId)
+    .eq('platform', 'facebook')
+    .single();
+
+  if (credentialsError || !credentialsData) {
+    throw new Error('Facebook credentials not found');
+  }
+
   const tokenUrl = new URL('https://graph.facebook.com/v18.0/oauth/access_token');
-  tokenUrl.searchParams.set('client_id', clientId!);
-  tokenUrl.searchParams.set('client_secret', clientSecret!);
+  tokenUrl.searchParams.set('client_id', credentialsData.app_id);
+  tokenUrl.searchParams.set('client_secret', credentialsData.app_secret);
   tokenUrl.searchParams.set('redirect_uri', redirectUri);
   tokenUrl.searchParams.set('code', code);
 
@@ -140,10 +154,24 @@ async function exchangeFacebookToken(code: string, redirectUri: string) {
   return await response.json();
 }
 
-async function exchangeLinkedInToken(code: string, redirectUri: string) {
-  const clientId = Deno.env.get('LINKEDIN_CLIENT_ID');
-  const clientSecret = Deno.env.get('LINKEDIN_CLIENT_SECRET');
-  
+async function exchangeLinkedInToken(code: string, redirectUri: string, userId: string) {
+  // Get user's LinkedIn credentials
+  const supabaseService = createClient(
+    Deno.env.get('SUPABASE_URL') ?? '',
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+  );
+
+  const { data: credentialsData, error: credentialsError } = await supabaseService
+    .from('user_social_credentials')
+    .select('app_id, app_secret')
+    .eq('user_id', userId)
+    .eq('platform', 'linkedin')
+    .single();
+
+  if (credentialsError || !credentialsData) {
+    throw new Error('LinkedIn credentials not found');
+  }
+
   const response = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
     method: 'POST',
     headers: {
@@ -153,22 +181,37 @@ async function exchangeLinkedInToken(code: string, redirectUri: string) {
       grant_type: 'authorization_code',
       code,
       redirect_uri: redirectUri,
-      client_id: clientId!,
-      client_secret: clientSecret!,
+      client_id: credentialsData.app_id,
+      client_secret: credentialsData.app_secret,
     }),
   });
 
   return await response.json();
 }
 
-async function exchangeTwitterToken(code: string, redirectUri: string, codeVerifier: string) {
-  const clientId = Deno.env.get('TWITTER_CLIENT_ID');
-  
+async function exchangeTwitterToken(code: string, redirectUri: string, codeVerifier: string, userId: string) {
+  // Get user's Twitter credentials
+  const supabaseService = createClient(
+    Deno.env.get('SUPABASE_URL') ?? '',
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+  );
+
+  const { data: credentialsData, error: credentialsError } = await supabaseService
+    .from('user_social_credentials')
+    .select('app_id, app_secret')
+    .eq('user_id', userId)
+    .eq('platform', 'twitter')
+    .single();
+
+  if (credentialsError || !credentialsData) {
+    throw new Error('Twitter credentials not found');
+  }
+
   const response = await fetch('https://api.twitter.com/2/oauth2/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa(`${clientId}:`)}`,
+      'Authorization': `Basic ${btoa(`${credentialsData.app_id}:${credentialsData.app_secret}`)}`,
     },
     body: new URLSearchParams({
       grant_type: 'authorization_code',

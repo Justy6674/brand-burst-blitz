@@ -1430,6 +1430,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_social_credentials: {
+        Row: {
+          app_id: string
+          app_secret: string
+          created_at: string
+          id: string
+          platform: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          app_id: string
+          app_secret: string
+          created_at?: string
+          id?: string
+          platform: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          app_id?: string
+          app_secret?: string
+          created_at?: string
+          id?: string
+          platform?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           created_at: string | null

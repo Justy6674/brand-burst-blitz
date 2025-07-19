@@ -66,21 +66,33 @@ serve(async (req) => {
       );
     }
 
+    // Get user's credentials for this platform
+    const { data: credentialsData, error: credentialsError } = await supabaseClient
+      .from('user_social_credentials')
+      .select('app_id, app_secret')
+      .eq('user_id', user.id)
+      .eq('platform', platform)
+      .single();
+
+    if (credentialsError || !credentialsData) {
+      return new Response(
+        JSON.stringify({ error: `No ${platform} credentials found. Please add your API credentials first.` }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    const { app_id: clientId, app_secret: clientSecret } = credentialsData;
+
     // Build OAuth URLs based on platform
     let authUrl: string;
     
     switch (platform) {
       case 'facebook':
-        const fbClientId = Deno.env.get('FACEBOOK_APP_ID');
-        if (!fbClientId) {
-          return new Response(
-            JSON.stringify({ error: 'Facebook integration not configured' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-        
         authUrl = new URL('https://www.facebook.com/v18.0/dialog/oauth');
-        authUrl.searchParams.set('client_id', fbClientId);
+        authUrl.searchParams.set('client_id', clientId);
         authUrl.searchParams.set('redirect_uri', redirectUri);
         authUrl.searchParams.set('state', stateToken);
         authUrl.searchParams.set('scope', 'pages_show_list,pages_read_engagement,pages_manage_posts,instagram_basic,instagram_content_publish');
@@ -89,16 +101,8 @@ serve(async (req) => {
 
       case 'instagram':
         // Instagram uses Facebook's OAuth since it's owned by Meta
-        const igClientId = Deno.env.get('FACEBOOK_APP_ID');
-        if (!igClientId) {
-          return new Response(
-            JSON.stringify({ error: 'Instagram integration not configured' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-        
         authUrl = new URL('https://www.facebook.com/v18.0/dialog/oauth');
-        authUrl.searchParams.set('client_id', igClientId);
+        authUrl.searchParams.set('client_id', clientId);
         authUrl.searchParams.set('redirect_uri', redirectUri);
         authUrl.searchParams.set('state', stateToken);
         authUrl.searchParams.set('scope', 'instagram_basic,instagram_content_publish');
@@ -106,16 +110,8 @@ serve(async (req) => {
         break;
 
       case 'linkedin':
-        const linkedinClientId = Deno.env.get('LINKEDIN_CLIENT_ID');
-        if (!linkedinClientId) {
-          return new Response(
-            JSON.stringify({ error: 'LinkedIn integration not configured' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-        
         authUrl = new URL('https://www.linkedin.com/oauth/v2/authorization');
-        authUrl.searchParams.set('client_id', linkedinClientId);
+        authUrl.searchParams.set('client_id', clientId);
         authUrl.searchParams.set('redirect_uri', redirectUri);
         authUrl.searchParams.set('state', stateToken);
         authUrl.searchParams.set('scope', 'w_member_social,r_liteprofile,r_emailaddress');
@@ -124,16 +120,8 @@ serve(async (req) => {
 
       case 'twitter':
         // Twitter OAuth 2.0 with PKCE
-        const twitterClientId = Deno.env.get('TWITTER_CLIENT_ID');
-        if (!twitterClientId) {
-          return new Response(
-            JSON.stringify({ error: 'Twitter integration not configured' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-        
         authUrl = new URL('https://twitter.com/i/oauth2/authorize');
-        authUrl.searchParams.set('client_id', twitterClientId);
+        authUrl.searchParams.set('client_id', clientId);
         authUrl.searchParams.set('redirect_uri', redirectUri);
         authUrl.searchParams.set('state', stateToken);
         authUrl.searchParams.set('scope', 'tweet.read tweet.write users.read offline.access');
