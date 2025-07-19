@@ -27,7 +27,8 @@ interface BusinessSwitcherProps {
 }
 
 export const BusinessSwitcher: React.FC<BusinessSwitcherProps> = ({ className }) => {
-  const { businessProfiles, activeProfile, setActiveProfile, isLoading } = useBusinessProfile();
+  const { businessProfiles, isLoading } = useBusinessProfile();
+  const [activeProfile, setActiveProfile] = useState(businessProfiles?.[0] || null);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
 
   const getInitials = (name: string) => {

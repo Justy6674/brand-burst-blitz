@@ -8,7 +8,6 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { 
-  Wordpress, 
   Code, 
   Rss, 
   Webhook, 
@@ -18,7 +17,8 @@ import {
   AlertCircle,
   Globe,
   Settings,
-  Zap
+  Zap,
+  Monitor
 } from 'lucide-react';
 
 interface BlogIntegrationWizardProps {
@@ -136,7 +136,7 @@ export const BlogIntegrationWizard: React.FC<BlogIntegrationWizardProps> = ({
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="wordpress" className="flex items-center gap-2">
-            <Wordpress className="w-4 h-4" />
+            <Monitor className="w-4 h-4" />
             WordPress
           </TabsTrigger>
           <TabsTrigger value="api" className="flex items-center gap-2">
@@ -161,7 +161,7 @@ export const BlogIntegrationWizard: React.FC<BlogIntegrationWizardProps> = ({
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Wordpress className="w-5 h-5" />
+                <Monitor className="w-5 h-5" />
                 WordPress Integration
               </CardTitle>
               <CardDescription>

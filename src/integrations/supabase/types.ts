@@ -208,6 +208,7 @@ export type Database = {
       }
       business_profiles: {
         Row: {
+          blog_integrations: Json | null
           brand_colors: Json | null
           business_name: string
           compliance_settings: Json | null
@@ -222,6 +223,7 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          blog_integrations?: Json | null
           brand_colors?: Json | null
           business_name: string
           compliance_settings?: Json | null
@@ -236,6 +238,7 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          blog_integrations?: Json | null
           brand_colors?: Json | null
           business_name?: string
           compliance_settings?: Json | null
@@ -806,6 +809,79 @@ export type Database = {
           wants_updates?: boolean | null
         }
         Relationships: []
+      }
+      multi_site_publishing: {
+        Row: {
+          business_profile_id: string | null
+          created_at: string | null
+          error_message: string | null
+          id: string
+          integration_id: string | null
+          platform_name: string
+          platform_post_id: string | null
+          post_id: string | null
+          publish_status: string
+          published_at: string | null
+          published_url: string | null
+          scheduled_for: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          integration_id?: string | null
+          platform_name: string
+          platform_post_id?: string | null
+          post_id?: string | null
+          publish_status?: string
+          published_at?: string | null
+          published_url?: string | null
+          scheduled_for?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          integration_id?: string | null
+          platform_name?: string
+          platform_post_id?: string | null
+          post_id?: string | null
+          publish_status?: string
+          published_at?: string | null
+          published_url?: string | null
+          scheduled_for?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "multi_site_publishing_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "multi_site_publishing_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "website_integrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "multi_site_publishing_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       name_scout_requests: {
         Row: {
@@ -1498,6 +1574,53 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      website_integrations: {
+        Row: {
+          business_profile_id: string | null
+          configuration: Json
+          created_at: string | null
+          id: string
+          integration_name: string
+          integration_type: string
+          is_active: boolean | null
+          last_sync_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          business_profile_id?: string | null
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          integration_name: string
+          integration_type: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string | null
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          integration_name?: string
+          integration_type?: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "website_integrations_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
