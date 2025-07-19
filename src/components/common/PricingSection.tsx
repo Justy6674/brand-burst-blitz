@@ -12,11 +12,11 @@ const pricingPlans = [
     features: [
       "Up to 3 businesses",
       "Unlimited posts",
-      "Advanced analytics", 
+      "Advanced analytics",
       "AI content generation",
       "Priority support",
-      "Content templates",
-      "Australian compliance"
+      "Team collaboration",
+      "Custom branding"
     ],
     popular: true,
     originalPrice: "$79"
