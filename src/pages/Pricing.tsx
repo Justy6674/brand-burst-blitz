@@ -328,7 +328,7 @@ const Pricing = () => {
       </section>
 
       {/* Early Access Benefits */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20">
+      <section className="py-20 bg-muted/20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-6 bg-blue-600 text-white">
