@@ -6,13 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useSocialMedia } from '@/hooks/useSocialMedia';
-import { SocialAccountDialog } from './SocialAccountDialog';
+import { SocialAccountSetup } from './SocialAccountSetup';
 import { PublishingDialog } from './PublishingDialog';
 
 export const SocialMediaDashboard = () => {
-  const [showConnectDialog, setShowConnectDialog] = useState(false);
   const [showPublishDialog, setShowPublishDialog] = useState(false);
-  const [selectedPlatform, setSelectedPlatform] = useState<string>('');
+  const [showSetupDialog, setShowSetupDialog] = useState(false);
   const { 
     platforms, 
     publishingQueue, 
@@ -28,9 +27,8 @@ export const SocialMediaDashboard = () => {
   const publishedPosts = publishingQueue.filter(q => q.status === 'published');
   const failedPosts = publishingQueue.filter(q => q.status === 'failed');
 
-  const handleConnectPlatform = (platformId: string) => {
-    setSelectedPlatform(platformId);
-    setShowConnectDialog(true);
+  const handleConnectPlatforms = () => {
+    setShowSetupDialog(true);
   };
 
   const handleDisconnectPlatform = async (platformId: string) => {
@@ -82,10 +80,16 @@ export const SocialMediaDashboard = () => {
           <h1 className="text-3xl font-bold">Social Media Publishing</h1>
           <p className="text-muted-foreground">Connect platforms and manage your content distribution</p>
         </div>
-        <Button onClick={() => setShowPublishDialog(true)}>
-          <Send className="h-4 w-4 mr-2" />
-          Publish Content
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleConnectPlatforms}>
+            <Plus className="h-4 w-4 mr-2" />
+            Connect Platforms
+          </Button>
+          <Button onClick={() => setShowPublishDialog(true)} disabled={connectedPlatforms.length === 0}>
+            <Send className="h-4 w-4 mr-2" />
+            Publish Content
+          </Button>
+        </div>
       </div>
 
       {/* Summary Cards */}
@@ -206,10 +210,10 @@ export const SocialMediaDashboard = () => {
                       </p>
                       <Button 
                         className="w-full" 
-                        onClick={() => handleConnectPlatform(platform.id)}
+                        onClick={handleConnectPlatforms}
                       >
                         <Plus className="h-4 w-4 mr-2" />
-                        Connect {platform.name}
+                        Connect Platforms
                       </Button>
                     </div>
                   )}
@@ -304,12 +308,17 @@ export const SocialMediaDashboard = () => {
         </TabsContent>
       </Tabs>
 
-      <SocialAccountDialog
-        open={showConnectDialog}
-        onOpenChange={setShowConnectDialog}
-        platformId={selectedPlatform}
-        onConnect={connectPlatform}
-      />
+      <Dialog open={showSetupDialog} onOpenChange={setShowSetupDialog}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Connect Social Media Platforms</DialogTitle>
+            <DialogDescription>
+              Set up your social media accounts for automated publishing
+            </DialogDescription>
+          </DialogHeader>
+          <SocialAccountSetup />
+        </DialogContent>
+      </Dialog>
 
       <PublishingDialog
         open={showPublishDialog}
