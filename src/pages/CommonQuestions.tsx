@@ -272,41 +272,62 @@ const CommonQuestions = () => {
       </HeroSection>
 
       {/* Questions by Category */}
-      <section className="py-20">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             {questionCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex} className="mb-16">
-                {/* Category Header */}
-                <div className="flex items-center mb-8">
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mr-4`}>
-                    <category.icon className={`w-6 h-6 ${category.color}`} />
+              <div key={categoryIndex} className="mb-12">
+                {/* Category Section with Background */}
+                <div className="relative py-12 md:py-16 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                      alt="Technology support background"
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
                   </div>
-                  <div>
-                    <h2 className="text-3xl font-bold">{category.title}</h2>
-                    <p className="text-muted-foreground">
-                      {category.questions.length} questions answered
-                    </p>
+                  
+                  {/* Section Background Effects */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
+                  
+                  <div className="relative z-20 px-6">
+                    {/* Category Header */}
+                    <div className="flex items-center justify-center mb-12">
+                      <div className="text-center">
+                        <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center backdrop-blur-sm`}>
+                          <category.icon className={`w-10 h-10 text-white`} />
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{category.title}</h2>
+                        <p className="text-white/80 text-lg">
+                          {category.questions.length} comprehensive answers to help your business succeed
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Questions Accordion */}
+                    <div className="max-w-4xl mx-auto">
+                      <Card className="border-2 border-white/20 shadow-2xl bg-white/10 backdrop-blur-md">
+                        <CardContent className="p-8">
+                          <Accordion type="single" collapsible className="w-full">
+                            {category.questions.map((qa, index) => (
+                              <AccordionItem key={index} value={`${categoryIndex}-${index}`} className="border-b border-white/20">
+                                <AccordionTrigger className="text-left hover:no-underline py-6 text-white hover:text-white/90 transition-colors">
+                                  <span className="font-semibold pr-4 text-lg">{qa.question}</span>
+                                </AccordionTrigger>
+                                <AccordionContent className="text-white/80 leading-relaxed pb-6 text-base">
+                                  {qa.answer}
+                                </AccordionContent>
+                              </AccordionItem>
+                            ))}
+                          </Accordion>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
                 </div>
-
-                {/* Questions Accordion */}
-                <Card className="border-2 border-muted/50 shadow-lg">
-                  <CardContent className="p-6">
-                    <Accordion type="single" collapsible className="w-full">
-                      {category.questions.map((qa, index) => (
-                        <AccordionItem key={index} value={`${categoryIndex}-${index}`} className="border-b border-muted/30">
-                          <AccordionTrigger className="text-left hover:no-underline py-6">
-                            <span className="font-semibold pr-4">{qa.question}</span>
-                          </AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
-                            {qa.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </CardContent>
-                </Card>
               </div>
             ))}
           </div>
@@ -314,21 +335,38 @@ const CommonQuestions = () => {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-20 bg-muted/20">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-2xl mx-auto">
-            <Users className="w-16 h-16 mx-auto mb-6 text-primary" />
-            <h2 className="text-3xl font-bold mb-6">Still Have Questions?</h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Our team is here to help you succeed. Get personalized answers about how JB-SaaS can transform your business.
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Customer support team background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-blue-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-blue-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-700 z-10"></div>
+        
+        <div className="relative z-20 container mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center backdrop-blur-sm">
+              <Users className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Still Have Questions?</h2>
+            <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
+              Our Australian team is here to help you succeed. Get personalized answers about how JB-SaaS can transform your business with AI-powered marketing automation.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/auth">
-                <Button size="lg" className="bg-gradient-primary shadow-glow">
+                <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-lg px-12 py-6">
+                  <ArrowRight className="w-6 h-6 mr-3" />
                   Start Free Trial
                 </Button>
               </Link>
-              <Button variant="outline" size="lg">
+              <Button variant="outline-white" size="xl" className="text-lg px-12 py-6">
                 Contact Sales Team
               </Button>
             </div>
@@ -337,25 +375,50 @@ const CommonQuestions = () => {
       </section>
 
       {/* Quick Stats */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">46</div>
-              <div className="text-sm text-muted-foreground">Questions Answered</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">6</div>
-              <div className="text-sm text-muted-foreground">Key Categories</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Support Available</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">100%</div>
-              <div className="text-sm text-muted-foreground">Satisfaction Goal</div>
-            </div>
+      <section className="relative py-16 md:py-20 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Analytics dashboard background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-purple-900/80 to-pink-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Commitment to Australian Businesses</h3>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Comprehensive support and resources designed specifically for the Australian market
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">46</div>
+                <div className="text-white/80 font-medium">Questions Answered</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">6</div>
+                <div className="text-white/80 font-medium">Key Categories</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">24/7</div>
+                <div className="text-white/80 font-medium">Support Available</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">100%</div>
+                <div className="text-white/80 font-medium">Satisfaction Goal</div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
