@@ -72,56 +72,57 @@ export const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
           {pricingPlans.map((plan, index) => (
-            <Card 
-              key={index} 
-              className={`relative flex flex-col h-full min-h-[600px] ${plan.popular ? 'ring-2 ring-primary shadow-xl md:scale-105' : ''}`}
-            >
-              {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground z-10">
-                  Most Popular
-                </Badge>
-              )}
-              
-              <CardHeader className="text-center pb-4 flex-shrink-0">
-                <CardTitle className="text-xl md:text-2xl font-bold">{plan.name}</CardTitle>
-                <CardDescription className="text-sm text-muted-foreground">{plan.description}</CardDescription>
-                <div className="mt-4">
-                  <div className="text-3xl md:text-4xl font-bold">{plan.price}</div>
-                  <div className="text-muted-foreground text-sm">{plan.period}</div>
-                  {plan.originalPrice && (
-                    <div className="text-xs md:text-sm text-muted-foreground mt-2">
-                      <span className="line-through">{plan.originalPrice}/month</span>
-                      <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
-                    </div>
-                  )}
-                </div>
-              </CardHeader>
+            <div key={index} className="flex">
+              <Card 
+                className={`relative flex flex-col w-full ${plan.popular ? 'ring-2 ring-primary shadow-xl md:scale-105' : ''}`}
+              >
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground z-10">
+                    Most Popular
+                  </Badge>
+                )}
+                
+                <CardHeader className="text-center pb-4 flex-shrink-0">
+                  <CardTitle className="text-xl md:text-2xl font-bold">{plan.name}</CardTitle>
+                  <CardDescription className="text-sm text-muted-foreground">{plan.description}</CardDescription>
+                  <div className="mt-4">
+                    <div className="text-3xl md:text-4xl font-bold">{plan.price}</div>
+                    <div className="text-muted-foreground text-sm">{plan.period}</div>
+                    {plan.originalPrice && (
+                      <div className="text-xs md:text-sm text-muted-foreground mt-2">
+                        <span className="line-through">{plan.originalPrice}/month</span>
+                        <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
+                      </div>
+                    )}
+                  </div>
+                </CardHeader>
 
-              <CardContent className="flex flex-col flex-1 px-4 md:px-6">
-                <div className="flex-1">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start gap-3">
-                        <Check className="h-4 w-4 md:h-5 md:w-5 text-primary mt-1 flex-shrink-0" />
-                        <span className="text-sm text-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <CardContent className="flex flex-col flex-1 px-4 md:px-6">
+                  <div className="flex-1 min-h-[280px]">
+                    <ul className="space-y-3">
+                      {plan.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start gap-3">
+                          <Check className="h-4 w-4 md:h-5 md:w-5 text-primary mt-1 flex-shrink-0" />
+                          <span className="text-sm text-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <div className="mt-8 pt-4">
-                  <StandardButton 
-                    action="waitlist" 
-                    variant="primary"
-                    className="w-full py-3"
-                  >
-                    Join Waitlist
-                  </StandardButton>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="mt-auto pt-6">
+                    <StandardButton 
+                      action="waitlist" 
+                      variant="primary"
+                      className="w-full py-3"
+                    >
+                      Join Waitlist
+                    </StandardButton>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
 
