@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Clock, TrendingUp, Zap, Download, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useBusinessProfile } from "@/hooks/useBusinessProfile";
 
 interface SeasonalEvent {
   id: string;
@@ -145,9 +146,10 @@ const INDUSTRIES = [
 
 export function SeasonalContentPlanner() {
   const { toast } = useToast();
+  const { currentProfile } = useBusinessProfile();
   const [isGenerating, setIsGenerating] = useState(false);
-  const [businessName, setBusinessName] = useState("");
-  const [industry, setIndustry] = useState("");
+  const [businessName, setBusinessName] = useState(currentProfile?.business_name || "");
+  const [industry, setIndustry] = useState(currentProfile?.industry || "");
   const [location, setLocation] = useState("");
   const [contentPlan, setContentPlan] = useState<ContentPlan[]>([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -157,6 +159,15 @@ export function SeasonalContentPlanner() {
       toast({
         title: "Missing Information",
         description: "Please fill in business name and industry",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!currentProfile) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in and select a business profile",
         variant: "destructive"
       });
       return;

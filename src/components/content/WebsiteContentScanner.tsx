@@ -11,6 +11,7 @@ import { Loader2, Globe, TrendingUp, Target, Lightbulb, AlertCircle } from "luci
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
+import { useBusinessProfile } from "@/hooks/useBusinessProfile";
 
 interface CompetitorAnalysis {
   url: string;
@@ -33,11 +34,12 @@ interface ContentSuggestion {
 
 export function WebsiteContentScanner() {
   const { toast } = useToast();
+  const { currentProfile } = useBusinessProfile();
   const [isScanning, setIsScanning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [targetUrl, setTargetUrl] = useState("");
   const [competitorUrls, setCompetitorUrls] = useState("");
-  const [industry, setIndustry] = useState("");
+  const [industry, setIndustry] = useState(currentProfile?.industry || "");
   const [analysis, setAnalysis] = useState<CompetitorAnalysis[]>([]);
   const [contentSuggestions, setContentSuggestions] = useState<ContentSuggestion[]>([]);
   const [marketInsights, setMarketInsights] = useState("");
@@ -47,6 +49,15 @@ export function WebsiteContentScanner() {
       toast({
         title: "Missing URL",
         description: "Please enter your website URL",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!currentProfile) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in and select a business profile",
         variant: "destructive"
       });
       return;
@@ -76,7 +87,7 @@ export function WebsiteContentScanner() {
           targetUrl,
           competitorUrls: competitorUrls.split('\n').filter(url => url.trim()),
           industry,
-          businessName: "Your Business" // Could be passed from business profile
+          businessName: currentProfile.business_name
         }
       });
 
@@ -90,6 +101,52 @@ export function WebsiteContentScanner() {
       // Use AI-generated content suggestions from edge function
       const contentSuggestions = scanData.contentSuggestions;
       const insights = scanData.marketInsights;
+
+      setAnalysis(analysisResults);
+      setContentSuggestions(contentSuggestions);
+      setMarketInsights(insights);
+      setProgress(100);
+
+      // CRITICAL FIX: Save competitor analysis to database
+      try {
+        // Save competitor data
+        for (const competitorUrl of competitorUrls.split('\n').filter(url => url.trim())) {
+          await supabase.from('competitor_data').upsert({
+            user_id: currentProfile.user_id,
+            business_profile_id: currentProfile.id,
+            competitor_url: competitorUrl,
+            competitor_name: competitorUrl.replace(/^https?:\/\//, '').split('/')[0],
+            industry: industry || currentProfile.industry,
+            is_active: true,
+            last_analyzed_at: new Date().toISOString()
+          });
+        }
+
+        // Save competitive insights
+        for (const insight of contentSuggestions) {
+          await supabase.from('competitive_insights').insert({
+            user_id: currentProfile.user_id,
+            business_profile_id: currentProfile.id,
+            title: insight.title,
+            description: insight.reasoning,
+            insight_type: insight.type,
+            recommendations: {
+              difficulty: insight.difficulty,
+              impact: insight.impact,
+              keywords: insight.keywords,
+              outline: insight.contentOutline || [],
+              readTime: insight.estimatedReadTime || "5 minutes",
+              seoScore: insight.seoScore || 70
+            },
+            priority_score: insight.impact === "High" ? 8 : insight.impact === "Medium" ? 5 : 3
+          });
+        }
+
+        console.log('Competitor analysis saved to database');
+      } catch (saveError) {
+        console.error('Error saving competitor analysis:', saveError);
+        // Don't show error to user as the main functionality worked
+      }
 
       setAnalysis(analysisResults);
       setContentSuggestions(contentSuggestions);
@@ -113,12 +170,74 @@ export function WebsiteContentScanner() {
     }
   };
 
-  const generateContentFromSuggestion = (suggestion: ContentSuggestion) => {
-    // This would integrate with the complete content generator
-    toast({
-      title: "Generating Content",
-      description: `Creating: ${suggestion.title}`,
-    });
+  const generateContentFromSuggestion = async (suggestion: ContentSuggestion) => {
+    if (!currentProfile) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to generate content",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      // Generate content using the suggestion
+      const { data: contentData, error: contentError } = await supabase.functions.invoke('generate-complete-content', {
+        body: {
+          businessName: currentProfile.business_name,
+          industry: currentProfile.industry,
+          location: "Australia",
+          contentType: suggestion.type,
+          topicIdea: suggestion.title,
+          targetAudience: "potential customers",
+          generateImages: true,
+          generateSocial: true,
+          generateSEO: true
+        }
+      });
+
+      if (contentError) throw contentError;
+
+      // Save the generated content
+      await supabase.from('posts').insert({
+        user_id: currentProfile.user_id,
+        business_profile_id: currentProfile.id,
+        type: 'blog',
+        title: contentData.blogPost.title,
+        content: contentData.blogPost.content,
+        excerpt: contentData.blogPost.excerpt,
+        metadata: {
+          generatedFrom: 'competitor-analysis',
+          suggestionTitle: suggestion.title,
+          suggestionType: suggestion.type,
+          suggestionReasoning: suggestion.reasoning,
+          keywords: suggestion.keywords,
+          difficulty: suggestion.difficulty,
+          impact: suggestion.impact,
+          seoData: contentData.seoData,
+          socialPosts: contentData.socialPosts
+        },
+        image_urls: contentData.images ? [
+          contentData.images.heroImage,
+          contentData.images.socialImage,
+          contentData.images.quoteCard
+        ] : [],
+        status: 'draft',
+        ai_tone: 'professional'
+      });
+
+      toast({
+        title: "Content Generated & Saved!",
+        description: `Created: ${suggestion.title}`,
+      });
+    } catch (error) {
+      console.error('Error generating content from suggestion:', error);
+      toast({
+        title: "Generation Failed",
+        description: "Could not generate content. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

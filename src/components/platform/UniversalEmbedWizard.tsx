@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Copy, Download, ExternalLink, Code, Palette, Settings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useBusinessProfile } from "@/hooks/useBusinessProfile";
 
 interface Platform {
   id: string;
@@ -225,8 +226,9 @@ const THEMES = [
 
 export function UniversalEmbedWizard() {
   const { toast } = useToast();
+  const { currentProfile } = useBusinessProfile();
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(currentProfile?.user_id || "");
   const [selectedTheme, setSelectedTheme] = useState("modern");
   const [customizations, setCustomizations] = useState({
     showSearch: true,

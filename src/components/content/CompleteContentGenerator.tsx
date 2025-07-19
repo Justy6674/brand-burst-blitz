@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2, Wand2, Download, Copy, Share2, Image, FileText, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useBusinessProfile } from "@/hooks/useBusinessProfile";
 
 interface ContentPackage {
   blogPost: {
@@ -57,21 +58,31 @@ const AUSTRALIAN_LOCATIONS = [
 
 export function CompleteContentGenerator() {
   const { toast } = useToast();
+  const { currentProfile } = useBusinessProfile();
   const [isGenerating, setIsGenerating] = useState(false);
   const [contentPackage, setContentPackage] = useState<ContentPackage | null>(null);
-  const [businessName, setBusinessName] = useState("");
-  const [industry, setIndustry] = useState("");
+  const [businessName, setBusinessName] = useState(currentProfile?.business_name || "");
+  const [industry, setIndustry] = useState(currentProfile?.industry || "");
   const [location, setLocation] = useState("");
   const [contentType, setContentType] = useState("");
   const [topicIdea, setTopicIdea] = useState("");
   const [targetAudience, setTargetAudience] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
+  const [logoUrl, setLogoUrl] = useState(currentProfile?.logo_url || "");
 
   const generateCompletePackage = async () => {
     if (!businessName || !industry || !contentType) {
       toast({
         title: "Missing Information",
         description: "Please fill in business name, industry, and content type",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!currentProfile) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in and select a business profile",
         variant: "destructive"
       });
       return;
@@ -101,11 +112,61 @@ export function CompleteContentGenerator() {
       const completePackage: ContentPackage = contentData;
 
       setContentPackage(completePackage);
-      
-      toast({
-        title: "Complete Content Package Generated!",
-        description: "Blog post, images, social posts, and SEO metadata ready",
-      });
+
+      // CRITICAL FIX: Save content to database with proper user/business association
+      try {
+        // Save blog post to database
+        const { data: savedPost, error: saveError } = await supabase
+          .from('posts')
+          .insert({
+            user_id: currentProfile.user_id,
+            business_profile_id: currentProfile.id,
+            type: 'blog',
+            title: completePackage.blogPost.title,
+            content: completePackage.blogPost.content,
+            excerpt: completePackage.blogPost.excerpt,
+            metadata: {
+              metaDescription: completePackage.blogPost.metaDescription,
+              keywords: completePackage.blogPost.keywords,
+              contentType,
+              topicIdea,
+              targetAudience,
+              seoData: completePackage.seoData,
+              socialPosts: completePackage.socialPosts
+            },
+            image_urls: completePackage.images ? [
+              completePackage.images.heroImage,
+              completePackage.images.socialImage,
+              completePackage.images.quoteCard
+            ] : [],
+            status: 'draft',
+            ai_tone: 'professional'
+          })
+          .select()
+          .single();
+
+        if (saveError) {
+          console.error('Error saving content:', saveError);
+          toast({
+            title: "Content Generated but Not Saved",
+            description: "Content was generated but couldn't be saved to your account. Please try again.",
+            variant: "destructive"
+          });
+        } else {
+          console.log('Content saved successfully:', savedPost);
+          toast({
+            title: "Content Generated & Saved!",
+            description: "Your complete content package has been saved to your account",
+          });
+        }
+      } catch (saveError) {
+        console.error('Database save error:', saveError);
+        toast({
+          title: "Content Generated but Not Saved",
+          description: "Content was generated but couldn't be saved. Please check your connection.",
+          variant: "destructive"
+        });
+      }
 
     } catch (error) {
       console.error('Error generating content package:', error);

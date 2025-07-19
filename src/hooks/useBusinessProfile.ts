@@ -8,6 +8,7 @@ type BusinessProfile = Tables<'business_profiles'>;
 
 interface UseBusinessProfileReturn {
   profile: BusinessProfile | null;
+  currentProfile: BusinessProfile | null;
   businessProfiles: BusinessProfile[] | undefined;
   isLoading: boolean;
   error: string | null;
@@ -153,6 +154,7 @@ export const useBusinessProfile = (): UseBusinessProfileReturn => {
 
   return {
     profile,
+    currentProfile: profile, // Alias for better clarity
     businessProfiles,
     isLoading,
     error,
