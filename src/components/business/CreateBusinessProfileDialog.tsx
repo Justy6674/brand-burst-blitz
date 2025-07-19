@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Building2, Globe, Palette } from 'lucide-react';
+import { Building2, Globe, Palette, Upload, X } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useBusinessProfileContext } from '@/contexts/BusinessProfileContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface CreateBusinessProfileDialogProps {
   open: boolean;
@@ -40,7 +42,11 @@ interface FormData {
   website_url: string;
   default_ai_tone: string;
   is_primary: boolean;
-  favicon_url: string;
+}
+
+interface FaviconUpload {
+  file: File | null;
+  preview: string | null;
 }
 
 const industries = [
@@ -67,7 +73,9 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
   onOpenChange,
 }) => {
   const { createProfile, allProfiles } = useBusinessProfileContext();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [faviconUpload, setFaviconUpload] = useState<FaviconUpload>({ file: null, preview: null });
+  const { toast } = useToast();
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -76,23 +84,103 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
       website_url: '',
       default_ai_tone: 'professional',
       is_primary: allProfiles.length === 0, // First business is primary by default
-      favicon_url: '',
     },
   });
+
+  const handleFaviconUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: 'Invalid file type',
+          description: 'Please upload an image file (PNG, JPG, ICO, etc.)',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      // Validate file size (max 1MB)
+      if (file.size > 1024 * 1024) {
+        toast({
+          title: 'File too large',
+          description: 'Please upload a file smaller than 1MB',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFaviconUpload({
+          file,
+          preview: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeFavicon = () => {
+    setFaviconUpload({ file: null, preview: null });
+  };
+
+  const uploadFavicon = async (file: File): Promise<string | null> => {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `favicons/${fileName}`;
+
+      const { data, error } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file);
+
+      if (error) {
+        console.error('Upload error:', error);
+        throw error;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading favicon:', error);
+      return null;
+    }
+  };
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
+      let faviconUrl = null;
+      
+      // Upload favicon if provided
+      if (faviconUpload.file) {
+        faviconUrl = await uploadFavicon(faviconUpload.file);
+        if (!faviconUrl) {
+          toast({
+            title: 'Upload failed',
+            description: 'Failed to upload favicon. Creating profile without favicon.',
+            variant: 'destructive',
+          });
+        }
+      }
+
       await createProfile({
         business_name: data.business_name,
         industry: data.industry as any,
         website_url: data.website_url || null,
-        favicon_url: data.favicon_url || null,
+        favicon_url: faviconUrl,
         default_ai_tone: data.default_ai_tone as any,
         is_primary: data.is_primary,
       });
       
       form.reset();
+      setFaviconUpload({ file: null, preview: null });
       onOpenChange(false);
     } catch (error) {
       console.error('Failed to create business profile:', error);
@@ -180,26 +268,54 @@ export const CreateBusinessProfileDialog: React.FC<CreateBusinessProfileDialogPr
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="favicon_url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Favicon URL (Optional)</FormLabel>
-                  <FormControl>
-                    <Input 
-                      placeholder="https://example.com/favicon.png" 
-                      type="url" 
-                      {...field} 
+            {/* Favicon Upload */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                Favicon (Optional)
+              </label>
+              <div className="flex items-center gap-4">
+                {faviconUpload.preview ? (
+                  <div className="relative">
+                    <img 
+                      src={faviconUpload.preview} 
+                      alt="Favicon preview" 
+                      className="w-8 h-8 rounded border"
                     />
-                  </FormControl>
-                  <FormDescription>
-                    Small icon for easy business identification (16x16 or 32x32 pixels)
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <button
+                      type="button"
+                      onClick={removeFavicon}
+                      className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-xs"
+                    >
+                      <X className="w-2 h-2" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-8 h-8 border-2 border-dashed border-muted rounded flex items-center justify-center">
+                    <Upload className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                )}
+                
+                <div className="flex-1">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFaviconUpload}
+                    className="hidden"
+                    id="favicon-upload"
+                  />
+                  <label 
+                    htmlFor="favicon-upload"
+                    className="inline-flex items-center gap-2 px-3 py-1 text-sm border rounded cursor-pointer hover:bg-muted/50"
+                  >
+                    <Upload className="w-4 h-4" />
+                    {faviconUpload.file ? 'Change Favicon' : 'Upload Favicon'}
+                  </label>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Upload a small icon (16x16 or 32x32 pixels) for easy business identification
+              </p>
+            </div>
 
             <FormField
               control={form.control}
