@@ -254,19 +254,19 @@ const CommonQuestions = () => {
       <PublicHeader />
       
       <HeroSection backgroundImage={aiContentHero}>
-        <div className="max-w-4xl mx-auto animate-fade-in">
-          <Badge className="mb-6 bg-white/10 text-white border-white/20">
-            <HelpCircle className="w-4 h-4 mr-2" />
-            Everything You Need to Know
+        <div className="max-w-5xl mx-auto animate-fade-in text-center">
+          <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+            <HelpCircle className="w-5 h-5 mr-2" />
+            🇦🇺 Complete Australian Business Support
           </Badge>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            <span className="text-gradient-hero">Common Questions</span>
-            <br />About JB-SaaS
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+            Common <span className="text-yellow-400">Questions</span><br />
+            About <span className="text-yellow-400">JB-SaaS</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Get answers to the most frequently asked questions about our AI-powered content creation platform designed for Australian businesses.
+          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+            Everything Australian businesses need to know about our AI-powered content creation and marketing automation platform.
           </p>
         </div>
       </HeroSection>
@@ -300,7 +300,26 @@ const CommonQuestions = () => {
                         <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center backdrop-blur-sm`}>
                           <category.icon className={`w-10 h-10 text-white`} />
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{category.title}</h2>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                          {category.title === "Platform & Technology" && (
+                            <>Platform & <span className="text-yellow-400">Technology</span></>
+                          )}
+                          {category.title === "Business Strategy" && (
+                            <>Business <span className="text-yellow-400">Strategy</span></>
+                          )}
+                          {category.title === "Implementation & Support" && (
+                            <>Implementation & <span className="text-yellow-400">Support</span></>
+                          )}
+                          {category.title === "Company & Trust" && (
+                            <>Company & <span className="text-yellow-400">Trust</span></>
+                          )}
+                          {category.title === "Australian Services" && (
+                            <>Australian <span className="text-yellow-400">Services</span></>
+                          )}
+                          {category.title === "Advanced Features" && (
+                            <>Advanced <span className="text-yellow-400">Features</span></>
+                          )}
+                        </h2>
                         <p className="text-white/80 text-lg">
                           {category.questions.length} comprehensive answers to help your business succeed
                         </p>
