@@ -117,130 +117,122 @@ const AllServices = () => {
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <div className="container mx-auto px-4 py-16">
           
-          {/* Main SaaS Platform Section */}
+          {/* Platform Overview Section */}
           <section className="mb-20">
             <div className="text-center mb-16">
               <Badge className="mb-4 bg-primary/10 text-primary">
                 <Zap className="w-4 h-4 mr-2" />
-                Core SaaS Platform
+                AI-Powered Platform
               </Badge>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Monthly <span className="text-gradient-primary">Subscriptions</span>
+                Complete <span className="text-gradient-primary">Content Solution</span>
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Access our comprehensive AI-powered content management platform. Choose the plan that fits your business size and needs.
+                Our core SaaS platform handles all your content creation, social media management, and business intelligence needs.
               </p>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8 mb-12 items-stretch">
-              {/* Starter Plan - Green Accents */}
-              <Card className="relative border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full">
-                <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Building className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl">Starter</CardTitle>
-                  <CardDescription>Perfect for small businesses</CardDescription>
-                  <div className="text-4xl font-bold text-green-600 mt-4">
-                    $179<span className="text-lg text-muted-foreground">/month</span>
-                  </div>
-                  <Badge variant="secondary" className="mt-2">Limited Time - Then $249/month</Badge>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {starterFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button className="w-full bg-green-500 hover:bg-green-600 text-white border-0">
-                        Get Started - $179/month
-                      </Button>
-                    } 
-                  />
-                </CardContent>
-              </Card>
-
-              {/* Professional Plan - Blue Accents */}
-              <Card className="relative border-2 border-blue-500 h-full">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                  <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-1">
-                    <Star className="w-3 h-3 mr-1" />
-                    Most Popular
-                  </Badge>
-                </div>
+              
+              {/* AI Content Generation */}
+              <Card className="border-2 border-blue-500/30 hover:border-blue-500/50 transition-colors h-full">
                 <CardHeader className="text-center pb-8">
                   <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-8 h-8 text-white" />
+                    <Brain className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl">Professional</CardTitle>
-                  <CardDescription>For growing businesses</CardDescription>
-                  <div className="text-4xl font-bold text-blue-600 mt-4">
-                    $179<span className="text-lg text-muted-foreground">/month</span>
-                  </div>
-                  <Badge variant="secondary" className="mt-2">Limited Time - Then $249/month</Badge>
+                  <CardTitle className="text-2xl">AI Content Engine</CardTitle>
+                  <CardDescription>Generate professional content at scale</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3 mb-8 flex-1">
-                    {professionalFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className={`text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
-                      </li>
-                    ))}
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Industry-specific content templates</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Australian compliance built-in</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Brand voice training</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Multi-platform publishing</span>
+                    </li>
                   </ul>
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0">
-                        Get Started - $179/month
-                      </Button>
-                    } 
-                  />
                 </CardContent>
               </Card>
 
-              {/* Enterprise Plan - Purple Accents */}
-              <Card className="relative border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full">
+              {/* Social Media Management */}
+              <Card className="border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full">
                 <CardHeader className="text-center pb-8">
-                  <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Crown className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl">Enterprise</CardTitle>
-                  <CardDescription>For large organizations</CardDescription>
-                  <div className="text-4xl font-bold text-purple-600 mt-4">
-                    Custom<span className="text-lg text-muted-foreground">/month</span>
-                  </div>
-                  <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600">Coming 2025</Badge>
+                  <CardTitle className="text-2xl">Social Media Hub</CardTitle>
+                  <CardDescription>Manage all your social accounts</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3 mb-8 flex-1">
-                    {enterpriseFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Multi-account management</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Automated scheduling</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Analytics & insights</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Content calendar</span>
+                    </li>
                   </ul>
-                  <ComingSoonPopup 
-                    trigger={
-                      <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white border-0">
-                        Contact Sales
-                      </Button>
-                    } 
-                  />
+                </CardContent>
+              </Card>
+
+              {/* Business Intelligence */}
+              <Card className="border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full">
+                <CardHeader className="text-center pb-8">
+                  <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BarChart3 className="w-8 h-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl">Business Intelligence</CardTitle>
+                  <CardDescription>Data-driven insights & competitor analysis</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-3 mb-8 flex-1">
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Performance tracking</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Competitor monitoring</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">Strategic recommendations</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">ROI reporting</span>
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
 
             <div className="text-center">
               <Link to="/pricing">
-                <Button variant="outline" size="lg">
-                  View Detailed Pricing
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                <Button size="lg" className="bg-gradient-primary">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  View Pricing Plans
                 </Button>
               </Link>
             </div>
