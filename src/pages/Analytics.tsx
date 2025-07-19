@@ -1,5 +1,10 @@
-import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
+import React from 'react';
+import { RealAnalyticsDashboard } from '@/components/analytics/RealAnalyticsDashboard';
 
 export default function Analytics() {
-  return <AnalyticsDashboard />;
+  return (
+    <div className="container mx-auto p-6">
+      <RealAnalyticsDashboard />
+    </div>
+  );
 }
