@@ -516,29 +516,24 @@ const AllServices = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
             {professionalServices.map((service, index) => (
-              <Card key={index} className="border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors h-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <CardTitle className="text-xl flex-1">{service.name}</CardTitle>
-                    <Badge className="bg-orange-500 hover:bg-orange-600 text-white text-lg px-4 py-2 font-semibold border-0">
-                      {service.price}
-                    </Badge>
-                  </div>
-                  <CardDescription className="text-lg">{service.description}</CardDescription>
+              <Card key={index} className="border-2 border-orange-500/30 hover:border-orange-500/50 transition-colors bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg">{service.name}</CardTitle>
+                  <CardDescription className="text-sm">{service.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <ul className="space-y-3 mb-8 flex-1">
+                <CardContent>
+                  <ul className="space-y-2 mb-6">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
+                        <CheckCircle className="w-4 h-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-xs">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <StandardButton action="waitlist" variant="primary" className="w-full">
-                    <Settings className="w-4 h-4 mr-2" />
+                  <StandardButton action="waitlist" variant="primary" size="sm" className="w-full">
+                    <Settings className="w-3 h-3 mr-2" />
                     Join Waitlist
                   </StandardButton>
                 </CardContent>
