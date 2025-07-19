@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { useAIGeneration } from '@/hooks/useAIGeneration';
 import { useContentTemplates } from '@/hooks/useContentTemplates';
-import { useBusinessProfileContext } from '@/contexts/BusinessProfileContext';
+import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 
 const contentTypes = [
   { value: 'blog', label: 'Blog Post', icon: FileText },
@@ -39,11 +39,12 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
 
   const { generateContent, isGenerating } = useAIGeneration();
   const { templates } = useContentTemplates();
-  const { activeProfile, allProfiles, isLoading: profilesLoading, switchProfile } = useBusinessProfileContext();
+  const { businessProfiles, isLoading: profilesLoading } = useBusinessProfile();
 
+  // Use first business profile if none selected
   const selectedProfile = selectedBusinessId 
-    ? allProfiles.find(p => p.id === selectedBusinessId) 
-    : activeProfile;
+    ? businessProfiles?.find(p => p.id === selectedBusinessId) 
+    : businessProfiles?.[0];
 
   const filteredTemplates = templates.filter(template => template.type === selectedType);
 
@@ -88,18 +89,18 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
         
         <CardContent className="space-y-6">
           {/* Business/Website Selection */}
-          {!profilesLoading && allProfiles.length > 0 && (
+          {!profilesLoading && businessProfiles && businessProfiles.length > 0 && (
             <div className="space-y-2">
               <Label>Select Business/Website</Label>
               <Select 
-                value={selectedBusinessId || activeProfile?.id || ''} 
+                value={selectedBusinessId || businessProfiles[0]?.id || ''} 
                 onValueChange={setSelectedBusinessId}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose business/website..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {allProfiles.map((profile) => (
+                  {businessProfiles?.map((profile) => (
                     <SelectItem key={profile.id} value={profile.id}>
                       <div className="flex flex-col">
                         <span>{profile.business_name}</span>
