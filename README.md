@@ -67,6 +67,16 @@ JBSAAS is a feature-complete business automation platform that enables Australia
   - AI-generated research reports
   - Pricing: AU$99-AU$69 based on subscription tier
 
+### 💰 **Enhanced Australian SME Features**
+- **AI-Searchable Template Library**: Industry-categorized templates (Retail, Trades, Hospitality, etc.) with keyword filtering
+- **Local Market Data Feeds**: Real-time ABS data integration with automated "Did you know?" posts
+- **Geo-Targeted Content**: State/postcode-based local event suggestions and hashtag automation
+- **AI FAQ & Chatbot Generator**: One-click industry-specific FAQ creation with embeddable chat widgets
+- **Local SEO Metadata Creator**: Automated meta titles, descriptions, and JSON-LD schema generation
+- **Testimonial & Case Study Builder**: AI-powered conversion of bullet points to polished testimonials with branded visuals
+- **"Day in the Life" Series Creator**: Industry-specific story prompts with automated week-long content series
+- **Compliance & Regulation Hub**: AI-searchable industry compliance guides with quick-search functionality
+
 ### 🛠 **Advanced Features**
 - **Prompt Library**: Curated AI prompts with usage tracking and categorization
 - **Template Engine**: Blog and content templates with deployment system
