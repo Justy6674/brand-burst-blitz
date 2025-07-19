@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { Loader2, Globe, TrendingUp, Target, Lightbulb, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CompetitorAnalysis {
   url: string;
@@ -69,117 +70,35 @@ export function WebsiteContentScanner() {
         });
       }, 500);
 
-      // Scan each website using Firecrawl (simulated for now)
-      const analysisResults: CompetitorAnalysis[] = [];
-      
-      for (let i = 0; i < urls.length; i++) {
-        const url = urls[i];
-        setProgress((i / totalUrls) * 80);
-        
-        // In real implementation, this would use Firecrawl
-        const mockAnalysis: CompetitorAnalysis = {
-          url,
-          contentGaps: [
-            "No recent blog posts about Australian market trends",
-            "Missing customer testimonials and case studies",
-            "Limited local SEO optimization",
-            "No seasonal content for EOFY or Christmas"
-          ],
-          topicOpportunities: [
-            "Australian business compliance guides",
-            "Local market insights and statistics",
-            "Industry-specific tips and tutorials",
-            "Customer success stories"
-          ],
-          contentStrategy: url === targetUrl 
-            ? "Your website has good technical structure but lacks regular content updates and local market focus"
-            : "Competitor focuses heavily on generic content without Australian market customization",
-          strongPoints: [
-            "Professional website design",
-            "Clear service descriptions",
-            "Contact information visible"
-          ],
-          weaknesses: [
-            "Infrequent blog updates",
-            "Generic content not tailored to Australian market",
-            "Limited social proof and testimonials"
-          ],
-          recommendedActions: [
-            "Create weekly blog content about Australian industry trends",
-            "Add customer testimonials with local references",
-            "Optimize for local Australian keywords",
-            "Create seasonal content calendar"
-          ]
-        };
-        
-        analysisResults.push(mockAnalysis);
+      // Use real website scanning edge function
+      const { data: scanData, error: scanError } = await supabase.functions.invoke('website-content-scanner', {
+        body: {
+          targetUrl,
+          competitorUrls: competitorUrls.split('\n').filter(url => url.trim()),
+          industry,
+          businessName: "Your Business" // Could be passed from business profile
+        }
+      });
+
+      if (scanError) {
+        console.error('Website scanning error:', scanError);
+        throw new Error('Website scanning failed: ' + scanError.message);
       }
 
-      // Generate AI-powered content suggestions
-      const suggestions: ContentSuggestion[] = [
-        {
-          title: "5 Australian Business Compliance Changes in 2024",
-          type: "Educational Guide",
-          reasoning: "High search volume, low competition, establishes authority",
-          keywords: ["Australian business compliance", "2024 regulations", "SME compliance"],
-          difficulty: "Medium",
-          impact: "High"
-        },
-        {
-          title: "How [Your Industry] Businesses Saved Money During EOFY",
-          type: "Case Study",
-          reasoning: "Seasonal relevance, builds trust, showcases expertise",
-          keywords: ["EOFY savings", industry, "tax benefits"],
-          difficulty: "Easy",
-          impact: "High"
-        },
-        {
-          title: "Local Business Spotlight: Success Stories from [Your City]",
-          type: "Community Content",
-          reasoning: "Local SEO boost, community engagement, networking",
-          keywords: ["local business", "success stories", "community"],
-          difficulty: "Easy",
-          impact: "Medium"
-        },
-        {
-          title: "The Future of [Your Industry] in Australia: 2024 Trends",
-          type: "Industry Insight",
-          reasoning: "Thought leadership, shareability, long-term value",
-          keywords: ["industry trends", "Australian market", "2024 predictions"],
-          difficulty: "Hard",
-          impact: "High"
-        },
-        {
-          title: "Behind the Scenes: A Day in the Life at [Your Business]",
-          type: "Brand Story",
-          reasoning: "Humanizes brand, builds connection, easy to create",
-          keywords: ["behind the scenes", "company culture", "team"],
-          difficulty: "Easy",
-          impact: "Medium"
-        }
-      ];
+      const analysisResults = scanData.analysis;
 
-      // Generate market insights
-      const insights = `Based on the analysis of ${totalUrls} websites in the ${industry || "your"} industry:
-
-📊 Market Opportunity: There's a significant content gap in Australian-focused industry content. Most competitors are using generic international content.
-
-🎯 Content Strategy: Focus on local market insights, Australian compliance, and seasonal business cycles (EOFY, Christmas, etc.).
-
-💡 Quick Wins: Start with customer testimonials and local success stories - these are easy to create and highly effective for Australian audiences.
-
-🚀 Competitive Advantage: Regular, Australian-focused content will differentiate you from competitors who post sporadically or use generic content.
-
-📈 SEO Opportunity: Local keywords combined with industry expertise have low competition but high conversion potential.`;
+      // Use AI-generated content suggestions from edge function
+      const contentSuggestions = scanData.contentSuggestions;
+      const insights = scanData.marketInsights;
 
       setAnalysis(analysisResults);
-      setContentSuggestions(suggestions);
+      setContentSuggestions(contentSuggestions);
       setMarketInsights(insights);
       setProgress(100);
 
       toast({
         title: "Scan Complete!",
-        description: `Analyzed ${totalUrls} websites and generated ${suggestions.length} content opportunities`,
+        description: `Analyzed ${totalUrls} websites and generated ${contentSuggestions.length} content opportunities`,
       });
 
     } catch (error) {
