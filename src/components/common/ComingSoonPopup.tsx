@@ -90,7 +90,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
       {triggerWithProps}
       
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-2xl mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl mx-2 sm:mx-4 max-h-[90vh] overflow-y-auto border-0 sm:border p-4 sm:p-6 rounded-lg sm:rounded-xl w-[calc(100vw-16px)] sm:w-auto">
           {!showWaitlistForm ? (
             // Main Coming Soon View
             <>

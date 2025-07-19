@@ -317,70 +317,70 @@ const Index = () => {
         {/* Section Background Effects */}
         <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
         <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-600 z-10"></div>
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
-            </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+         <div className="relative z-20 container mx-auto px-4 md:px-6">
+           <div className="text-center mb-12 md:mb-20">
+             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+               <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
+             </h2>
+             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Complete AI-powered marketing automation platform with professional Australian business services.
             </p>
           </div>
 
-          <div className="grid gap-8">
-            {[
-              {
-                title: "🧠 AI Content Generation Engine",
-                description: "Advanced AI creates <span style='color: #ffd700; font-weight: 700;'>SEO-optimised blogs</span>, social posts, and <span style='color: #ffd700; font-weight: 700;'>marketing</span> copy that gets you <span style='color: #ffd700; font-weight: 700;'>found</span> on <span style='color: #ffd700; font-weight: 700;'>Google</span> and recommended by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Industry-specific compliance built into every piece.",
-                gradient: "from-blue-500/10 to-blue-600/10",
-                border: "border-blue-500/20"
-              },
-              {
-                title: "🕵️ Competitor Intelligence Scanning",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and <span style='color: #ffd700; font-weight: 700;'>market gaps</span> you can exploit.",
-                gradient: "from-purple-500/10 to-purple-600/10",
-                border: "border-purple-500/20"
-              },
-              {
-                title: "📅 Advanced Publishing & Scheduling",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Smart calendar-based</span> publishing across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn</span>, and your <span style='color: #ffd700; font-weight: 700;'>blog</span>. Performance <span style='color: #ffd700; font-weight: 700;'>analytics</span> track what's working and optimise automatically.",
-                gradient: "from-green-500/10 to-green-600/10",
-                border: "border-green-500/20"
-              },
-              {
-                title: "⚙️ Professional Social Media Setup",
-                description: "Expert <span style='color: #ffd700; font-weight: 700;'>configuration</span> of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span style='color: #ffd700; font-weight: 700;'>Australian compliance</span> verification. $199-299 value included.",
-                gradient: "from-orange-500/10 to-orange-600/10",
-                border: "border-orange-500/20"
-              },
-              {
-                title: "🔍 Name Scout Research Service",
-                description: "<span style='color: #ffd700; font-weight: 700;'>ASIC</span> availability, <span style='color: #ffd700; font-weight: 700;'>domain</span> research, and <span style='color: #ffd700; font-weight: 700;'>trademark</span> screening for your business name. Complete business registration guidance. $69-99 value included.",
-                gradient: "from-red-500/10 to-red-600/10",
-                border: "border-red-500/20"
-              },
-              {
-                title: "🛡️ Industry Compliance Safeguards",
-                description: "Built-in protection for <span style='color: #ffd700; font-weight: 700;'>AHPRA, TGA, ASIC</span>, and all Australian industry <span style='color: #ffd700; font-weight: 700;'>regulations</span>. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional <span style='color: #ffd700; font-weight: 700;'>standards</span>.",
-                gradient: "from-yellow-500/10 to-yellow-600/10",
-                border: "border-yellow-500/20"
-              }
-            ].map((feature, index) => (
-              <Card key={index} className={`p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
-                <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: feature.title }}></h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
-                </CardContent>
-              </Card>
-            ))}
+           <div className="grid gap-6 md:gap-8">
+             {[
+               {
+                 title: "🧠 AI Content Generation Engine",
+                 description: "Advanced AI creates <span style='color: #ffd700; font-weight: 700;'>SEO-optimised blogs</span>, social posts, and <span style='color: #ffd700; font-weight: 700;'>marketing</span> copy that gets you <span style='color: #ffd700; font-weight: 700;'>found</span> on <span style='color: #ffd700; font-weight: 700;'>Google</span> and recommended by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Industry-specific compliance built into every piece.",
+                 gradient: "from-blue-500/10 to-blue-600/10",
+                 border: "border-blue-500/20"
+               },
+               {
+                 title: "🕵️ Competitor Intelligence Scanning",
+                 description: "<span style='color: #ffd700; font-weight: 700;'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and <span style='color: #ffd700; font-weight: 700;'>market gaps</span> you can exploit.",
+                 gradient: "from-purple-500/10 to-purple-600/10",
+                 border: "border-purple-500/20"
+               },
+               {
+                 title: "📅 Advanced Publishing & Scheduling",
+                 description: "<span style='color: #ffd700; font-weight: 700;'>Smart calendar-based</span> publishing across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn</span>, and your <span style='color: #ffd700; font-weight: 700;'>blog</span>. Performance <span style='color: #ffd700; font-weight: 700;'>analytics</span> track what's working and optimise automatically.",
+                 gradient: "from-green-500/10 to-green-600/10",
+                 border: "border-green-500/20"
+               },
+               {
+                 title: "⚙️ Professional Social Media Setup",
+                 description: "Expert <span style='color: #ffd700; font-weight: 700;'>configuration</span> of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span style='color: #ffd700; font-weight: 700;'>Australian compliance</span> verification. $199-299 value included.",
+                 gradient: "from-orange-500/10 to-orange-600/10",
+                 border: "border-orange-500/20"
+               },
+               {
+                 title: "🔍 Name Scout Research Service",
+                 description: "<span style='color: #ffd700; font-weight: 700;'>ASIC</span> availability, <span style='color: #ffd700; font-weight: 700;'>domain</span> research, and <span style='color: #ffd700; font-weight: 700;'>trademark</span> screening for your business name. Complete business registration guidance. $69-99 value included.",
+                 gradient: "from-red-500/10 to-red-600/10",
+                 border: "border-red-500/20"
+               },
+               {
+                 title: "🛡️ Industry Compliance Safeguards",
+                 description: "Built-in protection for <span style='color: #ffd700; font-weight: 700;'>AHPRA, TGA, ASIC</span>, and all Australian industry <span style='color: #ffd700; font-weight: 700;'>regulations</span>. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional <span style='color: #ffd700; font-weight: 700;'>standards</span>.",
+                 gradient: "from-yellow-500/10 to-yellow-600/10",
+                 border: "border-yellow-500/20"
+               }
+             ].map((feature, index) => (
+               <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
+                 <CardContent className="p-0">
+                   <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: feature.title }}></h3>
+                   <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
+                 </CardContent>
+               </Card>
+             ))}
           </div>
         </div>
       </section>
 
       {/* HOW Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Colorful programming code background"
@@ -392,12 +392,12 @@ const Index = () => {
         {/* Section Background Effects */}
         <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
         <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-800 z-10"></div>
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Our <span className="text-gradient-primary">Subscription Works</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Simple monthly subscription gives you everything you need to dominate your market and eliminate expensive agencies forever.
             </p>
           </div>
@@ -441,9 +441,9 @@ const Index = () => {
       </section>
 
       {/* WHEN Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Matrix digital code technology background"
@@ -455,17 +455,17 @@ const Index = () => {
         {/* Section Background Effects */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
         <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-900 z-10"></div>
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>When</span> You Need <span className="text-gradient-primary">This Subscription</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
             </p>
           </div>
           
-          <div className="grid gap-8">
+          <div className="grid gap-6 md:gap-8">
             {[
               {
                 title: "🚨 Right Now - Emergency Visibility Crisis",
@@ -498,10 +498,10 @@ const Index = () => {
                 border: "border-purple-500/20"
               }
             ].map((timing, index) => (
-              <Card key={index} className={`p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
+              <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: timing.title }}></h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: timing.description }}></p>
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: timing.title }}></h3>
+                  <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: timing.description }}></p>
                 </CardContent>
               </Card>
             ))}
@@ -510,9 +510,9 @@ const Index = () => {
       </section>
 
       {/* Final CTA - Dynamic Tech Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image - Success/Growth Theme */}
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Financial growth charts and technology success background"
@@ -522,15 +522,15 @@ const Index = () => {
         </div>
         
         {/* Main Content */}
-        <div className="relative z-10 container mx-auto px-6 text-center">
+        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
           {/* Tech Badge */}
-          <div className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
-            <Rocket className="w-5 h-5 mr-2 text-cyan-400 animate-bounce" />
-            <span className="text-cyan-300 font-semibold tracking-wide">NEXT-GEN AI MARKETING</span>
-            <Zap className="w-5 h-5 ml-2 text-yellow-400 animate-pulse" />
+          <div className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Rocket className="w-4 h-4 md:w-5 md:h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide text-xs md:text-sm">NEXT-GEN AI MARKETING</span>
+            <Zap className="w-4 h-4 md:w-5 md:h-5 ml-2 text-yellow-400 animate-pulse" />
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent animate-fade-in">
               Stop Being Invisible.
             </span>
@@ -540,7 +540,7 @@ const Index = () => {
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed animate-fade-in animation-delay-500">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed animate-fade-in animation-delay-500 px-2">
             Join Australian businesses dominating their markets with <span style={{color: '#ffd700', fontWeight: 700}}>AI-powered content</span>.
           </p>
           
@@ -548,25 +548,25 @@ const Index = () => {
           <div className="relative inline-block animate-fade-in animation-delay-700">
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
             <StandardButton action="waitlist" variant="primary">
-              <Target className="w-6 h-6 mr-3" />
+              <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
               Join Waitlist Now
-              <Sparkles className="w-6 h-6 ml-3" />
+              <Sparkles className="w-5 h-5 md:w-6 md:h-6 ml-2 md:ml-3" />
             </StandardButton>
           </div>
           
           {/* Tech Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mt-16 animate-fade-in animation-delay-1000">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-yellow-400">98%</div>
-              <div className="text-sm text-gray-400">Success Rate</div>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16 animate-fade-in animation-delay-1000">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-yellow-400">98%</div>
+              <div className="text-xs md:text-sm text-gray-400">Success Rate</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-cyan-400">24/7</div>
-              <div className="text-sm text-gray-400">AI Working</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-cyan-400">24/7</div>
+              <div className="text-xs md:text-sm text-gray-400">AI Working</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4">
-              <div className="text-2xl font-bold text-green-400">$149</div>
-              <div className="text-sm text-gray-400">Per Month</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-green-400">$149</div>
+              <div className="text-xs md:text-sm text-gray-400">Per Month</div>
             </div>
           </div>
         </div>
@@ -574,40 +574,40 @@ const Index = () => {
 
 
       {/* Footer */}
-      <footer className="py-16 bg-muted/20 border-t">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+      <footer className="py-12 md:py-16 bg-muted/20 border-t">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
             <div>
-              <h3 className="text-xl font-bold mb-6">Product</h3>
-              <ul className="space-y-3">
-                <li><Link to="/features" className="text-muted-foreground hover:text-foreground">Features</Link></li>
-                <li><Link to="/pricing" className="text-muted-foreground hover:text-foreground">Pricing</Link></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Product</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/features" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Features</Link></li>
+                <li><Link to="/pricing" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-6">Company</h3>
-              <ul className="space-y-3">
-                <li><Link to="/about" className="text-muted-foreground hover:text-foreground">About</Link></li>
-                <li><Link to="/blog" className="text-muted-foreground hover:text-foreground">Blog</Link></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Company</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/about" className="text-sm md:text-base text-muted-foreground hover:text-foreground">About</Link></li>
+                <li><Link to="/blog" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Blog</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-6">Support</h3>
-              <ul className="space-y-3">
-                <li><Link to="/common-questions" className="text-muted-foreground hover:text-foreground">FAQ</Link></li>
-                <li><Link to="/contact" className="text-muted-foreground hover:text-foreground">Contact</Link></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Support</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/common-questions" className="text-sm md:text-base text-muted-foreground hover:text-foreground">FAQ</Link></li>
+                <li><Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Contact</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-6">Legal</h3>
-              <ul className="space-y-3">
-                <li><Link to="/privacy" className="text-muted-foreground hover:text-foreground">Privacy</Link></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Legal</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/privacy" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Privacy</Link></li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t pt-8 flex justify-between items-center">
-            <p className="text-muted-foreground">© 2024 JB-SaaS. All rights reserved.</p>
+          <div className="border-t pt-6 md:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-SaaS. All rights reserved.</p>
             <AdminAccess />
           </div>
         </div>
