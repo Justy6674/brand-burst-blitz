@@ -509,7 +509,7 @@ const AllServices = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Core</span> <span className="text-gradient-primary">Setup Services</span>
+              <span className="text-gradient-primary">Business</span> <span style={{color: '#ffd700', fontWeight: 700}}>Start-up</span> <span className="text-gradient-primary">Services</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Expert-level business setup services to get you operational fast with full Australian compliance.
