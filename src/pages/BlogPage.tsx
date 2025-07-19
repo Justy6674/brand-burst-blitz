@@ -100,9 +100,9 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src={heroImage}
             alt="AI Marketing Hero Background"
@@ -111,27 +111,27 @@ const BlogPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
-            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+            <Badge className="mb-6 md:mb-8 bg-primary/10 text-primary border-primary/20 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3">
               🇦🇺 Australian Business Intelligence & Growth
             </Badge>
             
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
               Business <span className="text-yellow-400">Insights</span><br />
               & <span className="text-yellow-400">Strategy</span>
             </h1>
             
-            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
               Discover proven strategies, AI-powered insights, and competitive intelligence to accelerate your Australian business growth.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-xl px-12 py-6">
-                <ArrowRight className="w-6 h-6 mr-3" />
+            <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
+              <Button size="xl" className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 font-bold text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                 Explore Articles
               </Button>
-              <Button size="xl" variant="outline-white" className="text-xl px-12 py-6">
+              <Button size="xl" variant="outline-white" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
                 Subscribe to Newsletter
               </Button>
             </div>
@@ -141,7 +141,7 @@ const BlogPage = () => {
 
       {/* Featured Posts Section */}
       {featuredPosts.length > 0 && (
-        <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
           {/* Background Image */}
           <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
             <img 
@@ -222,7 +222,7 @@ const BlogPage = () => {
       )}
 
       {/* Search and Filter Section */}
-      <section className="relative py-16 md:py-20 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
@@ -274,7 +274,7 @@ const BlogPage = () => {
       </section>
 
       {/* Latest Articles Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
@@ -348,7 +348,7 @@ const BlogPage = () => {
       </section>
 
       {/* Newsletter Signup Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 

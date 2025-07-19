@@ -255,30 +255,30 @@ const CommonQuestions = () => {
       
       <HeroSection backgroundImage={aiContentHero}>
         <div className="max-w-5xl mx-auto animate-fade-in text-center">
-          <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
-            <HelpCircle className="w-5 h-5 mr-2" />
+          <Badge className="mb-6 md:mb-8 bg-primary/10 text-primary border-primary/20 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3">
+            <HelpCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
             🇦🇺 Complete Australian Business Support
           </Badge>
           
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
             Common <span className="text-yellow-400">Questions</span><br />
             About <span className="text-yellow-400">JB-SaaS</span>
           </h1>
           
-          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
             Everything Australian businesses need to know about our AI-powered content creation and marketing automation platform.
           </p>
         </div>
       </HeroSection>
 
-      {/* Questions by Category */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6">
+      {/* Questions by Category - Mobile Optimized */}
+      <section className="py-12 md:py-16 lg:py-24">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
             {questionCategories.map((category, categoryIndex) => (
               <div key={categoryIndex} className="mb-12">
                 {/* Category Section with Background */}
-                <div className="relative py-12 md:py-16 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+                <div className="relative py-8 md:py-12 lg:py-16 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
                     <img 

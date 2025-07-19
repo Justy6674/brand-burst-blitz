@@ -122,9 +122,9 @@ const Index = () => {
       <GeoDetection />
       <PublicHeader />
 
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src={heroImage}
             alt="AI Marketing Hero Background"
@@ -133,38 +133,38 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
-            <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 text-lg px-6 py-3">
+            <Badge className="mb-6 md:mb-8 bg-primary/10 text-primary border-primary/20 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3">
               🎯 Complete AI Marketing Automation & SEO Platform
             </Badge>
             
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
               Be Found on <span className="text-yellow-400">Google</span><br />
               Recommended by <span className="text-yellow-400">AI Agents</span>
             </h1>
             
-            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
               Automated content creation, competitor intelligence, and professional setup for Australian businesses across all industries.
             </p>
             
-            <div className="mb-12">
-              <p className="text-2xl font-bold text-yellow-400 mb-8">
+            <div className="mb-8 md:mb-12">
+              <p className="text-xl md:text-2xl font-bold text-yellow-400 mb-6 md:mb-8 px-2">
                 $149/month replaces $11,700 in agency costs
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
                 <ComingSoonPopup 
                   trigger={
-                    <Button variant="hero" size="xl" className="text-xl px-12 py-6">
-                      <Target className="w-6 h-6 mr-3" />
+                    <Button variant="hero" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6">
+                      <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                       Get Started Now
                     </Button>
                   } 
                 />
-                <Button variant="outline-white" size="xl" className="text-xl px-12 py-6" asChild>
+                <Button variant="outline-white" size="xl" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6" asChild>
                   <Link to="/pricing">
-                    <Rocket className="w-6 h-6 mr-3" />
+                    <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                     View Pricing
                   </Link>
                 </Button>
@@ -174,10 +174,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* WHO Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      {/* WHO Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
             alt="Circuit board macro technology background"
@@ -189,12 +189,12 @@ const Index = () => {
         {/* Section Background Effects */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
-        <div className="relative z-20 container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
               <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Australian business owners trapped in expensive, ineffective marketing solutions who are losing ground to competitors daily.
             </p>
           </div>
@@ -237,8 +237,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* WHY Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      {/* WHY Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
@@ -306,8 +306,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* WHAT Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+      {/* WHAT Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
           <img 
