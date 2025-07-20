@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
-import { ErrorBoundary } from "@/components/common/ErrorBoundary";
+import { GlobalErrorBoundary } from "@/components/error/GlobalErrorBoundary";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { EmailConfirmationGuard } from "@/components/auth/EmailConfirmationGuard";
 import AuthPage from "@/components/auth/AuthPage";
@@ -53,7 +53,7 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <UserProfileProvider>
-          <ErrorBoundary>
+          <GlobalErrorBoundary>
           <Toaster />
           <Sonner />
           <Routes>
@@ -116,7 +116,7 @@ const App = () => (
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </ErrorBoundary>
+          </GlobalErrorBoundary>
         </UserProfileProvider>
       </AuthProvider>
     </TooltipProvider>

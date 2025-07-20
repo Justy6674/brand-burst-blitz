@@ -6,6 +6,7 @@ import { AppSidebar } from './AppSidebar';
 import { AppHeader } from './AppHeader';
 import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
 import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
+import { SessionTimeoutWarning, SessionTimeoutBanner } from '@/components/auth/SessionTimeoutWarning';
 
 const AppLayout = () => {
   return (
@@ -21,6 +22,10 @@ const AppLayout = () => {
               </main>
             </div>
             <SmartAIAssistant />
+            
+            {/* Session Timeout Management */}
+            <SessionTimeoutWarning />
+            <SessionTimeoutBanner />
           </div>
         </SidebarProvider>
       </BusinessThemeProvider>
