@@ -469,15 +469,28 @@ export const AdvancedCalendarDashboard = () => {
       <EventCreateDialog
         open={showCreateDialog}
         onOpenChange={setShowCreateDialog}
-        onCreateEvent={createEvent}
-        initialDate={selectedDate || new Date()}
-        initialTime={selectedTime}
+        selectedDate={selectedDate || new Date()}
+        onEventCreated={(event) => {
+          createEvent({
+            title: event.title,
+            description: event.description,
+            location: event.location,
+            start_datetime: event.start_datetime,
+            end_datetime: event.end_datetime,
+            all_day: event.all_day,
+            event_type: event.event_type
+          });
+        }}
       />
 
       <EventDetailsDialog
         open={showEventDialog}
         onOpenChange={setShowEventDialog}
-        event={selectedEvent}
+        eventId={selectedEvent?.id || ''}
+        onEventUpdated={() => {}}
+        onEventDeleted={() => {
+          setShowEventDialog(false);
+        }}
       />
     </div>
   );

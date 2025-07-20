@@ -379,7 +379,12 @@ export const CalendarDashboard = () => {
       <EventDetailsDialog
         open={showEventDialog}
         onOpenChange={setShowEventDialog}
-        event={selectedEvent}
+        eventId={selectedEvent?.id || ''}
+        onEventUpdated={() => refreshCalendar()}
+        onEventDeleted={() => {
+          setShowEventDialog(false);
+          refreshCalendar();
+        }}
       />
 
       <DayDetailDialog

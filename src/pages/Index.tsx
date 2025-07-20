@@ -138,27 +138,27 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
             <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-              🎯 Complete AI Marketing Automation & SEO Platform
+              🏥 AHPRA-Compliant Healthcare Content Platform
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              Be Found on <span className="text-yellow-400">Google</span><br />
-              Recommended by <span className="text-yellow-400">AI Agents</span>
+              Australia's First <span className="text-yellow-400">AHPRA-Compliant</span><br />
+              Content Platform for <span className="text-yellow-400">Healthcare Professionals</span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              Automated content creation, competitor intelligence, and professional setup for Australian businesses across all industries.
+              AI-powered patient education content and AHPRA-compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners.
             </p>
             
             <div className="mb-8 md:mb-12">
               <p className="text-xl md:text-2xl font-bold text-yellow-400 mb-6 md:mb-8 px-2">
-                $149/month replaces $11,700 in agency costs
+                $149/month replaces $16,000 in healthcare marketing agency costs
               </p>
               
               <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
                 <StandardButton action="waitlist" variant="primary">
                   <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  Join Waitlist
+                  Join Healthcare Professionals Waitlist
                 </StandardButton>
                 <StandardButton action="pricing" variant="secondary">
                   <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
@@ -191,35 +191,41 @@ const Index = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Australian business owners trapped in expensive, ineffective marketing solutions who are losing ground to competitors daily.
+              Australian healthcare professionals trapped in non-compliant marketing that risks AHPRA violations and patient trust.
             </p>
           </div>
           
           <div className="grid gap-8">
             {[
               {
-                title: "🎯 The Frustrated Owner",
-                description: "Paying <span className='text-yellow-highlight'>$8,000+ monthly</span> for agencies that don't understand your business. Watching <span className='text-yellow-highlight'>competitors</span> get more <span style='color: #ffd700; font-weight: 700;'>visibility</span> with worse products.",
+                title: "🩺 The Overwhelmed GP",
+                description: "Managing <span className='text-yellow-highlight'>200+ patients weekly</span> while creating <span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span>. Every social media post risks <span className='text-yellow-highlight'>$13,000+ fines</span> for regulatory violations.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
-                title: "⏰ The Time-Strapped Entrepreneur", 
-                description: "Spending <span className='text-yellow-highlight'>20+ hours weekly</span> on <span style='color: #ffd700; font-weight: 700;'>content creation</span> instead of running your business. Missing <span className='text-yellow-highlight'>opportunities</span> while stuck in <span style='color: #ffd700; font-weight: 700;'>marketing</span> tasks.",
+                title: "🦴 The Growing Specialist", 
+                description: "Need <span className='text-yellow-highlight'>patient education content</span> demonstrating expertise without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Building trust while maintaining <span className='text-yellow-highlight'>professional boundaries</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "🚀 The Growth-Ready Business",
-                description: "Ready to scale but <span className='text-yellow-highlight'>invisible to <span style='color: #ffd700; font-weight: 700;'>Google</span></span> and ignored by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Knows content <span style='color: #ffd700; font-weight: 700;'>marketing</span> is critical but lacks the expertise.",
+                title: "🧠 The Allied Health Professional",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Psychology, Physiotherapy, OT, Dietician, Exercise Physiologist</span> compliance requirements. Need referral-generating content that meets <span className='text-yellow-highlight'>professional standards</span>.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
-                title: "💭 The Dreamer",
-                description: "Thinking about starting a <span style='color: #ffd700; font-weight: 700;'>business</span> (large or small) but overwhelmed by <span style='color: #ffd700; font-weight: 700;'>marketing complexity</span>. Needs a simple, affordable solution that works from day one.",
+                title: "💉 The Nurse Practitioner",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Weight loss, telehealth, alternative medicine, sexual health</span> compliance challenges. Building practice visibility while navigating <span className='text-yellow-highlight'>strict advertising guidelines</span>.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
+              },
+              {
+                title: "🏢 The Private Practice Entrepreneur",
+                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, AHPRA obligations</span>, and patient acquisition strategies.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
               }
             ].map((audience, index) => (
               <Card key={index} className={`p-8 hover-lift ${audience.border} bg-gradient-to-br ${audience.gradient}`}>
@@ -251,42 +257,42 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span className="text-yellow-highlight">WHY</span> You Desperately <span className="text-gradient-primary">Need This Platform</span>
+              <span className="text-yellow-highlight">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Five critical business problems destroying your growth every day you remain invisible.
+              Five critical compliance and visibility problems threatening your practice every day you remain invisible.
             </p>
           </div>
           
           <div className="grid gap-8">
             {[
               {
-                title: "🔍 Google Invisibility Crisis",
-                description: "Without regular, <span style='color: #ffd700; font-weight: 700;'>SEO-optimised</span> <span style='color: #ffd700; font-weight: 700;'>content</span>, Google doesn't rank your business. <span style='color: #ffd700; font-weight: 700;'>Results</span> show that customers can't be <span style='color: #ffd700; font-weight: 700;'>found</span> when they search for your services.",
+                title: "⚖️ AHPRA Compliance Crisis",
+                description: "Generic <span style='color: #ffd700; font-weight: 700;'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-highlight'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
-                title: "🤖 AI Agent Exclusion",
-                description: "<span style='color: #ffd700; font-weight: 700;'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend businesses with quality <span style='color: #ffd700; font-weight: 700;'>online content</span>. <span className='text-yellow-highlight'>Customers</span> increasingly ask AI to find providers - you're invisible.",
+                title: "🚫 TGA Therapeutic Claims",
+                description: "Accidentally making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span> without TGA approval. <span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend healthcare professionals with compliant <span style='color: #ffd700; font-weight: 700;'>online content</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "⚖️ Compliance Nightmares",
-                description: "Generic content creators violate regulations. <span style='color: #ffd700; font-weight: 700;'>Australian businesses</span> need <span style='color: #ffd700; font-weight: 700;'>compliant marketing</span> that protects your reputation and avoids costly fines.",
+                title: "👥 Patient Trust Boundaries",
+                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by AHPRA</span> - but patients still need to find and trust you.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
-                title: "👁️ Competitor Intelligence Blindness", 
-                description: "Your <span style='color: #ffd700; font-weight: 700;'>competitors</span> use <span className='text-yellow-highlight'>content</span> strategies you can't see or <span style='color: #ffd700; font-weight: 700;'>analyse</span>. They capture <span className='text-yellow-highlight'>customers</span> and <span className='text-yellow-highlight'>patients</span> with <span style='color: #ffd700; font-weight: 700;'>marketing</span> approaches you don't know about.",
+                title: "🔍 Professional Invisibility", 
+                description: "Patients ask <span style='color: #ffd700; font-weight: 700;'>AI for healthcare providers</span> - you're invisible to <span className='text-yellow-highlight'>ChatGPT recommendations</span>. Without quality patient education content, referral sources and patients can't find you.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Quality, compliant content</span> takes 20+ hours weekly. You're either neglecting <span style='color: #ffd700; font-weight: 700;'>marketing</span> or paying agencies thousands monthly for poor <span className='text-yellow-highlight'>results</span>.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span> takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused <span className='text-yellow-highlight'>content creation</span>.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }

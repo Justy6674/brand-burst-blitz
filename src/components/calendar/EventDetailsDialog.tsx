@@ -60,7 +60,7 @@ export const EventDetailsDialog = ({
         description: formData.description,
         location: formData.location,
         all_day: formData.allDay,
-        event_type: formData.eventType
+        event_type: formData.eventType as "general" | "blog" | "post" | "review" | "campaign" | "meeting" | "deadline" | "analysis"
       });
 
       if (updatedEvent) {

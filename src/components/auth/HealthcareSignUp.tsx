@@ -390,7 +390,7 @@ export const HealthcareSignUp: React.FC<HealthcareSignUpProps> = ({ onSuccess, o
                 <Checkbox
                   id="terms"
                   checked={acceptedTerms}
-                  onCheckedChange={setAcceptedTerms}
+                  onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
                 />
                 <Label htmlFor="terms" className="text-sm">
                   I accept the <span className="text-blue-600 underline">Terms of Service</span> and <span className="text-blue-600 underline">Privacy Policy</span>
@@ -402,7 +402,7 @@ export const HealthcareSignUp: React.FC<HealthcareSignUpProps> = ({ onSuccess, o
                 <Checkbox
                   id="ahpra"
                   checked={acceptedAHPRA}
-                  onCheckedChange={setAcceptedAHPRA}
+                  onCheckedChange={(checked) => setAcceptedAHPRA(checked === true)}
                 />
                 <Label htmlFor="ahpra" className="text-sm">
                   I acknowledge that all content created through this platform must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements. I understand that I am responsible for reviewing all content before publication.

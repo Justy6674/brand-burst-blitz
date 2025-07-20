@@ -12,7 +12,7 @@ import { usePracticeManagementIntegration } from '@/hooks/usePracticeManagementI
 import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
 import { 
   Settings, CheckCircle, AlertTriangle, Zap, Clock, 
-  Users, Calendar, Database, Shield, Sync, Plus,
+  Users, Calendar, Database, Shield, RefreshCw, Plus,
   Wifi, WifiOff, Star, TrendingUp, ExternalLink,
   Monitor, Brain, Activity, Award
 } from 'lucide-react';
@@ -134,7 +134,7 @@ export const PracticeManagementIntegration = () => {
                   {connectedSystems.length > 0 ? 'Active' : 'Inactive'}
                 </p>
               </div>
-              <Sync className="h-8 w-8 text-purple-600" />
+              <RefreshCw className="h-8 w-8 text-purple-600" />
             </div>
           </CardContent>
         </Card>
@@ -281,7 +281,7 @@ export const PracticeManagementIntegration = () => {
                           onClick={() => syncData(connectedSystem.system_id)}
                           disabled={isLoading}
                         >
-                          <Sync className="mr-2 h-4 w-4" />
+                          <RefreshCw className="mr-2 h-4 w-4" />
                           Sync Now
                         </Button>
                         <Button
@@ -464,7 +464,7 @@ export const PracticeManagementIntegration = () => {
                           onClick={() => syncData(system.system_id)}
                           disabled={isLoading}
                         >
-                          <Sync className="mr-2 h-4 w-4" />
+                          <RefreshCw className="mr-2 h-4 w-4" />
                           {isLoading ? 'Syncing...' : 'Sync Now'}
                         </Button>
                       </div>
@@ -505,7 +505,7 @@ export const PracticeManagementIntegration = () => {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <Sync className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                  <RefreshCw className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                   <h3 className="text-lg font-semibold mb-2">No Systems Connected</h3>
                   <p className="text-gray-600">Connect to a practice management system to enable data synchronization</p>
                 </div>
