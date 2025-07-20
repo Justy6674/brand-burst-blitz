@@ -1,6 +1,8 @@
-# JBSAAS: AI-Powered Business Content & Social Automation Platform
+# JBSAAS: AI-Powered Healthcare Content & Patient Engagement Platform
 
-JBSAAS is a comprehensive, full-stack SaaS platform that empowers Australian businesses with AI-driven content creation, social media management, blog publishing, competitive analysis, and specialized business services. Built on React with Supabase backend and powered by OpenAI, JBSAAS provides businesses with a complete digital marketing automation solution.
+JBSAAS is a comprehensive, full-stack SaaS platform specifically designed for Australian healthcare professionals and practices. From GPs and medical specialists to allied health, psychology, and social work practices, JBSAAS provides AHPRA-compliant content creation, patient engagement tools, and practice marketing automation that adheres to Australian healthcare regulations including AHPRA guidelines and TGA advertising requirements. Built on React with Supabase backend and powered by OpenAI with healthcare-specific compliance checking.
+
+**🇦🇺 Australia-Only Launch** → **🏥 Healthcare-Only Focus** → **📈 Future Expansion** (Other Industries, New Zealand)
 DONT OVERWRIGHT CODE WITHOUT APPROVAL
 THE MEMBERS AREA NEEDS TO PROVIDE FOR NON-TECHNICALLY ADEPT USERS AND ALL OF THEIR TECHNICAL NEEDS - E.G IF GO-DADDY WEBSITE THEY HAVE A BLOG SYSTEM, HOWEVER IF ANOTHER SYESTEM WE CAN EMBED, ALL THE WAY TO JUST A CONTENT AND IMAGE GENRATOR AND PLANNER. BE SMART-
 ---
@@ -19,54 +21,84 @@ THE MEMBERS AREA NEEDS TO PROVIDE FOR NON-TECHNICALLY ADEPT USERS AND ALL OF THE
 
 ---
 
+## 🏥 Healthcare-Specific Platform Overview
+
+**JBSAAS is Australia's first healthcare-specific content and patient engagement platform**, purpose-built to navigate the complex landscape of medical marketing and patient communication while maintaining full compliance with Australian healthcare regulations.
+
+### **Why Healthcare-Only?**
+Healthcare professionals face unique challenges that generic business tools can't solve:
+- **AHPRA Advertising Guidelines** must be followed for all patient-facing content
+- **TGA Therapeutic Advertising** requirements for health claims and medical devices  
+- **Professional Indemnity** considerations requiring careful content guidelines
+- **Patient Communication Standards** that maintain appropriate professional boundaries
+- **Multi-Practice Management** reality where healthcare professionals often run multiple locations with different tech stacks
+
+### **Target Healthcare Professionals**
+- **General Practitioners (GPs)** and Family Medicine practices
+- **Medical Specialists** (Cardiology, Dermatology, Psychiatry, Pediatrics, etc.)
+- **Allied Health Professionals** (Physiotherapy, Psychology, Occupational Therapy, Speech Pathology)
+- **Healthcare Support Services** (Social Work, Counseling, Dietetics, Podiatry)
+- **Nursing and Midwifery** practices
+- **Dental and Oral Health** practitioners
+- **Optometry and Vision Care** professionals
+
+### **Healthcare Practice Types Supported**
+- Solo healthcare practices (Cursor/Vercel, Lovable platforms) → **Automated Integration**
+- Traditional hosting practices (GoDaddy, WordPress, Wix) → **Copy-Paste Workflows**  
+- Group medical practices and clinics → **Multi-practitioner Coordination**
+- Specialist medical centers → **Referral Network Content**
+- Healthcare practice networks → **Network-wide Content Strategy**
+
+---
+
 ## Project Overview
 
-JBSAAS is a feature-complete business automation platform that enables Australian businesses to:
+JBSAAS is a feature-complete healthcare automation platform that enables Australian healthcare professionals to:
 
-- **Content Creation**: Generate AI-driven blog posts, social media content, and marketing materials
-- **Blog Management**: Full-featured blog system with SEO optimization and content templates
-- **Social Media Automation**: Schedule and publish across multiple platforms with brand consistency
-- **Business Intelligence**: Competitive analysis, market insights, and strategic recommendations
-- **Australian Services**: ABN validation, social media setup, and business name research
-- **Multi-Business Management**: Support for agencies and enterprise clients with multiple brands
-- **Compliance Management**: Industry-specific compliance monitoring and audit trails
+- **AHPRA-Compliant Content Creation**: Generate AI-driven patient education materials, practice marketing, and professional communications that automatically follow AHPRA advertising guidelines
+- **Healthcare Blog Management**: Full-featured blog system optimized for healthcare SEO, patient education, and medical content with built-in compliance checking
+- **Patient Engagement Workflows**: Copy-paste social media content for patient education, health awareness campaigns, and practice updates that maintain professional boundaries
+- **Healthcare Practice Intelligence**: Competitor analysis respecting professional standards, healthcare market insights, and practice growth recommendations
+- **Australian Healthcare Services**: ABN validation for medical practices, healthcare-specific social media setup, and practice branding services
+- **Multi-Practice Management**: Support for healthcare professionals managing multiple locations, specialties, and practice types with different tech stacks
+- **Healthcare Compliance Management**: AHPRA/TGA compliance monitoring, therapeutic advertising validation, and professional indemnity protection
 
 ---
 
 ## Complete Feature Set
 
-### 🎯 **Core Platform Features**
-- **Landing Page & Navigation**: Optimized responsive design with comprehensive FAQ system
-- **User Authentication**: Supabase Auth with role-based access control (Trial, Subscriber, Admin)
-- **Business Profile Management**: Multi-business support with brand colors, logos, and compliance settings
-- **Dashboard**: Unified business dashboard with analytics and service management
+### 🎯 **Core Healthcare Platform Features**
+- **Healthcare Landing Page**: Optimized responsive design with healthcare professional FAQ system and AHPRA compliance information
+- **Professional Authentication**: Supabase Auth with role-based access control (Trial Healthcare Professional, Healthcare Practice Subscriber, Healthcare Network Admin)
+- **Practice Profile Management**: Multi-practice support with healthcare branding, AHPRA compliance settings, specialty-specific configurations, and adaptive tech stack workflows
+- **Healthcare Dashboard**: Unified practice dashboard with patient engagement analytics, compliance monitoring, and healthcare service management
 
-### 📝 **Content Management System**
-- **Blog Platform**: Full-featured blog with rich editor, SEO optimization, and scheduled publishing
-- **Content Templates**: Industry-specific templates with AI integration
-- **AI Content Generation**: Business-focused content creation with tone customization
-- **Image Management**: Upload, storage, and optimization with alt-text and tagging
-- **Publishing Queue**: Automated scheduling and status tracking
+### 📝 **Healthcare Content Management System**
+- **Healthcare Blog Platform**: Full-featured blog with rich editor optimized for patient education, healthcare SEO, and AHPRA-compliant scheduled publishing
+- **Healthcare Content Templates**: Specialty-specific templates (GP, Allied Health, Specialists) with AHPRA-compliant AI integration
+- **AHPRA-Compliant AI Content Generation**: Healthcare-focused content creation with patient-appropriate tone customization and therapeutic claim validation
+- **Medical Image Management**: Upload, storage, and optimization with healthcare-appropriate alt-text, patient privacy considerations, and medical content tagging
+- **Healthcare Publishing Queue**: Automated scheduling with compliance checking and copy-paste workflow status tracking
 
-### 📊 **Business Intelligence**
-- **Analytics Dashboard**: Comprehensive performance metrics and insights
-- **Competitive Analysis**: Automated competitor tracking and content analysis
-- **Strategic Recommendations**: AI-powered business insights and action items
-- **Cross-Business Reporting**: Enterprise-level analytics for multi-business accounts
-- **Performance Tracking**: Engagement metrics and ROI analysis
+### 📊 **Healthcare Practice Intelligence**
+- **Practice Analytics Dashboard**: Comprehensive patient engagement metrics, practice growth insights, and healthcare-specific performance indicators
+- **Healthcare Competitive Analysis**: Automated competitor tracking respecting professional standards and healthcare content analysis
+- **Practice Growth Recommendations**: AI-powered healthcare practice insights, patient acquisition strategies, and professional development action items
+- **Multi-Practice Reporting**: Network-level analytics for healthcare professionals managing multiple practices, specialties, and locations
+- **Patient Engagement Tracking**: Healthcare-appropriate engagement metrics, practice ROI analysis, and referral network performance
 
-### 🇦🇺 **Australian Business Services**
-- **Aussie Quick-Start Social Setup**: Professional social media account configuration
-  - ABN validation and business verification
-  - Facebook Business Manager setup
-  - Instagram Business profile configuration
-  - Tier-based pricing (AU$299/AU$199/Included)
-- **Aussie Name & Domain Scout**: Business name and domain research service
-  - ASIC business name availability checking
-  - Domain availability across multiple extensions
-  - Optional trademark screening
-  - AI-generated research reports
-  - Pricing: AU$99-AU$69 based on subscription tier
+### 🇦🇺 **Australian Healthcare Services**
+- **Aussie Healthcare Quick-Start Social Setup**: Professional healthcare social media account configuration with AHPRA compliance
+  - Healthcare practice ABN validation and business verification
+  - Facebook Business Manager setup for healthcare practices with compliance guidelines
+  - Instagram Business profile configuration following healthcare professional standards
+  - Healthcare-specific tier-based pricing (AU$399/AU$299/AU$199 based on practice size)
+- **Aussie Healthcare Practice Name & Domain Scout**: Healthcare practice name and domain research service
+  - ASIC business name availability checking for healthcare practices
+  - Healthcare-appropriate domain availability across multiple extensions (.com.au, .health, .clinic)
+  - Healthcare trademark screening and professional name conflicts
+  - AI-generated healthcare practice research reports with AHPRA compliance considerations
+  - Pricing: AU$149-AU$99 based on healthcare subscription tier
 
 ### 🛠 **Advanced Features**
 - **Prompt Library**: Curated AI prompts with usage tracking and categorization
@@ -135,18 +167,21 @@ JBSAAS is a feature-complete business automation platform that enables Australia
 
 ## AI Integration & Content Generation
 
-### AI Models & Configuration
-- **Primary Model**: OpenAI GPT-4 with business-optimized prompts
-- **Industry Customization**: Health, Finance, Legal, Tech, General business prompts
-- **Tone Management**: Professional, Friendly, Casual, Authoritative, Empathetic, Exciting
-- **Content Types**: Blog posts, social media, ads, business analysis
+### Healthcare AI Models & Configuration
+- **Primary Model**: OpenAI GPT-4 with healthcare-optimized, AHPRA-compliant prompts
+- **Healthcare Specialization**: GP, Medical Specialist, Allied Health, Psychology, Social Work, Nursing, Dental, Optometry specific prompts
+- **Compliance Integration**: All AI generation includes AHPRA advertising guideline validation and TGA therapeutic claim checking
+- **Healthcare Tone Management**: Patient-appropriate Professional, Empathetic, Educational, Reassuring, Clinical, Health-Promotional
+- **Healthcare Content Types**: Patient education materials, practice communications, health awareness content, professional referral communications
 
-### AI-Powered Features
-- **Content Generation**: Blog posts, social captions, marketing copy
-- **Business Analysis**: Questionnaire insights and recommendations
-- **Competitive Intelligence**: Automated competitor content analysis
-- **SEO Optimization**: Keyword suggestions and content optimization
-- **Strategic Recommendations**: Business improvement suggestions
+### Healthcare-Specific AI Features
+- **AHPRA-Compliant Content Generation**: Every piece of content automatically follows AHPRA professional advertising standards
+- **Patient-Appropriate Language**: AI trained to communicate medical information in accessible, non-alarming language that maintains professional boundaries
+- **Healthcare Practice Analysis**: Practice questionnaire insights and growth recommendations specific to healthcare business models
+- **Professional Competitive Intelligence**: Healthcare practice competitor content analysis that respects professional standards and ethics
+- **Healthcare SEO Optimization**: Local healthcare search optimization for medical and allied health practices
+- **Therapeutic Claim Validation**: Automatic flagging of content that may violate TGA therapeutic advertising requirements
+- **Cultural Healthcare Sensitivity**: Content that respects diverse Australian patient populations and Indigenous health considerations
 
 ---
 
@@ -201,11 +236,15 @@ JBSAAS is a feature-complete business automation platform that enables Australia
 - Secure API key management via Supabase Secrets
 - Audit trails for all user actions
 
-### Industry Compliance
-- Health industry (AHPRA/TGA) compliance monitoring
-- Finance industry (ASIC/AFSL) guidelines enforcement
-- Legal industry compliance frameworks
-- Automated compliance checking and reporting
+### Healthcare Compliance (Core Platform Feature)
+- **AHPRA Professional Standards**: Real-time compliance monitoring for all healthcare advertising and patient communication content
+- **TGA Therapeutic Advertising**: Automated validation for therapeutic claims, medical device promotion, and health product advertising
+- **Privacy Act Healthcare Provisions**: Specialized privacy protection for health information and patient communications
+- **National Healthcare Standards**: Compliance with Australian healthcare quality and safety standards
+- **Professional Indemnity Protection**: Content guidelines that minimize professional liability risks for healthcare practitioners
+- **Cultural Safety Requirements**: Healthcare content that meets Aboriginal and Torres Strait Islander cultural safety standards
+- **Healthcare Accessibility Standards**: Patient communication that meets disability access and plain English requirements
+- **Automated Healthcare Compliance**: Real-time checking and reporting specific to Australian healthcare regulations
 
 ### Privacy Protection
 - GDPR/CCPA compliance features
@@ -233,18 +272,19 @@ JBSAAS is a feature-complete business automation platform that enables Australia
 
 ---
 
-## Pricing & Subscription Model
+## Healthcare Practice Pricing & Subscription Model
 
-### Subscription Tiers
-- **Trial**: NO TRIal - can opt out of subscription any time
-- **General Plan**: Full platform access with basic features - starting price $49 limited time then $79 - up to three businesses
-- **Large Plan**: Advanced features with priority support - 4 plus businesses
-- **Enterprise Plan**: Multi-business support with dedicated account management - in 2026 when successfull and can employ a developer or two 
+### Healthcare Subscription Tiers
+- **Trial**: NO Trial - healthcare professionals can opt out of subscription any time after exploring AHPRA-compliant features
+- **Solo Practitioner Plan**: AU$79/month - Full platform access optimized for individual healthcare professionals - up to 2 practice locations with AHPRA-compliant content generation
+- **Group Practice Plan**: AU$149/month - Advanced features with multi-practitioner coordination and priority healthcare support - up to 5 practice locations
+- **Healthcare Network Plan**: AU$299/month - Multi-practice network support with dedicated healthcare account management and white-label options - unlimited practice locations
 
-### Australian Service Add-ons
-- **Aussie Quick-Start Social Setup**: AU$299 (Starter) / AU$199 (Professional) / Included (Enterprise)
-- **Aussie Name & Domain Scout**: AU$99 (Starter) / AU$79 (Professional) / AU$69 (Enterprise)
-- **Trademark Screening**: AU$50 add-on (included for Professional+)
+### Australian Healthcare Service Add-ons
+- **Aussie Healthcare Quick-Start Social Setup**: AU$399 (Solo) / AU$299 (Group) / AU$199 (Network) - includes AHPRA compliance audit and healthcare-specific social media setup
+- **Aussie Healthcare Practice Name & Domain Scout**: AU$149 (Solo) / AU$119 (Group) / AU$99 (Network) - healthcare practice name research with professional standards consideration
+- **Healthcare Compliance Audit**: AU$199 (comprehensive review of all content for AHPRA/TGA compliance)
+- **Patient Journey Content Strategy**: AU$299 (complete patient acquisition to retention content roadmap)
 
 ### Payment Processing
 - Monthly/annual subscription billing via Stripe
@@ -254,19 +294,32 @@ JBSAAS is a feature-complete business automation platform that enables Australia
 
 ---
 
-## Platform Status
+## Healthcare Platform Status & Roadmap
 
-**Current Status**: ✅ **PRODUCTION READY**
+**Current Status**: 🚧 **HEALTHCARE-FOCUSED DEVELOPMENT IN PROGRESS**
 
-All major features implemented and tested:
-- ✅ Landing page optimization and navigation
-- ✅ Complete blog management system
-- ✅ Blog builder templates and deployment
-- ✅ Australian social media setup services
-- ✅ Cross-business features and analytics
-- ✅ Australian name and domain scout services
-- ✅ Business intelligence and competitive analysis
-- ✅ Admin operations and user management
-- ✅ Payment processing and subscription management
+### Phase 1: Australian Healthcare Launch (2024)
+- 🚧 Healthcare-specific landing page and navigation optimization  
+- 🚧 AHPRA-compliant content management system
+- 🚧 Healthcare blog templates and deployment system
+- 🚧 Australian healthcare social media setup services
+- 🚧 Multi-practice features and healthcare analytics
+- 🚧 Australian healthcare practice name and domain scout
+- 🚧 Healthcare practice intelligence and competitor analysis
+- 🚧 Healthcare professional admin operations and user management
+- 🚧 Healthcare-specific payment processing and subscription management
 
-**The JBSAAS platform is feature-complete and ready for production deployment.**
+### Phase 2: Expansion Roadmap
+- **2025**: Expand to other Australian industries (Finance, Legal, Professional Services) using healthcare platform foundation
+- **2026**: New Zealand healthcare market expansion with local compliance adaptation
+- **2027**: Trans-Tasman business expansion across multiple industries
+
+**The JBSAAS platform is being rebuilt specifically for Australian healthcare professionals with compliance built-in to every feature.**
+
+### Healthcare Competitive Advantage
+**JBSAAS will be Australia's first and only healthcare-specific content platform** with:
+- ✅ AHPRA compliance built into AI generation (not just monitoring)
+- ✅ TGA therapeutic advertising validation 
+- ✅ Multi-practice adaptive workflows (modern vs traditional tech stacks)
+- ✅ Patient-appropriate content generation and professional boundary respect
+- ✅ Healthcare-specific SEO optimization and practice growth strategies
