@@ -25,8 +25,7 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'User not found': 'No account found with this email address.',
   
   // Password reset errors
-  'User not found': 'No account found with this email address.',
-  'Email rate limit exceeded': 'Too many password reset attempts. Please wait a few minutes and try again.',
+  'Password reset email rate limit exceeded': 'Too many password reset attempts. Please wait a few minutes and try again.',
   
   // Email confirmation errors
   'Email link is invalid or has expired': 'This confirmation link has expired. Please request a new one.',

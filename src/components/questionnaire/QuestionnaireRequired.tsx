@@ -147,3 +147,4 @@ const QuestionnaireRequired: React.FC = () => {
 };
 
 export default QuestionnaireRequired;
+export { QuestionnaireRequired };
