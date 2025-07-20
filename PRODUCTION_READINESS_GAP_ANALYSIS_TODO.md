@@ -393,7 +393,50 @@ alwaysApply: false
 - [ ] Comprehensive monitoring operational
 - [ ] Scan entire code for grammar and spelling - needs to be English Australian, not American
 
-- [ ] **high** FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval!
+- [ ] **high** FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval! as an example - I can see from the console logs that there's an error with `ComingSoonPopup is not defined` in the CommonQuestions component. Let me examine the current CommonQuestions.tsx file to understand what's causing the issue and then help you create 40 healthcare-focused questions.
+
+I can see the issue! The `CommonQuestions.tsx` file is referencing `ComingSoonPopup` but it's not imported. The error occurs around line 1027 where there's likely a usage of this undefined component.
+
+Let me check if this component exists and see the rest of the file:
+
+Now I can see the issue! The problem is on line 327 where `ComingSoonPopup` is used but not imported. Let me check if this component exists:
+
+Perfect! The issue is clear now. The `ComingSoonPopup` component exists in `src/components/common/ComingSoonPopup.tsx`, but it's not imported in the `CommonQuestions.tsx` file. This is why you're getting the "ComingSoonPopup is not defined" error.
+
+Looking at the current healthcare-focused FAQ structure, I can see you already have 30 questions across 5 categories (6 questions each). To create 40 questions in 4 sections as you requested, I'll need to reorganize and expand the content.
+
+**Issue Fix & Content Expansion Plan:**
+
+**IMMEDIATE FIX:**
+- Add missing import for `ComingSoonPopup` component to resolve the runtime error
+
+**CONTENT RESTRUCTURING (40 Questions in 4 Sections):**
+
+**Section 1: AHPRA Compliance & Professional Standards (10 questions)**
+- Current 6 AHPRA questions + 4 new questions covering:
+  - Multi-state practice compliance
+  - Professional indemnity considerations
+  - Advertising to vulnerable populations
+  - Cross-referral compliance rules
+
+**Section 2: Healthcare Technology & Practice Integration (10 questions)**
+- Merge current "Healthcare Professional Features" + "Platform Technology" 
+- Cover practice management integration, telehealth, patient communication, data security
+- Add questions about Medicare compliance, bulk billing content, practice efficiency
+
+**Section 3: Patient Education & Content Strategy (10 questions)**
+- New section focusing specifically on patient education best practices
+- Cover different healthcare specialties' content needs
+- Address sensitive health topics, preventive care messaging, health literacy
+
+**Section 4: Business Growth & Professional Development (10 questions)**
+- Merge current "Implementation" + "Business Growth" sections
+- Focus on practice growth, professional networking, ROI measurement
+- Include training, support, and long-term practice development strategies
+
+This will provide comprehensive coverage while maintaining healthcare focus and ensuring all questions are relevant to Australian healthcare professionals' specific needs.
+
+Fix the ComingSoonPopup import error and create the 40 healthcare questions in 4 sections
 - [ ] **critical** debug and build, ensure no type script or syntax errors 
 
 DOUBLE CHECK TO WHAT LOVABLE SAY:
