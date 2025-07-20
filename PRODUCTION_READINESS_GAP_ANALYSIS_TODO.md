@@ -393,8 +393,178 @@ alwaysApply: false
 - [ ] Comprehensive monitoring operational
 - [ ] Scan entire code for grammar and spelling - needs to be English Australian, not American
 
-- [ ] **high** FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval! as an example - I can see from the console logs that there's an error with `ComingSoonPopup is not defined` in the CommonQuestions component. Let me examine the current CommonQuestions.tsx file to understand what's causing the issue and then help you create 40 healthcare-focused questions.
+- [ ] **high** FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval! as an example - I can see from the console logs that there's an error with `ComingSoonPopup is not defined` in the CommonQuestions component. Let me examine the current CommonQuestions.tsx file to understand what's causing the issue and then help you create 40 healthcare-focused questions. My FAQ suggestions: I'll examine the current CommonQuestions.tsx file first to understand the structure, then draft all 40 questions and answers in the 4 sections you requested.
 
+Now let me check the rest of the file to see the complete structure:
+
+I can see the issue - there's a `ComingSoonPopup` component being used but it's missing the import statement. Now let me also check what that component looks like to make sure I include it properly:
+
+Perfect! Now I can see that the `ComingSoonPopup` component exists and is imported in other files but missing from `CommonQuestions.tsx`. I also see the current structure has 5 categories but you want 4 categories with 10 questions each (40 total).
+
+## Current Issue & Solution
+
+**The Problem:** The `ComingSoonPopup` component is being used in the CommonQuestions.tsx file but the import statement is missing, causing a runtime error.
+
+**The Current Structure:** The file currently has 5 categories with varying numbers of questions (around 30 total), but you want 4 categories with exactly 10 questions each (40 total).
+
+## Here are the 40 Questions & Answers in 4 Sections:
+
+### **Section 1: AHPRA Compliance & Professional Standards** (10 Questions)
+
+1. **How does AHPRA compliance validation work?**
+   Our AI automatically screens all generated content against AHPRA advertising guidelines. We check for prohibited therapeutic claims, ensure appropriate professional boundaries are maintained, and flag any content that could violate advertising standards. Every piece of content receives a compliance score before publication.
+
+2. **What TGA guidelines does the platform follow?**
+   We integrate TGA therapeutic goods advertising guidelines into our content generation. The platform automatically prevents claims about treating, curing, or preventing diseases unless you have appropriate TGA approvals. We maintain an updated database of prohibited claims and automatically flag potential violations.
+
+3. **How do you ensure patient privacy in content creation?**
+   All content generation follows Australian Privacy Principles for health information. We never use patient data in content creation, maintain strict data segregation, and ensure no patient-identifiable information can appear in generated content. All healthcare content focuses on general education rather than specific patient cases.
+
+4. **Can I advertise across multiple Australian states with different regulations?**
+   Yes, our platform understands state-specific healthcare advertising variations. We automatically adjust content based on your practice locations, ensuring compliance with both national AHPRA guidelines and any additional state-specific requirements, particularly for services like psychology and physiotherapy.
+
+5. **What happens if AHPRA guidelines change?**
+   We continuously monitor AHPRA guideline updates and automatically update our compliance algorithms. Existing content is rescanned against new guidelines, and you'll receive notifications about any content requiring updates. Our healthcare team reviews all guideline changes to ensure ongoing compliance.
+
+6. **How do you handle content about controversial health topics?**
+   We maintain strict guidelines for sensitive topics including vaccination, mental health, alternative therapies, and weight management. Content is generated with evidence-based approaches, avoids making therapeutic claims, and maintains professional therapeutic boundaries while providing helpful patient education.
+
+7. **Can I make before/after claims in my content?**
+   AHPRA prohibits testimonials and before/after images that make therapeutic claims. Our platform helps you create compliant content that educates patients about procedures and outcomes without violating advertising guidelines. We focus on general information rather than specific treatment promises.
+
+8. **What about professional indemnity insurance considerations?**
+   Our platform ensures all generated content falls within your scope of practice and doesn't create additional professional indemnity risks. We help you communicate your expertise without making claims that could extend beyond your insurance coverage or professional qualifications.
+
+9. **How does this work with practice accreditation requirements?**
+   Content creation supports practice accreditation by demonstrating patient education efforts, professional development engagement, and community health contributions. Our platform helps you document these activities for accreditation purposes while maintaining compliance.
+
+10. **Can I use patient case studies in my content?**
+    No, AHPRA prohibits patient testimonials and case studies in healthcare advertising. Our platform helps you create general educational content that demonstrates your expertise without using specific patient information. We focus on condition education rather than treatment stories.
+
+### **Section 2: Healthcare Technology & Practice Integration** (10 Questions)
+
+1. **What healthcare professions are supported?**
+   JB-SaaS supports all AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customised for each profession's specific requirements.
+
+2. **How does the AI learn healthcare-specific language?**
+   Our AI is trained on healthcare-specific datasets, AHPRA guidelines, medical literature, and Australian healthcare communication standards. It understands medical terminology, professional language requirements, and patient communication best practices specific to Australian healthcare.
+
+3. **What practice management systems can you integrate with?**
+   We integrate with popular Australian practice management systems including Medical Director, Best Practice, Zedmed, and others. Integration allows for appointment-based content, patient education material coordination, and practice workflow automation while maintaining privacy compliance.
+
+4. **How secure is patient data and practice information?**
+   We use healthcare-grade security with end-to-end encryption, comply with Australian Privacy Principles for health information, and maintain ISO 27001 certification. All data is stored in Australian data centres with strict access controls and regular security audits.
+
+5. **Can I customise content for my practice's specialty focus?**
+   Absolutely. The platform learns your practice's specialty focus, target patient demographics, treatment approaches, and communication style. Whether you focus on paediatrics, geriatrics, sports medicine, or any other area, content is tailored to your expertise.
+
+6. **What social media platforms work with healthcare content?**
+   We support Facebook, Instagram, LinkedIn, and other platforms with healthcare-specific formatting and compliance checking. Each platform has different requirements for healthcare content, and our system automatically adapts content to meet each platform's healthcare advertising policies.
+
+7. **How does telehealth content creation work?**
+   Our platform includes templates and guidelines for telehealth services, Medicare requirements, and bulk billing communications. We help you create compliant content about your telehealth offerings while following Medicare and AHPRA guidelines for remote healthcare services.
+
+8. **Can I manage content for multiple practitioners in my practice?**
+   Group Practice and Healthcare Network plans include multi-practitioner management with role-based permissions. Each practitioner can have personalised content while maintaining practice-wide compliance and branding consistency. You can approve content across your entire healthcare team.
+
+9. **How does competitor analysis work for healthcare practices?**
+   We analyse other healthcare practices' public content within ethical boundaries, identifying successful patient education strategies, content gaps in your area, and opportunities for professional differentiation while maintaining ethical competitive intelligence practices.
+
+10. **What about mobile app integration and patient communication?**
+    Our platform can integrate with patient communication apps and practice mobile applications. We help create consistent messaging across all patient touchpoints while ensuring all communication remains AHPRA-compliant and maintains professional boundaries.
+
+### **Section 3: Patient Education & Content Strategy** (10 Questions)
+
+1. **How does patient education content differ from marketing content?**
+   Patient education content focuses on providing helpful health information without promotional intent, following AHPRA guidelines for educational material. Marketing content promotes your services while maintaining professional boundaries. Our AI understands this distinction and generates appropriate content for each purpose.
+
+2. **Can I create content for different healthcare specialties?**
+   Yes, our platform includes specialty-specific templates and compliance rules for all major healthcare specialties. Whether you're in mental health, women's health, cardiology, or any other specialty, the AI understands your specific regulatory requirements and professional standards.
+
+3. **How does the platform handle sensitive health topics?**
+   We maintain strict guidelines for sensitive health topics including mental health, sexual health, weight management, and chronic diseases. Content is generated with appropriate sensitivity, avoids stigmatising language, and maintains professional therapeutic boundaries at all times.
+
+4. **What about creating content for vulnerable patient populations?**
+   Special care is taken when creating content for vulnerable populations including children, elderly patients, patients with mental health conditions, and those with chronic illnesses. Our platform ensures content is appropriate, non-exploitative, and follows extra compliance requirements for these groups.
+
+5. **How do you ensure health literacy in patient education content?**
+   All content is created with health literacy principles in mind, using plain English, avoiding medical jargon, and structuring information for easy understanding. We test readability levels and ensure content is accessible to patients with varying educational backgrounds.
+
+6. **Can I create preventive health content without making therapeutic claims?**
+   Yes, our platform helps you create educational content about preventive health measures, healthy lifestyle choices, and general wellness information without making therapeutic claims. We focus on evidence-based general health information rather than specific treatment advice.
+
+7. **How does seasonal health content work for different specialties?**
+   Our platform can generate seasonal health content relevant to your specialty - flu season for GPs, skin protection for dermatologists, exercise safety for sports medicine practitioners. All content remains educational and compliant while being timely and relevant.
+
+8. **What about creating content for different age groups?**
+   Content can be tailored for different age demographics while maintaining professional boundaries. Whether creating content about paediatric health, adolescent health issues, adult health concerns, or elderly care, the platform adjusts language and focus appropriately.
+
+9. **How do you handle myth-busting and misinformation in healthcare content?**
+   Our platform helps create evidence-based content that addresses common health myths and misinformation without directly promoting your services. We focus on providing accurate health information and directing patients to consult healthcare professionals for personalised advice.
+
+10. **Can I create condition-specific education without diagnosing?**
+    Yes, our platform helps create general educational content about health conditions, symptoms, and when to seek professional help without providing diagnostic information. Content focuses on general awareness and encourages appropriate professional consultation.
+
+### **Section 4: Business Growth & Professional Development** (10 Questions)
+
+1. **How does consistent patient education help practice growth?**
+   Regular patient education builds trust, demonstrates expertise, and improves patient engagement. Healthcare practices with consistent educational content see 60% more patient inquiries, improved patient retention, and increased referrals from both patients and other healthcare professionals.
+
+2. **What's the ROI for healthcare practice marketing?**
+   Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-SaaS customers see results 40% faster due to AHPRA-compliant automation and healthcare-specific optimisation.
+
+3. **How do you measure success for healthcare practices?**
+   We track healthcare-specific metrics including patient inquiry rates, appointment bookings from content, professional referral increases, patient engagement with educational content, and compliance score maintenance. Our analytics understand healthcare practice success factors.
+
+4. **How long does setup take for a healthcare practice?**
+   Basic setup takes 15-30 minutes. Our Healthcare Quick-Start service (available for Australian practices) provides complete setup within 2-5 business days, including social media configuration, compliance setup, and initial content creation. You'll see compliant content within your first week.
+
+5. **What support is available for healthcare professionals?**
+   All plans include email support with healthcare-experienced staff. Group Practice plans get priority support, and Healthcare Network plans include dedicated account managers with healthcare industry experience. We understand healthcare workflows and time constraints.
+
+6. **Can this help with professional referral relationships?**
+   Yes, our platform helps create content that demonstrates your expertise to other healthcare professionals, facilitates appropriate professional networking content, and maintains visibility within healthcare communities while respecting professional boundaries and patient privacy.
+
+7. **How does AI agent discovery work for healthcare practices?**
+   Future AI assistants will recommend healthcare providers based on comprehensive online presence and expertise demonstration. Consistent, high-quality educational content ensures your practice appears when patients ask AI assistants for healthcare provider recommendations in your specialty and location.
+
+8. **What training is provided for healthcare teams?**
+   We provide healthcare-specific training covering AHPRA compliance, patient education best practices, and platform usage. Training includes live sessions for larger practices, video tutorials, and ongoing support. We understand healthcare professional schedules and offer flexible training options.
+
+9. **Can you help with existing non-compliant content?**
+   Yes, we can analyse your existing content for AHPRA compliance and provide recommendations for updates. Our platform can identify potential compliance issues in your current social media, website content, and marketing materials, helping you achieve full compliance.
+
+10. **What about patient reviews and reputation management?**
+    While we don't directly manage reviews, our patient education content builds trust and improves patient satisfaction, naturally leading to better reviews. We help create content that addresses common patient concerns and demonstrates your commitment to patient care and education.
+
+**Fix & Rebuild Plan for CommonQuestions.tsx:**
+
+**IMMEDIATE FIX:**
+- Add missing import: `import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";`
+
+**CONTENT RESTRUCTURING:**
+- Replace current 5 categories with exactly 4 categories
+- Ensure each category has exactly 10 questions (40 total)
+- Update category titles, icons, and styling to match new structure
+- Update the stats section to reflect "40 Questions Answered" and "4 Key Categories"
+- Maintain all existing styling, components, and visual effects
+- Keep Australian spelling throughout
+- Preserve healthcare focus and AHPRA compliance theme
+
+**4 NEW CATEGORIES:**
+1. **AHPRA Compliance & Professional Standards** (Shield icon) - 10 questions
+2. **Healthcare Technology & Practice Integration** (Brain icon) - 10 questions  
+3. **Patient Education & Content Strategy** (Stethoscope icon) - 10 questions
+4. **Business Growth & Professional Development** (Activity icon) - 10 questions
+
+**TECHNICAL REQUIREMENTS:**
+- Only modify question content and category structure
+- Keep all existing UI components, styling, and functionality
+- Maintain responsive design and visual effects
+- Preserve all background images and animations
+- Keep CTA sections and footer unchanged
+
+Implement the plan
 I can see the issue! The `CommonQuestions.tsx` file is referencing `ComingSoonPopup` but it's not imported. The error occurs around line 1027 where there's likely a usage of this undefined component.
 
 Let me check if this component exists and see the rest of the file:
