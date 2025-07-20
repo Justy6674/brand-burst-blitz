@@ -401,36 +401,36 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Our <span className="text-gradient-primary">Subscription Works</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Simple monthly subscription gives you everything you need to dominate your market and eliminate expensive agencies forever.
+              Simple AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
             </p>
           </div>
 
           <div className="grid gap-8">
             {[
               {
-                title: "📝 Sign Up & Business Analysis",
-                description: "Choose your <span style='color: #ffd700; font-weight: 700;'>subscription</span> plan and complete our business questionnaire. Our AI immediately <span style='color: #ffd700; font-weight: 700;'>analyses</span> your industry, <span style='color: #ffd700; font-weight: 700;'>competitors</span>, and <span style='color: #ffd700; font-weight: 700;'>compliance</span> requirements to create your custom <span style='color: #ffd700; font-weight: 700;'>strategy</span>.",
+                title: "📋 Healthcare Compliance Assessment",
+                description: "Complete our <span style='color: #ffd700; font-weight: 700;'>AHPRA-specific questionnaire</span> covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your <span style='color: #ffd700; font-weight: 700;'>compliance profile</span> and patient education <span style='color: #ffd700; font-weight: 700;'>content strategy</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "⚙️ Professional Setup & Configuration",
-                description: "Our experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your <span style='color: #ffd700; font-weight: 700;'>social media</span> accounts, set up <span style='color: #ffd700; font-weight: 700;'>analytics</span> tracking, and ensure everything meets Australian <span style='color: #ffd700; font-weight: 700;'>compliance</span> standards. Complete setup within 48 hours.",
+                title: "🛡️ Professional Setup & AHPRA Verification",
+                description: "Our healthcare compliance experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your content systems with built-in <span style='color: #ffd700; font-weight: 700;'>AHPRA safeguards</span>, TGA compliance checks, and professional boundary <span style='color: #ffd700; font-weight: 700;'>protection</span>. Setup within 48 hours.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
-                title: "🤖 Automated Content Creation & Publishing",
-                description: "AI generates and publishes <span style='color: #ffd700; font-weight: 700;'>SEO-optimised content</span> daily across all platforms. <span style='color: #ffd700; font-weight: 700;'>Competitor intelligence</span> updates automatically, keeping you ahead of market trends.",
+                title: "🧠 AI-Powered Patient Education Content",
+                description: "Healthcare-trained AI generates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and practice information that builds trust without violating <span style='color: #ffd700; font-weight: 700;'>advertising guidelines</span> or making prohibited therapeutic claims.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
-                title: "📊 Monthly Optimisation & Reporting",
-                description: "Receive detailed <span style='color: #ffd700; font-weight: 700;'>performance reports</span> and strategic recommendations. Our AI continuously <span style='color: #ffd700; font-weight: 700;'>learns and optimises</span> your <span className='text-yellow-highlight'>content</span> for maximum <span style='color: #ffd700; font-weight: 700;'>Google</span> visibility and <span style='color: #ffd700; font-weight: 700;'>AI agent</span> recommendations.",
+                title: "📊 Compliance Monitoring & AI Visibility",
+                description: "Continuous <span style='color: #ffd700; font-weight: 700;'>AHPRA compliance monitoring</span> ensures all content meets professional standards. Your educational content positions you as the <span style='color: #ffd700; font-weight: 700;'>trusted expert</span> ChatGPT and AI agents recommend to patients.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
