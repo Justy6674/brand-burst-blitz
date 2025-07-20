@@ -100,7 +100,7 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
         prompt: `${prompt}\n\nIMPORTANT: This content is for Australian healthcare professionals and must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements. Ensure no patient testimonials, prohibited drug names, or misleading therapeutic claims are included.`,
         templateId: selectedTemplate,
         tone: selectedTone,
-        type: selectedType,
+        type: selectedType === 'social_media' ? 'social' : selectedType === 'advertisement' ? 'ad' : selectedType as "blog" | "social" | "ad",
         businessContext: healthcareContext,
         businessProfileId: selectedProfile?.id
       });
