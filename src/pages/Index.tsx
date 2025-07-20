@@ -257,42 +257,42 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span className="text-yellow-highlight">WHY</span> You Desperately <span className="text-gradient-primary">Need This Platform</span>
+              <span className="text-yellow-highlight">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Five critical business problems destroying your growth every day you remain invisible.
+              Five critical compliance and visibility problems threatening your practice every day you remain invisible.
             </p>
           </div>
           
           <div className="grid gap-8">
             {[
               {
-                title: "🔍 Google Invisibility Crisis",
-                description: "Without regular, <span style='color: #ffd700; font-weight: 700;'>SEO-optimised</span> <span style='color: #ffd700; font-weight: 700;'>content</span>, Google doesn't rank your business. <span style='color: #ffd700; font-weight: 700;'>Results</span> show that customers can't be <span style='color: #ffd700; font-weight: 700;'>found</span> when they search for your services.",
+                title: "⚖️ AHPRA Compliance Crisis",
+                description: "Generic <span style='color: #ffd700; font-weight: 700;'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-highlight'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
-                title: "🤖 AI Agent Exclusion",
-                description: "<span style='color: #ffd700; font-weight: 700;'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend businesses with quality <span style='color: #ffd700; font-weight: 700;'>online content</span>. <span className='text-yellow-highlight'>Customers</span> increasingly ask AI to find providers - you're invisible.",
+                title: "🚫 TGA Therapeutic Claims",
+                description: "Accidentally making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span> without TGA approval. <span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend healthcare professionals with compliant <span style='color: #ffd700; font-weight: 700;'>online content</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "⚖️ Compliance Nightmares",
-                description: "Generic content creators violate regulations. <span style='color: #ffd700; font-weight: 700;'>Australian businesses</span> need <span style='color: #ffd700; font-weight: 700;'>compliant marketing</span> that protects your reputation and avoids costly fines.",
+                title: "👥 Patient Trust Boundaries",
+                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by AHPRA</span> - but patients still need to find and trust you.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
-                title: "👁️ Competitor Intelligence Blindness", 
-                description: "Your <span style='color: #ffd700; font-weight: 700;'>competitors</span> use <span className='text-yellow-highlight'>content</span> strategies you can't see or <span style='color: #ffd700; font-weight: 700;'>analyse</span>. They capture <span className='text-yellow-highlight'>customers</span> and <span className='text-yellow-highlight'>patients</span> with <span style='color: #ffd700; font-weight: 700;'>marketing</span> approaches you don't know about.",
+                title: "🔍 Professional Invisibility", 
+                description: "Patients ask <span style='color: #ffd700; font-weight: 700;'>AI for healthcare providers</span> - you're invisible to <span className='text-yellow-highlight'>ChatGPT recommendations</span>. Without quality patient education content, referral sources and patients can't find you.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Quality, compliant content</span> takes 20+ hours weekly. You're either neglecting <span style='color: #ffd700; font-weight: 700;'>marketing</span> or paying agencies thousands monthly for poor <span className='text-yellow-highlight'>results</span>.",
+                description: "<span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span> takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused <span className='text-yellow-highlight'>content creation</span>.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }
