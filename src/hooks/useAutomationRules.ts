@@ -230,6 +230,7 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
             case 'INSERT':
               const newRule: AutomationRule = {
                 ...payload.new,
+                name: payload.new.name || 'Auto Generated Rule',
                 conditions: typeof payload.new.conditions === 'string' ? JSON.parse(payload.new.conditions) : payload.new.conditions,
                 actions: Array.isArray(payload.new.actions) ? payload.new.actions : JSON.parse(payload.new.actions as string || '[]')
               };
@@ -243,6 +244,7 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
             case 'UPDATE':
               const updatedRule: AutomationRule = {
                 ...payload.new,
+                name: payload.new.name || 'Auto Generated Rule',
                 conditions: typeof payload.new.conditions === 'string' ? JSON.parse(payload.new.conditions) : payload.new.conditions,
                 actions: Array.isArray(payload.new.actions) ? payload.new.actions : JSON.parse(payload.new.actions as string || '[]')
               };

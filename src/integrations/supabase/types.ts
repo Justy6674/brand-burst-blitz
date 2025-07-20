@@ -1115,6 +1115,45 @@ export type Database = {
           },
         ]
       }
+      healthcare_professionals: {
+        Row: {
+          ahpra_registration: string | null
+          compliance_training_completed: boolean | null
+          created_at: string | null
+          email: string
+          id: string
+          practice_type: string | null
+          profession_type: string | null
+          updated_at: string | null
+          user_id: string
+          verification_status: string | null
+        }
+        Insert: {
+          ahpra_registration?: string | null
+          compliance_training_completed?: boolean | null
+          created_at?: string | null
+          email: string
+          id?: string
+          practice_type?: string | null
+          profession_type?: string | null
+          updated_at?: string | null
+          user_id: string
+          verification_status?: string | null
+        }
+        Update: {
+          ahpra_registration?: string | null
+          compliance_training_completed?: boolean | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          practice_type?: string | null
+          profession_type?: string | null
+          updated_at?: string | null
+          user_id?: string
+          verification_status?: string | null
+        }
+        Relationships: []
+      }
       images: {
         Row: {
           alt_text: string | null
@@ -2206,6 +2245,21 @@ export type Database = {
         | "authoritative"
         | "empathetic"
         | "exciting"
+      healthcare_practice_type:
+        | "general_practice"
+        | "specialist_clinic"
+        | "hospital"
+        | "allied_health"
+        | "dental"
+        | "mental_health"
+      healthcare_profession_type:
+        | "gp"
+        | "specialist"
+        | "nurse"
+        | "allied_health"
+        | "dentist"
+        | "psychologist"
+        | "other"
       industry_type:
         | "health"
         | "finance"
@@ -2352,6 +2406,23 @@ export const Constants = {
         "authoritative",
         "empathetic",
         "exciting",
+      ],
+      healthcare_practice_type: [
+        "general_practice",
+        "specialist_clinic",
+        "hospital",
+        "allied_health",
+        "dental",
+        "mental_health",
+      ],
+      healthcare_profession_type: [
+        "gp",
+        "specialist",
+        "nurse",
+        "allied_health",
+        "dentist",
+        "psychologist",
+        "other",
       ],
       industry_type: [
         "health",
