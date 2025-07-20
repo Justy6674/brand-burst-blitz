@@ -1,188 +1,127 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { useBusinessProfile } from '@/hooks/useBusinessProfile';
-import {
-  Download,
-  Upload,
-  Save,
-  RotateCw,
-  Move,
-  Layers,
-  Eye,
-  EyeOff,
-  Settings,
-  ImageIcon
-} from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-
-interface LogoOverlaySettings {
-  enabled: boolean;
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
-  size: number; // percentage of image width
-  opacity: number; // 0-100
-  margin: number; // pixels from edge
-  rotation: number; // degrees
-}
+import { Upload, Download, Save, Eye, EyeOff } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface LogoOverlayToolProps {
-  imageSrc: string;
-  logoSrc?: string;
-  onSave?: (processedImageBlob: Blob, filename: string) => void;
-  onCancel?: () => void;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  baseImage: string;
+  logoUrl?: string;
+  onSave?: (finalImageBlob: Blob, filename: string) => void;
+}
+
+interface LogoSettings {
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
+  size: number;
+  opacity: number;
+  rotation: number;
+  offsetX: number;
+  offsetY: number;
+  visible: boolean;
 }
 
 export const LogoOverlayTool: React.FC<LogoOverlayToolProps> = ({
-  imageSrc,
-  logoSrc: initialLogoSrc,
-  onSave,
-  onCancel,
   isOpen,
-  onOpenChange
+  onOpenChange,
+  baseImage,
+  logoUrl: initialLogoUrl,
+  onSave
 }) => {
   const { toast } = useToast();
-  const { currentProfile } = useBusinessProfile();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const logoRef = useRef<HTMLImageElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [logoSrc, setLogoSrc] = useState(initialLogoSrc || currentProfile?.logo_url || '');
-  const [isLoading, setIsLoading] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [logoLoaded, setLogoLoaded] = useState(false);
-
-  const [overlaySettings, setOverlaySettings] = useState<LogoOverlaySettings>({
-    enabled: true,
+  const baseImageRef = useRef<HTMLImageElement>(null);
+  const logoImageRef = useRef<HTMLImageElement>(null);
+  const [logoUrl, setLogoUrl] = useState(initialLogoUrl || '');
+  
+  const [logoSettings, setLogoSettings] = useState<LogoSettings>({
     position: 'bottom-right',
-    size: 15,
+    size: 20,
     opacity: 80,
-    margin: 20,
-    rotation: 0
+    rotation: 0,
+    offsetX: 20,
+    offsetY: 20,
+    visible: true
   });
 
-  const updateCanvas = useCallback(() => {
+  const drawCanvas = () => {
     const canvas = canvasRef.current;
-    const image = imageRef.current;
-    const logo = logoRef.current;
+    const baseImage = baseImageRef.current;
+    const logoImage = logoImageRef.current;
 
-    if (!canvas || !image || !imageLoaded) return;
+    if (!canvas || !baseImage) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size to match image
-    canvas.width = image.naturalWidth;
-    canvas.height = image.naturalHeight;
-
-    // Clear canvas
+    canvas.width = baseImage.naturalWidth;
+    canvas.height = baseImage.naturalHeight;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(baseImage, 0, 0);
 
-    // Draw main image
-    ctx.drawImage(image, 0, 0);
-
-    // Draw logo overlay if enabled and logo is loaded
-    if (overlaySettings.enabled && logo && logoLoaded && logoSrc) {
+    if (logoSettings.visible && logoImage && logoImage.complete) {
       ctx.save();
-
-      // Calculate logo size
-      const logoSize = (canvas.width * overlaySettings.size) / 100;
-      const logoAspectRatio = logo.naturalWidth / logo.naturalHeight;
+      
+      const logoSize = (logoSettings.size / 100) * Math.min(canvas.width, canvas.height) * 0.3;
       const logoWidth = logoSize;
-      const logoHeight = logoSize / logoAspectRatio;
+      const logoHeight = (logoImage.naturalHeight / logoImage.naturalWidth) * logoSize;
 
-      // Calculate position
-      let x, y;
-      const margin = overlaySettings.margin;
+      let x = 0;
+      let y = 0;
 
-      switch (overlaySettings.position) {
+      switch (logoSettings.position) {
         case 'top-left':
-          x = margin;
-          y = margin;
+          x = logoSettings.offsetX;
+          y = logoSettings.offsetY;
           break;
         case 'top-right':
-          x = canvas.width - logoWidth - margin;
-          y = margin;
+          x = canvas.width - logoWidth - logoSettings.offsetX;
+          y = logoSettings.offsetY;
           break;
         case 'bottom-left':
-          x = margin;
-          y = canvas.height - logoHeight - margin;
+          x = logoSettings.offsetX;
+          y = canvas.height - logoHeight - logoSettings.offsetY;
           break;
         case 'bottom-right':
-          x = canvas.width - logoWidth - margin;
-          y = canvas.height - logoHeight - margin;
+          x = canvas.width - logoWidth - logoSettings.offsetX;
+          y = canvas.height - logoHeight - logoSettings.offsetY;
           break;
         case 'center':
-          x = (canvas.width - logoWidth) / 2;
-          y = (canvas.height - logoHeight) / 2;
+          x = (canvas.width - logoWidth) / 2 + logoSettings.offsetX;
+          y = (canvas.height - logoHeight) / 2 + logoSettings.offsetY;
           break;
-        default:
-          x = canvas.width - logoWidth - margin;
-          y = canvas.height - logoHeight - margin;
       }
 
-      // Set opacity
-      ctx.globalAlpha = overlaySettings.opacity / 100;
-
-      // Apply rotation
-      if (overlaySettings.rotation !== 0) {
-        ctx.translate(x + logoWidth / 2, y + logoHeight / 2);
-        ctx.rotate((overlaySettings.rotation * Math.PI) / 180);
-        ctx.translate(-logoWidth / 2, -logoHeight / 2);
-        ctx.drawImage(logo, 0, 0, logoWidth, logoHeight);
-      } else {
-        ctx.drawImage(logo, x, y, logoWidth, logoHeight);
-      }
-
+      ctx.globalAlpha = logoSettings.opacity / 100;
+      ctx.translate(x + logoWidth / 2, y + logoHeight / 2);
+      ctx.rotate((logoSettings.rotation * Math.PI) / 180);
+      ctx.translate(-logoWidth / 2, -logoHeight / 2);
+      ctx.drawImage(logoImage, 0, 0, logoWidth, logoHeight);
       ctx.restore();
     }
-  }, [imageLoaded, logoLoaded, logoSrc, overlaySettings]);
+  };
 
   useEffect(() => {
-    updateCanvas();
-  }, [updateCanvas]);
-
-  useEffect(() => {
-    if (imageSrc && imageRef.current) {
-      imageRef.current.onload = () => {
-        setImageLoaded(true);
-      };
-      imageRef.current.src = imageSrc;
+    if (baseImage && baseImageRef.current) {
+      baseImageRef.current.onload = drawCanvas;
+      baseImageRef.current.src = baseImage;
     }
-  }, [imageSrc]);
+  }, [baseImage]);
 
   useEffect(() => {
-    if (logoSrc && logoRef.current) {
-      logoRef.current.onload = () => {
-        setLogoLoaded(true);
-      };
-      logoRef.current.onerror = () => {
-        setLogoLoaded(false);
-        console.error('Failed to load logo:', logoSrc);
-      };
-      logoRef.current.src = logoSrc;
-    } else {
-      setLogoLoaded(false);
+    if (logoUrl && logoImageRef.current) {
+      logoImageRef.current.onload = drawCanvas;
+      logoImageRef.current.src = logoUrl;
     }
-  }, [logoSrc]);
+  }, [logoUrl]);
+
+  useEffect(() => {
+    drawCanvas();
+  }, [logoSettings]);
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -191,343 +130,152 @@ export const LogoOverlayTool: React.FC<LogoOverlayToolProps> = ({
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
-      setLogoSrc(result);
+      setLogoUrl(result);
     };
     reader.readAsDataURL(file);
   };
 
-  const handleSettingChange = <K extends keyof LogoOverlaySettings>(
-    key: K,
-    value: LogoOverlaySettings[K]
-  ) => {
-    setOverlaySettings(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handleSliderChange = (key: keyof LogoOverlaySettings, value: number[]) => {
-    handleSettingChange(key, value[0] as any);
-  };
-
-  const handleSave = async () => {
+  const handleSave = () => {
     const canvas = canvasRef.current;
     if (!canvas || !onSave) return;
 
-    setIsLoading(true);
-    try {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const filename = `logo-overlay-${Date.now()}.png`;
-          onSave(blob, filename);
-          toast({
-            title: "Success",
-            description: "Image with logo overlay saved successfully",
-          });
-        }
-      }, 'image/png', 0.9);
-    } catch (error) {
-      console.error('Error saving image:', error);
-      toast({
-        title: "Error",
-        description: "Failed to save image",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    canvas.toBlob((blob) => {
+      if (blob) {
+        const filename = `logo-overlay-${Date.now()}.png`;
+        onSave(blob, filename);
+        toast({
+          title: "Success",
+          description: "Image with logo overlay saved successfully",
+        });
+      }
+    }, 'image/png', 0.9);
   };
-
-  const handleDownload = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const link = document.createElement('a');
-    link.download = `logo-overlay-${Date.now()}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
-  };
-
-  const presetPositions = [
-    { label: 'Top Left', value: 'top-left' as const },
-    { label: 'Top Right', value: 'top-right' as const },
-    { label: 'Bottom Left', value: 'bottom-left' as const },
-    { label: 'Bottom Right', value: 'bottom-right' as const },
-    { label: 'Center', value: 'center' as const },
-  ];
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
+            <span>Logo Overlay Tool</span>
             <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5" />
-              Logo Overlay Tool
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleDownload}
-                disabled={!imageLoaded}
-              >
+              <Button variant="outline" size="sm" onClick={() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const link = document.createElement('a');
+                link.download = `logo-overlay-${Date.now()}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+              }}>
                 <Download className="h-4 w-4" />
               </Button>
               {onSave && (
-                <Button
-                  size="sm"
-                  onClick={handleSave}
-                  disabled={isLoading || !imageLoaded}
-                >
+                <Button size="sm" onClick={handleSave}>
                   <Save className="h-4 w-4 mr-2" />
-                  {isLoading ? 'Saving...' : 'Save'}
+                  Save
                 </Button>
               )}
             </div>
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-[calc(90vh-120px)]">
-          {/* Canvas Area */}
-          <div className="lg:col-span-3 flex items-center justify-center bg-muted/30 rounded-lg overflow-hidden">
-            {imageLoaded ? (
-              <canvas
-                ref={canvasRef}
-                className="max-w-full max-h-full object-contain shadow-lg rounded"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-muted-foreground">
-                <ImageIcon className="h-12 w-12 mb-2" />
-                <p>Loading image...</p>
-              </div>
-            )}
-            
-            {/* Hidden images for processing */}
-            <img
-              ref={imageRef}
-              src={imageSrc}
-              alt="Main"
-              style={{ display: 'none' }}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 flex items-center justify-center bg-muted/30 rounded-lg overflow-hidden">
+            <canvas
+              ref={canvasRef}
+              className="max-w-full max-h-full object-contain shadow-lg"
             />
-            {logoSrc && (
-              <img
-                ref={logoRef}
-                src={logoSrc}
-                alt="Logo"
-                style={{ display: 'none' }}
-              />
-            )}
+            <img ref={baseImageRef} style={{ display: 'none' }} />
+            <img ref={logoImageRef} style={{ display: 'none' }} />
           </div>
 
-          {/* Controls Panel */}
           <div className="space-y-4 overflow-y-auto">
-            {/* Logo Upload */}
             <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Upload className="h-4 w-4" />
-                  Logo Source
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {logoSrc && logoLoaded && (
-                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
-                    <img src={logoSrc} alt="Logo preview" className="w-8 h-8 object-contain" />
-                    <span className="text-xs text-muted-foreground flex-1">Logo loaded</span>
-                    <Badge variant="secondary" className="text-xs">
-                      <Eye className="h-3 w-3" />
-                    </Badge>
-                  </div>
-                )}
-
-                <div className="space-y-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full"
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    Upload New Logo
-                  </Button>
-                  
-                  {currentProfile?.logo_url && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setLogoSrc(currentProfile.logo_url!)}
-                      className="w-full"
-                    >
-                      Use Business Logo
-                    </Button>
-                  )}
-                </div>
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleLogoUpload}
-                  className="hidden"
-                />
-              </CardContent>
-            </Card>
-
-            {/* Overlay Settings */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Overlay Settings
-                </CardTitle>
+              <CardHeader>
+                <CardTitle className="text-sm">Logo Settings</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Enable/Disable */}
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">Enable Overlay</label>
-                  <Switch
-                    checked={overlaySettings.enabled}
-                    onCheckedChange={(checked) => handleSettingChange('enabled', checked)}
+                <div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoUpload}
+                    className="hidden"
+                    id="logo-upload"
                   />
+                  <label htmlFor="logo-upload">
+                    <Button asChild variant="outline" className="w-full">
+                      <span>
+                        <Upload className="h-4 w-4 mr-2" />
+                        Upload Logo
+                      </span>
+                    </Button>
+                  </label>
                 </div>
 
-                {overlaySettings.enabled && (
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium">Show Logo</label>
+                  <Button
+                    variant={logoSettings.visible ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setLogoSettings(prev => ({ ...prev, visible: !prev.visible }))}
+                  >
+                    {logoSettings.visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                  </Button>
+                </div>
+
+                {logoSettings.visible && (
                   <>
-                    {/* Position */}
                     <div>
                       <label className="text-sm font-medium mb-2 block">Position</label>
-                      <Select
-                        value={overlaySettings.position}
-                        onValueChange={(value: LogoOverlaySettings['position']) => 
-                          handleSettingChange('position', value)
-                        }
+                      <Select 
+                        value={logoSettings.position} 
+                        onValueChange={(value) => setLogoSettings(prev => ({ 
+                          ...prev, 
+                          position: value as LogoSettings['position'] 
+                        }))}
                       >
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {presetPositions.map((pos) => (
-                            <SelectItem key={pos.value} value={pos.value}>
-                              {pos.label}
-                            </SelectItem>
-                          ))}
+                          <SelectItem value="top-left">Top Left</SelectItem>
+                          <SelectItem value="top-right">Top Right</SelectItem>
+                          <SelectItem value="bottom-left">Bottom Left</SelectItem>
+                          <SelectItem value="bottom-right">Bottom Right</SelectItem>
+                          <SelectItem value="center">Center</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
-                    {/* Size */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <label className="text-sm font-medium">Size</label>
-                        <span className="text-sm text-muted-foreground">{overlaySettings.size}%</span>
+                        <span className="text-sm text-muted-foreground">{logoSettings.size}%</span>
                       </div>
                       <Slider
-                        value={[overlaySettings.size]}
-                        onValueChange={(value) => handleSliderChange('size', value)}
+                        value={[logoSettings.size]}
+                        onValueChange={(value) => setLogoSettings(prev => ({ ...prev, size: value[0] }))}
                         min={5}
                         max={50}
                         step={1}
                       />
                     </div>
 
-                    {/* Opacity */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <label className="text-sm font-medium">Opacity</label>
-                        <span className="text-sm text-muted-foreground">{overlaySettings.opacity}%</span>
+                        <span className="text-sm text-muted-foreground">{logoSettings.opacity}%</span>
                       </div>
                       <Slider
-                        value={[overlaySettings.opacity]}
-                        onValueChange={(value) => handleSliderChange('opacity', value)}
+                        value={[logoSettings.opacity]}
+                        onValueChange={(value) => setLogoSettings(prev => ({ ...prev, opacity: value[0] }))}
                         min={10}
                         max={100}
                         step={5}
                       />
                     </div>
-
-                    {/* Margin */}
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <label className="text-sm font-medium">Margin</label>
-                        <span className="text-sm text-muted-foreground">{overlaySettings.margin}px</span>
-                      </div>
-                      <Slider
-                        value={[overlaySettings.margin]}
-                        onValueChange={(value) => handleSliderChange('margin', value)}
-                        min={0}
-                        max={100}
-                        step={5}
-                      />
-                    </div>
-
-                    {/* Rotation */}
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <label className="text-sm font-medium">Rotation</label>
-                        <span className="text-sm text-muted-foreground">{overlaySettings.rotation}°</span>
-                      </div>
-                      <Slider
-                        value={[overlaySettings.rotation]}
-                        onValueChange={(value) => handleSliderChange('rotation', value)}
-                        min={-180}
-                        max={180}
-                        step={15}
-                      />
-                    </div>
                   </>
                 )}
-              </CardContent>
-            </Card>
-
-            {/* Quick Presets */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm">Quick Presets</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setOverlaySettings({
-                    enabled: true,
-                    position: 'bottom-right',
-                    size: 15,
-                    opacity: 80,
-                    margin: 20,
-                    rotation: 0
-                  })}
-                  className="w-full justify-start"
-                >
-                  Watermark Style
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setOverlaySettings({
-                    enabled: true,
-                    position: 'center',
-                    size: 30,
-                    opacity: 40,
-                    margin: 0,
-                    rotation: -15
-                  })}
-                  className="w-full justify-start"
-                >
-                  Center Watermark
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setOverlaySettings({
-                    enabled: true,
-                    position: 'top-left',
-                    size: 12,
-                    opacity: 90,
-                    margin: 15,
-                    rotation: 0
-                  })}
-                  className="w-full justify-start"
-                >
-                  Brand Logo
-                </Button>
               </CardContent>
             </Card>
           </div>
