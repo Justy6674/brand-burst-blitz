@@ -1,5 +1,5 @@
-import { CalendarDashboard } from '@/components/calendar/CalendarDashboard';
+import { AdvancedCalendarDashboard } from '@/components/calendar/AdvancedCalendarDashboard';
 
 export default function Calendar() {
-  return <CalendarDashboard />;
+  return <AdvancedCalendarDashboard />;
 }

@@ -435,6 +435,184 @@ export type Database = {
           },
         ]
       }
+      calendar_event_attendees: {
+        Row: {
+          created_at: string | null
+          email: string
+          event_id: string
+          id: string
+          name: string | null
+          role: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          event_id: string
+          id?: string
+          name?: string | null
+          role?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          event_id?: string
+          id?: string
+          name?: string | null
+          role?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_event_attendees_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_events: {
+        Row: {
+          all_day: boolean | null
+          attachments: Json | null
+          attendees: Json | null
+          business_profile_id: string | null
+          color: string | null
+          created_at: string | null
+          description: string | null
+          end_datetime: string
+          event_type: string
+          id: string
+          is_recurring: boolean | null
+          location: string | null
+          metadata: Json | null
+          notifications: Json | null
+          parent_event_id: string | null
+          priority: number | null
+          recurrence_rule: Json | null
+          start_datetime: string
+          status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          all_day?: boolean | null
+          attachments?: Json | null
+          attendees?: Json | null
+          business_profile_id?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_datetime: string
+          event_type?: string
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          metadata?: Json | null
+          notifications?: Json | null
+          parent_event_id?: string | null
+          priority?: number | null
+          recurrence_rule?: Json | null
+          start_datetime: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          all_day?: boolean | null
+          attachments?: Json | null
+          attendees?: Json | null
+          business_profile_id?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_datetime?: string
+          event_type?: string
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          metadata?: Json | null
+          notifications?: Json | null
+          parent_event_id?: string | null
+          priority?: number | null
+          recurrence_rule?: Json | null
+          start_datetime?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_parent_event_id_fkey"
+            columns: ["parent_event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_integrations: {
+        Row: {
+          access_token: string | null
+          business_profile_id: string | null
+          created_at: string | null
+          external_calendar_id: string
+          id: string
+          integration_type: string
+          last_sync_at: string | null
+          refresh_token: string | null
+          sync_enabled: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          external_calendar_id: string
+          id?: string
+          integration_type: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_enabled?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          external_calendar_id?: string
+          id?: string
+          integration_type?: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_enabled?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_integrations_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       competitive_analysis_results: {
         Row: {
           analysis_results: Json
