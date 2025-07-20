@@ -238,8 +238,8 @@ export const useHealthcareCompetitorAnalysis = () => {
       Patient testimonial: "Dr Smith completely cured my chronic pain!" 
       We guarantee 100% success with our revolutionary Botox treatments.`;
       
-      const practiceType = { type: 'gp' as const, ahpra_registration: 'mock' };
-      const complianceResult = await validateContent(mockContent, 'practice_marketing', practiceType);
+      const practiceType: any = { type: 'gp', ahpra_registration: 'mock' };
+      const complianceResult = await validateContent(mockContent, practiceType, 'website');
       
       const contentAnalysis: CompetitorContentAnalysis = {
         content_id: `content_${Date.now()}`,

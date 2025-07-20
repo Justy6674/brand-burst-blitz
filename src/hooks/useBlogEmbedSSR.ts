@@ -427,8 +427,8 @@ export const useBlogEmbedSSR = () => {
     try {
       // Validate all posts for AHPRA compliance
       for (const post of posts) {
-        const practiceType = { type: 'gp' as const, ahpra_registration: 'mock' };
-        const complianceResult = await validateContent(post.content, 'patient_education', practiceType);
+        const practiceType: any = { type: 'gp', ahpra_registration: 'mock' };
+        const complianceResult = await validateContent(post.content, practiceType, 'blog');
         if (!complianceResult.isCompliant) {
           throw new Error(`Post "${post.title}" is not AHPRA compliant: ${complianceResult.violations.map(v => v.message).join(', ')}`);
         }
