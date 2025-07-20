@@ -138,7 +138,7 @@ export const HealthcareSocialMediaSetup = () => {
   const handleCustomContentCheck = async () => {
     if (!customContent.trim()) return;
     
-    const result = await validateContent(customContent, 'patient_education');
+    const result = await validateContent(customContent, 'patient_education', 'medical' as any);
     setComplianceResult(result);
   };
 

@@ -55,32 +55,15 @@ export const useErrorHandler = () => {
         timestamp: new Date().toISOString()
       });
 
-      // Log to database for critical errors
+      // Log critical errors (in real app this would go to error tracking service)
       if (errorContext.severity === 'critical' || errorContext.category === 'compliance') {
-        try {
-          const { data: { user } } = await supabase.auth.getUser();
-          
-          await supabase.from('error_reports').insert({
-            error_id: `HANDLED-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            error_message: errorContext.message,
-            error_stack: error.stack || 'No stack trace',
-            error_category: errorContext.category,
-            user_impact: errorContext.severity,
-            component_stack: context || 'Unknown',
-            user_agent: navigator.userAgent,
-            url: window.location.href,
-            user_id: user?.id,
-            timestamp: new Date().toISOString(),
-            session_data: {
-              user_action: userAction,
-              context,
-              handled: true
-            },
-            compliance_impact: errorContext.category === 'compliance'
-          });
-        } catch (loggingError) {
-          console.error('Failed to log error to database:', loggingError);
-        }
+        console.warn('Critical Error Logged:', {
+          error_id: `HANDLED-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          error_message: errorContext.message,
+          error_category: errorContext.category,
+          user_impact: errorContext.severity,
+          compliance_impact: errorContext.category === 'compliance'
+        });
       }
     }
 
@@ -92,7 +75,7 @@ export const useErrorHandler = () => {
         description: toastConfig.description,
         variant: toastConfig.variant,
         duration: toastConfig.duration,
-        action: toastConfig.action
+        // action: toastConfig.action
       });
     }
 
@@ -280,7 +263,7 @@ export const useErrorHandler = () => {
     return handleError(error, {
       context: context || 'Form validation',
       userAction: 'Form submission',
-      severity: 'low'
+      logError: true
     });
   }, [handleError]);
 
@@ -309,31 +292,20 @@ export const useErrorHandler = () => {
     return createError('VALIDATION_REQUIRED_FIELD', message, 'validation', 'low');
   }, [createError]);
 
-  // Error reporting for manual error reporting
+  // Error reporting for manual error reporting (simplified)
   const reportError = useCallback(async (
     error: ErrorContext,
     additionalContext?: Record<string, any>
   ) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      await supabase.from('error_reports').insert({
+      // For now, just log the error locally
+      console.warn('Manual Error Report:', {
         error_id: `MANUAL-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         error_message: error.message,
-        error_stack: error.technicalDetails || 'Manual report',
         error_category: error.category,
         user_impact: error.severity,
-        component_stack: error.context || 'Manual',
-        user_agent: navigator.userAgent,
-        url: window.location.href,
-        user_id: user?.id,
-        timestamp: new Date().toISOString(),
-        session_data: {
-          ...additionalContext,
-          manual_report: true,
-          user_action: error.userAction
-        },
-        compliance_impact: error.category === 'compliance'
+        compliance_impact: error.category === 'compliance',
+        additional_context: additionalContext
       });
 
       toast({
