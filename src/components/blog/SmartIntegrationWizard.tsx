@@ -113,32 +113,31 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
         </TabsContent>
 
         <TabsContent value="instructions" className="space-y-6">
+          {selectedIntegration === 'embed' && (
+            <EmbedCodeGenerator 
+              businessId={businessId}
+            />
+          )}
+
+          {selectedIntegration === 'api' && (
+            <APIIntegrationSetup 
+              businessId={businessId}
+            />
+          )}
+
+          {selectedIntegration === 'manual' && (
+            <ManualExportTools 
+              blogData={{
+                posts: [],
+                customization: {}
+              }}
+            />
+          )}
+
           {platform && selectedIntegration && (
             <PlatformInstructions 
-              platform={platform}
-              businessId={businessId}
-              onComplete={onComplete}
-            />
-          )}
-          
-          {selectedIntegration === 'manual' && platform && (
-            <ManualExportTools 
-              platform={platform}
-              businessId={businessId}
-            />
-          )}
-
-          {selectedIntegration === 'embed' && platform && (
-            <EmbedCodeGenerator 
-              platform={platform}
-              businessId={businessId}
-            />
-          )}
-
-          {selectedIntegration === 'api' && platform && (
-            <APIIntegrationSetup 
-              platform={platform}
-              businessId={businessId}
+              platform={selectedPlatform as any}
+              integrationMethod={selectedIntegration as any}
             />
           )}
         </TabsContent>

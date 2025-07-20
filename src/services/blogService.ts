@@ -172,7 +172,7 @@ class BlogService {
   }
 
   // Blog Customization
-  async getBlogCustomization(businessId: string): Promise<BlogCustomization | null> {
+  async getBlogCustomization(businessId: string): Promise<any | null> {
     try {
       const { data, error } = await supabase
         .from('blog_customizations')
@@ -188,7 +188,7 @@ class BlogService {
     }
   }
 
-  async updateBlogCustomization(businessId: string, customization: Partial<BlogCustomization>): Promise<BlogCustomization> {
+  async updateBlogCustomization(businessId: string, customization: any): Promise<any> {
     try {
       const { data, error } = await supabase
         .from('blog_customizations')
