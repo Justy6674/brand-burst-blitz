@@ -134,18 +134,18 @@ export const BusinessSwitcher: React.FC<BusinessSwitcherProps> = ({ className })
             
             <div className="flex flex-col items-start min-w-0 flex-1">
               <div className="flex items-center gap-2 max-w-full">
-                <span className="font-medium text-sm truncate max-w-[120px]">
+                <span className="font-medium text-sm truncate max-w-[100px] sm:max-w-[120px]">
                   {currentBusiness.business_name}
                 </span>
                 {currentBusiness.is_primary && (
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5 hidden sm:inline-flex">
                     Primary
                   </Badge>
                 )}
               </div>
               <div className="flex items-center gap-1 text-xs text-muted-foreground">
                 <span>{getIndustryIcon(currentBusiness.industry)}</span>
-                <span className="truncate max-w-[100px]">
+                <span className="truncate max-w-[80px] sm:max-w-[100px]">
                   {formatIndustry(currentBusiness.industry)}
                 </span>
               </div>
@@ -155,7 +155,7 @@ export const BusinessSwitcher: React.FC<BusinessSwitcherProps> = ({ className })
           </Button>
         </DropdownMenuTrigger>
         
-        <DropdownMenuContent align="start" className="w-80 bg-background border z-50">{/* Fixed dropdown transparency and z-index */}
+        <DropdownMenuContent align="start" className="w-72 sm:w-80 bg-background border z-50 max-h-[80vh] overflow-y-auto">{/* Mobile optimized dropdown */}
           <div className="p-2">
             <div className="text-xs text-muted-foreground mb-2 px-2">
               Business Profiles ({businessProfiles.length})

@@ -241,7 +241,7 @@ export const SimpleDashboard = () => {
       {/* Getting Started */}
       <Card>
         <CardHeader>
-          <CardTitle>Getting Started</CardTitle>
+          <CardTitle className="text-base md:text-lg">Getting Started</CardTitle>
           <CardDescription>
             Complete these steps to make the most of JB-SaaS
           </CardDescription>
@@ -249,21 +249,21 @@ export const SimpleDashboard = () => {
         <CardContent className="space-y-4">
           <div className="space-y-3">
             <div className="flex items-center space-x-3" role="status" aria-label="Account creation status">
-              <CheckCircle2 className="h-5 w-5 text-green-500" aria-hidden="true" />
+              <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" aria-hidden="true" />
               <span className="text-sm">Account created successfully</span>
             </div>
             
-            <div className="flex items-center space-x-3" role="status" aria-label="Profile completion status">
+            <div className="flex items-start space-x-3" role="status" aria-label="Profile completion status">
               {profile?.full_name ? (
-                <CheckCircle2 className="h-5 w-5 text-green-500" aria-hidden="true" />
+                <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
               ) : (
-                <div className="h-5 w-5 rounded-full border-2 border-muted-foreground" aria-hidden="true" />
+                <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0 mt-0.5" aria-hidden="true" />
               )}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
                 <span className="text-sm">Complete your profile</span>
                 {!profile?.full_name && (
-                  <Link to="/dashboard/business-settings">
-                    <Button size="sm" variant="outline">
+                  <Link to="/dashboard/business-settings" className="w-full sm:w-auto">
+                    <Button size="sm" variant="outline" className="w-full sm:w-auto">
                       Complete Now
                     </Button>
                   </Link>
@@ -271,12 +271,12 @@ export const SimpleDashboard = () => {
               </div>
             </div>
             
-            <div className="flex items-center space-x-3" role="status" aria-label="Content creation status">
-              <div className="h-5 w-5 rounded-full border-2 border-muted-foreground" aria-hidden="true" />
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
+            <div className="flex items-start space-x-3" role="status" aria-label="Content creation status">
+              <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
                 <span className="text-sm">Create your first content</span>
-                <Link to="/dashboard/create">
-                  <Button size="sm" variant="outline">
+                <Link to="/dashboard/create" className="w-full sm:w-auto">
+                  <Button size="sm" variant="outline" className="w-full sm:w-auto">
                     Create Content
                   </Button>
                 </Link>
