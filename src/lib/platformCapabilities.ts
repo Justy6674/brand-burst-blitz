@@ -1,290 +1,249 @@
+// Platform capability definitions
 export interface PlatformCapability {
-  id: string;
-  name: string;
-  description: string;
-  marketShare: string;
-  capabilities: {
-    embed: boolean;
-    api: boolean;
-    rss: boolean;
-    manual: boolean;
-  };
-  limitations: string[];
-  instructions: {
-    embed?: string[];
-    api?: string[];
-    manual: string[];
-  };
-  codeExamples: {
-    embed?: string;
-    api?: string;
-    manual?: string;
-  };
+  embed: boolean;
+  api: boolean;
+  rss: boolean;
+  manual: boolean;
+  webhooks: boolean;
+  custom_css: boolean;
 }
 
-export const PLATFORM_CAPABILITIES: Record<string, PlatformCapability> = {
+export interface PlatformInfo {
+  name: string;
+  logo?: string;
+  capabilities: PlatformCapability;
+  difficulty: 'easy' | 'medium' | 'hard';
+  setup_time: string;
+  instructions_url?: string;
+  notes?: string;
+}
+
+export interface IntegrationOption {
+  type: string;
+  name: string;
+  description: string;
+  difficulty: string;
+  icon: string;
+}
+
+export const PLATFORM_CAPABILITIES: Record<string, PlatformInfo> = {
   wordpress: {
-    id: 'wordpress',
     name: 'WordPress',
-    description: 'Most popular CMS worldwide - full integration support',
-    marketShare: '43%',
     capabilities: {
       embed: true,
       api: true,
       rss: true,
-      manual: true
+      manual: true,
+      webhooks: true,
+      custom_css: true
     },
-    limitations: [],
-    instructions: {
-      embed: [
-        'Install our WordPress plugin',
-        'Add shortcode [jbsaas-blog] to any page',
-        'Customize display options in plugin settings'
-      ],
-      api: [
-        'Generate application password in WordPress admin',
-        'Enter your WordPress URL and credentials',
-        'Test connection and start auto-publishing'
-      ],
-      manual: [
-        'Copy the generated HTML content',
-        'Paste into WordPress post editor',
-        'Upload images via WordPress media library'
-      ]
-    },
-    codeExamples: {
-      embed: '[jbsaas-blog business-id="USER_ID" theme="modern" posts="10"]',
-      api: 'Full REST API integration available'
-    }
+    difficulty: 'easy',
+    setup_time: '5-10 minutes',
+    notes: 'Full integration support with plugins and API access'
   },
-  
-  godaddy: {
-    id: 'godaddy',
-    name: 'GoDaddy Website Builder',
-    description: 'Popular website builder with limited integration options',
-    marketShare: '15%',
-    capabilities: {
-      embed: false,
-      api: false,
-      rss: false,
-      manual: true
-    },
-    limitations: [
-      'No custom JavaScript support',
-      'No API access to blog system',
-      'No third-party embed capabilities'
-    ],
-    instructions: {
-      manual: [
-        'Copy the formatted HTML content',
-        'Go to GoDaddy Website Builder',
-        'Add a new blog post or page',
-        'Paste content in the editor',
-        'Upload images manually to GoDaddy media library'
-      ]
-    },
-    codeExamples: {
-      manual: 'Clean HTML export optimized for GoDaddy editor'
-    }
-  },
-  
   wix: {
-    id: 'wix',
     name: 'Wix',
-    description: 'Drag & drop builder with HTML embed support',
-    marketShare: '8%',
     capabilities: {
       embed: true,
       api: false,
       rss: false,
-      manual: true
+      manual: true,
+      webhooks: false,
+      custom_css: false
     },
-    limitations: [
-      'No API access to Wix blog system',
-      'Embed requires HTML element'
-    ],
-    instructions: {
-      embed: [
-        'In Wix Editor, click "+ Add"',
-        'Select "More" then "HTML iframe"',
-        'Paste the provided embed code',
-        'Adjust size and positioning'
-      ],
-      manual: [
-        'Copy the blog content',
-        'Create new blog post in Wix',
-        'Paste content and format',
-        'Upload images to Wix media library'
-      ]
-    },
-    codeExamples: {
-      embed: '<iframe src="https://api.jbsaas.com/embed/blog?user=USER_ID" width="100%" height="800"></iframe>'
-    }
+    difficulty: 'medium',
+    setup_time: '10-15 minutes',
+    notes: 'Embed widgets work, but limited API access'
   },
-  
   shopify: {
-    id: 'shopify',
     name: 'Shopify',
-    description: 'E-commerce platform with limited blog integration',
-    marketShare: '4%',
     capabilities: {
       embed: false,
-      api: false, // Limited API access
+      api: true,
       rss: false,
-      manual: true
+      manual: true,
+      webhooks: true,
+      custom_css: true
     },
-    limitations: [
-      'No JavaScript embed support in templates',
-      'Blog API requires app development',
-      'Limited customization options'
-    ],
-    instructions: {
-      manual: [
-        'Copy the blog content',
-        'Go to Shopify Admin > Online Store > Blog posts',
-        'Create new blog post',
-        'Paste content and adjust formatting',
-        'Upload images through Shopify admin'
-      ]
-    },
-    codeExamples: {
-      manual: 'E-commerce optimized HTML with product integration hooks'
-    }
+    difficulty: 'medium',
+    setup_time: '15-20 minutes',
+    notes: 'API access available, embeds restricted by theme'
   },
-  
+  godaddy: {
+    name: 'GoDaddy Website Builder',
+    capabilities: {
+      embed: false,
+      api: false,
+      rss: false,
+      manual: true,
+      webhooks: false,
+      custom_css: false
+    },
+    difficulty: 'hard',
+    setup_time: '20-30 minutes',
+    notes: 'Very limited - manual copy/paste only'
+  },
+  webflow: {
+    name: 'Webflow',
+    capabilities: {
+      embed: true,
+      api: true,
+      rss: true,
+      manual: true,
+      webhooks: true,
+      custom_css: true
+    },
+    difficulty: 'easy',
+    setup_time: '5-10 minutes',
+    notes: 'Excellent integration support'
+  },
   squarespace: {
-    id: 'squarespace',
     name: 'Squarespace',
-    description: 'Design-focused platform with code block support',
-    marketShare: '5%',
     capabilities: {
       embed: true,
       api: false,
-      rss: false,
-      manual: true
+      rss: true,
+      manual: true,
+      webhooks: false,
+      custom_css: true
     },
-    limitations: [
-      'No direct API access',
-      'Embed requires code block'
-    ],
-    instructions: {
-      embed: [
-        'Edit your Squarespace page',
-        'Add a "Code" block where you want the blog',
-        'Paste the provided embed code',
-        'Save and publish changes'
-      ],
-      manual: [
-        'Copy the formatted content',
-        'Create new blog post in Squarespace',
-        'Paste and adjust styling',
-        'Upload images via Squarespace media library'
-      ]
-    },
-    codeExamples: {
-      embed: '<div id="jbsaas-blog"></div><script src="https://api.jbsaas.com/embed.js" data-user="USER_ID"></script>'
-    }
+    difficulty: 'medium',
+    setup_time: '10-15 minutes',
+    notes: 'Embed blocks available, limited API'
   },
-  
-  webflow: {
-    id: 'webflow',
-    name: 'Webflow',
-    description: 'Professional web design platform with full integration support',
-    marketShare: '2%',
+  ghost: {
+    name: 'Ghost',
     capabilities: {
       embed: true,
       api: true,
       rss: true,
-      manual: true
+      manual: true,
+      webhooks: true,
+      custom_css: true
     },
-    limitations: [],
-    instructions: {
-      embed: [
-        'In Webflow Designer, drag an "Embed" element',
-        'Paste the provided embed code',
-        'Style the container as needed',
-        'Publish your site'
-      ],
-      api: [
-        'Generate Webflow API token',
-        'Connect your Webflow site',
-        'Map blog collection fields',
-        'Enable auto-publishing'
-      ],
-      manual: [
-        'Copy the structured content',
-        'Create new blog post in Webflow CMS',
-        'Paste content into rich text fields',
-        'Upload images to Webflow assets'
-      ]
-    },
-    codeExamples: {
-      embed: '<div class="w-embed"><script>/* JBSAAS embed code */</script></div>',
-      api: 'Full Webflow CMS API integration'
-    }
+    difficulty: 'easy',
+    setup_time: '5-10 minutes',
+    notes: 'Full API access and webhook support'
   },
-  
+  drupal: {
+    name: 'Drupal',
+    capabilities: {
+      embed: true,
+      api: true,
+      rss: true,
+      manual: true,
+      webhooks: true,
+      custom_css: true
+    },
+    difficulty: 'hard',
+    setup_time: '20-30 minutes',
+    notes: 'Powerful but requires technical knowledge'
+  },
+  joomla: {
+    name: 'Joomla',
+    capabilities: {
+      embed: true,
+      api: true,
+      rss: true,
+      manual: true,
+      webhooks: false,
+      custom_css: true
+    },
+    difficulty: 'medium',
+    setup_time: '15-20 minutes',
+    notes: 'Good integration with extensions'
+  },
   custom: {
-    id: 'custom',
-    name: 'Custom HTML Website',
-    description: 'Any HTML-based website with full control',
-    marketShare: '20%',
+    name: 'Custom Website',
     capabilities: {
       embed: true,
       api: true,
       rss: true,
-      manual: true
+      manual: true,
+      webhooks: true,
+      custom_css: true
     },
-    limitations: [],
-    instructions: {
-      embed: [
-        'Copy the JavaScript embed code',
-        'Paste it where you want the blog to appear',
-        'Customize styling with CSS',
-        'Upload and test'
-      ],
-      api: [
-        'Use our REST API endpoints',
-        'Implement custom integration',
-        'Handle authentication and updates',
-        'Build your own UI'
-      ],
-      manual: [
-        'Copy the raw HTML content',
-        'Paste into your HTML files',
-        'Download and host images',
-        'Update navigation and links'
-      ]
-    },
-    codeExamples: {
-      embed: `<div id="jbsaas-blog"></div>
-<script>
-window.jbsaasConfig = { userId: 'USER_ID', theme: 'modern' };
-</script>
-<script src="https://api.jbsaas.com/embed.js"></script>`,
-      api: 'GET https://api.jbsaas.com/v1/businesses/{id}/posts'
-    }
+    difficulty: 'easy',
+    setup_time: '5-10 minutes',
+    notes: 'Full control over implementation'
   }
 };
 
-export const getPlatformCapabilities = (platformId: string): PlatformCapability | null => {
-  return PLATFORM_CAPABILITIES[platformId] || null;
-};
+export const getAvailableIntegrations = (platformKey: string): IntegrationOption[] => {
+  const platform = PLATFORM_CAPABILITIES[platformKey];
+  if (!platform) return [];
 
-export const getAvailableIntegrations = (platformId: string): string[] => {
-  const platform = getPlatformCapabilities(platformId);
-  if (!platform) return ['manual'];
+  const integrations: IntegrationOption[] = [];
   
-  const integrations: string[] = [];
-  if (platform.capabilities.embed) integrations.push('embed');
-  if (platform.capabilities.api) integrations.push('api');
-  if (platform.capabilities.rss) integrations.push('rss');
-  if (platform.capabilities.manual) integrations.push('manual');
+  if (platform.capabilities.embed) {
+    integrations.push({
+      type: 'embed',
+      name: 'Widget Embed',
+      description: 'Add a JavaScript widget to your website',
+      difficulty: 'Easy',
+      icon: '🔌'
+    });
+  }
   
+  if (platform.capabilities.api) {
+    integrations.push({
+      type: 'api',
+      name: 'API Integration',
+      description: 'Connect directly via REST API',
+      difficulty: 'Medium',
+      icon: '🔗'
+    });
+  }
+  
+  if (platform.capabilities.rss) {
+    integrations.push({
+      type: 'rss',
+      name: 'RSS Feed',
+      description: 'Automatic content syndication',
+      difficulty: 'Easy',
+      icon: '📡'
+    });
+  }
+  
+  if (platform.capabilities.manual) {
+    integrations.push({
+      type: 'manual',
+      name: 'Manual Export',
+      description: 'Copy and paste content',
+      difficulty: 'Easy',
+      icon: '📋'
+    });
+  }
+
   return integrations;
 };
 
-export const getPlatformLimitations = (platformId: string): string[] => {
-  const platform = getPlatformCapabilities(platformId);
-  return platform?.limitations || [];
+export const getUnavailableReasons = (platformKey: string) => {
+  const platform = PLATFORM_CAPABILITIES[platformKey];
+  if (!platform) return [];
+
+  const reasons = [];
+  
+  if (!platform.capabilities.embed) {
+    reasons.push({
+      feature: 'Widget Embed',
+      reason: `${platform.name} doesn't support third-party JavaScript widgets`
+    });
+  }
+  
+  if (!platform.capabilities.api) {
+    reasons.push({
+      feature: 'API Integration',
+      reason: `${platform.name} doesn't provide public API access`
+    });
+  }
+  
+  if (!platform.capabilities.rss) {
+    reasons.push({
+      feature: 'RSS Feed',
+      reason: `${platform.name} doesn't support custom RSS feed integration`
+    });
+  }
+
+  return reasons;
 };
