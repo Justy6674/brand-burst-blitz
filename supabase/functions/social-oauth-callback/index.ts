@@ -9,7 +9,7 @@ const corsHeaders = {
 interface OAuthCallback {
   code: string;
   state: string;
-  platform: 'facebook' | 'instagram' | 'linkedin' | 'twitter';
+  platform: string;
 }
 
 serve(async (req) => {
@@ -20,15 +20,12 @@ serve(async (req) => {
   try {
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
-        },
-      }
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
     const { code, state, platform }: OAuthCallback = await req.json();
+
+    console.log(`Processing OAuth callback for ${platform}`);
 
     // Verify OAuth state
     const { data: oauthState, error: stateError } = await supabaseClient
@@ -41,6 +38,7 @@ serve(async (req) => {
       .single();
 
     if (stateError || !oauthState) {
+      console.error('Invalid OAuth state:', stateError);
       return new Response(
         JSON.stringify({ error: 'Invalid or expired OAuth state' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -53,66 +51,32 @@ serve(async (req) => {
       .update({ used: true })
       .eq('id', oauthState.id);
 
-    // Exchange code for access token
-    let tokenResponse;
+    // Exchange code for access token and process account data
+    let accountData;
     
     switch (platform) {
       case 'facebook':
       case 'instagram':
-        tokenResponse = await exchangeFacebookToken(code, oauthState.redirect_uri, oauthState.user_id);
+        accountData = await processFacebookOAuth(code, oauthState, supabaseClient);
         break;
       case 'linkedin':
-        tokenResponse = await exchangeLinkedInToken(code, oauthState.redirect_uri, oauthState.user_id);
+        accountData = await processLinkedInOAuth(code, oauthState, supabaseClient);
         break;
       case 'twitter':
-        tokenResponse = await exchangeTwitterToken(code, oauthState.redirect_uri, oauthState.code_verifier, oauthState.user_id);
+        accountData = await processTwitterOAuth(code, oauthState, supabaseClient);
         break;
       default:
         throw new Error('Unsupported platform');
     }
 
-    if (!tokenResponse.access_token) {
-      throw new Error('Failed to obtain access token');
-    }
-
-    // Get user profile information from the platform
-    const userProfile = await getUserProfile(platform, tokenResponse.access_token);
-    
-    // Store social account in database
-    const { error: accountError } = await supabaseClient
-      .from('social_accounts')
-      .upsert({
-        user_id: oauthState.user_id,
-        platform,
-        account_id: userProfile.id,
-        account_name: userProfile.name,
-        account_username: userProfile.username,
-        account_avatar: userProfile.avatar,
-        access_token: tokenResponse.access_token,
-        oauth_refresh_token: tokenResponse.refresh_token,
-        oauth_scope: tokenResponse.scope,
-        expires_at: tokenResponse.expires_in ? 
-          new Date(Date.now() + tokenResponse.expires_in * 1000).toISOString() : null,
-        last_sync_at: new Date().toISOString(),
-        is_active: true,
-      }, {
-        onConflict: 'user_id,platform,account_id'
-      });
-
-    if (accountError) {
-      console.error('Error storing social account:', accountError);
-      throw new Error('Failed to store account information');
-    }
+    console.log(`Successfully processed ${platform} OAuth for user ${oauthState.user_id}`);
 
     return new Response(
       JSON.stringify({ 
-        success: true, 
-        account: {
-          platform,
-          name: userProfile.name,
-          username: userProfile.username,
-          avatar: userProfile.avatar,
-        }
+        success: true,
+        platform,
+        accounts: accountData.accounts,
+        message: accountData.message
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
@@ -120,51 +84,176 @@ serve(async (req) => {
   } catch (error) {
     console.error('OAuth callback error:', error);
     return new Response(
-      JSON.stringify({ error: error.message || 'Authentication failed' }),
+      JSON.stringify({ error: error.message || 'OAuth processing failed' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
 
-async function exchangeFacebookToken(code: string, redirectUri: string, userId: string) {
+async function processFacebookOAuth(code: string, oauthState: any, supabaseClient: any) {
+  console.log('Processing Facebook OAuth...');
+  
   // Get user's Facebook credentials
-  const supabaseService = createClient(
-    Deno.env.get('SUPABASE_URL') ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-  );
-
-  const { data: credentialsData, error: credentialsError } = await supabaseService
+  const { data: credentialsData, error: credentialsError } = await supabaseClient
     .from('user_social_credentials')
     .select('app_id, app_secret')
-    .eq('user_id', userId)
+    .eq('user_id', oauthState.user_id)
     .eq('platform', 'facebook')
     .single();
 
   if (credentialsError || !credentialsData) {
-    throw new Error('Facebook credentials not found');
+    throw new Error('Facebook credentials not found. Please add your app credentials first.');
   }
 
+  // Exchange authorization code for access token
   const tokenUrl = new URL('https://graph.facebook.com/v18.0/oauth/access_token');
   tokenUrl.searchParams.set('client_id', credentialsData.app_id);
   tokenUrl.searchParams.set('client_secret', credentialsData.app_secret);
-  tokenUrl.searchParams.set('redirect_uri', redirectUri);
+  tokenUrl.searchParams.set('redirect_uri', oauthState.redirect_uri);
   tokenUrl.searchParams.set('code', code);
 
-  const response = await fetch(tokenUrl.toString());
-  return await response.json();
+  const tokenResponse = await fetch(tokenUrl.toString());
+  const tokenData = await tokenResponse.json();
+
+  if (!tokenResponse.ok) {
+    console.error('Token exchange failed:', tokenData);
+    throw new Error(tokenData.error?.message || 'Failed to exchange authorization code for access token');
+  }
+
+  const accessToken = tokenData.access_token;
+
+  // Get user's Facebook pages (for business accounts)
+  const pagesResponse = await fetch(
+    `https://graph.facebook.com/v18.0/me/accounts?fields=id,name,category,access_token,instagram_business_account&access_token=${accessToken}`
+  );
+  const pagesData = await pagesResponse.json();
+
+  if (!pagesResponse.ok) {
+    console.error('Failed to fetch user pages:', pagesData);
+    throw new Error('Failed to retrieve Facebook pages');
+  }
+
+  const connectedAccounts = [];
+  let instagramAccountsFound = 0;
+
+  // Process each Facebook page
+  if (pagesData.data && pagesData.data.length > 0) {
+    for (const page of pagesData.data) {
+      console.log(`Processing Facebook page: ${page.name} (${page.id})`);
+      
+      // Store Facebook page account
+      const { error: fbError } = await supabaseClient
+        .from('social_accounts')
+        .upsert({
+          user_id: oauthState.user_id,
+          platform: 'facebook',
+          account_id: page.id,
+          account_name: page.name,
+          access_token: page.access_token, // Page access token for posting
+          page_id: page.id,
+          category: page.category || 'Healthcare',
+          is_active: true,
+          oauth_scope: 'pages_manage_posts,pages_read_engagement,pages_show_list',
+          last_sync_at: new Date().toISOString(),
+          connected_at: new Date().toISOString()
+        });
+
+      if (fbError) {
+        console.error('Error storing Facebook account:', fbError);
+        throw new Error(`Failed to store Facebook page: ${page.name}`);
+      }
+
+      connectedAccounts.push({
+        platform: 'facebook',
+        id: page.id,
+        name: page.name,
+        category: page.category
+      });
+
+      // Check for connected Instagram business account
+      if (page.instagram_business_account) {
+        console.log(`Found Instagram business account for page: ${page.name}`);
+        
+        // Get Instagram account details
+        const igResponse = await fetch(
+          `https://graph.facebook.com/v18.0/${page.instagram_business_account.id}?fields=id,username,name,biography,followers_count,media_count&access_token=${page.access_token}`
+        );
+        const igData = await igResponse.json();
+
+        if (igResponse.ok) {
+          // Store Instagram business account
+          const { error: igError } = await supabaseClient
+            .from('social_accounts')
+            .upsert({
+              user_id: oauthState.user_id,
+              platform: 'instagram',
+              account_id: page.instagram_business_account.id,
+              account_name: igData.username || `${page.name} Instagram`,
+              access_token: page.access_token, // Use page token for Instagram API
+              page_id: page.id, // Link to parent Facebook page
+              category: page.category || 'Healthcare',
+              is_active: true,
+              oauth_scope: 'instagram_basic,instagram_content_publish',
+              last_sync_at: new Date().toISOString(),
+              connected_at: new Date().toISOString(),
+              account_metadata: {
+                username: igData.username,
+                biography: igData.biography,
+                followers_count: igData.followers_count,
+                media_count: igData.media_count
+              }
+            });
+
+          if (igError) {
+            console.error('Error storing Instagram account:', igError);
+          } else {
+            instagramAccountsFound++;
+            connectedAccounts.push({
+              platform: 'instagram',
+              id: page.instagram_business_account.id,
+              name: igData.username || `${page.name} Instagram`,
+              username: igData.username
+            });
+          }
+        }
+      }
+    }
+  } else {
+    throw new Error('No Facebook pages found. Please create a Facebook page for your healthcare practice first.');
+  }
+
+  // Create initial analytics collection job
+  try {
+    await supabaseClient.functions.invoke('collect-social-analytics', {
+      body: { 
+        platforms: ['facebook', 'instagram'],
+        forceSync: true,
+        userId: oauthState.user_id
+      }
+    });
+    console.log('Initial analytics collection started');
+  } catch (analyticsError) {
+    console.warn('Failed to start initial analytics collection:', analyticsError);
+  }
+
+  const message = instagramAccountsFound > 0 
+    ? `Connected ${pagesData.data.length} Facebook page(s) and ${instagramAccountsFound} Instagram business account(s)`
+    : `Connected ${pagesData.data.length} Facebook page(s). Instagram business accounts can be connected through Facebook Business Manager.`;
+
+  return {
+    accounts: connectedAccounts,
+    message
+  };
 }
 
-async function exchangeLinkedInToken(code: string, redirectUri: string, userId: string) {
+async function processLinkedInOAuth(code: string, oauthState: any, supabaseClient: any) {
+  console.log('Processing LinkedIn OAuth...');
+  
   // Get user's LinkedIn credentials
-  const supabaseService = createClient(
-    Deno.env.get('SUPABASE_URL') ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-  );
-
-  const { data: credentialsData, error: credentialsError } = await supabaseService
+  const { data: credentialsData, error: credentialsError } = await supabaseClient
     .from('user_social_credentials')
     .select('app_id, app_secret')
-    .eq('user_id', userId)
+    .eq('user_id', oauthState.user_id)
     .eq('platform', 'linkedin')
     .single();
 
@@ -172,106 +261,75 @@ async function exchangeLinkedInToken(code: string, redirectUri: string, userId: 
     throw new Error('LinkedIn credentials not found');
   }
 
-  const response = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
+  // Exchange code for access token
+  const tokenResponse = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       grant_type: 'authorization_code',
-      code,
-      redirect_uri: redirectUri,
+      code: code,
       client_id: credentialsData.app_id,
       client_secret: credentialsData.app_secret,
+      redirect_uri: oauthState.redirect_uri,
     }),
   });
 
-  return await response.json();
-}
+  const tokenData = await tokenResponse.json();
 
-async function exchangeTwitterToken(code: string, redirectUri: string, codeVerifier: string, userId: string) {
-  // Get user's Twitter credentials
-  const supabaseService = createClient(
-    Deno.env.get('SUPABASE_URL') ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-  );
-
-  const { data: credentialsData, error: credentialsError } = await supabaseService
-    .from('user_social_credentials')
-    .select('app_id, app_secret')
-    .eq('user_id', userId)
-    .eq('platform', 'twitter')
-    .single();
-
-  if (credentialsError || !credentialsData) {
-    throw new Error('Twitter credentials not found');
+  if (!tokenResponse.ok) {
+    throw new Error(tokenData.error_description || 'LinkedIn token exchange failed');
   }
 
-  const response = await fetch('https://api.twitter.com/2/oauth2/token', {
-    method: 'POST',
+  // Get user profile
+  const profileResponse = await fetch('https://api.linkedin.com/v2/userinfo', {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa(`${credentialsData.app_id}:${credentialsData.app_secret}`)}`,
+      'Authorization': `Bearer ${tokenData.access_token}`,
     },
-    body: new URLSearchParams({
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri: redirectUri,
-      code_verifier: codeVerifier,
-    }),
   });
 
-  return await response.json();
+  const profileData = await profileResponse.json();
+
+  if (!profileResponse.ok) {
+    throw new Error('Failed to get LinkedIn profile');
+  }
+
+  // Store LinkedIn account
+  const { error } = await supabaseClient
+    .from('social_accounts')
+    .upsert({
+      user_id: oauthState.user_id,
+      platform: 'linkedin',
+      account_id: profileData.sub,
+      account_name: profileData.name || profileData.given_name + ' ' + profileData.family_name,
+      access_token: tokenData.access_token,
+      refresh_token: tokenData.refresh_token,
+      is_active: true,
+      oauth_scope: 'w_member_social,r_liteprofile,r_emailaddress',
+      last_sync_at: new Date().toISOString(),
+      connected_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + tokenData.expires_in * 1000).toISOString()
+    });
+
+  if (error) {
+    throw new Error('Failed to store LinkedIn account');
+  }
+
+  return {
+    accounts: [{
+      platform: 'linkedin',
+      id: profileData.sub,
+      name: profileData.name
+    }],
+    message: 'LinkedIn account connected successfully'
+  };
 }
 
-async function getUserProfile(platform: string, accessToken: string) {
-  switch (platform) {
-    case 'facebook':
-      const fbResponse = await fetch(`https://graph.facebook.com/v18.0/me?fields=id,name,picture&access_token=${accessToken}`);
-      const fbData = await fbResponse.json();
-      return {
-        id: fbData.id,
-        name: fbData.name,
-        username: fbData.name,
-        avatar: fbData.picture?.data?.url,
-      };
-
-    case 'instagram':
-      const igResponse = await fetch(`https://graph.facebook.com/v18.0/me?fields=id,username&access_token=${accessToken}`);
-      const igData = await igResponse.json();
-      return {
-        id: igData.id,
-        name: igData.username,
-        username: igData.username,
-        avatar: null,
-      };
-
-    case 'linkedin':
-      const liResponse = await fetch('https://api.linkedin.com/v2/people/~:(id,firstName,lastName,profilePicture(displayImage~:playableStreams))', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const liData = await liResponse.json();
-      return {
-        id: liData.id,
-        name: `${liData.firstName?.localized?.en_US || ''} ${liData.lastName?.localized?.en_US || ''}`.trim(),
-        username: liData.id,
-        avatar: liData.profilePicture?.displayImage?.elements?.[0]?.identifiers?.[0]?.identifier,
-      };
-
-    case 'twitter':
-      const twitterResponse = await fetch('https://api.twitter.com/2/users/me?user.fields=profile_image_url', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const twitterData = await twitterResponse.json();
-      const user = twitterData.data;
-      return {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        avatar: user.profile_image_url,
-      };
-
-    default:
-      throw new Error('Unsupported platform');
-  }
+async function processTwitterOAuth(code: string, oauthState: any, supabaseClient: any) {
+  console.log('Processing Twitter OAuth...');
+  
+  // Twitter OAuth 2.0 implementation would go here
+  // This is a placeholder for future implementation
+  throw new Error('Twitter OAuth integration coming soon');
 }
