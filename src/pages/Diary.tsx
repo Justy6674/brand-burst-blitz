@@ -15,26 +15,7 @@ export default function Diary() {
   const [posts, setPosts] = useState([]);
   const [scheduledPosts, setScheduledPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [entries, setEntries] = useState([
-    {
-      id: 1,
-      date: '2024-01-20',
-      title: 'Business Strategy Meeting',
-      content: 'Had a great meeting with the team today. Discussed Q1 objectives and new marketing strategies. Feeling optimistic about the direction we\'re heading.',
-      mood: 'positive',
-      tags: ['business', 'strategy', 'team'],
-      type: 'diary'
-    },
-    {
-      id: 2,
-      date: '2024-01-19',
-      title: 'Content Creation Ideas',
-      content: 'Brainstormed some new content ideas for social media. Need to focus more on behind-the-scenes content and customer success stories.',
-      mood: 'creative',
-      tags: ['content', 'ideas', 'social media'],
-      type: 'diary'
-    }
-  ]);
+  const [entries, setEntries] = useState([]);
 
   const [newEntry, setNewEntry] = useState({
     title: '',
@@ -154,7 +135,7 @@ export default function Diary() {
         <div>
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight flex items-center gap-2">
             <BookOpen className="h-6 w-6 md:h-8 md:w-8" />
-            Content Command Center
+            Content Hub
           </h1>
           <p className="text-sm md:text-base text-muted-foreground">
             Your unified hub for content planning, posts, and business insights

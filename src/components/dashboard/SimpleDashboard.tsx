@@ -238,7 +238,7 @@ export const SimpleDashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Daily Diary</CardTitle>
+              <CardTitle className="text-sm font-medium">Content Hub</CardTitle>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -249,7 +249,7 @@ export const SimpleDashboard = () => {
               <Link to="/dashboard/diary">
                 <Button variant="outline" size="sm" className="mt-2 w-full">
                   <PenTool className="h-3 w-3 mr-1" />
-                  Write Entry
+                  Open Hub
                 </Button>
               </Link>
             </CardContent>

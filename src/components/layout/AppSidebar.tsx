@@ -34,14 +34,14 @@ import {
 
 const navigationItems = [
   {
-    title: 'Daily Diary',
-    url: '/dashboard/diary',
-    icon: BookOpen,
-  },
-  {
     title: 'Dashboard',
     url: '/dashboard',
     icon: LayoutDashboard,
+  },
+  {
+    title: 'Content Hub',
+    url: '/dashboard/diary',
+    icon: BookOpen,
   },
   {
     title: 'Create Content',
@@ -57,11 +57,6 @@ const navigationItems = [
     title: 'Calendar',
     url: '/dashboard/calendar',
     icon: Calendar,
-  },
-  {
-    title: 'Daily Diary',
-    url: '/dashboard/diary',
-    icon: BookOpen,
   },
   {
     title: 'Analytics',
