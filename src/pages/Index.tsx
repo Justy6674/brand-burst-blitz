@@ -220,6 +220,12 @@ const Index = () => {
                 description: "<span style='color: #ffd700; font-weight: 700;'>Weight loss, telehealth, alternative medicine, sexual health</span> compliance challenges. Building practice visibility while navigating <span className='text-yellow-highlight'>strict advertising guidelines</span>.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
+              },
+              {
+                title: "🏢 The Private Practice Entrepreneur",
+                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, AHPRA obligations</span>, and patient acquisition strategies.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
               }
             ].map((audience, index) => (
               <Card key={index} className={`p-8 hover-lift ${audience.border} bg-gradient-to-br ${audience.gradient}`}>
