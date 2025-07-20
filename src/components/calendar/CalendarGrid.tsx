@@ -45,19 +45,19 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const today = new Date();
 
-    return (
-      <div className="p-4">
+  return (
+      <div className="p-6">
         {/* Header */}
-        <div className="grid grid-cols-7 mb-4">
+        <div className="grid grid-cols-7 mb-6">
           {weekDays.map((day) => (
-            <div key={day} className="p-2 text-center font-medium text-muted-foreground">
+            <div key={day} className="p-3 text-center font-semibold text-primary">
               {day}
             </div>
           ))}
         </div>
 
         {/* Days Grid */}
-        <div className="grid grid-cols-7 gap-px bg-border">
+        <div className="grid grid-cols-7 gap-2">
           {days.map((day) => {
             const dayEvents = events.filter(event => 
               event.start.toDateString() === day.toDateString()
@@ -65,42 +65,64 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
             
             const isCurrentMonth = day.getMonth() === currentDate.getMonth();
             const isToday = day.toDateString() === today.toDateString();
+            const hasEvents = dayEvents.length > 0;
             
             return (
               <div
                 key={day.toISOString()}
                 className={cn(
-                  "min-h-[120px] p-2 bg-background cursor-pointer hover:bg-muted/50 transition-colors",
-                  !isCurrentMonth && "text-muted-foreground bg-muted/20"
+                  "min-h-[140px] p-3 rounded-xl border cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg group relative overflow-hidden",
+                  isCurrentMonth 
+                    ? "bg-gradient-to-br from-background to-background/50 border-primary/20 hover:border-primary/40" 
+                    : "bg-muted/10 border-muted/30 text-muted-foreground",
+                  isToday && "ring-2 ring-primary/50 bg-gradient-to-br from-primary/5 to-primary-glow/5 border-primary/40",
+                  hasEvents && "border-secondary/30 bg-gradient-to-br from-secondary/5 to-accent/5"
                 )}
                 onClick={() => onDateClick(day)}
               >
-                <div className={cn(
-                  "text-sm font-medium mb-2",
-                  isToday && "bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center"
-                )}>
-                  {day.getDate()}
-                </div>
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary-glow/0 group-hover:from-primary/5 group-hover:to-primary-glow/10 transition-all duration-300" />
                 
-                <div className="space-y-1">
-                  {dayEvents.slice(0, 3).map((event) => (
-                    <div
-                      key={event.id}
-                      className="text-xs p-1 rounded cursor-pointer hover:opacity-80 transition-opacity"
-                      style={{ backgroundColor: event.color + '20', color: event.color }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onEventClick(event);
-                      }}
-                    >
-                      <div className="truncate font-medium">{event.title}</div>
-                    </div>
-                  ))}
-                  {dayEvents.length > 3 && (
-                    <div className="text-xs text-muted-foreground">
-                      +{dayEvents.length - 3} more
-                    </div>
-                  )}
+                <div className="relative z-10">
+                  <div className={cn(
+                    "text-sm font-bold mb-3 transition-all duration-300",
+                    isToday 
+                      ? "bg-gradient-to-r from-primary to-primary-glow text-transparent bg-clip-text text-lg" 
+                      : "text-foreground group-hover:text-primary",
+                    !isCurrentMonth && "text-muted-foreground"
+                  )}>
+                    {day.getDate()}
+                  </div>
+                  
+                  <div className="space-y-1.5">
+                    {dayEvents.slice(0, 2).map((event) => (
+                      <div
+                        key={event.id}
+                        className="text-xs p-2 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10"
+                        style={{ 
+                          backgroundColor: event.color + '20', 
+                          color: event.color,
+                          boxShadow: `0 2px 8px ${event.color}20`
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onEventClick(event);
+                        }}
+                      >
+                        <div className="truncate font-semibold">{event.title}</div>
+                      </div>
+                    ))}
+                    {dayEvents.length > 2 && (
+                      <div className="text-xs text-muted-foreground bg-muted/20 rounded p-1.5 text-center font-medium">
+                        +{dayEvents.length - 2} more
+                      </div>
+                    )}
+                    {dayEvents.length === 0 && isCurrentMonth && (
+                      <div className="text-xs text-muted-foreground/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pt-4">
+                        Click to create content
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
