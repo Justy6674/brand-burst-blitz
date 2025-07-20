@@ -53,7 +53,7 @@ export const useComplianceMonitoring = () => {
   const [violations, setViolations] = useState<ComplianceViolation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { handleAsyncError } = useErrorHandler();
+  const { handleError } = useErrorHandler();
 
   const loadComplianceRules = useCallback(async (industry?: string) => {
     return handleAsyncError(async () => {

@@ -35,7 +35,7 @@ interface GeneratedContent {
 export const useContentGeneration = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
-  const { handleAsyncError } = useErrorHandler();
+  const { handleError } = useErrorHandler();
 
   const generateContent = useCallback(async (request: GenerateContentRequest): Promise<GeneratedContent | null> => {
     return handleAsyncError(async () => {
