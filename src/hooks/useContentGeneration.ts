@@ -35,10 +35,10 @@ interface GeneratedContent {
 export const useContentGeneration = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
-  const { handleAsyncError } = useErrorHandler();
+  const { handleError } = useErrorHandler();
 
   const generateContent = useCallback(async (request: GenerateContentRequest): Promise<GeneratedContent | null> => {
-    return handleAsyncError(async () => {
+    try {
       setIsGenerating(true);
       
       const { data, error } = await supabase.functions.invoke('generate-content', {
@@ -55,13 +55,15 @@ export const useContentGeneration = () => {
       });
 
       return data as GeneratedContent;
-    }, {
-      function_name: 'generateContent',
-      user_message: 'Failed to generate content. Please try again.',
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to generate content. Please try again.'
+      });
+      return null;
+    } finally {
       setIsGenerating(false);
-    });
-  }, [handleAsyncError, toast]);
+    }
+  }, [handleError, toast]);
 
   const enhanceContent = useCallback(async (content: string, enhancements: {
     improve_readability?: boolean;
@@ -69,7 +71,7 @@ export const useContentGeneration = () => {
     adjust_tone?: string;
     target_platform?: string;
   }): Promise<string | null> => {
-    return handleAsyncError(async () => {
+    try {
       setIsGenerating(true);
       
       const { data, error } = await supabase.functions.invoke('generate-content', {
@@ -90,20 +92,22 @@ export const useContentGeneration = () => {
       });
 
       return data.content;
-    }, {
-      function_name: 'enhanceContent',
-      user_message: 'Failed to enhance content. Please try again.',
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to enhance content. Please try again.'
+      });
+      return null;
+    } finally {
       setIsGenerating(false);
-    });
-  }, [handleAsyncError, toast]);
+    }
+  }, [handleError, toast]);
 
   const optimizeForSEO = useCallback(async (content: string, targetKeywords: string[]): Promise<{
     optimized_content: string;
     seo_score: number;
     suggestions: string[];
   } | null> => {
-    return handleAsyncError(async () => {
+    try {
       setIsGenerating(true);
       
       const { data, error } = await supabase.functions.invoke('generate-content', {
@@ -124,18 +128,20 @@ export const useContentGeneration = () => {
       });
 
       return data;
-    }, {
-      function_name: 'optimizeForSEO',
-      user_message: 'Failed to optimize content for SEO. Please try again.',
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to optimize content for SEO. Please try again.'
+      });
+      return null;
+    } finally {
       setIsGenerating(false);
-    });
-  }, [handleAsyncError, toast]);
+    }
+  }, [handleError, toast]);
 
   const generateVariations = useCallback(async (baseContent: string, platforms: string[]): Promise<{
     [platform: string]: GeneratedContent;
   } | null> => {
-    return handleAsyncError(async () => {
+    try {
       setIsGenerating(true);
       
       const { data, error } = await supabase.functions.invoke('generate-content', {
@@ -156,13 +162,15 @@ export const useContentGeneration = () => {
       });
 
       return data;
-    }, {
-      function_name: 'generateVariations',
-      user_message: 'Failed to generate platform variations. Please try again.',
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to generate platform variations. Please try again.'
+      });
+      return null;
+    } finally {
       setIsGenerating(false);
-    });
-  }, [handleAsyncError, toast]);
+    }
+  }, [handleError, toast]);
 
   return {
     generateContent,

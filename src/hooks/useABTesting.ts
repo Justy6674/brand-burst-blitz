@@ -41,10 +41,10 @@ export const useABTesting = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeVariants, setActiveVariants] = useState<{ [testId: string]: string }>({});
   const { toast } = useToast();
-  const { handleAsyncError } = useErrorHandler();
+  const { handleError } = useErrorHandler();
 
   const fetchTests = useCallback(async () => {
-    return handleAsyncError(async () => {
+    try {
       setIsLoading(true);
       
       // For now, return mock data since we haven't implemented the full AB testing tables
@@ -84,16 +84,19 @@ export const useABTesting = () => {
       
       setTests(mockTests);
       return mockTests;
-    }, {
-      function_name: 'fetchTests',
-      user_message: 'Failed to fetch A/B tests'
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        context: 'fetchTests',
+        userAction: 'Loading A/B tests'
+      });
+      return [];
+    } finally {
       setIsLoading(false);
-    });
-  }, [handleAsyncError]);
+    }
+    }, [handleError]);
 
   const createTest = useCallback(async (testData: Partial<ABTest>): Promise<ABTest | null> => {
-    return handleAsyncError(async () => {
+    try {
       // Mock implementation - in real app would create database record
       const newTest: ABTest = {
         id: Date.now().toString(),
@@ -115,11 +118,14 @@ export const useABTesting = () => {
       });
 
       return newTest;
-    }, {
-      function_name: 'createTest',
-      user_message: 'Failed to create A/B test'
-    });
-  }, [handleAsyncError, toast]);
+    } catch (error) {
+      await handleError(error, {
+        context: 'createTest',
+        userAction: 'Creating A/B test'
+      });
+      return null;
+    }
+  }, [handleError, toast]);
 
   const getVariantForUser = useCallback((testId: string, userId: string): string => {
     // Simple hash-based assignment for consistent user experience
@@ -153,7 +159,7 @@ export const useABTesting = () => {
   }, [tests, activeVariants]);
 
   const recordConversion = useCallback(async (testId: string, variantId: string, userId: string, conversion: boolean = true) => {
-    return handleAsyncError(async () => {
+    try {
       // In real implementation, would record to database
       console.log('Recording conversion:', { testId, variantId, userId, conversion });
       
@@ -177,14 +183,16 @@ export const useABTesting = () => {
         }
         return test;
       }));
-    }, {
-      function_name: 'recordConversion',
-      user_message: 'Failed to record conversion'
-    });
-  }, [handleAsyncError]);
+    } catch (error) {
+      await handleError(error, {
+        context: 'recordConversion',
+        userAction: 'Recording A/B test conversion'
+      });
+    }
+  }, [handleError]);
 
   const pauseTest = useCallback(async (testId: string) => {
-    return handleAsyncError(async () => {
+    try {
       setTests(prev => prev.map(test => 
         test.id === testId ? { ...test, status: 'paused' as const } : test
       ));
@@ -193,14 +201,16 @@ export const useABTesting = () => {
         title: "Test Paused",
         description: "A/B test has been paused"
       });
-    }, {
-      function_name: 'pauseTest',
-      user_message: 'Failed to pause test'
-    });
-  }, [handleAsyncError, toast]);
+    } catch (error) {
+      await handleError(error, {
+        context: 'pauseTest',
+        userAction: 'Pausing A/B test'
+      });
+    }
+  }, [handleError, toast]);
 
   const resumeTest = useCallback(async (testId: string) => {
-    return handleAsyncError(async () => {
+    try {
       setTests(prev => prev.map(test => 
         test.id === testId ? { ...test, status: 'active' as const } : test
       ));
@@ -209,11 +219,13 @@ export const useABTesting = () => {
         title: "Test Resumed",
         description: "A/B test has been resumed"
       });
-    }, {
-      function_name: 'resumeTest',
-      user_message: 'Failed to resume test'
-    });
-  }, [handleAsyncError, toast]);
+    } catch (error) {
+      await handleError(error, {
+        context: 'resumeTest',
+        userAction: 'Resuming A/B test'
+      });
+    }
+  }, [handleError, toast]);
 
   useEffect(() => {
     fetchTests();

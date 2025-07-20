@@ -73,7 +73,14 @@ export const HealthcareTechStackAssignment: React.FC<TechStackAssignmentProps> =
   }, [currentAssignment, techAssessment]);
 
   const handleAssessmentSubmit = async () => {
-    const assignment = await assignWorkflow(practiceType, assessmentData);
+    const assessmentWithTypedData = {
+      ...assessmentData,
+      website_platform: assessmentData.website_platform as "WordPress" | "Wix" | "Squarespace" | "Custom" | "None",
+      social_media_experience: assessmentData.social_media_experience as "Basic" | "Intermediate" | "Advanced" | "None",
+      technical_comfort: assessmentData.technical_comfort as "Low" | "Medium" | "High",
+      budget_for_automation: assessmentData.budget_for_automation as "Under $100" | "$100-500" | "$500-1000" | "Over $1000"
+    };
+    const assignment = await assignWorkflow(practiceType, assessmentWithTypedData);
     if (assignment) {
       setCurrentTab('progress');
     }

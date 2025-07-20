@@ -53,10 +53,10 @@ export const useComplianceMonitoring = () => {
   const [violations, setViolations] = useState<ComplianceViolation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { handleAsyncError } = useErrorHandler();
+  const { handleError } = useErrorHandler();
 
   const loadComplianceRules = useCallback(async (industry?: string) => {
-    return handleAsyncError(async () => {
+    try {
       setIsLoading(true);
       
       // Mock compliance rules based on industry
@@ -144,13 +144,15 @@ export const useComplianceMonitoring = () => {
 
       setRules(filteredRules);
       return filteredRules;
-    }, {
-      function_name: 'loadComplianceRules',
-      user_message: 'Failed to load compliance rules'
-    }).finally(() => {
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to load compliance rules'
+      });
+      return [];
+    } finally {
       setIsLoading(false);
-    });
-  }, [handleAsyncError]);
+    }
+  }, [handleError]);
 
   const scanContent = useCallback(async (content: string, contentType: string = 'post'): Promise<{
     compliant: boolean;
@@ -158,7 +160,7 @@ export const useComplianceMonitoring = () => {
     warnings: string[];
     blocked: boolean;
   }> => {
-    return handleAsyncError(async () => {
+    try {
       const violations: string[] = [];
       const warnings: string[] = [];
       let blocked = false;
@@ -214,19 +216,21 @@ export const useComplianceMonitoring = () => {
         warnings,
         blocked
       };
-    }, {
-      function_name: 'scanContent',
-      user_message: 'Failed to scan content for compliance'
-    }) || {
-      compliant: true,
-      violations: [],
-      warnings: [],
-      blocked: false
-    };
-  }, [handleAsyncError]);
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to scan content for compliance'
+      });
+      return {
+        compliant: true,
+        violations: [],
+        warnings: [],
+        blocked: false
+      };
+    }
+  }, [handleError]);
 
   const generateComplianceReport = useCallback(async (startDate: string, endDate: string): Promise<ComplianceReport | null> => {
-    return handleAsyncError(async () => {
+    try {
       // Mock report generation
       const report: ComplianceReport = {
         period: `${startDate} to ${endDate}`,
@@ -247,14 +251,16 @@ export const useComplianceMonitoring = () => {
       };
 
       return report;
-    }, {
-      function_name: 'generateComplianceReport',
-      user_message: 'Failed to generate compliance report'
-    });
-  }, [handleAsyncError]);
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to generate compliance report'
+      });
+      return null;
+    }
+  }, [handleError]);
 
   const createComplianceRule = useCallback(async (ruleData: Partial<ComplianceRule>) => {
-    return handleAsyncError(async () => {
+    try {
       const newRule: ComplianceRule = {
         id: Date.now().toString(),
         name: ruleData.name || 'New Rule',
@@ -278,11 +284,13 @@ export const useComplianceMonitoring = () => {
       });
 
       return newRule;
-    }, {
-      function_name: 'createComplianceRule',
-      user_message: 'Failed to create compliance rule'
-    });
-  }, [handleAsyncError, toast]);
+    } catch (error) {
+      await handleError(error, {
+        fallbackMessage: 'Failed to create compliance rule'
+      });
+      return null;
+    }
+  }, [handleError, toast]);
 
   return {
     rules,
