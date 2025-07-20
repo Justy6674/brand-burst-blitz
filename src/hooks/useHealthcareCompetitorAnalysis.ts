@@ -238,7 +238,8 @@ export const useHealthcareCompetitorAnalysis = () => {
       Patient testimonial: "Dr Smith completely cured my chronic pain!" 
       We guarantee 100% success with our revolutionary Botox treatments.`;
       
-      const complianceResult = await validateContent(mockContent, 'practice_marketing');
+      const practiceType = { type: 'gp' as const, ahpra_registration: 'mock' };
+      const complianceResult = await validateContent(mockContent, 'practice_marketing', practiceType);
       
       const contentAnalysis: CompetitorContentAnalysis = {
         content_id: `content_${Date.now()}`,
@@ -248,7 +249,7 @@ export const useHealthcareCompetitorAnalysis = () => {
         content_preview: mockContent.substring(0, 100) + '...',
         compliance_violations: complianceResult.violations.map(v => ({
           type: v.type,
-          severity: v.severity || 'medium',
+          severity: v.severity === 'critical' ? 'high' : (v.severity as 'high' | 'low' | 'medium') || 'medium',
           description: v.message
         })),
         engagement_metrics: {

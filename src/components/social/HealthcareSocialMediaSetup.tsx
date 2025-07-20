@@ -138,7 +138,8 @@ export const HealthcareSocialMediaSetup = () => {
   const handleCustomContentCheck = async () => {
     if (!customContent.trim()) return;
     
-    const result = await validateContent(customContent, 'patient_education', 'medical' as any);
+    const practiceType = { type: 'gp' as const, ahpra_registration: 'mock' };
+    const result = await validateContent(customContent, 'patient_education', practiceType);
     setComplianceResult(result);
   };
 
