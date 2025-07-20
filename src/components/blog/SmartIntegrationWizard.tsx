@@ -116,12 +116,14 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
           {selectedIntegration === 'embed' && (
             <EmbedCodeGenerator 
               businessId={businessId}
+              platform={selectedPlatform || ''}
             />
           )}
 
           {selectedIntegration === 'api' && (
             <APIIntegrationSetup 
               businessId={businessId}
+              platform={selectedPlatform || ''}
             />
           )}
 

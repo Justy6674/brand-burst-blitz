@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 
 interface EmbedCodeGeneratorProps {
   businessId: string;
+  platform?: string;
   blogConfig?: {
     width?: string;
     height?: string;
@@ -15,6 +16,7 @@ interface EmbedCodeGeneratorProps {
 
 export const EmbedCodeGenerator: React.FC<EmbedCodeGeneratorProps> = ({ 
   businessId, 
+  platform,
   blogConfig = {} 
 }) => {
   return (

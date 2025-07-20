@@ -9,11 +9,13 @@ import { CheckCircle, AlertCircle, Key, TestTube } from 'lucide-react';
 
 interface APIIntegrationSetupProps {
   businessId: string;
+  platform?: string;
   onApiKeyGenerated?: (apiKey: string) => void;
 }
 
 export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({ 
   businessId, 
+  platform,
   onApiKeyGenerated 
 }) => {
   const { toast } = useToast();
