@@ -1,27 +1,34 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlatformInfo } from '@/lib/platformCapabilities';
 
 interface EmbedCodeGeneratorProps {
-  platform: PlatformInfo;
   businessId: string;
+  blogConfig?: {
+    width?: string;
+    height?: string;
+    theme?: 'light' | 'dark' | 'auto';
+    showHeader?: boolean;
+    showFooter?: boolean;
+  };
 }
 
-export const EmbedCodeGenerator: React.FC<EmbedCodeGeneratorProps> = ({
-  platform,
-  businessId
+export const EmbedCodeGenerator: React.FC<EmbedCodeGeneratorProps> = ({ 
+  businessId, 
+  blogConfig = {} 
 }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Embed Code for {platform.name}</CardTitle>
+        <CardTitle>Embed Code Generator</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <p>Embed code will be generated here for {platform.name}</p>
-          <Button>Generate Embed Code</Button>
-        </div>
+        <p className="text-muted-foreground">
+          Generate embed code for business: {businessId}
+        </p>
+        <Button className="mt-4">
+          Generate Code
+        </Button>
       </CardContent>
     </Card>
   );

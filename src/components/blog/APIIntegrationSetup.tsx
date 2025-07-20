@@ -5,21 +5,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
-import { CheckCircle, AlertCircle, Key, Link, TestTube } from 'lucide-react';
-import { PlatformInfo, PLATFORM_CAPABILITIES } from '@/lib/platformCapabilities';
+import { CheckCircle, AlertCircle, Key, TestTube } from 'lucide-react';
 
 interface APIIntegrationSetupProps {
   businessId: string;
-  platform: PlatformInfo;
+  onApiKeyGenerated?: (apiKey: string) => void;
 }
 
-export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
-  businessId,
-  platform
+export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({ 
+  businessId, 
+  onApiKeyGenerated 
 }) => {
-  const selectedPlatform = Object.keys(PLATFORM_CAPABILITIES).find(key => 
-    PLATFORM_CAPABILITIES[key].name === platform.name
-  ) || 'custom';
   const { toast } = useToast();
   const [credentials, setCredentials] = useState({
     siteUrl: '',
@@ -43,7 +39,7 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
         setConnectionStatus('success');
         toast({
           title: "Connection successful!",
-          description: `Successfully connected to your ${platform.name} site`,
+          description: "Successfully connected to your site",
         });
       } else {
         setConnectionStatus('error');
@@ -72,114 +68,17 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
       title: "API key generated",
       description: "Your new API key is ready to use",
     });
-  };
-
-  const getCredentialFields = () => {
-    switch (selectedPlatform) {
-      case 'wordpress':
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="siteUrl">WordPress Site URL *</Label>
-              <Input
-                id="siteUrl"
-                placeholder="https://yourwebsite.com"
-                value={credentials.siteUrl}
-                onChange={(e) => setCredentials(prev => ({ ...prev, siteUrl: e.target.value }))}
-              />
-              <p className="text-sm text-muted-foreground">
-                Your WordPress site's main URL
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="username">WordPress Username *</Label>
-              <Input
-                id="username"
-                placeholder="your-username"
-                value={credentials.username}
-                onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Application Password *</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="xxxx xxxx xxxx xxxx"
-                value={credentials.password}
-                onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
-              />
-              <Alert>
-                <Key className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Need an Application Password?</strong><br />
-                  Go to WordPress Admin → Users → Your Profile → Application Passwords. 
-                  Create a new password specifically for JBSAAS.
-                </AlertDescription>
-              </Alert>
-            </div>
-          </>
-        );
-
-      case 'webflow':
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="siteUrl">Webflow Site ID *</Label>
-              <Input
-                id="siteUrl"
-                placeholder="5c5f5b5f5b5f5b5f5b5f5b5f"
-                value={credentials.siteUrl}
-                onChange={(e) => setCredentials(prev => ({ ...prev, siteUrl: e.target.value }))}
-              />
-              <p className="text-sm text-muted-foreground">
-                Found in your Webflow site settings
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="apiKey">Webflow API Token *</Label>
-              <Input
-                id="apiKey"
-                type="password"
-                placeholder="your-webflow-api-token"
-                value={credentials.apiKey}
-                onChange={(e) => setCredentials(prev => ({ ...prev, apiKey: e.target.value }))}
-              />
-              <Alert>
-                <Key className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Get your API Token:</strong><br />
-                  Go to Webflow Dashboard → Project Settings → Integrations → API Access
-                </AlertDescription>
-              </Alert>
-            </div>
-          </>
-        );
-
-      default:
-        return (
-          <Alert>
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              API integration for {platform.name} is coming soon. 
-              For now, please use the Copy & Paste method.
-            </AlertDescription>
-          </Alert>
-        );
-    }
+    onApiKeyGenerated?.(apiKey);
   };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          ⚡ API Integration for {platform.name}
+          ⚡ API Integration Setup
         </CardTitle>
         <CardDescription>
-          Connect directly to your {platform.name} site for automatic publishing
+          Connect directly to your website for automatic publishing
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -192,21 +91,50 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
             <li>• Schedule automatic publishing</li>
             <li>• Update existing posts remotely</li>
             <li>• Sync images and media automatically</li>
-            <li>• Full integration with {platform.name} features</li>
           </ul>
         </div>
 
         {/* Credentials Form */}
         <div className="space-y-4">
           <h4 className="font-medium">Connection Details</h4>
-          {getCredentialFields()}
+          
+          <div className="space-y-2">
+            <Label htmlFor="siteUrl">Website URL *</Label>
+            <Input
+              id="siteUrl"
+              placeholder="https://yourwebsite.com"
+              value={credentials.siteUrl}
+              onChange={(e) => setCredentials(prev => ({ ...prev, siteUrl: e.target.value }))}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="username">Username *</Label>
+            <Input
+              id="username"
+              placeholder="your-username"
+              value={credentials.username}
+              onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="password">API Key/Password *</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="your-api-key"
+              value={credentials.password}
+              onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
+            />
+          </div>
         </div>
 
         {/* Test Connection */}
         <div className="space-y-4">
           <Button 
             onClick={testConnection}
-            disabled={isConnecting || !credentials.siteUrl || (selectedPlatform === 'wordpress' && (!credentials.username || !credentials.password))}
+            disabled={isConnecting || !credentials.siteUrl || !credentials.username || !credentials.password}
             className="w-full"
           >
             <TestTube className="w-4 h-4 mr-2" />
@@ -218,7 +146,7 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription className="text-green-800">
                 <strong>Connection Successful!</strong><br />
-                Your {platform.name} site is now connected. You can start publishing directly from JBSAAS.
+                Your website is now connected. You can start publishing directly from JBSAAS.
               </AlertDescription>
             </Alert>
           )}
@@ -228,13 +156,13 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
               <AlertCircle className="h-4 w-4 text-red-600" />
               <AlertDescription className="text-red-800">
                 <strong>Connection Failed</strong><br />
-                Please check your credentials and ensure your {platform.name} site is accessible.
+                Please check your credentials and ensure your website is accessible.
               </AlertDescription>
             </Alert>
           )}
         </div>
 
-        {/* API Documentation */}
+        {/* API Key Generation */}
         {connectionStatus === 'success' && (
           <div className="space-y-4">
             <h4 className="font-medium">Your API Details</h4>
@@ -248,34 +176,18 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
                   placeholder="Click 'Generate API Key' to create"
                 />
                 <Button onClick={generateAPIKey} variant="outline">
+                  <Key className="h-4 w-4 mr-1" />
                   Generate Key
                 </Button>
               </div>
             </div>
 
             <div className="p-4 bg-muted rounded-lg">
-              <h5 className="font-medium mb-2">Available Endpoints:</h5>
-              <div className="space-y-1 text-sm font-mono">
-                <div>GET /api/v1/businesses/{businessId}/posts</div>
-                <div>POST /api/v1/businesses/{businessId}/posts</div>
-                <div>PUT /api/v1/businesses/{businessId}/posts/:id</div>
-                <div>DELETE /api/v1/businesses/{businessId}/posts/:id</div>
-              </div>
+              <h5 className="font-medium mb-2">Business ID:</h5>
+              <code className="text-sm">{businessId}</code>
             </div>
           </div>
         )}
-
-        {/* Platform-Specific Notes */}
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-          <h4 className="font-medium text-amber-900 mb-2">
-            📋 {platform.name} Integration Notes:
-          </h4>
-           <ul className="text-sm text-amber-800 space-y-1">
-            <li>• API credentials are securely stored and encrypted</li>
-            <li>• Test connection before publishing any content</li>
-            <li>• Check platform documentation for rate limits</li>
-          </ul>
-        </div>
       </CardContent>
     </Card>
   );

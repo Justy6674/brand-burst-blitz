@@ -1,25 +1,24 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlatformInfo } from '@/lib/platformCapabilities';
 
 interface PlatformInstructionsProps {
-  platform: PlatformInfo;
-  businessId: string;
-  onComplete?: () => void;
+  platform: 'wordpress' | 'shopify' | 'squarespace' | 'wix' | 'custom';
+  integrationMethod: 'embed' | 'api' | 'manual';
 }
 
-export const PlatformInstructions: React.FC<PlatformInstructionsProps> = ({
-  platform,
-  businessId,
-  onComplete
+export const PlatformInstructions: React.FC<PlatformInstructionsProps> = ({ 
+  platform, 
+  integrationMethod 
 }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Setup Instructions for {platform.name}</CardTitle>
+        <CardTitle>Instructions for {platform}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>Step-by-step instructions for {platform.name} integration will appear here.</p>
+        <p className="text-muted-foreground">
+          Integration method: {integrationMethod}
+        </p>
       </CardContent>
     </Card>
   );

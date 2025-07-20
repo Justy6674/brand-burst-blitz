@@ -134,7 +134,7 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
             />
           )}
 
-          {platform && selectedIntegration && (
+          {selectedIntegration && (
             <PlatformInstructions 
               platform={selectedPlatform as any}
               integrationMethod={selectedIntegration as any}

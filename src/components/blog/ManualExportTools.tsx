@@ -1,28 +1,36 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlatformInfo } from '@/lib/platformCapabilities';
 
 interface ManualExportToolsProps {
-  platform: PlatformInfo;
-  businessId: string;
+  blogData: {
+    posts: Array<{
+      id: string;
+      title: string;
+      content: string;
+      excerpt?: string;
+      published_at?: string;
+      tags?: string[];
+    }>;
+    customization?: any;
+  };
 }
 
 export const ManualExportTools: React.FC<ManualExportToolsProps> = ({
-  platform,
-  businessId
+  blogData
 }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Manual Export Tools for {platform.name}</CardTitle>
+        <CardTitle>Manual Export Tools</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <Button>Copy HTML Content</Button>
-          <Button>Download Images</Button>
-          <Button>Export Metadata</Button>
-        </div>
+        <p className="text-muted-foreground">
+          Export {blogData.posts.length} blog posts
+        </p>
+        <Button className="mt-4">
+          Export Data
+        </Button>
       </CardContent>
     </Card>
   );
