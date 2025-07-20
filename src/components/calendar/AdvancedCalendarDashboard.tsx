@@ -478,8 +478,6 @@ export const AdvancedCalendarDashboard = () => {
         open={showEventDialog}
         onOpenChange={setShowEventDialog}
         event={selectedEvent}
-        onUpdateEvent={updateEvent}
-        onDeleteEvent={deleteEvent}
       />
     </div>
   );
