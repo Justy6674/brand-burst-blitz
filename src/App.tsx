@@ -45,6 +45,7 @@ import { ComprehensiveContentStudio } from './components/studio/ComprehensiveCon
 import { HealthcareBlogEmbed } from './pages/HealthcareBlogEmbed';
 import OAuthCallback from './pages/OAuthCallback';
 import PublishingPipelinePage from './pages/PublishingPipeline';
+import { HealthcareValidationDashboard } from './components/validation/HealthcareValidationDashboard';
 
 const queryClient = new QueryClient();
 
@@ -113,6 +114,7 @@ const App = () => (
                 <Route path="prompts" element={<PromptsPage />} />
                 <Route path="content-studio" element={<ComprehensiveContentStudio />} />
                 <Route path="blog-embed" element={<HealthcareBlogEmbed />} />
+                <Route path="validation" element={<HealthcareValidationDashboard />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

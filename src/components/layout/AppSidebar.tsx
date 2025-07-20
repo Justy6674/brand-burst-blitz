@@ -98,6 +98,11 @@ const toolsItems = [
     url: '/dashboard/blog-embed',
     icon: Globe,
   },
+  {
+    title: 'Validation System',
+    url: '/dashboard/validation',
+    icon: ShieldCheck,
+  },
 ];
 
 const settingsItems = [
