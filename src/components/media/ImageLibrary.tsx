@@ -25,7 +25,10 @@ interface ImageData {
   url: string;
   alt_text?: string;
   size: number;
-  dimensions: any;
+  dimensions: {
+    width: number;
+    height: number;
+  } | null;
   folder?: string;
   tags: string[];
   created_at: string;
@@ -60,7 +63,11 @@ export const ImageLibrary: React.FC<ImageLibraryProps> = ({
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setImages(data || []);
+      const typedImages = (data || []).map(img => ({
+        ...img,
+        dimensions: img.dimensions as { width: number; height: number } | null
+      }));
+      setImages(typedImages);
     } catch (error) {
       console.error('Error fetching images:', error);
       toast({
@@ -258,7 +265,7 @@ export const ImageLibrary: React.FC<ImageLibraryProps> = ({
                     />
                     <div className="text-sm font-medium truncate">{image.filename}</div>
                     <div className="text-xs text-muted-foreground">
-                      {image.dimensions.width} × {image.dimensions.height}
+                      {image.dimensions?.width || 0} × {image.dimensions?.height || 0}
                     </div>
                   </CardContent>
                 </Card>

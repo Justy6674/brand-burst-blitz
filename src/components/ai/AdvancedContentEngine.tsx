@@ -1,56 +1,17 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Brain, FileText, Target, Zap, CheckCircle, Sparkles, TrendingUp, Users, Lightbulb, PenTool } from "lucide-react";
-import { useBusinessProfile } from "@/hooks/useBusinessProfile";
-import { toast } from "sonner";
+import React from "react";
+import { ContentGenerator } from "./ContentGenerator";
 
-interface ContentTemplate {
-  id: string;
-  name: string;
-  description: string;
-  industry: string[];
-  type: 'social_post' | 'blog_article' | 'email_campaign' | 'ad_copy' | 'product_description';
-  prompts: {
-    title: string;
-    content: string;
-    meta_description?: string;
-  };
-  variables: string[];
-  tone_options: string[];
-  examples: {
-    input: Record<string, string>;
-    output: string;
-  }[];
+interface AdvancedContentEngineProps {
+  onContentGenerated?: (content: string, metadata: any) => void;
 }
 
-interface ContentOutline {
-  title: string;
-  sections: {
-    heading: string;
-    keyPoints: string[];
-    wordCount: number;
-  }[];
-  seoKeywords: string[];
-  estimatedReadTime: number;
-}
-
-interface GeneratedContent {
-  outline: ContentOutline;
-  content: string;
-  metaTitle: string;
-  metaDescription: string;
-  tags: string[];
-}
-
-const CONTENT_TEMPLATES: ContentTemplate[] = [
+export const AdvancedContentEngine: React.FC<AdvancedContentEngineProps> = ({
+  onContentGenerated
+}) => {
+  return (
+    <ContentGenerator onContentGenerated={onContentGenerated} />
+  );
+};
   {
     id: 'aussie_tradie_showcase',
     name: 'Australian Tradie Job Showcase',
