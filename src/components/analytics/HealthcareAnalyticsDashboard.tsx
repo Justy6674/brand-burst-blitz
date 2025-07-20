@@ -9,6 +9,7 @@ import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
 import { useRealHealthcareAnalytics } from '@/hooks/useRealHealthcareAnalytics';
 import { HealthcareInstagramAnalytics } from '../social/HealthcareInstagramAnalytics';
 import { HealthcareGoogleAnalytics } from './HealthcareGoogleAnalytics';
+import { HealthcareAppointmentAnalytics } from './HealthcareAppointmentAnalytics';
 import { 
   BarChart3, TrendingUp, TrendingDown, Users, Shield, Heart, 
   Eye, Share2, MessageCircle, Calendar, DollarSign,
@@ -191,10 +192,11 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Practice Overview</TabsTrigger>
           <TabsTrigger value="social">Social Media</TabsTrigger>
           <TabsTrigger value="website">Website Analytics</TabsTrigger>
+          <TabsTrigger value="appointments">Appointments</TabsTrigger>
           <TabsTrigger value="insights">Strategic Insights</TabsTrigger>
         </TabsList>
 
@@ -204,7 +206,8 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
             {Object.entries(platformAnalytics).map(([platform, data]) => {
               const platformIcon = platform === 'facebook' ? Share2 : 
                                  platform === 'instagram' ? Eye : 
-                                 platform === 'website' ? BarChart3 : FileText;
+                                 platform === 'website' ? BarChart3 : 
+                                 platform === 'appointments' ? Calendar : FileText;
               const PlatformIcon = platformIcon;
               
               return (
@@ -274,7 +277,7 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
         </TabsContent>
 
         <TabsContent value="social" className="space-y-6">
-          <HealthcareInstagramAnalytics practiceId={practiceId} />
+          <HealthcareInstagramAnalytics practiceId={practiceId} timeframe={selectedTimeframe} />
         </TabsContent>
 
         <TabsContent value="website" className="space-y-6">
@@ -283,6 +286,13 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
             onSetupComplete={(config) => {
               console.log('Google Analytics setup completed:', config);
             }}
+          />
+        </TabsContent>
+
+        <TabsContent value="appointments" className="space-y-6">
+          <HealthcareAppointmentAnalytics 
+            practiceId={practiceId} 
+            timeframe={selectedTimeframe}
           />
         </TabsContent>
 
@@ -373,12 +383,12 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
                       <TrendingUp className="h-5 w-5 text-green-600" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-medium">Patient Education Content Performance</h4>
+                      <h4 className="font-medium">Appointment Booking Optimization</h4>
                       <p className="text-sm text-gray-600">
-                        Your patient education posts generate 3.2x higher engagement than general practice updates. 
-                        Consider increasing educational content frequency to 60% of total posts.
+                        Your online booking conversion rate is above average at {metrics.conversion_rate.toFixed(1)}%. 
+                        Consider promoting online booking more prominently to reduce phone call volume.
                       </p>
-                      <div className="text-xs text-blue-600">Recommended action: Schedule 2-3 educational posts per week</div>
+                      <div className="text-xs text-blue-600">Recommended action: Add booking widgets to high-traffic pages</div>
                     </div>
                   </div>
                 </div>
@@ -389,12 +399,12 @@ export function HealthcareAnalyticsDashboard({ practiceId }: HealthcareAnalytics
                       <Users className="h-5 w-5 text-blue-600" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-medium">Optimal Patient Engagement Times</h4>
+                      <h4 className="font-medium">Patient Education Content Performance</h4>
                       <p className="text-sm text-gray-600">
-                        Peak patient engagement occurs Tuesday-Thursday 10am-2pm and 6pm-8pm. 
-                        Schedule important healthcare announcements during these windows.
+                        Your patient education posts generate 3.2x higher engagement than general practice updates. 
+                        Consider increasing educational content frequency to 60% of total posts.
                       </p>
-                      <div className="text-xs text-blue-600">Recommended action: Adjust posting schedule</div>
+                      <div className="text-xs text-blue-600">Recommended action: Schedule 2-3 educational posts per week</div>
                     </div>
                   </div>
                 </div>

@@ -393,7 +393,8 @@ alwaysApply: false
 - [ ] Comprehensive monitoring operational
 - [ ] Scan entire code for grammar and spelling - needs to be English Australian, not American
 
-- [ ] FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval!
+- [ ] **high** FAQ - Common questions section. Now rebuild is nearly done - outline common questions after assessing the whole site, and draft 40 common questions, and format in 4 sections thus 10 in each that are clear for the user to view, Australian Healthcare focused, everything you think they will ask as a fussy consumer. Present you questions to the owner for approval!
+- [ ] **critical** debug and build, ensure no type script or syntax errors 
 
 DOUBLE CHECK TO WHAT LOVABLE SAY:
 I need to analyze the current build errors and understand what's happening with the codebase to provide a comprehensive plan.
