@@ -225,7 +225,7 @@ const Pricing = () => {
                   <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl md:text-2xl">🏢 Healthcare Network</CardTitle>
-                <CardDescription className="text-sm md:text-base">Enterprise healthcare organizations</CardDescription>
+                <CardDescription className="text-sm md:text-base">Enterprise healthcare organisations</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-purple-600 mt-4">
                   $449<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
