@@ -1,421 +1,640 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+// Healthcare-specific blog categories
+const HEALTHCARE_CATEGORIES = [
+  'Patient Education',
+  'General Health',
+  'Mental Health',
+  'Preventive Care',
+  'Chronic Disease Management',
+  'Medical Procedures',
+  'Health Screening',
+  'Nutrition & Diet',
+  'Exercise & Fitness',
+  'Healthcare Updates',
+  'Practice News',
+  'AHPRA Compliance',
+  'TGA Updates',
+  'Medicare Information',
+  'Health Insurance',
+  'Telehealth',
+  'Women\'s Health',
+  'Men\'s Health',
+  'Children\'s Health',
+  'Senior Health',
+  'Indigenous Health',
+  'Allied Health',
+  'Specialist Referrals'
+];
+
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featured_image?: string;
+  categories: string[];
+  tags: string[];
+  author_id: string;
+  practice_id: string;
+  published_date: string;
+  updated_date?: string;
+  seo_meta: {
+    title: string;
+    description: string;
+    keywords: string[];
+    canonical_url: string;
+  };
+  compliance_status: {
+    ahpra_compliant: boolean;
+    tga_compliant: boolean;
+    compliance_score: number;
+    disclaimers: string[];
+  };
+  healthcare_metadata: {
+    target_audience: 'patients' | 'professionals' | 'general';
+    medical_accuracy_verified: boolean;
+    evidence_based: boolean;
+    specialty_specific: string[];
+  };
+}
+
+interface HealthcareAuthor {
+  id: string;
+  practice_name: string;
+  ahpra_registration?: string;
+  profession_type: string;
+  specialty: string;
+}
+
+interface BlogEmbedConfig {
+  practice_id: string;
+  widget_id: string;
+  style: {
+    theme: 'professional' | 'modern' | 'minimal' | 'healthcare';
+    primary_color: string;
+    accent_color: string;
+    font_family: string;
+    layout: 'grid' | 'list' | 'card';
+  };
+  seo_settings: {
+    site_name: string;
+    base_url: string;
+    logo_url?: string;
+    organization_schema: {
+      name: string;
+      type: 'MedicalOrganization' | 'HealthcareProvider';
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        postal_code: string;
+        country: 'AU';
+      };
+      phone: string;
+      website: string;
+      ahpra_registration?: string;
+    };
+  };
+  display_options: {
+    posts_per_page: number;
+    show_featured_image: boolean;
+    show_excerpt: boolean;
+    show_author: boolean;
+    show_date: boolean;
+    show_categories: boolean;
+    show_reading_time: boolean;
+    enable_pagination: boolean;
+    enable_search: boolean;
+    enable_categories_filter: boolean;
+  };
+  compliance_settings: {
+    show_ahpra_disclaimers: boolean;
+    show_medical_disclaimers: boolean;
+    auto_add_disclaimers: boolean;
+    practice_registration_display: boolean;
+  };
+}
+
+// Generate Schema.org structured data for healthcare organization
+function generateOrganizationSchema(config: BlogEmbedConfig) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": config.seo_settings.organization_schema.type,
+    "name": config.seo_settings.organization_schema.name,
+    "url": config.seo_settings.base_url,
+    "logo": config.seo_settings.logo_url,
+    "telephone": config.seo_settings.organization_schema.phone,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": config.seo_settings.organization_schema.address.street,
+      "addressLocality": config.seo_settings.organization_schema.address.city,
+      "addressRegion": config.seo_settings.organization_schema.address.state,
+      "postalCode": config.seo_settings.organization_schema.address.postal_code,
+      "addressCountry": "AU"
+    },
+    "areaServed": "Australia",
+    "availableLanguage": "en-AU"
+  };
+
+  if (config.seo_settings.organization_schema.ahpra_registration) {
+    schema["identifier"] = {
+      "@type": "PropertyValue",
+      "name": "AHPRA Registration",
+      "value": config.seo_settings.organization_schema.ahpra_registration
+    };
   }
 
-  try {
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    );
+  return JSON.stringify(schema, null, 2);
+}
 
-    const url = new URL(req.url);
-    const businessId = url.searchParams.get('business_id');
-    const postId = url.searchParams.get('post_id');
-    const widget = url.searchParams.get('widget');
-    const theme = url.searchParams.get('theme') || 'light';
-    const limit = parseInt(url.searchParams.get('limit') || '5');
-
-    if (!businessId) {
-      return new Response('Business ID required', { 
-        status: 400, 
-        headers: corsHeaders 
-      });
-    }
-
-    // Generate different embed widgets
-    switch (widget) {
-      case 'post':
-        return await generateSinglePostEmbed(supabase, businessId, postId, theme);
-      case 'list':
-        return await generatePostListEmbed(supabase, businessId, theme, limit);
-      case 'js':
-        return generateJavaScriptEmbed(businessId, theme);
-      default:
-        return await generatePostListEmbed(supabase, businessId, theme, limit);
-    }
-
-  } catch (error) {
-    console.error('Blog Embed Error:', error);
-    return new Response(
-      `console.error('JBSAAS Blog Widget Error: ${error.message}');`,
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/javascript' } 
+// Generate Schema.org structured data for blog posts
+function generateBlogPostSchema(post: BlogPost, author: HealthcareAuthor, config: BlogEmbedConfig) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.featured_image,
+    "author": {
+      "@type": "Person",
+      "name": author.practice_name,
+      "jobTitle": author.specialty
+    },
+    "publisher": {
+      "@type": config.seo_settings.organization_schema.type,
+      "name": config.seo_settings.organization_schema.name,
+      "logo": {
+        "@type": "ImageObject",
+        "url": config.seo_settings.logo_url
       }
-    );
-  }
-});
-
-async function generateSinglePostEmbed(
-  supabase: any, 
-  businessId: string, 
-  postId: string | null, 
-  theme: string
-) {
-  if (!postId) {
-    return new Response('Post ID required for single post widget', { 
-      status: 400, 
-      headers: corsHeaders 
-    });
-  }
-
-  const { data: post, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('id', postId)
-    .eq('business_profile_id', businessId)
-    .eq('published', true)
-    .single();
-
-  if (error || !post) {
-    return generateErrorWidget('Post not found', theme);
-  }
-
-  const { data: business } = await supabase
-    .from('business_profiles')
-    .select('business_name, website_url')
-    .eq('id', businessId)
-    .single();
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(post.title)}</title>
-  <style>
-    ${getWidgetCSS(theme)}
-    .jbsaas-single-post {
-      max-width: 100%;
-      margin: 0 auto;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    }
-    .post-header {
-      margin-bottom: 1rem;
-    }
-    .post-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
-    }
-    .post-meta {
-      font-size: 0.875rem;
-      opacity: 0.7;
-      margin-bottom: 1rem;
-    }
-    .post-content {
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-    .post-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .tag {
-      padding: 0.25rem 0.5rem;
-      background: ${theme === 'dark' ? '#374151' : '#f3f4f6'};
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-    }
-    .powered-by {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      opacity: 0.6;
-    }
-    .powered-by a {
-      color: inherit;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="jbsaas-single-post jbsaas-widget-${theme}">
-    <article>
-      <header class="post-header">
-        <h1 class="post-title">${escapeHtml(post.title)}</h1>
-        <div class="post-meta">
-          By ${escapeHtml(post.author)} • ${formatDate(post.published_at)}
-        </div>
-      </header>
-      
-      ${post.featured_image ? `<img src="${escapeHtml(post.featured_image)}" alt="${escapeHtml(post.title)}" style="width: 100%; height: auto; border-radius: 0.5rem; margin-bottom: 1rem;">` : ''}
-      
-      <div class="post-content">
-        ${post.content.replace(/\n/g, '<br>')}
-      </div>
-      
-      ${post.tags.length > 0 ? `
-      <div class="post-tags">
-        ${post.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
-      </div>
-      ` : ''}
-    </article>
-    
-    <div class="powered-by">
-      <a href="https://jbsaas.com" target="_blank">Powered by JBSAAS</a>
-    </div>
-  </div>
-</body>
-</html>`;
-
-  return new Response(html, {
-    headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
-  });
-}
-
-async function generatePostListEmbed(
-  supabase: any, 
-  businessId: string, 
-  theme: string, 
-  limit: number
-) {
-  const { data: posts, error } = await supabase
-    .from('blog_posts')
-    .select('id, title, excerpt, slug, published_at, tags, featured_image, author')
-    .eq('business_profile_id', businessId)
-    .eq('published', true)
-    .order('published_at', { ascending: false })
-    .limit(limit);
-
-  if (error) {
-    return generateErrorWidget('Failed to load posts', theme);
-  }
-
-  const { data: business } = await supabase
-    .from('business_profiles')
-    .select('business_name, website_url')
-    .eq('id', businessId)
-    .single();
-
-  const businessUrl = business?.website_url || '#';
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Latest Blog Posts</title>
-  <style>
-    ${getWidgetCSS(theme)}
-    .jbsaas-post-list {
-      max-width: 100%;
-      margin: 0 auto;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    }
-    .post-item {
-      display: block;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
-      border: 1px solid ${theme === 'dark' ? '#374151' : '#e5e7eb'};
-    }
-    .post-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px ${theme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)'};
-    }
-    .post-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
-    }
-    .post-excerpt {
-      font-size: 0.875rem;
-      opacity: 0.8;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-    }
-    .post-meta {
-      font-size: 0.75rem;
-      opacity: 0.6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .post-tags {
-      display: flex;
-      gap: 0.25rem;
-    }
-    .tag {
-      padding: 0.125rem 0.375rem;
-      background: ${theme === 'dark' ? '#374151' : '#f3f4f6'};
-      border-radius: 0.25rem;
-      font-size: 0.625rem;
-    }
-    .powered-by {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      opacity: 0.6;
-    }
-    .powered-by a {
-      color: inherit;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="jbsaas-post-list jbsaas-widget-${theme}">
-    ${posts && posts.length > 0 ? posts.map(post => `
-      <a href="${businessUrl}/blog/${post.slug}" class="post-item" target="_parent">
-        <h3 class="post-title">${escapeHtml(post.title)}</h3>
-        ${post.excerpt ? `<p class="post-excerpt">${escapeHtml(post.excerpt)}</p>` : ''}
-        <div class="post-meta">
-          <span>${escapeHtml(post.author)} • ${formatDate(post.published_at)}</span>
-          ${post.tags.length > 0 ? `
-          <div class="post-tags">
-            ${post.tags.slice(0, 2).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
-          </div>
-          ` : ''}
-        </div>
-      </a>
-    `).join('') : '<p>No blog posts found.</p>'}
-    
-    <div class="powered-by">
-      <a href="https://jbsaas.com" target="_blank">Powered by JBSAAS</a>
-    </div>
-  </div>
-</body>
-</html>`;
-
-  return new Response(html, {
-    headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
-  });
-}
-
-function generateJavaScriptEmbed(businessId: string, theme: string) {
-  const script = `
-(function() {
-  // JBSAAS Blog Widget
-  var widgetId = document.currentScript.getAttribute('data-widget-id') || 'jbsaas-blog-widget';
-  var postId = document.currentScript.getAttribute('data-post-id');
-  var widget = document.currentScript.getAttribute('data-widget') || 'list';
-  var limit = document.currentScript.getAttribute('data-limit') || '5';
-  var theme = document.currentScript.getAttribute('data-theme') || '${theme}';
-  
-  var container = document.getElementById(widgetId);
-  if (!container) {
-    console.error('JBSAAS Blog Widget: Container element not found:', widgetId);
-    return;
-  }
-  
-  // Create iframe
-  var iframe = document.createElement('iframe');
-  var src = 'https://${Deno.env.get('SUPABASE_URL')?.replace('https://', '')}/functions/v1/blog-embed' +
-    '?business_id=${businessId}' +
-    '&widget=' + encodeURIComponent(widget) +
-    '&theme=' + encodeURIComponent(theme) +
-    '&limit=' + encodeURIComponent(limit);
-    
-  if (postId) {
-    src += '&post_id=' + encodeURIComponent(postId);
-  }
-  
-  iframe.src = src;
-  iframe.style.width = '100%';
-  iframe.style.border = 'none';
-  iframe.style.borderRadius = '0.5rem';
-  iframe.scrolling = 'no';
-  
-  // Auto-resize iframe
-  iframe.onload = function() {
-    try {
-      var height = iframe.contentWindow.document.body.scrollHeight;
-      iframe.style.height = height + 'px';
-    } catch (e) {
-      iframe.style.height = '400px'; // Fallback height
+    },
+    "datePublished": post.published_date,
+    "dateModified": post.updated_date || post.published_date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": post.seo_meta.canonical_url
+    },
+    "keywords": post.seo_meta.keywords.join(", "),
+    "articleSection": post.categories.join(", "),
+    "about": post.healthcare_metadata.specialty_specific.map(specialty => ({
+      "@type": "MedicalCondition",
+      "name": specialty
+    })),
+    "audience": {
+      "@type": "Audience",
+      "audienceType": post.healthcare_metadata.target_audience
     }
   };
-  
-  container.appendChild(iframe);
-})();
-`;
 
-  return new Response(script, {
-    headers: { ...corsHeaders, 'Content-Type': 'application/javascript' }
-  });
+  if (author.ahpra_registration) {
+    schema.author["identifier"] = {
+      "@type": "PropertyValue",
+      "name": "AHPRA Registration",
+      "value": author.ahpra_registration
+    };
+  }
+
+  return JSON.stringify(schema, null, 2);
 }
 
-function generateErrorWidget(message: string, theme: string) {
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <style>
-    ${getWidgetCSS(theme)}
-    .error-widget {
-      padding: 1rem;
-      text-align: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    }
-  </style>
-</head>
-<body>
-  <div class="error-widget jbsaas-widget-${theme}">
-    <p>❌ ${escapeHtml(message)}</p>
-  </div>
-</body>
-</html>`;
+// Generate meta tags for SEO
+function generateMetaTags(post: BlogPost, config: BlogEmbedConfig) {
+  const metaTags = [
+    `<title>${post.seo_meta.title}</title>`,
+    `<meta name="description" content="${post.seo_meta.description}">`,
+    `<meta name="keywords" content="${post.seo_meta.keywords.join(', ')}">`,
+    `<meta name="author" content="${config.seo_settings.organization_schema.name}">`,
+    `<link rel="canonical" href="${post.seo_meta.canonical_url}">`,
+    
+    // Open Graph tags
+    `<meta property="og:title" content="${post.seo_meta.title}">`,
+    `<meta property="og:description" content="${post.seo_meta.description}">`,
+    `<meta property="og:type" content="article">`,
+    `<meta property="og:url" content="${post.seo_meta.canonical_url}">`,
+    `<meta property="og:site_name" content="${config.seo_settings.site_name}">`,
+    
+    // Twitter Card tags
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:title" content="${post.seo_meta.title}">`,
+    `<meta name="twitter:description" content="${post.seo_meta.description}">`,
+    
+    // Healthcare-specific meta tags
+    `<meta name="healthcare:specialty" content="${config.seo_settings.organization_schema.type}">`,
+    `<meta name="healthcare:audience" content="patients,healthcare_professionals">`,
+    `<meta name="healthcare:compliance" content="AHPRA,TGA">`,
+    
+    // Accessibility and mobile
+    `<meta name="viewport" content="width=device-width, initial-scale=1.0">`,
+    `<meta name="robots" content="index, follow">`,
+    `<meta http-equiv="Content-Language" content="en-AU">`
+  ];
 
-  return new Response(html, {
-    headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
-  });
+  if (post.featured_image) {
+    metaTags.push(
+      `<meta property="og:image" content="${post.featured_image}">`,
+      `<meta name="twitter:image" content="${post.featured_image}">`
+    );
+  }
+
+  return metaTags.join('\n    ');
 }
 
-function getWidgetCSS(theme: string) {
+// Generate healthcare-specific CSS with accessibility
+function generateHealthcareCSS(config: BlogEmbedConfig) {
   return `
-    .jbsaas-widget-light {
-      background: #ffffff;
-      color: #1f2937;
+  .jbsaas-blog-embed {
+    --primary-color: ${config.style.primary_color};
+    --accent-color: ${config.style.accent_color};
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    --bg-color: #ffffff;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    
+    font-family: ${config.style.font_family}, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .jbsaas-blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .jbsaas-blog-post {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .jbsaas-blog-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  .jbsaas-blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .jbsaas-blog-content {
+    padding: 1.5rem;
+  }
+  
+  .jbsaas-blog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: block;
+  }
+  
+  .jbsaas-blog-title:hover {
+    color: var(--accent-color);
+  }
+  
+  .jbsaas-blog-excerpt {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .jbsaas-blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+  
+  .jbsaas-blog-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .jbsaas-blog-category {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    text-decoration: none;
+  }
+  
+  .jbsaas-blog-disclaimer {
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+  }
+  
+  .jbsaas-blog-ahpra {
+    color: var(--text-light);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Accessibility improvements */
+  .jbsaas-blog-embed *:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+  
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .jbsaas-blog-embed {
+      padding: 0.5rem;
     }
-    .jbsaas-widget-dark {
-      background: #1f2937;
-      color: #f9fafb;
+    
+    .jbsaas-blog-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
+    
+    .jbsaas-blog-content {
       padding: 1rem;
     }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .jbsaas-blog-embed {
+      --border-color: #000000;
+      --text-color: #000000;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .jbsaas-blog-post {
+      transition: none;
+    }
+    
+    .jbsaas-blog-post:hover {
+      transform: none;
+    }
+  }
   `;
 }
 
-function escapeHtml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+// Generate server-side rendered HTML for blog posts
+function generateSSRHTML(posts: BlogPost[], authors: HealthcareAuthor[], config: BlogEmbedConfig): string {
+  const css = generateHealthcareCSS(config);
+  const organizationSchema = generateOrganizationSchema(config);
+
+  // Generate HTML for each post
+  const postsHTML = posts.map(post => {
+    const author = authors.find(a => a.id === post.author_id);
+    if (!author) return '';
+    
+    const postSchema = generateBlogPostSchema(post, author, config);
+    
+    return `
+    <article class="jbsaas-blog-post" itemscope itemtype="https://schema.org/Article">
+      ${post.featured_image && config.display_options.show_featured_image ? 
+        `<img src="${post.featured_image}" alt="${post.title}" class="jbsaas-blog-image" itemprop="image" loading="lazy">` 
+        : ''
+      }
+      
+      <div class="jbsaas-blog-content">
+        <h2 class="jbsaas-blog-title" itemprop="headline">
+          <a href="${post.seo_meta.canonical_url}" itemprop="url">${post.title}</a>
+        </h2>
+        
+        ${config.display_options.show_excerpt ? 
+          `<p class="jbsaas-blog-excerpt" itemprop="description">${post.excerpt}</p>` 
+          : ''
+        }
+        
+        <div class="jbsaas-blog-meta">
+          ${config.display_options.show_author ? 
+            `<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+              By <span itemprop="name">${author.practice_name}</span>
+              ${author.specialty ? `, <span itemprop="jobTitle">${author.specialty}</span>` : ''}
+            </span>` 
+            : ''
+          }
+          
+          ${config.display_options.show_date ? 
+            `<time datetime="${post.published_date}" itemprop="datePublished">
+              ${new Date(post.published_date).toLocaleDateString('en-AU')}
+            </time>` 
+            : ''
+          }
+          
+          ${config.display_options.show_reading_time ? 
+            `<span>${Math.ceil(post.content.split(' ').length / 200)} min read</span>` 
+            : ''
+          }
+        </div>
+        
+        ${config.display_options.show_categories && post.categories.length > 0 ? 
+          `<div class="jbsaas-blog-categories">
+            ${post.categories.map(category => 
+              `<span class="jbsaas-blog-category" itemprop="about">${category}</span>`
+            ).join('')}
+          </div>` 
+          : ''
+        }
+        
+        ${config.compliance_settings.show_ahpra_disclaimers && post.compliance_status.disclaimers.length > 0 ? 
+          `<div class="jbsaas-blog-disclaimer">
+            <strong>Healthcare Disclaimer:</strong> ${post.compliance_status.disclaimers.join(' ')}
+          </div>` 
+          : ''
+        }
+        
+        ${config.compliance_settings.practice_registration_display && author.ahpra_registration ? 
+          `<div class="jbsaas-blog-ahpra">
+            AHPRA Registration: ${author.ahpra_registration}
+          </div>` 
+          : ''
+        }
+      </div>
+      
+      <script type="application/ld+json">
+        ${postSchema}
+      </script>
+    </article>
+    `;
+  }).join('\n      ');
+
+  const fullHTML = `
+  <div class="jbsaas-blog-embed" role="main" aria-label="Healthcare Blog Posts">
+    <style>
+      ${css}
+    </style>
+    
+    <script type="application/ld+json">
+      ${organizationSchema}
+    </script>
+    
+    <div class="jbsaas-blog-grid" role="feed" aria-label="Blog posts">
+      ${postsHTML}
+    </div>
+    
+    ${config.compliance_settings.show_medical_disclaimers ? 
+      `<div class="jbsaas-blog-disclaimer">
+        <strong>Medical Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. 
+        Always consult your healthcare provider for medical concerns.
+      </div>` 
+      : ''
+    }
+  </div>
+  `.trim();
+
+  return fullHTML;
 }
 
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
-}
+serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const url = new URL(req.url);
+    const pathParts = url.pathname.split('/');
+    const widgetId = pathParts[pathParts.length - 1];
+
+    if (!widgetId) {
+      return new Response(JSON.stringify({ error: 'Widget ID required' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Initialize Supabase client
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Check if this is a widget.js request (for script injection)
+    if (url.pathname.endsWith('/widget.js')) {
+      const jsContent = `
+      (function() {
+        const widgetId = document.currentScript.getAttribute('data-widget-id');
+        const container = document.getElementById('jbsaas-blog-' + widgetId);
+        
+        if (!container) {
+          console.error('JBSAAS Blog: Container not found for widget ID:', widgetId);
+          return;
+        }
+        
+        // Fetch the SSR content
+        fetch('${supabaseUrl}/functions/v1/blog-embed/' + widgetId, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/html'
+          }
+        })
+        .then(response => response.text())
+        .then(html => {
+          container.innerHTML = html;
+        })
+        .catch(error => {
+          console.error('JBSAAS Blog: Failed to load content:', error);
+          container.innerHTML = '<div style="padding: 1rem; text-align: center; color: #666;">Unable to load blog content. Please try again later.</div>';
+        });
+      })();
+      `;
+
+      return new Response(jsContent, {
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/javascript',
+          'Cache-Control': 'public, max-age=300' // Cache for 5 minutes
+        }
+      });
+    }
+
+    // Get widget configuration
+    const { data: widgetConfig, error: configError } = await supabase
+      .from('blog_embed_configs')
+      .select('*')
+      .eq('widget_id', widgetId)
+      .single();
+
+    if (configError || !widgetConfig) {
+      return new Response(JSON.stringify({ error: 'Widget configuration not found' }), {
+        status: 404,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Get published blog posts for this practice
+    const { data: posts, error: postsError } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('practice_id', widgetConfig.practice_id)
+      .eq('status', 'published')
+      .eq('ahpra_compliant', true)
+      .order('published_date', { ascending: false })
+      .limit(widgetConfig.display_options.posts_per_page || 6);
+
+    if (postsError) {
+      return new Response(JSON.stringify({ error: 'Failed to fetch blog posts' }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Get author information
+    const { data: authors, error: authorsError } = await supabase
+      .from('healthcare_users')
+      .select('id, practice_name, ahpra_registration, profession_type, specialty')
+      .in('id', posts?.map(p => p.author_id) || []);
+
+    if (authorsError) {
+      console.error('Failed to fetch authors:', authorsError);
+    }
+
+    // Generate SSR HTML
+    const htmlContent = generateSSRHTML(
+      posts || [], 
+      authors || [], 
+      widgetConfig as BlogEmbedConfig
+    );
+
+    // Return HTML content for search engines and direct access
+    return new Response(htmlContent, {
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'text/html',
+        'Cache-Control': 'public, max-age=600', // Cache for 10 minutes
+        'X-Robots-Tag': 'index, follow'
+      }
+    });
+
+  } catch (error) {
+    console.error('Blog embed error:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
+});

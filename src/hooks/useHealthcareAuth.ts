@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useAuthErrorHandler } from '@/hooks/useAuthErrorHandler';
 
 // AHPRA registration number validation patterns
 const AHPRA_REGISTRATION_PATTERNS = {
@@ -50,6 +51,7 @@ export const useHealthcareAuth = () => {
   });
   
   const { toast } = useToast();
+  const { handleSignUpError, handleSignInError } = useAuthErrorHandler();
 
   // Validate AHPRA registration number format
   const validateAHPRARegistration = useCallback((registration: string, profession: keyof typeof AHPRA_REGISTRATION_PATTERNS): boolean => {
@@ -132,6 +134,7 @@ export const useHealthcareAuth = () => {
         email: data.email,
         password: data.password,
         options: {
+          emailRedirectTo: `${window.location.origin}/healthcare-content`,
           data: {
             user_type: 'healthcare_professional',
             ahpra_registration: data.ahpra_registration,
@@ -142,6 +145,15 @@ export const useHealthcareAuth = () => {
       });
 
       if (authError) throw authError;
+
+      // Check if email confirmation is required
+      if (authData.user && !authData.user.email_confirmed_at) {
+        toast({
+          title: "Email Confirmation Required",
+          description: "Please check your email to confirm your account before signing in.",
+          variant: "default"
+        });
+      }
 
       // Step 4: Create healthcare professional profile
       const { error: profileError } = await supabase
@@ -172,12 +184,8 @@ export const useHealthcareAuth = () => {
       return { success: true, user: authData.user };
 
     } catch (error: any) {
-      toast({
-        title: "Registration Failed",
-        description: error.message,
-        variant: "destructive"
-      });
-      return { success: false, error: error.message };
+      const handledError = handleSignUpError(error);
+      return { success: false, error: handledError.message };
     } finally {
       setAuthState(prev => ({ ...prev, isLoading: false }));
     }
@@ -225,13 +233,9 @@ export const useHealthcareAuth = () => {
       return { success: true, user: profile };
 
     } catch (error: any) {
-      toast({
-        title: "Sign In Failed",
-        description: error.message,
-        variant: "destructive"
-      });
+      const handledError = handleSignInError(error);
       setAuthState(prev => ({ ...prev, isLoading: false }));
-      return { success: false, error: error.message };
+      return { success: false, error: handledError.message };
     }
   }, [toast]);
 

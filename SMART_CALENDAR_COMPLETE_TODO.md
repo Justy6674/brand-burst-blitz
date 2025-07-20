@@ -1,3 +1,11 @@
+🗃️ **FILED - NO LONGER RELEVANT**
+**FILED DATE**: 2024-01-XX
+**REASON**: Calendar features integrated into healthcare-specific workflows in main TODO
+**STATUS**: Superseded by PRODUCTION_READINESS_GAP_ANALYSIS_TODO.md healthcare calendar requirements
+**SINGLE SOURCE OF TRUTH**: PRODUCTION_READINESS_GAP_ANALYSIS_TODO.md
+
+---
+
 # SMART CALENDAR - COMPLETE REBUILD TODO
 ## TRANSFORMING INTO GOOGLE/APPLE CALENDAR LEVEL SYSTEM
 

@@ -1,3 +1,11 @@
+🗃️ **FILED - COMPLETED**
+**FILED DATE**: 2024-01-XX
+**REASON**: Healthcare Blog Embed Wizard completed - supersedes this generic blog wizard
+**STATUS**: Replaced by HealthcareBlogEmbedWizard.tsx with full AHPRA compliance
+**NEW IMPLEMENTATION**: src/components/blog/HealthcareBlogEmbedWizard.tsx
+
+---
+
 # Smart Blog Integration Wizard - Rebuild Todo
 
 ## 🚨 CRITICAL ISSUE

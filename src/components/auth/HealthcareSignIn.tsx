@@ -6,7 +6,9 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
-import { Shield, LogIn, CheckCircle, Eye, EyeOff, Loader2, AlertTriangle, Users } from 'lucide-react';
+import { Shield, LogIn, CheckCircle, Eye, EyeOff, Loader2, AlertTriangle, Users, AlertCircle, ArrowLeft } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface HealthcareSignInProps {
   onSuccess?: () => void;
@@ -21,8 +23,12 @@ export const HealthcareSignIn: React.FC<HealthcareSignInProps> = ({ onSuccess, o
   
   const [showPassword, setShowPassword] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [showResetForm, setShowResetForm] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [isResetting, setIsResetting] = useState(false);
 
   const { signInHealthcareProfessional, isLoading } = useHealthcareAuth();
+  const { toast } = useToast();
 
   const validateForm = () => {
     const errors: Record<string, string> = {};
@@ -47,6 +53,111 @@ export const HealthcareSignIn: React.FC<HealthcareSignInProps> = ({ onSuccess, o
       onSuccess?.();
     }
   };
+
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsResetting(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/auth?type=recovery`,
+      });
+
+      if (error) {
+        toast({
+          title: "Password Reset Failed",
+          description: error.message,
+          variant: "destructive"
+        });
+        return;
+      }
+
+      toast({
+        title: "Password Reset Email Sent",
+        description: "Please check your email for instructions to reset your password.",
+      });
+
+      setShowResetForm(false);
+      setResetEmail('');
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
+  if (showResetForm) {
+    return (
+      <Card className="w-full max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-blue-600" />
+            Reset Password
+          </CardTitle>
+          <CardDescription>
+            Enter your email address and we'll send you a link to reset your password
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <form onSubmit={handlePasswordReset} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="reset-email">Email Address</Label>
+              <Input
+                id="reset-email"
+                type="email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="your.email@practice.com.au"
+                required
+              />
+            </div>
+
+            <div className="flex gap-2">
+              <Button 
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setShowResetForm(false);
+                  setResetEmail('');
+                }}
+                className="flex-1"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Sign In
+              </Button>
+              <Button 
+                type="submit" 
+                className="flex-1"
+                disabled={isResetting}
+              >
+                {isResetting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Reset Email'
+                )}
+              </Button>
+            </div>
+          </form>
+
+          <Alert className="mt-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              For security reasons, password reset links are only valid for 1 hour. 
+              Healthcare professionals must verify their identity when resetting passwords.
+            </AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div className="w-full max-w-lg mx-auto space-y-6">
@@ -94,7 +205,16 @@ export const HealthcareSignIn: React.FC<HealthcareSignInProps> = ({ onSuccess, o
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <button
+                    type="button"
+                    onClick={() => setShowResetForm(true)}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
                 <div className="relative">
                   <Input
                     id="password"
@@ -152,20 +272,6 @@ export const HealthcareSignIn: React.FC<HealthcareSignInProps> = ({ onSuccess, o
                 </p>
               </div>
             )}
-
-            {/* Forgot Password */}
-            <div className="text-center">
-              <button
-                type="button"
-                className="text-sm text-blue-600 hover:underline"
-                onClick={() => {
-                  // TODO: Implement forgot password
-                  alert('Forgot password functionality coming soon. Please contact support.');
-                }}
-              >
-                Forgot your password?
-              </button>
-            </div>
           </form>
         </CardContent>
       </Card>

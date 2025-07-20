@@ -7,6 +7,7 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { EmailConfirmationGuard } from "@/components/auth/EmailConfirmationGuard";
 import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
@@ -41,6 +42,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
 import { BlogEmbedWizard } from './components/blog/BlogEmbedWizard';
 import { ComprehensiveContentStudio } from './components/studio/ComprehensiveContentStudio';
+import { HealthcareBlogEmbed } from './pages/HealthcareBlogEmbed';
 import OAuthCallback from './pages/OAuthCallback';
 import PublishingPipelinePage from './pages/PublishingPipeline';
 
@@ -90,7 +92,9 @@ const App = () => (
               } />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
-                  <AppLayout />
+                  <EmailConfirmationGuard>
+                    <AppLayout />
+                  </EmailConfirmationGuard>
                 </ProtectedRoute>
               }>
                 <Route index element={<Dashboard />} />
@@ -108,7 +112,7 @@ const App = () => (
                 <Route path="admin" element={<AdminPanel />} />
                 <Route path="prompts" element={<PromptsPage />} />
                 <Route path="content-studio" element={<ComprehensiveContentStudio />} />
-                <Route path="blog-embed" element={<BlogEmbedWizard />} />
+                <Route path="blog-embed" element={<HealthcareBlogEmbed />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

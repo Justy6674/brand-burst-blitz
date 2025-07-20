@@ -30,7 +30,8 @@ import {
   Network,
   ShieldCheck,
   BookOpen,
-  Edit3
+  Edit3,
+  Globe
 } from 'lucide-react';
 
 const navigationItems = [
@@ -91,6 +92,11 @@ const toolsItems = [
     title: 'Social Accounts',
     url: '/dashboard/social',
     icon: Instagram,
+  },
+  {
+    title: 'Blog Embed',
+    url: '/dashboard/blog-embed',
+    icon: Globe,
   },
 ];
 

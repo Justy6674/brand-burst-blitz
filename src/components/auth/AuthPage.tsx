@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
+import { useAuthErrorHandler } from '@/hooks/useAuthErrorHandler';
 import { Loader2, ArrowLeft, Sparkles, Shield, Zap } from 'lucide-react';
 
 const AuthPage = () => {
@@ -25,6 +26,7 @@ const AuthPage = () => {
   const [isRecoveryMode, setIsRecoveryMode] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { handleSignInError, handleSignUpError, handlePasswordResetError } = useAuthErrorHandler();
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -56,13 +58,8 @@ const AuthPage = () => {
       });
 
       if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          setError('Invalid email or password. Please check your credentials and try again.');
-        } else if (error.message.includes('Email not confirmed')) {
-          setError('Please check your email and click the confirmation link before logging in.');
-        } else {
-          setError(error.message);
-        }
+        const handledError = handleSignInError(error, { showToast: false });
+        setError(handledError.message);
         return;
       }
 
@@ -111,11 +108,8 @@ const AuthPage = () => {
       });
 
       if (error) {
-        if (error.message.includes('User already registered')) {
-          setError('An account with this email already exists. Please try logging in instead.');
-        } else {
-          setError(error.message);
-        }
+        const handledError = handleSignUpError(error, { showToast: false });
+        setError(handledError.message);
         return;
       }
 
@@ -146,7 +140,8 @@ const AuthPage = () => {
       });
 
       if (error) {
-        setError(error.message);
+        const handledError = handlePasswordResetError(error, { showToast: false });
+        setError(handledError.message);
         return;
       }
 
@@ -187,7 +182,8 @@ const AuthPage = () => {
       });
 
       if (error) {
-        setError(error.message);
+        const handledError = handlePasswordResetError(error, { showToast: false });
+        setError(handledError.message);
         return;
       }
 
