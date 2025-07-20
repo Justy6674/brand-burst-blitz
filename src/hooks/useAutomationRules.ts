@@ -61,7 +61,14 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
         throw fetchError;
       }
 
-      setRules((data || []) as AutomationRule[]);
+      // Type conversion for JSONB fields
+      const typedData: AutomationRule[] = (data || []).map(item => ({
+        ...item,
+        conditions: typeof item.conditions === 'string' ? JSON.parse(item.conditions) : item.conditions,
+        actions: Array.isArray(item.actions) ? item.actions : JSON.parse(item.actions as string || '[]')
+      }));
+
+      setRules(typedData);
     } catch (err: any) {
       console.error('Error fetching automation rules:', err);
       setError(err.message || 'Failed to fetch automation rules');
@@ -88,9 +95,15 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
         throw error;
       }
 
-      setRules(prev => [data as AutomationRule, ...prev]);
+      const typedData: AutomationRule = {
+        ...data,
+        conditions: typeof data.conditions === 'string' ? JSON.parse(data.conditions) : data.conditions,
+        actions: Array.isArray(data.actions) ? data.actions : JSON.parse(data.actions as string || '[]')
+      };
+
+      setRules(prev => [typedData, ...prev]);
       toast.success('Automation rule created successfully');
-      return data as AutomationRule;
+      return typedData;
     } catch (err: any) {
       console.error('Error creating automation rule:', err);
       toast.error('Failed to create automation rule');
@@ -114,14 +127,20 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
         throw error;
       }
 
+      const typedData: AutomationRule = {
+        ...data,
+        conditions: typeof data.conditions === 'string' ? JSON.parse(data.conditions) : data.conditions,
+        actions: Array.isArray(data.actions) ? data.actions : JSON.parse(data.actions as string || '[]')
+      };
+
       setRules(prev => 
         prev.map(rule => 
-          rule.id === id ? data : rule
+          rule.id === id ? typedData : rule
         )
       );
       
       toast.success('Automation rule updated successfully');
-      return data;
+      return typedData;
     } catch (err: any) {
       console.error('Error updating automation rule:', err);
       toast.error('Failed to update automation rule');
@@ -169,9 +188,15 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
         throw error;
       }
 
+      const typedData: AutomationRule = {
+        ...data,
+        conditions: typeof data.conditions === 'string' ? JSON.parse(data.conditions) : data.conditions,
+        actions: Array.isArray(data.actions) ? data.actions : JSON.parse(data.actions as string || '[]')
+      };
+
       setRules(prev => 
         prev.map(rule => 
-          rule.id === id ? data : rule
+          rule.id === id ? typedData : rule
         )
       );
       
@@ -203,17 +228,27 @@ export const useAutomationRules = (businessId?: string): UseAutomationRulesRetur
           
           switch (payload.eventType) {
             case 'INSERT':
+              const newRule: AutomationRule = {
+                ...payload.new,
+                conditions: typeof payload.new.conditions === 'string' ? JSON.parse(payload.new.conditions) : payload.new.conditions,
+                actions: Array.isArray(payload.new.actions) ? payload.new.actions : JSON.parse(payload.new.actions as string || '[]')
+              };
               setRules(prev => {
                 const exists = prev.find(r => r.id === payload.new.id);
                 if (exists) return prev;
-                return [payload.new as AutomationRule, ...prev];
+                return [newRule, ...prev];
               });
               break;
               
             case 'UPDATE':
+              const updatedRule: AutomationRule = {
+                ...payload.new,
+                conditions: typeof payload.new.conditions === 'string' ? JSON.parse(payload.new.conditions) : payload.new.conditions,
+                actions: Array.isArray(payload.new.actions) ? payload.new.actions : JSON.parse(payload.new.actions as string || '[]')
+              };
               setRules(prev => 
                 prev.map(rule => 
-                  rule.id === payload.new.id ? payload.new as AutomationRule : rule
+                  rule.id === payload.new.id ? updatedRule : rule
                 )
               );
               break;
