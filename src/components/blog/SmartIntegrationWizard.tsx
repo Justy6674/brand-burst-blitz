@@ -127,6 +127,20 @@ export const SmartIntegrationWizard: React.FC<SmartIntegrationWizardProps> = ({
               businessId={businessId}
             />
           )}
+
+          {selectedIntegration === 'embed' && platform && (
+            <EmbedCodeGenerator 
+              platform={platform}
+              businessId={businessId}
+            />
+          )}
+
+          {selectedIntegration === 'api' && platform && (
+            <APIIntegrationSetup 
+              platform={platform}
+              businessId={businessId}
+            />
+          )}
         </TabsContent>
       </Tabs>
 

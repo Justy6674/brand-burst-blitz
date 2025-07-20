@@ -6,17 +6,20 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { CheckCircle, AlertCircle, Key, Link, TestTube } from 'lucide-react';
-import type { PlatformCapability } from '@/lib/platformCapabilities';
+import { PlatformInfo, PLATFORM_CAPABILITIES } from '@/lib/platformCapabilities';
 
 interface APIIntegrationSetupProps {
   businessId: string;
-  platform: PlatformCapability;
+  platform: PlatformInfo;
 }
 
 export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
   businessId,
   platform
 }) => {
+  const selectedPlatform = Object.keys(PLATFORM_CAPABILITIES).find(key => 
+    PLATFORM_CAPABILITIES[key].name === platform.name
+  ) || 'custom';
   const { toast } = useToast();
   const [credentials, setCredentials] = useState({
     siteUrl: '',
@@ -72,7 +75,7 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
   };
 
   const getCredentialFields = () => {
-    switch (platform.id) {
+    switch (selectedPlatform) {
       case 'wordpress':
         return (
           <>
@@ -203,7 +206,7 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
         <div className="space-y-4">
           <Button 
             onClick={testConnection}
-            disabled={isConnecting || !credentials.siteUrl || (platform.id === 'wordpress' && (!credentials.username || !credentials.password))}
+            disabled={isConnecting || !credentials.siteUrl || (selectedPlatform === 'wordpress' && (!credentials.username || !credentials.password))}
             className="w-full"
           >
             <TestTube className="w-4 h-4 mr-2" />
@@ -267,10 +270,10 @@ export const APIIntegrationSetup: React.FC<APIIntegrationSetupProps> = ({
           <h4 className="font-medium text-amber-900 mb-2">
             📋 {platform.name} Integration Notes:
           </h4>
-          <ul className="text-sm text-amber-800 space-y-1">
-            {platform.instructions.api?.map((note, index) => (
-              <li key={index}>• {note}</li>
-            ))}
+           <ul className="text-sm text-amber-800 space-y-1">
+            <li>• API credentials are securely stored and encrypted</li>
+            <li>• Test connection before publishing any content</li>
+            <li>• Check platform documentation for rate limits</li>
           </ul>
         </div>
       </CardContent>

@@ -247,3 +247,11 @@ export const getUnavailableReasons = (platformKey: string) => {
 
   return reasons;
 };
+
+export const getPlatformCapabilities = (platformKey: string): PlatformInfo | null => {
+  return PLATFORM_CAPABILITIES[platformKey] || null;
+};
+
+export const getAllPlatforms = (): Record<string, PlatformInfo> => {
+  return PLATFORM_CAPABILITIES;
+};
