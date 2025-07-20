@@ -383,7 +383,7 @@ const Pricing = () => {
                   {[
                     'Facebook Business Manager configuration',
                     'Instagram Business profile setup',
-                    'LinkedIn Business page optimization',
+                    'LinkedIn Business page optimisation',
                     'Meta App setup and verification',
                     'Australian business compliance check',
                     'Full platform integration testing',
