@@ -15,6 +15,7 @@ export default function Diary() {
   const [posts, setPosts] = useState([]);
   const [scheduledPosts, setScheduledPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [entries, setEntries] = useState([]);
 
   const [newEntry, setNewEntry] = useState({
@@ -26,9 +27,23 @@ export default function Diary() {
   const [showNewEntry, setShowNewEntry] = useState(false);
 
   useEffect(() => {
-    fetchPosts();
-    fetchScheduledPosts();
+    if (user) {
+      fetchData();
+    }
   }, [user]);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await Promise.all([fetchPosts(), fetchScheduledPosts()]);
+    } catch (err) {
+      setError('Failed to load content. Please try again.');
+      console.error('Error fetching data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchPosts = async () => {
     if (!user) return;
@@ -44,6 +59,7 @@ export default function Diary() {
       setPosts(data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
+      throw error;
     }
   };
 
@@ -63,8 +79,7 @@ export default function Diary() {
       setScheduledPosts(data || []);
     } catch (error) {
       console.error('Error fetching scheduled posts:', error);
-    } finally {
-      setLoading(false);
+      throw error;
     }
   };
 
@@ -128,81 +143,112 @@ export default function Diary() {
     }))
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  if (loading) {
+    return (
+      <div className="space-y-4 md:space-y-6 p-3 md:p-6 max-w-7xl mx-auto">
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center space-y-4">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
+            <p className="text-muted-foreground">Loading your content...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-4 md:space-y-6 p-3 md:p-6 max-w-7xl mx-auto">
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center space-y-4">
+            <p className="text-red-600">{error}</p>
+            <Button onClick={fetchData} variant="outline">
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4 md:space-y-6 p-4 md:p-6">
+    <div className="space-y-4 md:space-y-6 p-3 md:p-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight flex items-center gap-2">
-            <BookOpen className="h-6 w-6 md:h-8 md:w-8" />
+          <h1 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight flex items-center gap-2">
+            <BookOpen className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
             Content Hub
           </h1>
           <p className="text-sm md:text-base text-muted-foreground">
             Your unified hub for content planning, posts, and business insights
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Link to="/dashboard/create">
-            <Button size="sm" variant="outline">
-              <Zap className="h-4 w-4 mr-2" />
+            <Button size="sm" variant="outline" className="w-full sm:w-auto">
+              <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
               Create Content
             </Button>
           </Link>
           <Button 
             onClick={() => setShowNewEntry(!showNewEntry)}
             size="sm"
+            className="w-full sm:w-auto"
+            aria-expanded={showNewEntry}
+            aria-controls="new-entry-form"
           >
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
             New Entry
           </Button>
         </div>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Posts</p>
-                <p className="text-2xl font-bold">{posts.length}</p>
+                <p className="text-xs md:text-sm font-medium text-muted-foreground">Total Posts</p>
+                <p className="text-xl md:text-2xl font-bold">{posts.length}</p>
               </div>
-              <FileText className="h-4 w-4 text-muted-foreground" />
+              <FileText className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Scheduled</p>
-                <p className="text-2xl font-bold">{scheduledPosts.length}</p>
+                <p className="text-xs md:text-sm font-medium text-muted-foreground">Scheduled</p>
+                <p className="text-xl md:text-2xl font-bold">{scheduledPosts.length}</p>
               </div>
-              <Clock className="h-4 w-4 text-muted-foreground" />
+              <Clock className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Diary Entries</p>
-                <p className="text-2xl font-bold">{entries.length}</p>
+                <p className="text-xs md:text-sm font-medium text-muted-foreground">Diary Entries</p>
+                <p className="text-xl md:text-2xl font-bold">{entries.length}</p>
               </div>
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
+              <BookOpen className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">This Month</p>
-                <p className="text-2xl font-bold">{allContent.filter(item => 
+                <p className="text-xs md:text-sm font-medium text-muted-foreground">This Month</p>
+                <p className="text-xl md:text-2xl font-bold">{allContent.filter(item => 
                   new Date(item.date).getMonth() === new Date().getMonth()
                 ).length}</p>
               </div>
-              <BarChart3 className="h-4 w-4 text-muted-foreground" />
+              <BarChart3 className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             </div>
           </CardContent>
         </Card>
@@ -210,9 +256,9 @@ export default function Diary() {
 
       {/* New Entry Form */}
       {showNewEntry && (
-        <Card className="border-dashed">
+        <Card className="border-dashed" id="new-entry-form">
           <CardHeader>
-            <CardTitle className="text-lg">Write New Entry</CardTitle>
+            <CardTitle className="text-base md:text-lg">Write New Entry</CardTitle>
             <CardDescription>What's on your mind today?</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -220,12 +266,14 @@ export default function Diary() {
               placeholder="Entry title..."
               value={newEntry.title}
               onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
+              aria-label="Entry title"
             />
             <Textarea
               placeholder="Write your thoughts here..."
               value={newEntry.content}
               onChange={(e) => setNewEntry({ ...newEntry, content: e.target.value })}
               className="min-h-32"
+              aria-label="Entry content"
             />
             <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
               <div className="flex gap-2">
@@ -233,6 +281,7 @@ export default function Diary() {
                   value={newEntry.mood}
                   onChange={(e) => setNewEntry({ ...newEntry, mood: e.target.value })}
                   className="rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  aria-label="Entry mood"
                 >
                   <option value="positive">😊 Positive</option>
                   <option value="neutral">😐 Neutral</option>
@@ -242,10 +291,20 @@ export default function Diary() {
                 </select>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" onClick={() => setShowNewEntry(false)} size="sm">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowNewEntry(false)} 
+                  size="sm"
+                  className="flex-1 sm:flex-none"
+                >
                   Cancel
                 </Button>
-                <Button onClick={handleAddEntry} size="sm">
+                <Button 
+                  onClick={handleAddEntry} 
+                  size="sm"
+                  className="flex-1 sm:flex-none"
+                  disabled={!newEntry.title || !newEntry.content}
+                >
                   Save Entry
                 </Button>
               </div>
