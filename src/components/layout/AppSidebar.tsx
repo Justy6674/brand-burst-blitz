@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useUserRoles } from '@/hooks/useUserRoles';
+import { BusinessSwitcher } from '@/components/business/BusinessSwitcher';
 import {
   Sidebar,
   SidebarContent,
@@ -148,22 +149,30 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={collapsed ? 'w-14' : 'w-60'} collapsible="icon">
-      <div className="border-b border-white/10 p-4 flex items-center gap-3">
-        <div className="flex items-center gap-3 flex-1">
+      <div className="border-b border-white/10 p-3 flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
           <img 
             src="/jbsaaslogo.png" 
             alt="JB SAAS Logo" 
             className="w-8 h-8 flex-shrink-0"
           />
           {!collapsed && (
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <h1 className="text-lg font-bold text-gradient-primary truncate">JB-SaaS</h1>
               <p className="text-xs text-muted-foreground truncate">AI Content Platform</p>
             </div>
           )}
         </div>
-        <SidebarTrigger className="ml-auto" />
+        <SidebarTrigger className="ml-auto flex-shrink-0" />
       </div>
+
+      {/* Business Switcher in Sidebar */}
+      {!collapsed && (
+        <div className="p-3 border-b border-white/5">
+          <div className="text-xs text-muted-foreground mb-2">Current Business</div>
+          <BusinessSwitcher className="w-full" />
+        </div>
+      )}
 
       <SidebarContent className="px-2 py-4">
         {/* Main Navigation */}

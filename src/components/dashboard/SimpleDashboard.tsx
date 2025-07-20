@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { useUserProfile } from '@/contexts/UserProfileContext';
+import { MultiBusinessIndicator } from '@/components/business/MultiBusinessIndicator';
 import { Link } from 'react-router-dom';
 import { 
   User, 
@@ -26,6 +27,9 @@ export const SimpleDashboard = () => {
 
   return (
     <div className="space-y-4 md:space-y-6 p-3 md:p-6 max-w-7xl mx-auto">
+      {/* Multi-Business Indicator */}
+      <MultiBusinessIndicator />
+      
       {/* Welcome Header */}
       <div className="space-y-2">
         <h1 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight">

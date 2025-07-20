@@ -123,7 +123,7 @@ export const BusinessSwitcher: React.FC<BusinessSwitcherProps> = ({ className })
         <DropdownMenuTrigger asChild>
           <Button 
             variant="ghost" 
-            className="flex items-center gap-3 h-auto p-2 min-w-0"
+            className="flex items-center gap-3 h-auto p-2 min-w-0 w-full justify-start hover:bg-accent transition-colors"
           >
             <Avatar className="w-8 h-8 rounded-lg">
               <AvatarImage src={currentBusiness.logo_url || undefined} />
@@ -155,7 +155,7 @@ export const BusinessSwitcher: React.FC<BusinessSwitcherProps> = ({ className })
           </Button>
         </DropdownMenuTrigger>
         
-        <DropdownMenuContent align="start" className="w-80">
+        <DropdownMenuContent align="start" className="w-80 bg-background border z-50">{/* Fixed dropdown transparency and z-index */}
           <div className="p-2">
             <div className="text-xs text-muted-foreground mb-2 px-2">
               Business Profiles ({businessProfiles.length})
