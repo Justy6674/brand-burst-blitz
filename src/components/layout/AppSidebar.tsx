@@ -34,6 +34,11 @@ import {
 
 const navigationItems = [
   {
+    title: 'Daily Diary',
+    url: '/dashboard/diary',
+    icon: BookOpen,
+  },
+  {
     title: 'Dashboard',
     url: '/dashboard',
     icon: LayoutDashboard,
