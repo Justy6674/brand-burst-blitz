@@ -54,6 +54,11 @@ const navigationItems = [
     icon: Calendar,
   },
   {
+    title: 'Daily Diary',
+    url: '/dashboard/diary',
+    icon: BookOpen,
+  },
+  {
     title: 'Analytics',
     url: '/dashboard/analytics',
     icon: BarChart3,

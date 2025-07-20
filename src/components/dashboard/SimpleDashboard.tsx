@@ -15,7 +15,9 @@ import {
   AlertTriangle,
   CheckCircle2,
   Sparkles,
-  Zap
+  Zap,
+  BookOpen,
+  PenTool
 } from 'lucide-react';
 
 export const SimpleDashboard = () => {
@@ -23,13 +25,13 @@ export const SimpleDashboard = () => {
   const { profile, userRole, loading: profileLoading } = useUserProfile();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6">
       {/* Welcome Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight">
           Welcome back{profile?.full_name ? `, ${profile.full_name}` : ''}!
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm md:text-base text-muted-foreground">
           Here's your JB-SaaS content automation dashboard
         </p>
       </div>
@@ -50,7 +52,7 @@ export const SimpleDashboard = () => {
       </Card>
 
       {/* Account Information */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Account Status</CardTitle>
@@ -105,8 +107,8 @@ export const SimpleDashboard = () => {
 
       {/* Feature Status Grid */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Feature Status</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <h2 className="text-lg md:text-xl font-semibold">Feature Status</h2>
+        <div className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -229,6 +231,25 @@ export const SimpleDashboard = () => {
               <Link to="/dashboard/competitors">
                 <Button variant="outline" size="sm" className="mt-2 w-full">
                   Preview
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Daily Diary</CardTitle>
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-2">
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                <span className="text-sm">Available</span>
+              </div>
+              <Link to="/dashboard/diary">
+                <Button variant="outline" size="sm" className="mt-2 w-full">
+                  <PenTool className="h-3 w-3 mr-1" />
+                  Write Entry
                 </Button>
               </Link>
             </CardContent>

@@ -22,6 +22,7 @@ import Posts from "./pages/Posts";
 import SocialMedia from "./pages/SocialMedia";
 import Calendar from "./pages/Calendar";
 import Analytics from "./pages/Analytics";
+import Diary from "./pages/Diary";
 import BusinessSettings from "./pages/BusinessSettings";
 import CrossBusinessFeatures from "./pages/CrossBusinessFeatures";
 import AdminPanel from "./pages/AdminPanel";
@@ -99,6 +100,7 @@ const App = () => (
                 <Route path="templates" element={<Templates />} />
                 <Route path="social" element={<SocialMedia />} />
                 <Route path="calendar" element={<Calendar />} />
+                <Route path="diary" element={<Diary />} />
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="business-settings" element={<BusinessSettings />} />
                 <Route path="cross-business" element={<CrossBusinessFeatures />} />
