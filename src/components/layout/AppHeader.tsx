@@ -34,6 +34,28 @@ export const AppHeader = () => {
         </div>
         
         <div className="flex flex-1 items-center justify-between space-x-4">
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={() => navigate('/blog')}
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Blog
+            </button>
+            <button
+              onClick={() => navigate('/dashboard/analytics')}
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Analytics
+            </button>
+          </nav>
+          
           {/* Business Switcher */}
           <BusinessSwitcher className="flex-shrink-0" />
           
