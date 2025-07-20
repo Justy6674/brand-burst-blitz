@@ -23,40 +23,44 @@ import {
   Clock,
   CheckCircle,
   Rocket,
-  Eye
+  Eye,
+  Stethoscope,
+  Heart,
+  Activity
 } from "lucide-react";
 import roiDataHero from "@/assets/roi-data-driven-hero.jpg";
 
 const Pricing = () => {
-  const standardFeatures = [
-    'Up to 3 businesses',
-    'Unlimited posts',
-    'Advanced analytics',
-    'AI content generation',
-    'Priority support',
-    'Content templates',
-    'Australian compliance'
+  const soloPractitionerFeatures = [
+    'Up to 5 practice locations',
+    'AHPRA compliance validation',
+    'Patient education content',
+    'Healthcare-specific templates',
+    'Professional boundary guidance',
+    'Basic analytics for healthcare practices',
+    'Australian healthcare compliance'
   ];
 
-  const largeFeatures = [
-    'Everything in Standard PLUS:',
-    'Unlimited businesses',
-    'Team collaboration',
-    'Custom branding',
-    'Multi-business management',
-    'Advanced analytics',
-    'Business intelligence',
-    'Cross-business templates'
+  const groupPracticeFeatures = [
+    'Everything in Solo Practitioner PLUS:',
+    'Unlimited practice locations',
+    'Multi-practitioner collaboration',
+    'Custom healthcare branding',
+    'Advanced patient education library',
+    'Healthcare team management',
+    'Specialty-specific content templates',
+    'Cross-practice referral tracking'
   ];
 
-  const enterpriseFeatures = [
-    'Everything in Large',
-    'White-label solution',
-    'Custom integrations',
-    '24/7 phone support',
-    'Dedicated account manager',
-    'Custom compliance',
-    'SLA guarantees'
+  const healthcareNetworkFeatures = [
+    'Everything in Group Practice',
+    'White-label healthcare solution',
+    'Custom AHPRA compliance workflows',
+    '24/7 healthcare professional support',
+    'Dedicated healthcare account manager',
+    'Custom healthcare integrations',
+    'Healthcare network analytics',
+    'Enterprise SLA guarantees'
   ];
 
   return (
@@ -64,12 +68,12 @@ const Pricing = () => {
       <SystemLockdownBanner />
       <PublicHeader />
       
-      {/* Hero Section - Same style as other pages */}
+      {/* Hero Section */}
       <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
             src={roiDataHero}
-            alt="Pricing and ROI background"
+            alt="Healthcare pricing and ROI background"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
@@ -78,15 +82,15 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
             <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-              💰 Australian Business Pricing
+              🏥 Australian Healthcare Professional Pricing
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              Simple, <span className="text-yellow-400">Transparent Pricing</span>
+              Healthcare Professional <span className="text-yellow-400">Pricing Plans</span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              Choose the plan that fits your business. All prices in AUD, GST included. Cancel anytime.
+              AHPRA-compliant plans designed specifically for Australian healthcare professionals. All prices in AUD, GST included.
             </p>
           </div>
         </div>
@@ -107,13 +111,13 @@ const Pricing = () => {
           <div className="text-center mb-12 md:mb-20">
             <Badge className="mb-4 md:mb-6 bg-green-500/10 text-green-600 border-green-500/20 text-sm md:text-base px-4 md:px-6 py-2 md:py-3">
               <DollarSign className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              Replace $11,700/month in agency costs
+              Replace $16,000/month in healthcare agency costs
             </Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>One Platform.</span> <span className="text-gradient-primary">Everything You Need.</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>One Platform.</span> <span className="text-gradient-primary">All Healthcare Compliance.</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              AI-powered content creation, social media management, competitor analysis, and Australian compliance - all in one platform.
+              AHPRA-compliant content creation, patient education, TGA compliance screening, and Australian healthcare professional support - all in one platform.
             </p>
           </div>
         </div>
@@ -133,36 +137,32 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Choose</span> <span className="text-gradient-primary">Your Plan</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>Choose</span> <span className="text-gradient-primary">Your Healthcare Plan</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-            Opening sale prices: Standard $49/month (then $79), Large $179/month (then $249). All plans include Australian compliance.
+              Specialized pricing for Australian healthcare professionals. All plans include AHPRA compliance and patient education features.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
             
-            {/* Standard Plan */}
+            {/* Solo Practitioner Plan */}
             <Card className="relative border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full bg-gradient-to-br from-green-500/10 to-green-600/10">
               <CardHeader className="text-center pb-6 md:pb-8">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Building className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  <Stethoscope className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl md:text-2xl">Standard</CardTitle>
-                <CardDescription className="text-sm md:text-base">Up to 3 businesses</CardDescription>
+                <CardTitle className="text-xl md:text-2xl">🩺 Solo Practitioner</CardTitle>
+                <CardDescription className="text-sm md:text-base">Individual healthcare professionals</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-green-600 mt-4">
-                  $49<span className="text-base md:text-lg text-muted-foreground">/month</span>
+                  $79<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  <span className="line-through">$79/month</span>
-                  <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
-                </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Up to 3 businesses</Badge>
+                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Up to 5 practice locations</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {standardFeatures.map((feature, index) => (
+                  {soloPractitionerFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
                       <span className="text-xs md:text-sm">{feature}</span>
@@ -172,14 +172,14 @@ const Pricing = () => {
                 <ComingSoonPopup 
                   trigger={
                     <Button className="w-full bg-green-500 hover:bg-green-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                      Get Started - $49/month
+                      Get Started - $79/month
                     </Button>
                   } 
                 />
               </CardContent>
             </Card>
 
-            {/* Large Plan - Most Popular */}
+            {/* Group Practice Plan - Most Popular */}
             <Card className="relative border-2 border-blue-500 h-full bg-gradient-to-br from-blue-500/10 to-blue-600/10">
               <div className="absolute -top-2 md:-top-3 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 md:px-4 py-1 text-xs md:text-sm">
@@ -189,23 +189,19 @@ const Pricing = () => {
               </div>
               <CardHeader className="text-center pb-6 md:pb-8">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  <Heart className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl md:text-2xl">Large</CardTitle>
-                <CardDescription className="text-sm md:text-base">More than 3 businesses</CardDescription>
+                <CardTitle className="text-xl md:text-2xl">🏥 Group Practice</CardTitle>
+                <CardDescription className="text-sm md:text-base">Multiple practitioners & locations</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-blue-600 mt-4">
                   $179<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  <span className="line-through">$249/month</span>
-                  <span className="text-primary ml-2 font-semibold">Opening Sale!</span>
-                </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Unlimited businesses</Badge>
+                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Unlimited locations</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {largeFeatures.map((feature, index) => (
+                  {groupPracticeFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-blue-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
                       <span className={`text-xs md:text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
@@ -222,23 +218,23 @@ const Pricing = () => {
               </CardContent>
             </Card>
 
-            {/* Enterprise Plan */}
+            {/* Healthcare Network Plan */}
             <Card className="relative border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full bg-gradient-to-br from-purple-500/10 to-purple-600/10">
               <CardHeader className="text-center pb-6 md:pb-8">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Crown className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl md:text-2xl">Enterprise</CardTitle>
-                <CardDescription className="text-sm md:text-base">Advanced enterprise features</CardDescription>
+                <CardTitle className="text-xl md:text-2xl">🏢 Healthcare Network</CardTitle>
+                <CardDescription className="text-sm md:text-base">Enterprise healthcare organizations</CardDescription>
                 <div className="text-3xl md:text-4xl font-bold text-purple-600 mt-4">
-                  Coming 2026<span className="text-base md:text-lg text-muted-foreground"></span>
+                  $449<span className="text-base md:text-lg text-muted-foreground">/month</span>
                 </div>
-                <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600 text-xs md:text-sm">Coming Soon</Badge>
+                <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600 text-xs md:text-sm">Enterprise Features</Badge>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {enterpriseFeatures.map((feature, index) => (
+                  {healthcareNetworkFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-purple-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
                       <span className="text-xs md:text-sm">{feature}</span>
@@ -248,7 +244,7 @@ const Pricing = () => {
                 <ComingSoonPopup 
                   trigger={
                     <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                      Contact Sales
+                      Contact Healthcare Sales
                     </Button>
                   } 
                 />
@@ -258,7 +254,7 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* ROI Calculator Section */}
+      {/* Healthcare ROI Calculator Section */}
       <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
           <img 
@@ -272,43 +268,43 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Your</span> <span className="text-gradient-primary">ROI Calculator</span>
+              <span style={{color: '#ffd700', fontWeight: 700}}>Healthcare</span> <span className="text-gradient-primary">ROI Calculator</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              See how much you save by replacing expensive agencies and freelancers
+              See how much Australian healthcare professionals save by replacing expensive agencies and compliance consultants
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             <Card className="border-red-200 bg-gradient-to-br from-red-500/10 to-red-600/10 border-2 border-red-500/30">
               <CardHeader className="text-center">
-                <CardTitle className="text-red-600 text-lg md:text-xl">Traditional Costs</CardTitle>
+                <CardTitle className="text-red-600 text-lg md:text-xl">Traditional Healthcare Marketing Costs</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 md:space-y-3">
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>Content Marketing Agency</span>
-                    <span className="font-bold">$4,000/month</span>
+                    <span>Healthcare Marketing Agency</span>
+                    <span className="font-bold">$5,500/month</span>
                   </li>
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>Social Media Manager</span>
-                    <span className="font-bold">$3,200/month</span>
+                    <span>AHPRA Compliance Consultant</span>
+                    <span className="font-bold">$3,000/month</span>
                   </li>
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>SEO Specialist</span>
-                    <span className="font-bold">$2,500/month</span>
+                    <span>Patient Education Content Writer</span>
+                    <span className="font-bold">$4,200/month</span>
                   </li>
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>Analytics Tools</span>
+                    <span>Healthcare Social Media Manager</span>
+                    <span className="font-bold">$2,800/month</span>
+                  </li>
+                  <li className="flex justify-between text-sm md:text-base">
+                    <span>Healthcare Analytics Tools</span>
                     <span className="font-bold">$500/month</span>
-                  </li>
-                  <li className="flex justify-between text-sm md:text-base">
-                    <span>Compliance Consultant</span>
-                    <span className="font-bold">$1,500/month</span>
                   </li>
                   <li className="flex justify-between border-t pt-2 font-bold text-base md:text-lg">
                     <span>Total Monthly Cost</span>
-                    <span className="text-red-600">$11,700/month</span>
+                    <span className="text-red-600">$16,000/month</span>
                   </li>
                 </ul>
               </CardContent>
@@ -316,17 +312,17 @@ const Pricing = () => {
             
             <Card className="border-green-200 bg-gradient-to-br from-green-500/10 to-green-600/10 border-2 border-green-500/30">
               <CardHeader className="text-center">
-                <CardTitle className="text-green-600 text-lg md:text-xl">JB-SaaS Cost</CardTitle>
+                <CardTitle className="text-green-600 text-lg md:text-xl">JB-SaaS Healthcare Cost</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 md:space-y-3">
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>Large Plan</span>
+                    <span>Group Practice Plan</span>
                     <span className="font-bold">$179/month</span>
                   </li>
                   <li className="flex justify-between text-gray-500 text-sm md:text-base">
-                    <span>Setup (one-time)</span>
-                    <span>$199</span>
+                    <span>Healthcare Setup (one-time)</span>
+                    <span>$299</span>
                   </li>
                   <li className="flex justify-between border-t pt-2 font-bold text-base md:text-lg">
                     <span>Monthly Ongoing</span>
@@ -334,10 +330,10 @@ const Pricing = () => {
                   </li>
                   <li className="flex justify-between border-t pt-2 font-bold text-xl md:text-2xl">
                     <span className="text-green-600">You Save</span>
-                    <span className="text-green-600">$11,521/month</span>
+                    <span className="text-green-600">$15,821/month</span>
                   </li>
                   <li className="text-center text-green-600 font-bold text-sm md:text-base">
-                    That's $138,252 per year!
+                    That's $189,852 per year!
                   </li>
                 </ul>
               </CardContent>
@@ -475,8 +471,8 @@ const Pricing = () => {
           <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
             {[
               {
-                question: "Why start at $49/month?",
-                answer: "Our Starter plan at $49/month gives small businesses access to professional AI content creation and basic social media management - replacing expensive agencies at a fraction of the cost."
+                question: "Why start at $79/month?",
+                answer: "Our Starter plan at $79/month gives small businesses access to professional AI content creation and basic social media management - replacing expensive agencies at a fraction of the cost."
               },
               {
                 question: "What's included in the Professional plan?",
@@ -543,7 +539,7 @@ const Pricing = () => {
                 trigger={
                   <Button className="relative bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl border-0 w-full sm:w-auto">
                     <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                    Start at $49/month
+                    Start at $79/month
                   </Button>
                 } 
               />
@@ -558,11 +554,11 @@ const Pricing = () => {
           
           <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
-              <div className="text-xl md:text-2xl font-bold text-yellow-400">$49</div>
+              <div className="text-xl md:text-2xl font-bold text-yellow-400">$79</div>
               <div className="text-xs md:text-sm text-gray-400">Starting Price</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
-              <div className="text-xl md:text-2xl font-bold text-cyan-400">$11,551</div>
+              <div className="text-xl md:text-2xl font-bold text-cyan-400">$15,821</div>
               <div className="text-xs md:text-sm text-gray-400">Monthly Savings</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">

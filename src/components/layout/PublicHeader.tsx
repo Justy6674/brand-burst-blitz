@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -72,7 +73,7 @@ const PublicHeader = () => {
             <ComingSoonPopup 
               trigger={
                 <Button className="bg-gradient-primary text-primary-foreground px-6 py-2 font-semibold">
-                  Get Early Access
+                  Join Healthcare Professionals Waitlist
                 </Button>
               } 
             />
@@ -139,7 +140,7 @@ const PublicHeader = () => {
                 <ComingSoonPopup 
                   trigger={
                     <Button className="w-full bg-gradient-primary text-primary-foreground font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                      Get Early Access
+                      Join Healthcare Professionals Waitlist
                     </Button>
                   } 
                 />
