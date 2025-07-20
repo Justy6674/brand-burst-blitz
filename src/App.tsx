@@ -46,6 +46,7 @@ import { HealthcareBlogEmbed } from './pages/HealthcareBlogEmbed';
 import OAuthCallback from './pages/OAuthCallback';
 import PublishingPipelinePage from './pages/PublishingPipeline';
 import { HealthcareValidationDashboard } from './components/validation/HealthcareValidationDashboard';
+import { HealthcareCopyPasteWorkflow } from './components/social/HealthcareCopyPasteWorkflow';
 
 const queryClient = new QueryClient();
 
@@ -115,6 +116,7 @@ const App = () => (
                 <Route path="content-studio" element={<ComprehensiveContentStudio />} />
                 <Route path="blog-embed" element={<HealthcareBlogEmbed />} />
                 <Route path="validation" element={<HealthcareValidationDashboard />} />
+                <Route path="copy-paste-workflow" element={<HealthcareCopyPasteWorkflow practiceType="General Practice" specialty="Family Medicine" />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

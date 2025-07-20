@@ -31,7 +31,8 @@ import {
   ShieldCheck,
   BookOpen,
   Edit3,
-  Globe
+  Globe,
+  Copy
 } from 'lucide-react';
 
 const navigationItems = [
@@ -72,6 +73,11 @@ const toolsItems = [
     title: 'AI Generator',
     url: '/dashboard/create',
     icon: Sparkles,
+  },
+  {
+    title: 'Copy-Paste Workflow',
+    url: '/dashboard/copy-paste-workflow',
+    icon: Copy,
   },
   {
     title: 'Competitors',

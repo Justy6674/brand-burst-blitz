@@ -1,10 +1,8 @@
 import React from 'react';
-import { RealAnalyticsDashboard } from '@/components/analytics/RealAnalyticsDashboard';
+import { RealHealthcareAnalytics } from '@/components/analytics/RealHealthcareAnalytics';
 
-export default function Analytics() {
-  return (
-    <div className="container mx-auto p-6">
-      <RealAnalyticsDashboard />
-    </div>
-  );
-}
+const Analytics = () => {
+  return <RealHealthcareAnalytics />;
+};
+
+export default Analytics;
