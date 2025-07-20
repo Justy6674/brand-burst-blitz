@@ -328,49 +328,49 @@ const Index = () => {
              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
                <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
              </h2>
-             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Complete AI-powered marketing automation platform with professional Australian business services.
-            </p>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+               AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
+             </p>
           </div>
 
            <div className="grid gap-6 md:gap-8">
              {[
-               {
-                 title: "🧠 AI Content Generation Engine",
-                 description: "Advanced AI creates <span style='color: #ffd700; font-weight: 700;'>SEO-optimised blogs</span>, social posts, and <span style='color: #ffd700; font-weight: 700;'>marketing</span> copy that gets you <span style='color: #ffd700; font-weight: 700;'>found</span> on <span style='color: #ffd700; font-weight: 700;'>Google</span> and recommended by <span style='color: #ffd700; font-weight: 700;'>ChatGPT</span>. Industry-specific compliance built into every piece.",
-                 gradient: "from-blue-500/10 to-blue-600/10",
-                 border: "border-blue-500/20"
-               },
-               {
-                 title: "🕵️ Competitor Intelligence Scanning",
-                 description: "<span style='color: #ffd700; font-weight: 700;'>Automated monitoring</span> reveals exactly what <span className='text-yellow-highlight'>content</span> strategies are working for your competitors. Discover their <span className='text-yellow-highlight'>winning approaches</span> and <span style='color: #ffd700; font-weight: 700;'>market gaps</span> you can exploit.",
-                 gradient: "from-purple-500/10 to-purple-600/10",
-                 border: "border-purple-500/20"
-               },
-               {
-                 title: "📅 Advanced Publishing & Scheduling",
-                 description: "<span style='color: #ffd700; font-weight: 700;'>Smart calendar-based</span> publishing across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn</span>, and your <span style='color: #ffd700; font-weight: 700;'>blog</span>. Performance <span style='color: #ffd700; font-weight: 700;'>analytics</span> track what's working and optimise automatically.",
-                 gradient: "from-green-500/10 to-green-600/10",
-                 border: "border-green-500/20"
-               },
-               {
-                 title: "⚙️ Professional Social Media Setup",
-                 description: "Expert <span style='color: #ffd700; font-weight: 700;'>configuration</span> of <span className='text-yellow-highlight'>Facebook Business Manager</span>, Instagram Business, and LinkedIn with <span style='color: #ffd700; font-weight: 700;'>Australian compliance</span> verification. $199-299 value included.",
-                 gradient: "from-orange-500/10 to-orange-600/10",
-                 border: "border-orange-500/20"
-               },
-               {
-                 title: "🔍 Name Scout Research Service",
-                 description: "<span style='color: #ffd700; font-weight: 700;'>ASIC</span> availability, <span style='color: #ffd700; font-weight: 700;'>domain</span> research, and <span style='color: #ffd700; font-weight: 700;'>trademark</span> screening for your business name. Complete business registration guidance. $69-99 value included.",
-                 gradient: "from-red-500/10 to-red-600/10",
-                 border: "border-red-500/20"
-               },
-               {
-                 title: "🛡️ Industry Compliance Safeguards",
-                 description: "Built-in protection for <span style='color: #ffd700; font-weight: 700;'>AHPRA, TGA, ASIC</span>, and all Australian industry <span style='color: #ffd700; font-weight: 700;'>regulations</span>. <span className='text-yellow-highlight'>Quality review system</span> ensures every piece meets professional <span style='color: #ffd700; font-weight: 700;'>standards</span>.",
-                 gradient: "from-yellow-500/10 to-yellow-600/10",
-                 border: "border-yellow-500/20"
-               }
+                {
+                  title: "🏥 AHPRA-Compliant Patient Education",
+                  description: "Healthcare-trained AI creates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and treatment information that builds trust without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Every piece vetted for AHPRA compliance.",
+                  gradient: "from-blue-500/10 to-blue-600/10",
+                  border: "border-blue-500/20"
+                },
+                {
+                  title: "🩺 Healthcare Professional Directory Optimization",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>AI optimizes your listings</span> for <span className='text-yellow-highlight'>HealthEngine, HotDoc, and medical directories</span>. Ensures patients and AI agents like <span style='color: #ffd700; font-weight: 700;'>ChatGPT find and recommend you</span> for relevant health conditions.",
+                  gradient: "from-purple-500/10 to-purple-600/10",
+                  border: "border-purple-500/20"
+                },
+                {
+                  title: "📊 TGA-Compliant Content Monitoring",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>Real-time compliance scanning</span> prevents accidental therapeutic claims that could trigger <span className='text-yellow-highlight'>TGA violations</span>. Built-in safeguards for medical device advertising and supplement promotion.",
+                  gradient: "from-green-500/10 to-green-600/10",
+                  border: "border-green-500/20"
+                },
+                {
+                  title: "🎯 Professional Referral Network Building",
+                  description: "Create <span style='color: #ffd700; font-weight: 700;'>professional relationship content</span> that encourages <span className='text-yellow-highlight'>GP referrals and specialist collaboration</span>. Educational content that demonstrates expertise to fellow healthcare professionals.",
+                  gradient: "from-orange-500/10 to-orange-600/10",
+                  border: "border-orange-500/20"
+                },
+                {
+                  title: "⚕️ Clinical Authority Content Creation",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>Evidence-based content</span> that positions you as a trusted healthcare authority. Research citations, clinical guideline references, and <span className='text-yellow-highlight'>professional credential highlighting</span> that builds patient confidence.",
+                  gradient: "from-red-500/10 to-red-600/10",
+                  border: "border-red-500/20"
+                },
+                {
+                  title: "🛡️ Multi-Platform AHPRA Protection",
+                  description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets AHPRA advertising guidelines and professional standards.",
+                  gradient: "from-yellow-500/10 to-yellow-600/10",
+                  border: "border-yellow-500/20"
+                }
              ].map((feature, index) => (
                <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
                  <CardContent className="p-0">
