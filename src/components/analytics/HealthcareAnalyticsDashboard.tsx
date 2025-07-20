@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
 import { useRealHealthcareAnalytics } from '@/hooks/useRealHealthcareAnalytics';
+import { HealthcareInstagramAnalytics } from '../social/HealthcareInstagramAnalytics';
 import { 
   BarChart3, TrendingUp, TrendingDown, Users, Shield, Heart, 
   Eye, Share2, MessageCircle, Calendar, DollarSign,

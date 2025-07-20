@@ -193,9 +193,10 @@ export const HealthcareSocialMediaSetup = () => {
       </Alert>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="templates">Content Templates</TabsTrigger>
           <TabsTrigger value="facebook-setup">Facebook Setup</TabsTrigger>
+          <TabsTrigger value="instagram-analytics">Instagram Analytics</TabsTrigger>
           <TabsTrigger value="platforms">Other Platforms</TabsTrigger>
           <TabsTrigger value="compliance">Compliance Check</TabsTrigger>
         </TabsList>
@@ -324,6 +325,10 @@ export const HealthcareSocialMediaSetup = () => {
               // Could show success message or redirect
             }}
           />
+        </TabsContent>
+
+        <TabsContent value="instagram-analytics" className="space-y-6">
+          {/* Instagram analytics content */}
         </TabsContent>
 
         <TabsContent value="platforms" className="space-y-6">
