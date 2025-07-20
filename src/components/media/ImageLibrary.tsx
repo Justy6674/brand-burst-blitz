@@ -25,7 +25,7 @@ interface ImageData {
   url: string;
   alt_text?: string;
   size: number;
-  dimensions: { width: number; height: number; };
+  dimensions: any;
   folder?: string;
   tags: string[];
   created_at: string;
