@@ -152,6 +152,59 @@ export type Database = {
         }
         Relationships: []
       }
+      automation_rules: {
+        Row: {
+          actions: Json
+          business_id: string | null
+          conditions: Json
+          created_at: string | null
+          event_type: string | null
+          execution_count: number | null
+          id: string
+          is_active: boolean | null
+          last_executed_at: string | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          actions?: Json
+          business_id?: string | null
+          conditions?: Json
+          created_at?: string | null
+          event_type?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_executed_at?: string | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          actions?: Json
+          business_id?: string | null
+          conditions?: Json
+          created_at?: string | null
+          event_type?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_executed_at?: string | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_rules_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_customizations: {
         Row: {
           branding: Json
@@ -1000,6 +1053,68 @@ export type Database = {
         }
         Relationships: []
       }
+      external_calendar_integrations: {
+        Row: {
+          access_token: string | null
+          business_id: string | null
+          created_at: string | null
+          expires_at: string | null
+          external_calendar_id: string
+          id: string
+          integration_type: string
+          last_sync_at: string | null
+          refresh_token: string | null
+          sync_direction: string | null
+          sync_enabled: boolean | null
+          sync_error_message: string | null
+          sync_status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          business_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          external_calendar_id: string
+          id?: string
+          integration_type: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_direction?: string | null
+          sync_enabled?: boolean | null
+          sync_error_message?: string | null
+          sync_status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          business_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          external_calendar_id?: string
+          id?: string
+          integration_type?: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_direction?: string | null
+          sync_enabled?: boolean | null
+          sync_error_message?: string | null
+          sync_status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "external_calendar_integrations_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       images: {
         Row: {
           alt_text: string | null
@@ -1263,6 +1378,112 @@ export type Database = {
             columns: ["business_profile_id"]
             isOneToOne: false
             referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          business_id: string | null
+          created_at: string | null
+          daily_digest: boolean | null
+          email_notifications: boolean | null
+          event_reminders: boolean | null
+          id: string
+          inactivity_alerts: boolean | null
+          inactivity_threshold_days: number | null
+          push_notifications: boolean | null
+          sms_notifications: boolean | null
+          updated_at: string | null
+          user_id: string
+          weekly_digest: boolean | null
+        }
+        Insert: {
+          business_id?: string | null
+          created_at?: string | null
+          daily_digest?: boolean | null
+          email_notifications?: boolean | null
+          event_reminders?: boolean | null
+          id?: string
+          inactivity_alerts?: boolean | null
+          inactivity_threshold_days?: number | null
+          push_notifications?: boolean | null
+          sms_notifications?: boolean | null
+          updated_at?: string | null
+          user_id: string
+          weekly_digest?: boolean | null
+        }
+        Update: {
+          business_id?: string | null
+          created_at?: string | null
+          daily_digest?: boolean | null
+          email_notifications?: boolean | null
+          event_reminders?: boolean | null
+          id?: string
+          inactivity_alerts?: boolean | null
+          inactivity_threshold_days?: number | null
+          push_notifications?: boolean | null
+          sms_notifications?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+          weekly_digest?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_preferences_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_queue: {
+        Row: {
+          attempts: number | null
+          created_at: string | null
+          error_message: string | null
+          event_id: string | null
+          id: string
+          last_attempt_at: string | null
+          message_data: Json
+          notification_type: string
+          scheduled_for: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          attempts?: number | null
+          created_at?: string | null
+          error_message?: string | null
+          event_id?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          message_data?: Json
+          notification_type: string
+          scheduled_for: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          attempts?: number | null
+          created_at?: string | null
+          error_message?: string | null
+          event_id?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          message_data?: Json
+          notification_type?: string
+          scheduled_for?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_queue_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
             referencedColumns: ["id"]
           },
         ]

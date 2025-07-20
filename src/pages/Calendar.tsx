@@ -1,5 +1,5 @@
-import { SmartCalendarSystem } from '@/components/calendar/SmartCalendarSystem';
+import { FullStackSmartCalendar } from '@/components/calendar/FullStackSmartCalendar';
 
 export default function Calendar() {
-  return <SmartCalendarSystem />;
+  return <FullStackSmartCalendar />;
 }
