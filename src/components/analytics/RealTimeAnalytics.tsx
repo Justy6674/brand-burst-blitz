@@ -35,6 +35,8 @@ interface PostPerformance {
     shares: number;
     comments: number;
   };
+  hasRealData: boolean;
+  dataSource: string;
 }
 
 export function RealTimeAnalytics() {
@@ -103,31 +105,54 @@ export function RealTimeAnalytics() {
 
       setAnalyticsData(Object.values(platformData));
 
-      // Fetch top performing posts
+      // Fetch top performing posts with REAL metrics
       const { data: posts, error: postsError } = await supabase
         .from('posts')
-        .select('*')
+        .select(`
+          *,
+          analytics!inner(*)
+        `)
         .eq('user_id', user.id)
         .eq('status', 'published')
-        .order('created_at', { ascending: false })
-        .limit(5);
+        .order('published_at', { ascending: false })
+        .limit(10);
 
       if (postsError) throw postsError;
 
-      const topPerformingPosts: PostPerformance[] = posts?.map(post => ({
-        id: post.id,
-        title: post.title || 'Untitled Post',
-        platform: post.target_platforms?.[0] || 'Unknown',
-        publishedAt: post.published_at || post.created_at,
-        metrics: {
-          reach: Math.floor(Math.random() * 1000) + 100, // Simulated for demo
-          engagement: Math.floor(Math.random() * 100) + 10,
-          clicks: Math.floor(Math.random() * 50) + 5,
-          likes: Math.floor(Math.random() * 200) + 20,
-          shares: Math.floor(Math.random() * 20) + 2,
-          comments: Math.floor(Math.random() * 30) + 3
-        }
-      })) || [];
+      const topPerformingPosts: PostPerformance[] = posts?.map(post => {
+        // Calculate REAL engagement from analytics data
+        const postAnalytics = post.analytics || [];
+        const totalMetrics = postAnalytics.reduce((acc: any, analytics: any) => {
+          const metrics = analytics.metrics as any;
+          return {
+            reach: acc.reach + (metrics.reach || 0),
+            engagement: acc.engagement + (metrics.likes || 0) + (metrics.comments || 0) + (metrics.shares || 0),
+            clicks: acc.clicks + (metrics.clicks || 0),
+            likes: acc.likes + (metrics.likes || 0),
+            shares: acc.shares + (metrics.shares || 0),
+            comments: acc.comments + (metrics.comments || 0)
+          };
+        }, { reach: 0, engagement: 0, clicks: 0, likes: 0, shares: 0, comments: 0 });
+
+        return {
+          id: post.id,
+          title: post.title || 'Untitled Post',
+          platform: post.target_platforms?.[0] || 'Unknown',
+          publishedAt: post.published_at || post.created_at,
+          metrics: {
+            reach: totalMetrics.reach,
+            engagement: totalMetrics.engagement,
+            clicks: totalMetrics.clicks,
+            likes: totalMetrics.likes,
+            shares: totalMetrics.shares,
+            comments: totalMetrics.comments
+          },
+          hasRealData: postAnalytics.length > 0,
+          dataSource: postAnalytics.length > 0 ? 'real_analytics' : 'no_data'
+        };
+      }).filter(post => post.hasRealData) // Only show posts with real data
+      .sort((a, b) => b.metrics.engagement - a.metrics.engagement) // Sort by real engagement
+      .slice(0, 5) || []; // Top 5 real performers
 
       setTopPosts(topPerformingPosts);
 

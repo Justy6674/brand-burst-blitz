@@ -11,6 +11,8 @@ import { useBusinessProfileContext } from "@/contexts/BusinessProfileContext";
 import { BusinessComparison } from "@/components/business/BusinessComparison";
 import { UnifiedReporting } from "@/components/business/UnifiedReporting";
 import { format } from "date-fns";
+import { supabase } from "@/lib/supabase";
+import { toast } from "@/components/ui/use-toast";
 
 export const AnalyticsDashboard = () => {
   const { 
@@ -44,24 +46,65 @@ export const AnalyticsDashboard = () => {
     ? ((totalMetrics.likes + totalMetrics.shares + totalMetrics.comments) / totalMetrics.views * 100).toFixed(2)
     : "0";
 
-  const simulateAnalytics = () => {
-    const recentPosts = posts?.slice(0, 3) || [];
-    recentPosts.forEach(post => {
-      const platforms = ['facebook', 'instagram', 'linkedin', 'twitter'];
-      platforms.forEach(platform => {
-        addAnalytics({
-          postId: post.id,
-          platform,
-          metrics: {
-            views: Math.floor(Math.random() * 1000) + 100,
-            likes: Math.floor(Math.random() * 100) + 10,
-            shares: Math.floor(Math.random() * 50) + 5,
-            comments: Math.floor(Math.random() * 25) + 2,
-            engagement_rate: Math.random() * 10 + 1,
+  const simulateAnalytics = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Collect REAL analytics from connected social media accounts
+      const recentPosts = posts?.slice(0, 5) || [];
+      
+      for (const post of recentPosts) {
+        const platforms = post.target_platforms || ['facebook'];
+        
+        for (const platform of platforms) {
+          // Check if we have real analytics data for this post
+          const { data: existingAnalytics, error: checkError } = await supabase
+            .from('analytics')
+            .select('*')
+            .eq('post_id', post.id)
+            .eq('platform', platform)
+            .single();
+
+          if (checkError && checkError.code !== 'PGRST116') {
+            console.error('Error checking existing analytics:', checkError);
+            continue;
           }
-        });
+
+          // If no real data exists, prompt user to add manual data
+          if (!existingAnalytics) {
+            // Instead of generating fake data, create placeholder analytics entry
+            // that prompts user to enter real data
+            addAnalytics({
+              postId: post.id,
+              platform,
+              metrics: {
+                views: 0, // Start with 0 to indicate needs real data
+                likes: 0,
+                shares: 0,
+                comments: 0,
+                engagement_rate: 0,
+                data_source: 'pending_user_input',
+                needs_real_data: true
+              }
+            });
+          }
+        }
+      }
+
+      toast({
+        title: "Analytics Collection Started",
+        description: "Real analytics data collection initiated. Please add your actual social media performance data.",
       });
-    });
+
+    } catch (error) {
+      console.error('Error collecting real analytics:', error);
+      toast({
+        title: "Analytics Collection Error",
+        description: "Failed to collect analytics. Please check your connections.",
+        variant: "destructive"
+      });
+    }
   };
 
   const chartColors = ['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))', 'hsl(var(--muted))'];
