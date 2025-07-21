@@ -24,6 +24,7 @@ import {
   Database,
   RefreshCw
 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PostPerformance {
   id: string;
@@ -56,6 +57,10 @@ interface CompetitorInsight {
   postingFrequency: string;
   contentThemes: string[];
   lastAnalyzed: Date;
+  location?: string;
+  ahpraRegistration?: string;
+  specialties?: string[];
+  complianceScore: number;
 }
 
 export function RealHealthcareAnalytics() {
@@ -91,44 +96,109 @@ export function RealHealthcareAnalytics() {
 
   const loadAnalyticsData = useCallback(async () => {
     try {
-      // Load from localStorage (in production would be from Supabase)
-      const saved = localStorage.getItem('healthcare_analytics');
-      if (saved) {
-        const data = JSON.parse(saved);
-        setPostPerformances(data.map((p: any) => ({
-          ...p,
-          datePosted: new Date(p.datePosted)
-        })));
+      // REAL ANALYTICS DATA - Replace localStorage with Supabase
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Load real post performances from Supabase analytics table
+      const { data, error } = await supabase
+        .from('healthcare_post_analytics')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('date_posted', { ascending: false })
+        .limit(50);
+
+      if (error) {
+        console.error('Error loading real analytics data:', error);
+        // Show empty state instead of localStorage fallback
+        setPostPerformances([]);
+        return;
       }
+
+      // Transform real data to component format
+      const realPerformances: PostPerformance[] = (data || []).map((record) => ({
+        id: record.id,
+        platform: record.platform,
+        content: record.content_preview || '',
+        datePosted: new Date(record.date_posted),
+        likes: record.likes || 0,
+        comments: record.comments || 0,
+        shares: record.shares || 0,
+        patientInquiries: record.patient_inquiries || 0,
+        reach: record.reach || 0,
+        engagement: (record.likes || 0) + (record.comments || 0) + (record.shares || 0),
+        complianceScore: record.compliance_score || 0
+      }));
+
+      setPostPerformances(realPerformances);
+
+      if (realPerformances.length === 0) {
+        toast({
+          title: "No Analytics Data",
+          description: "Start posting content to see real performance analytics here",
+          variant: "default"
+        });
+      }
+
     } catch (error) {
       console.error('Error loading analytics:', error);
+      setPostPerformances([]);
     }
   }, []);
 
   const loadCompetitorInsights = useCallback(async () => {
     try {
-      // Load competitor insights (would call actual scraping API in production)
-      const insights: CompetitorInsight[] = [
-        {
-          practitionerName: 'Dr. Sarah Johnson (GP)',
-          platform: 'Facebook',
-          avgEngagement: 45,
-          postingFrequency: '3-4 times per week',
-          contentThemes: ['Patient Education', 'Preventive Care', 'Health Tips'],
-          lastAnalyzed: new Date()
-        },
-        {
-          practitionerName: 'Physio Plus Clinic',
-          platform: 'Instagram',
-          avgEngagement: 62,
-          postingFrequency: 'Daily',
-          contentThemes: ['Exercise Tips', 'Injury Prevention', 'Patient Stories'],
-          lastAnalyzed: new Date()
+      // REAL COMPETITOR ANALYSIS - Replace fake hardcoded competitors with real AHPRA scanning
+      const { data, error } = await supabase.functions.invoke('analyze-competitor', {
+        body: {
+          practiceType: 'healthcare',
+          location: 'australia',
+          specialty: 'general_practice', // Would come from user's questionnaire
+          radius: 10, // 10km radius
+          ethicalScraping: true,
+          ahpraCompliant: true
         }
-      ];
-      setCompetitorInsights(insights);
+      });
+
+      if (error) {
+        console.error('Error loading real competitor insights:', error);
+        // Show empty state instead of fake data
+        setCompetitorInsights([]);
+        toast({
+          title: "Competitor Analysis Setup Required",
+          description: "Configure location and specialty to analyze real local healthcare competitors",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Process real competitor data from AHPRA database and public sources
+      const realInsights: CompetitorInsight[] = (data.competitors || []).map((competitor: any) => ({
+        practitionerName: competitor.practice_name || 'Healthcare Practice',
+        platform: competitor.primary_platform || 'Website',
+        avgEngagement: competitor.engagement_metrics?.average || 0,
+        postingFrequency: competitor.content_frequency || 'Unknown',
+        contentThemes: competitor.content_themes || ['Healthcare Content'],
+        lastAnalyzed: new Date(competitor.last_analyzed || Date.now()),
+        location: competitor.location,
+        ahpraRegistration: competitor.ahpra_number,
+        specialties: competitor.specialties || [],
+        complianceScore: competitor.compliance_score || 0
+      }));
+
+      setCompetitorInsights(realInsights);
+
+      if (realInsights.length > 0) {
+        toast({
+          title: "Real Competitor Data Loaded",
+          description: `Analyzed ${realInsights.length} local healthcare competitors using AHPRA database`,
+        });
+      }
+
     } catch (error) {
       console.error('Error loading competitor insights:', error);
+      // Empty state on error - no fake data
+      setCompetitorInsights([]);
     }
   }, []);
 
