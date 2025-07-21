@@ -103,6 +103,7 @@ const LazyHealthcareCopyPasteWorkflow = withLazyLoading(HealthcareCopyPasteWorkf
 const LazyHealthcareBlogEmbed = withLazyLoading(HealthcareBlogEmbed, 'Healthcare Blog Embed');
 const LazyBlogPost = withLazyLoading(BlogPost, 'Blog Post');
 const LazyEmbeddableBlog = withLazyLoading(EmbeddableBlog, 'Embeddable Blog');
+const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Business Questionnaire');
 
 function App() {
   return (
