@@ -60,115 +60,100 @@ const getHealthcarePracticeType = (industry: string): HealthcarePracticeType => 
 };
 
 interface QuestionnaireData {
-  business_name?: string;
-  industry?: string;
-  target_audience_demographics?: string;
-  target_audience_psychographics?: string;
-  brand_voice?: string;
-  target_platforms?: string[];
-  content_topics?: string[];
-  primary_goals?: string[];
-  competitive_advantages?: string;
-  specialty?: string;
+  business_name: string;
+  industry: string;
+  specialty: string;
+  target_audience_demographics: string;
+  primary_goals: string[];
+  brand_voice: string;
+  target_platforms: string[];
+  content_topics: string[];
+  practice_type: string;
 }
 
 interface AIContentGeneratorProps {
   onContentGenerated?: (content: string, postId: string) => void;
 }
 
-export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorProps) => {
-  const [mode, setMode] = useState<"quick" | "advanced" | "compliance">("quick");
-  const [prompt, setPrompt] = useState('');
-  const [selectedType, setSelectedType] = useState<'blog' | 'social_media' | 'advertisement' | 'website'>('blog');
-  const [selectedTone, setSelectedTone] = useState('professional');
-  const [selectedTemplate, setSelectedTemplate] = useState<string | undefined>();
-  const [selectedBusinessId, setSelectedBusinessId] = useState<string>('');
-  const [generatedContent, setGeneratedContent] = useState('');
-  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireData | null>(null);
-  const [isLoadingQuestionnaire, setIsLoadingQuestionnaire] = useState(true);
-  const [complianceResult, setComplianceResult] = useState<ComplianceResult | null>(null);
-  const [showComplianceDashboard, setShowComplianceDashboard] = useState(false);
-  
-  // Healthcare-specific AHPRA compliance state
-  const [practiceType, setPracticeType] = useState<'gp' | 'specialist' | 'allied_health' | 'psychology' | 'social_work' | 'nursing' | 'dental' | 'optometry'>('gp');
-  const [ahpraRegistration, setAhpraRegistration] = useState('');
-  const [specialty, setSpecialty] = useState('');
-
-  const { generateContent, isGenerating } = useAIGeneration();
-  const { templates } = useContentTemplates();
-  const { businessProfiles, isLoading: profilesLoading } = useBusinessProfile();
+export const AIContentGenerator: React.FC<AIContentGeneratorProps> = ({ onContentGenerated }) => {
   const { user } = useAuth();
+  const { businessProfiles } = useBusinessProfile();
+  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireData | null>(null);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
+  
+  // Content generation state
+  const [prompt, setPrompt] = useState('');
+  const [contentType, setContentType] = useState('social_media');
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [generatedContent, setGeneratedContent] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [complianceResult, setComplianceResult] = useState<ComplianceResult | null>(null);
+  const [activeTab, setActiveTab] = useState('generator');
 
-  // Get the primary business profile
-  const selectedProfile = businessProfiles?.find(p => p.is_primary) || businessProfiles?.[0];
-
-  const filteredTemplates = templates.filter(template => template.type === selectedType);
+  const { validateAHPRACompliance } = useAHPRACompliance();
 
   // Load questionnaire data on component mount
   useEffect(() => {
     loadQuestionnaireData();
-  }, [selectedProfile]);
+  }, [user]);
 
   const loadQuestionnaireData = async () => {
-    if (!selectedProfile || !user) {
-      setIsLoadingQuestionnaire(false);
+    if (!user?.id) {
+      setIsLoadingProfile(false);
       return;
     }
 
     try {
-      // Get questionnaire data from business profile compliance_settings
+      setIsLoadingProfile(true);
+      
+      // Get questionnaire responses from business profile compliance_settings
       const { data: profileData, error } = await supabase
         .from('business_profiles')
-        .select('compliance_settings, business_name, industry, default_ai_tone, website_url')
-        .eq('id', selectedProfile.id)
+        .select('compliance_settings, business_name, industry, default_ai_tone')
+        .eq('user_id', user.id)
+        .eq('is_primary', true)
         .single();
 
       if (error || !profileData) {
-        console.error('Error loading questionnaire data:', error);
-        setIsLoadingQuestionnaire(false);
+        setIsLoadingProfile(false);
         return;
       }
 
-      // Parse compliance settings to get questionnaire data
-      let questionnaireResponses = null;
-      if (profileData.compliance_settings) {
-        try {
-          const complianceSettings = typeof profileData.compliance_settings === 'string' 
-            ? JSON.parse(profileData.compliance_settings)
-            : profileData.compliance_settings;
-          
-          questionnaireResponses = complianceSettings.questionnaire_data || complianceSettings;
-        } catch (parseError) {
-          console.error('Error parsing compliance settings:', parseError);
-        }
+      // Extract questionnaire data from compliance_settings
+      const complianceSettings = typeof profileData.compliance_settings === 'string' 
+        ? JSON.parse(profileData.compliance_settings)
+        : profileData.compliance_settings;
+
+      const questionnaireResponses = complianceSettings?.questionnaire_data;
+
+      if (questionnaireResponses) {
+        const fullData: QuestionnaireData = {
+          business_name: profileData.business_name,
+          industry: profileData.industry,
+          specialty: getSpecialtyFromIndustry(profileData.industry),
+          target_audience_demographics: questionnaireResponses.target_audience || 'Australian healthcare consumers',
+          primary_goals: questionnaireResponses.goals?.primary || ['patient-education'],
+          brand_voice: profileData.default_ai_tone || 'professional',
+          target_platforms: questionnaireResponses.platforms || ['facebook'],
+          content_topics: ['patient-education', 'health-tips', 'practice-updates'],
+          practice_type: profileData.industry
+        };
+
+        setQuestionnaireData(fullData);
+        setSelectedPlatforms(fullData.target_platforms.slice(0, 2)); // Pre-select user's platforms
       }
 
-      // Extract questionnaire data
-      const questData: QuestionnaireData = {
-        business_name: profileData.business_name,
-        industry: profileData.industry,
-        brand_voice: profileData.default_ai_tone,
-        target_audience_demographics: questionnaireResponses?.target_audience_demographics,
-        target_audience_psychographics: questionnaireResponses?.target_audience_psychographics,
-        target_platforms: questionnaireResponses?.target_platforms,
-        content_topics: questionnaireResponses?.content_topics,
-        primary_goals: questionnaireResponses?.primary_goals,
-        competitive_advantages: questionnaireResponses?.competitive_advantages,
-        specialty: getSpecialtyFromIndustry(profileData.industry)
-      };
-
-      setQuestionnaireData(questData);
     } catch (error) {
       console.error('Error loading questionnaire data:', error);
     } finally {
-      setIsLoadingQuestionnaire(false);
+      setIsLoadingProfile(false);
     }
   };
 
   const getSpecialtyFromIndustry = (industry: string): string => {
-    const specialtyMap: Record<string, string> = {
+    const specialtyMap: { [key: string]: string } = {
       'health': 'General Practice',
-      'psychology': 'Clinical Psychology',
+      'psychology': 'Clinical Psychology', 
       'physio': 'Physiotherapy',
       'allied_health': 'Allied Health',
       'dental': 'Dentistry',
@@ -177,97 +162,111 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
     return specialtyMap[industry] || 'Healthcare Professional';
   };
 
-  const handleGenerate = async () => {
-    if (!prompt.trim()) return;
+  const getHealthcarePracticeType = (industry: string): HealthcarePracticeType => {
+    const practiceTypeMap: { [key: string]: HealthcarePracticeType } = {
+      'health': { type: 'gp', ahpra_registration: true },
+      'psychology': { type: 'psychology', ahpra_registration: true },
+      'physio': { type: 'allied_health', ahpra_registration: true },
+      'allied_health': { type: 'allied_health', ahpra_registration: true },
+      'dental': { type: 'dental', ahpra_registration: true },
+      'nursing': { type: 'nursing', ahpra_registration: true }
+    };
+    return practiceTypeMap[industry] || { type: 'gp', ahpra_registration: true };
+  };
 
-    if (!questionnaireData) {
-      alert('Please complete your business questionnaire first to enable personalized content generation');
-      return;
-    }
+  // Generate content using questionnaire data for personalization
+  const generateContent = async () => {
+    if (!prompt.trim() || !questionnaireData) return;
 
+    setIsGenerating(true);
     try {
-      // Build healthcare-specific context using REAL questionnaire data
-      const practiceType = getHealthcarePracticeType(questionnaireData.industry || 'health');
-      const specialty = questionnaireData.specialty || 'General Healthcare';
-      const brandVoice = questionnaireData.brand_voice || 'professional';
-      const targetAudience = questionnaireData.target_audience_demographics || 'Australian healthcare consumers';
-      const targetPlatforms = questionnaireData.target_platforms || ['facebook'];
+      // Build specialty-specific prompt using questionnaire data
+      const personalizedPrompt = buildPersonalizedPrompt();
       
-      // Create REAL personalized healthcare context
-      const healthcareContext = `Healthcare Practice: ${questionnaireData.business_name}
-Practice Type: ${practiceType}
-Specialty: ${specialty}
-Brand Voice: ${brandVoice}
-Target Audience: ${targetAudience}
-Target Platforms: ${targetPlatforms.join(', ')}
-Content Topics: ${questionnaireData.content_topics?.join(', ') || 'Patient education'}
-Primary Goals: ${questionnaireData.primary_goals?.join(', ') || 'Patient education'}
-Competitive Advantages: ${questionnaireData.competitive_advantages || 'Quality healthcare service'}
-
-IMPORTANT COMPLIANCE REQUIREMENTS:
-- All content must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements
-- No patient testimonials or reviews (AHPRA prohibition)
-- No prohibited drug names (Botox, Juvederm, etc.)
-- Include appropriate risk disclaimers for healthcare content
-- Maintain professional boundaries and evidence-based language
-- Content must be appropriate for ${specialty} practice targeting ${targetAudience}`;
-
-      const result = await generateContent({
-        prompt: `${prompt}
-
-PERSONALIZATION CONTEXT: Create content specifically for a ${specialty} practice named "${questionnaireData.business_name}" that uses a ${brandVoice} tone and targets ${targetAudience}. 
-
-The content should reflect their competitive advantages: ${questionnaireData.competitive_advantages || 'Quality healthcare service'}
-
-This content will be used on: ${targetPlatforms.join(' and ')}
-
-COMPLIANCE: This content is for Australian healthcare professionals and must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements.`,
-        templateId: selectedTemplate,
-        tone: brandVoice,
-        type: selectedType === 'social_media' ? 'social' : selectedType === 'advertisement' ? 'ad' : selectedType as "blog" | "social" | "ad",
-        businessContext: healthcareContext,
-        businessProfileId: selectedProfile?.id
+      const response = await fetch('/api/generate-healthcare-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: personalizedPrompt,
+          specialty: questionnaireData.specialty,
+          contentType,
+          practiceType: questionnaireData.practice_type,
+          brandVoice: questionnaireData.brand_voice,
+          targetAudience: questionnaireData.target_audience_demographics,
+          targetPlatforms: selectedPlatforms,
+          complianceMode: true
+        })
       });
 
-      setGeneratedContent(result.content);
+      const result = await response.json();
       
-      // Automatically switch to compliance tab after generation
-      setMode("compliance");
-      
-      onContentGenerated?.(result.content, result.postId);
+      if (result.success) {
+        setGeneratedContent(result.content);
+        
+        // Validate AHPRA compliance
+        const practiceType = getHealthcarePracticeType(questionnaireData.practice_type);
+        const compliance = await validateAHPRACompliance(result.content, practiceType);
+        setComplianceResult(compliance);
+        
+        setActiveTab('preview');
+        
+        // Notify parent component
+        if (onContentGenerated) {
+          onContentGenerated(result.content, `generated_${Date.now()}`);
+        }
+      }
     } catch (error) {
-      // Error handling is done in the hook
+      console.error('Content generation error:', error);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
-  const TypeIcon = contentTypes.find(type => type.value === selectedType)?.icon || FileText;
+  const buildPersonalizedPrompt = (): string => {
+    if (!questionnaireData) return prompt;
 
-  if (isLoadingQuestionnaire || profilesLoading) {
+    return `
+    Practice Context:
+    - Business: ${questionnaireData.business_name}
+    - Specialty: ${questionnaireData.specialty}
+    - Target Audience: ${questionnaireData.target_audience_demographics}
+    - Brand Voice: ${questionnaireData.brand_voice}
+    - Primary Goals: ${questionnaireData.primary_goals.join(', ')}
+    - Platform(s): ${selectedPlatforms.join(', ')}
+    
+    Content Request: ${prompt}
+    
+    Please create ${questionnaireData.specialty}-specific content that:
+    1. Uses ${questionnaireData.brand_voice} tone
+    2. Targets ${questionnaireData.target_audience_demographics}
+    3. Aligns with ${questionnaireData.primary_goals.join(' and ')} goals
+    4. Is optimized for ${selectedPlatforms.join(' and ')} platform(s)
+    5. Maintains AHPRA compliance for ${questionnaireData.specialty} practice
+    `;
+  };
+
+  // Show loading state while loading questionnaire data
+  if (isLoadingProfile) {
     return (
-      <div className="space-y-4">
-        <div className="text-center">
-          <Sparkles className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-          <p>Loading your healthcare practice data...</p>
-        </div>
+      <div className="p-6 text-center">
+        <Sparkles className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+        <p className="text-muted-foreground">Loading your practice profile...</p>
       </div>
     );
   }
 
+  // Show setup prompt if no questionnaire data
   if (!questionnaireData) {
     return (
-      <div className="space-y-4">
-        <Alert>
-          <AlertTriangle className="h-4 w-4" />
-          <AlertDescription>
-            <strong>Business Questionnaire Required</strong>
-            <br />
-            Please complete your business intelligence questionnaire to enable personalized, AHPRA-compliant content generation.
-            <br />
-            <Button variant="outline" size="sm" className="mt-2" onClick={() => window.location.href = '/questionnaire'}>
-              Complete Questionnaire
-            </Button>
-          </AlertDescription>
-        </Alert>
+      <div className="p-6 text-center">
+        <Brain className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+        <h3 className="text-lg font-semibold mb-2">Complete Your Practice Profile</h3>
+        <p className="text-muted-foreground mb-4">
+          To generate personalized healthcare content, please complete your business questionnaire first.
+        </p>
+        <Button onClick={() => window.location.href = '/questionnaire'}>
+          Complete Practice Questionnaire
+        </Button>
       </div>
     );
   }
@@ -307,9 +306,9 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
         </CardContent>
       </Card>
 
-      <Tabs value={mode} onValueChange={(value) => setMode(value as any)} className="w-full">
+      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="quick" className="flex items-center gap-2">
+          <TabsTrigger value="generator" className="flex items-center gap-2">
             <Zap className="h-4 w-4" />
             Quick Generate
           </TabsTrigger>
@@ -323,7 +322,7 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="quick" className="space-y-6">
+        <TabsContent value="generator" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -342,8 +341,8 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
                   {contentTypes.map((type) => (
                     <Button
                       key={type.value}
-                      variant={selectedType === type.value ? "default" : "outline"}
-                      onClick={() => setSelectedType(type.value as any)}
+                      variant={contentType === type.value ? "default" : "outline"}
+                      onClick={() => setContentType(type.value as any)}
                       className="flex items-center gap-2 h-auto p-4"
                     >
                       <type.icon className="h-4 w-4" />
@@ -354,25 +353,6 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
                   ))}
                 </div>
               </div>
-
-              {/* Content Template Selection */}
-              {filteredTemplates.length > 0 && (
-                <div className="space-y-2">
-                  <Label>Content Template (Optional)</Label>
-                  <Select value={selectedTemplate} onValueChange={setSelectedTemplate}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choose a template or create custom content..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {filteredTemplates.map((template) => (
-                        <SelectItem key={template.id} value={template.id}>
-                          {template.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
 
               {/* Content Prompt */}
               <div className="space-y-2">
@@ -389,7 +369,7 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
               </div>
 
               <Button 
-                onClick={handleGenerate} 
+                onClick={generateContent} 
                 disabled={isGenerating || !prompt.trim()}
                 className="w-full"
                 size="lg"
@@ -418,7 +398,7 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
                     <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(generatedContent)}>
                       Copy Content
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setMode("compliance")}>
+                    <Button variant="outline" size="sm" onClick={() => setActiveTab("compliance")}>
                       Check AHPRA Compliance
                     </Button>
                   </div>
@@ -435,7 +415,7 @@ COMPLIANCE: This content is for Australian healthcare professionals and must com
         <TabsContent value="compliance" className="space-y-6">
           <AHPRAComplianceDashboard 
             content={generatedContent}
-            practiceType={getHealthcarePracticeType(questionnaireData.industry || 'health')}
+            practiceType={getHealthcarePracticeType(questionnaireData.practice_type)}
           />
         </TabsContent>
       </Tabs>

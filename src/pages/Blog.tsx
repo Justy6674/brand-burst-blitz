@@ -110,7 +110,7 @@ export function Blog() {
         totalPosts: blogPosts.length,
         publishedPosts: publishedCount,
         draftPosts: draftCount,
-        totalViews: Math.floor(publishedCount * 45 + Math.random() * 100), // Simulated views
+        totalViews: await getRealBlogViews(blogPosts),
         avgComplianceScore: 100, // Always 100% compliant
         lastPublished
       });
