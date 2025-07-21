@@ -12,9 +12,9 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { GlobalErrorBoundary } from '@/components/error/GlobalErrorBoundary';
 import { PerformanceMonitor } from '@/components/monitoring/PerformanceMonitor';
 
-// DEPLOYMENT VERSION: 25-JUL-2025-14:30 - MEMBERS APP EMBED READY
+// DEPLOYMENT VERSION: 25-JUL-2025-15:00 - MEMBERS APP READY WITH WORKING BUILD
 
-// Lazy load components for better performance - ONLY EXISTING PAGES
+// Lazy load only existing pages
 const Index = lazy(() => import('./pages/Index'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const CreateContent = lazy(() => import('./pages/CreateContent'));
@@ -32,13 +32,13 @@ const PublishingPipeline = lazy(() => import('./pages/PublishingPipeline'));
 const Diary = lazy(() => import('./pages/Diary'));
 const Posts = lazy(() => import('./pages/Posts'));
 const CrossBusinessFeatures = lazy(() => import('./pages/CrossBusinessFeatures'));
+const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed'));
 const BusinessQuestionnaire = lazy(() => import('./components/questionnaire/BusinessQuestionnaire'));
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
-const EmbeddableBlog = lazy(() => import('./pages/EmbeddableBlog'));
 
-// Public pages (for SEO and before login)
+// Public pages
 const Pricing = lazy(() => import('./pages/Pricing'));
 const Features = lazy(() => import('./pages/Features'));
 const CommonQuestions = lazy(() => import('./pages/CommonQuestions'));
@@ -46,7 +46,6 @@ const AllServices = lazy(() => import('./pages/AllServices'));
 const AustralianServices = lazy(() => import('./pages/AustralianServices'));
 const AustralianSetupService = lazy(() => import('./pages/AustralianSetupService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 const queryClient = new QueryClient();
 
@@ -55,7 +54,6 @@ const SEOHead = () => {
   const location = useLocation();
   
   useEffect(() => {
-    // Dynamic title and meta based on route
     const titles: { [key: string]: string } = {
       '/': 'Australian Healthcare Marketing Platform | AHPRA Compliant',
       '/pricing': 'Pricing - Healthcare Marketing Platform',
@@ -72,7 +70,6 @@ const SEOHead = () => {
     const title = titles[location.pathname] || 'Australian Healthcare Marketing Platform';
     document.title = title;
 
-    // Update canonical URL
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -80,7 +77,6 @@ const SEOHead = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', `https://brand-burst-blitz.lovableproject.com${location.pathname}`);
-
   }, [location]);
 
   return null;
@@ -99,7 +95,6 @@ function App() {
               <UserProfileProvider>
                 <BusinessProfileProvider>
                   <BusinessThemeProvider>
-                    {/* Maintain header and UI style throughout */}
                     <div className="min-h-screen bg-background font-sans antialiased">
                       <Routes>
                         {/* Public Routes - SEO Optimized */}
@@ -118,16 +113,6 @@ function App() {
                             <Features />
                           </Suspense>
                         } />
-                        <Route path="/faq" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <CommonQuestions />
-                          </Suspense>
-                        } />
-                        <Route path="/questions" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <CommonQuestions />
-                          </Suspense>
-                        } />
                         <Route path="/common-questions" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <CommonQuestions />
@@ -136,16 +121,6 @@ function App() {
                         <Route path="/blog" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <BlogPage />
-                          </Suspense>
-                        } />
-                        <Route path="/blog-public" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <BlogPage />
-                          </Suspense>
-                        } />
-                        <Route path="/blog/:slug" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <BlogPost />
                           </Suspense>
                         } />
                         <Route path="/services" element={
@@ -173,13 +148,8 @@ function App() {
                             <PrivacyPolicy />
                           </Suspense>
                         } />
-                        <Route path="/publishing" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <PublishingPipeline />
-                          </Suspense>
-                        } />
 
-                        {/* Members App Routes - Protected with AppLayout (maintains header/UI) */}
+                        {/* Members App Routes - Protected with AppLayout */}
                         <Route path="/dashboard" element={
                           <AppLayout>
                             <Suspense fallback={<div className="flex items-center justify-center p-8">Loading dashboard...</div>}>
@@ -300,7 +270,7 @@ function App() {
                           </AppLayout>
                         } />
 
-                        {/* Onboarding & Auth Routes */}
+                        {/* Auth Routes */}
                         <Route path="/questionnaire" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading questionnaire...</div>}>
                             <BusinessQuestionnaire />
@@ -317,14 +287,6 @@ function App() {
                           </Suspense>
                         } />
 
-                        {/* Embeddable Components */}
-                        <Route path="/embed/blog" element={
-                          <Suspense fallback={<div className="flex items-center justify-center p-4">Loading blog...</div>}>
-                            <EmbeddableBlog />
-                          </Suspense>
-                        } />
-
-                        {/* 404 */}
                         <Route path="*" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <NotFound />
@@ -332,7 +294,6 @@ function App() {
                         } />
                       </Routes>
 
-                      {/* Performance Monitoring for Members App */}
                       <PerformanceMonitor />
                     </div>
                   </BusinessThemeProvider>
