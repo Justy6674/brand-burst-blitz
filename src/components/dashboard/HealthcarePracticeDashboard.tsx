@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -6,73 +6,109 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
+import { useBusinessProfile } from '@/contexts/BusinessProfileContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Shield, CheckCircle, AlertTriangle, Users, Settings, 
   FileText, Calendar, BarChart3, Plus, Building2, 
-  Clock, Zap, Award, Brain, Heart 
+  Clock, Zap, Award, Brain, Heart, Building, MapPin, Phone, Globe, DollarSign, TrendingUp, Activity, Stethoscope
 } from 'lucide-react';
 
 interface Practice {
   id: string;
   name: string;
-  type: 'solo' | 'group' | 'network';
-  specialty: string;
-  ahpra_compliance_score: number;
-  last_compliance_check: string;
-  content_generated: number;
-  patients_engaged: number;
-  active_campaigns: number;
-  status: 'active' | 'setup_required' | 'compliance_issue';
-  locations: string[];
+  type: string;
+  address: string;
+  phone: string;
+  website?: string;
+  ahpra_registration?: string;
+  specialty?: string;
+  staff_count?: number;
+  patient_capacity?: number;
+  operating_hours?: string;
 }
 
-// Mock data - in production this would come from the backend
-const mockPractices: Practice[] = [
-  {
-    id: '1',
-    name: 'Melbourne Family Medical Centre',
-    type: 'group',
-    specialty: 'General Practice',
-    ahpra_compliance_score: 98,
-    last_compliance_check: '2024-01-15',
-    content_generated: 45,
-    patients_engaged: 1250,
-    active_campaigns: 3,
-    status: 'active',
-    locations: ['Melbourne CBD', 'South Yarra']
-  },
-  {
-    id: '2',
-    name: 'Wellness Psychology Practice',
-    type: 'solo',
-    specialty: 'Clinical Psychology',
-    ahpra_compliance_score: 95,
-    last_compliance_check: '2024-01-14',
-    content_generated: 28,
-    patients_engaged: 320,
-    active_campaigns: 2,
-    status: 'active',
-    locations: ['Richmond']
-  },
-  {
-    id: '3',
-    name: 'Active Physiotherapy Network',
-    type: 'network',
-    specialty: 'Physiotherapy',
-    ahpra_compliance_score: 85,
-    last_compliance_check: '2024-01-10',
-    content_generated: 15,
-    patients_engaged: 680,
-    active_campaigns: 1,
-    status: 'compliance_issue',
-    locations: ['Hawthorn', 'Camberwell', 'Kew']
-  }
-];
-
-export const HealthcarePracticeDashboard = () => {
+const HealthcarePracticeDashboard = () => {
   const { user } = useHealthcareAuth();
-  const [selectedPractice, setSelectedPractice] = useState<Practice>(mockPractices[0]);
-  const [practices] = useState<Practice[]>(mockPractices);
+  const { businessProfile } = useBusinessProfile();
+  const [practices, setPractices] = useState<Practice[]>([]);
+  const [selectedPractice, setSelectedPractice] = useState<Practice | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    loadRealPracticeData();
+  }, [businessProfile]);
+
+  const loadRealPracticeData = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Load real practice data from questionnaire and user profile
+      if (businessProfile) {
+        const realPractice: Practice = {
+          id: businessProfile.id || 'main-practice',
+          name: businessProfile.businessName || 'Healthcare Practice',
+          type: businessProfile.practiceType || 'General Practice',
+          address: businessProfile.address || 'Address not provided',
+          phone: businessProfile.phone || 'Phone not provided',
+          website: businessProfile.website,
+          ahpra_registration: businessProfile.ahpraRegistration,
+          specialty: businessProfile.specialty,
+          staff_count: businessProfile.staffCount,
+          patient_capacity: businessProfile.patientCapacity,
+          operating_hours: businessProfile.operatingHours || '9:00 AM - 5:00 PM'
+        };
+        
+        setPractices([realPractice]);
+        setSelectedPractice(realPractice);
+      } else {
+        // No practice data available - show setup prompt
+        setPractices([]);
+        setSelectedPractice(null);
+      }
+      
+    } catch (error) {
+      console.error('Error loading practice data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load practice data. Please complete your business questionnaire.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!selectedPractice) {
+    return (
+      <Card className="max-w-2xl mx-auto">
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-2">
+            <Stethoscope className="w-6 h-6" />
+            Complete Your Practice Setup
+          </CardTitle>
+          <CardDescription>
+            Real practice data will appear here once you complete the business questionnaire
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="text-center">
+          <Button onClick={() => window.location.href = '/questionnaire'}>
+            Complete Business Questionnaire
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const getComplianceColor = (score: number) => {
     if (score >= 95) return 'text-green-600';
@@ -133,7 +169,7 @@ export const HealthcarePracticeDashboard = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {practices.map((practice) => {
-              const Icon = getProfessionIcon(practice.specialty);
+              const Icon = getProfessionIcon(practice.specialty || '');
               const isSelected = selectedPractice.id === practice.id;
               
               return (
@@ -420,7 +456,7 @@ export const HealthcarePracticeDashboard = () => {
             <CardHeader>
               <CardTitle>Practice Configuration</CardTitle>
               <CardDescription>
-                Manage settings specific to {selectedPractice.specialty.toLowerCase()}
+                Manage settings specific to {selectedPractice.specialty?.toLowerCase()}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -438,7 +474,7 @@ export const HealthcarePracticeDashboard = () => {
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
                     <h4 className="font-semibold">Specialty-specific templates</h4>
-                    <p className="text-sm text-gray-600">Use {selectedPractice.specialty.toLowerCase()}-specific content templates</p>
+                    <p className="text-sm text-gray-600">Use {selectedPractice.specialty?.toLowerCase()}-specific content templates</p>
                   </div>
                   <Button variant="outline" size="sm">
                     Configure
