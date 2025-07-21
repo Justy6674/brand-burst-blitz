@@ -13,6 +13,7 @@ import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
 import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
 import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
+import Index from "@/pages/Index";
 
 // Loading component for lazy loaded routes
 const PageLoader = ({ page }: { page: string }) => (
@@ -49,6 +50,7 @@ const Onboarding = lazy(() => import("./pages/Onboarding"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
 const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
+const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
 
 // Lazy load complex components
 const BlogPost = lazy(() => import("./components/blog/BlogPost"));
@@ -56,7 +58,6 @@ const EmbeddableBlog = lazy(() => import('./components/blog/EmbeddableBlog').the
 const BlogEmbedWizard = lazy(() => import('./components/blog/BlogEmbedWizard').then(module => ({ default: module.BlogEmbedWizard })));
 const ComprehensiveContentStudio = lazy(() => import('./components/studio/ComprehensiveContentStudio').then(module => ({ default: module.ComprehensiveContentStudio })));
 const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed').then(module => ({ default: module.HealthcareBlogEmbed })));
-const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
 const HealthcareValidationDashboard = lazy(() => import('./components/validation/HealthcareValidationDashboard').then(module => ({ default: module.HealthcareValidationDashboard })));
 const HealthcareCopyPasteWorkflow = lazy(() => import('./components/social/HealthcareCopyPasteWorkflow').then(module => ({ default: module.HealthcareCopyPasteWorkflow })));
 
@@ -96,7 +97,6 @@ const LazyPrivacyPolicy = withLazyLoading(PrivacyPolicy, 'Privacy Policy');
 const LazyOAuthCallback = withLazyLoading(OAuthCallback, 'Authentication');
 const LazyPublishingPipelinePage = withLazyLoading(PublishingPipelinePage, 'Publishing');
 const LazyNotFound = withLazyLoading(NotFound, '404');
-const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Business Questionnaire');
 const LazyHealthcareValidationDashboard = withLazyLoading(HealthcareValidationDashboard, 'Healthcare Validation Dashboard');
 const LazyComprehensiveContentStudio = withLazyLoading(ComprehensiveContentStudio, 'Comprehensive Content Studio');
 const LazyHealthcareCopyPasteWorkflow = withLazyLoading(HealthcareCopyPasteWorkflow, 'Healthcare Copy Paste Workflow');
@@ -117,7 +117,11 @@ function App() {
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path="/oauth/callback" element={<LazyOAuthCallback />} />
                     
-                    <Route path="/" element={
+                    {/* PUBLIC HEALTHCARE LANDING PAGE */}
+                    <Route path="/" element={<Index />} />
+                    
+                    {/* PROTECTED MEMBERS DASHBOARD */}
+                    <Route path="/dashboard" element={
                       <ProtectedRoute>
                         <EmailConfirmationGuard>
                           <AppLayout>
