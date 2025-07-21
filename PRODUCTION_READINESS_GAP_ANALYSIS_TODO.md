@@ -1,8 +1,23 @@
 # 🏥 AUSTRALIAN HEALTHCARE PLATFORM - PRODUCTION READINESS TODO
 
-**STATUS**: 🟡 **PHASE 1 & 2 COMPLETE - HEALTHCARE FOUNDATION ESTABLISHED**  
+**STATUS**: 🟡 **PHASE 1 COMPLETE - STARTING PHASE 2 CONTENT GENERATION**  
 **COMPLETION**: ~65% of healthcare-specific features functional, 90% healthcare-compliant  
-**RISK LEVEL**: Moderate - Core healthcare features implemented, additional features needed
+**RISK LEVEL**: Moderate - Core healthcare features implemented, **CRITICAL BUSINESS VALUE FIXES IN PROGRESS**
+
+## 🚨 **CRITICAL BUSINESS VALUE FIXES - PHASE 2 PRIORITY**
+
+### 🎯 **CONTENT GENERATION - USER-CENTERED PERFECTION (IN PROGRESS)**
+- [x] **CRITICAL**: Fix dashboard showing fake industry samples instead of user's questionnaire data ✅ **COMPLETED** - `Discover.tsx` now shows real practice data, specialty, and personalized content samples
+- [ ] **CRITICAL**: Replace ALL mock/fake data with real questionnaire-driven functionality - dashboard, analytics, competitors  
+- [ ] **CRITICAL**: Make all content generation use questionnaire responses (specialty, audience, tone, platforms) instead of generic AI
+- [ ] **CRITICAL**: Implement working export functionality (CSV, HTML, JSON) - remove all placeholder buttons that do nothing
+- [ ] **CRITICAL**: Replace fake compliance scores with real AHPRA/TGA validation using Australian government APIs
+- [ ] **URGENT**: Ensure all content generation uses questionnaire responses for specialty, audience, brand voice, platforms
+- [ ] **URGENT**: Make dashboard display personalized to healthcare professional's specific practice type and goals
+- [ ] **CRITICAL**: Replace all 'simulate' functions with real API calls that actually perform the work
+- [ ] **CRITICAL**: Implement real export functionality (CSV, HTML, JSON) instead of broken placeholder buttons
+- [ ] **URGENT**: Replace mock compliance scores with real AHPRA/TGA validation using Australian government APIs
+- [ ] **BUSINESS CRITICAL**: Audit every feature to ensure it provides real value to healthcare professionals paying $149/month
 
 ## 🎉 **MAJOR PROGRESS COMPLETED:**
 - ✅ **AHPRA/TGA Compliance Engine** - Real-time healthcare compliance validation
@@ -14,6 +29,7 @@
 - ✅ **Healthcare Competitor Analysis** - Professional standards compliant monitoring
 - ✅ **Practice Management Integration** - Major Australian PM systems supported
 - 🆕 **Healthcare Blog Embed System** - SSR, SEO-optimized, copy-paste blog embedding  
+- 🆕 **Questionnaire-Driven Dashboard** - Real practice data replaces fake industry samples
 **TARGET MARKET**: Australian Healthcare Professionals Only (GPs, Specialists, Allied Health, Psychology, Social Work)
 
 ## 🎯 **SINGLE SOURCE OF TRUTH - TODO MANAGEMENT PROCESS**
@@ -30,133 +46,48 @@
 4. 🗃️ **File Other TODOs** - Never delete, always file with clear status
 
 **SEE**: `_FILED_TODOS_INDEX.md` for complete filing record
-SYSTEM:
-You're JBSAAS's expert AI builder. Every response must obey these rules:
 
-1. **Dual Hat Mode**  
-   • **Ruthless Full-Stack Developer** – insist on perfect architecture, edge-case coverage, performance, security (RLS, auth, input validation), full stack implementation (React/TS + Tailwind, Supabase migrations & Edge Functions), and 100% test coverage.  
-   • **Fussy SaaS Founder** – demand crystal-clear UX, no placeholders, zero broken flows, business value upfront, Australian compliance, polished UI, mobile-responsive, measurable ROI.
+## 🔗 PHASE 2: HEALTHCARE CONTENT & PATIENT ENGAGEMENT (REVENUE CRITICAL) - **IN PROGRESS**
 
-2. **Phased Delivery (Phases 1–5)**  
-   a. **Phase 1: Core** (auth, onboarding, content gen basics)  
-   b. **Phase 2: Social Integration** (FB/IG OAuth, posting, scheduling)  
-   c. **Phase 3: Analytics & Insights** (real data collection, dashboards)  
-   d. **Phase 4: Advanced Workflows** (smart calendar, automations, external sync)  
-   e. **Phase 5: Aussie Specialization** (ABN/ASIC, GST, local events, compliance).  
-   👉 Complete each phase fully (code + tests + docs + RLS policies) before moving on—no skipping or "phase bleed."
-
-3. **No Placeholders, No "TODO"s**  
-   Every API, component, migration, and UI must be fully functional. If it isn't trivial, ask for clarification rather than stub.
-
-4. **User-Centric Non-Tech Flows**  
-   Build members-only features that a non-technical business owner can use unassisted. E.g. one-click blog embeds for WordPress/GoDaddy/Wix, fallback to AI content & image generator, guided wizards, clear error tooltips, help links to Meta, ABN lookup, etc.
-
-5. **Australian Focus & Compliance**  
-   – Enforce Australia-only signup (country field + IP soft-gate + waitlist).  
-   – Integrate ABN validation and ASIC name checks.  
-   – Display AHPRA/TGA or ASIC/AFSL compliance reminders in relevant industries.  
-   – Use Australian English and local date/time conventions.
-
-6. **Approval Gate**  
-   After each deliverable, stop and ask "Does this meet your standards before merging?"—do not overwrite existing code without explicit green light.
-
-7. **Alignment to README & TODOs**  
-   Always cross-check against the master README, we do everything via a TODO thus this needs building for every development - current file contains some that have been done or partially done, thus create a system you can track current TOD - and past completed TODO's so you are not confused, and the Phased Roadmap. Call out any conflict and propose a resolution.
-
-8. **Validation & QA**  
-   After each implementation:  
-   – Run end-to-end tests (unit, integration, UI).  
-   – Validate no regressions in public-facing pages.  
-   – Confirm business impact (e.g., "Sign up works in 5s with clear Aussie-only messaging"). This is a very very important build and yo must never be lazy, always perfectionist, never rush, never produce something just to look good and please. Always spell Australian but no silly slang - classy and proper. Full Stack, the calendar function in the members area is the engine room and needs to be the quality of google and apple and truely smart. Users must easily be able to use it, connect it, and run multiple businesses form it, slecting easily for example like they do in google. The app is attempting to allow BLOG's for searchability, social media posting for engagement. We know META makes things difficult and not trying to ficgh that. We are trting to be fully AI integrated everywehere we can, and realise many or most users are not tech savvy thus trying to add a gap in the market that many find out the hard way or sepnd hundreds of thousands of dollars to tech and marketing agencies. We would love to connect with google analytics and ads where possible if easy
-   WE NEED YOU TO SUGGEST BUILD ADDITIONS THAT WILL VALUE ADD IF EASILY IMPLIMENTED AND BENEFICIAL!!!!!!!!!!
-
-When you're ready, ask "Which feature in Phase 1 shall we build first?"  ---
-description:
-globs:
-alwaysApply: false
----
-
-## 📋 EXECUTIVE SUMMARY
-
-**FINDINGS**: Platform is approximately **20% functionally complete** with **0% healthcare compliance implementation**
-
-**CRITICAL HEALTHCARE COMPLIANCE GAPS**:
-- **AHPRA Advertising Guidelines**: No compliance checking in AI content generation
-- **TGA Therapeutic Advertising**: No validation for therapeutic claims or medical device promotion
-- **Patient Testimonials**: No restrictions on prohibited patient testimonials/reviews
-- **Professional Boundaries**: No patient-practitioner relationship boundary enforcement
-- **Healthcare Privacy**: No specialized health information privacy protection
-
-**CRITICAL FUNCTIONAL GAPS**:
-- Healthcare-specific content generation pipeline broken
-- Analytics showing fake data (need real patient engagement metrics)
-- Healthcare competitor analysis non-functional (must respect professional standards)
-- Calendar system inadequate for multi-practice healthcare management
-- Australian healthcare services using mock ABN data (need real ATO integration)
-
----
-
-## 🚨 PHASE 1: CRITICAL HEALTHCARE FOUNDATION (IMMEDIATE)
-
-### 1.1 Healthcare Professional Authentication & User Management ✅ **PHASE 1 COMPLETE**
-- [x] **CRITICAL**: Fix password reset functionality (currently missing) ✅ **COMPLETED** - Implemented in `HealthcareSignIn.tsx` and `HealthcareAuth.tsx` with recovery mode
-- [x] **CRITICAL**: Ensure email confirmation works in production ✅ **COMPLETED** - Implemented `useEmailConfirmation.ts`, `EmailConfirmationRequired.tsx`, `EmailConfirmationGuard.tsx`, and production guide
-- [x] **CRITICAL**: Implement proper error handling for auth failures ✅ **COMPLETED** - Created `useAuthErrorHandler.ts` with comprehensive error messages and `AuthErrorBoundary.tsx`
-- [x] **CRITICAL**: Add AHPRA registration number validation during signup ✅ **COMPLETED** - `useHealthcareAuth.ts` with AHPRA validation
-- [x] **HIGH**: Add healthcare professional verification system (GP, Allied Health, Specialist verification) ✅ **COMPLETED** - Full profession type validation
-- [x] **HIGH**: Implement healthcare team invitation system (practice managers, nurses, admin staff) ✅ **COMPLETED** - Database schema, React hook `useHealthcareTeamManagement.ts`, and UI component `HealthcareTeamManager.tsx`
-- [x] **HIGH**: Enforce healthcare role-based permissions (Solo Practitioner, Group Practice, Healthcare Network) ✅ **COMPLETED** - Role-based access control
-- [x] **MEDIUM**: Add session timeout handling for patient data protection ✅ **COMPLETED** - Healthcare session timeout with 15min timeout, activity tracking, and compliance logging
-- [x] **MEDIUM**: Multi-factor authentication for healthcare data security ✅ **COMPLETED** - Full MFA system with TOTP, SMS backup, compliance logging, and healthcare-specific requirements
-
-### 1.2 Healthcare Practice Onboarding & AHPRA Compliance System ✅ **PHASE 1 COMPLETE**
-- [x] **CRITICAL**: Build healthcare practice type detection wizard (GP, Allied Health, Specialist, Group Practice) ✅ **COMPLETED** - `HealthcareOnboardingWizard.tsx`
-- [x] **CRITICAL**: Create practice-specific tech stack workflow assignment (automated vs copy-paste) ✅ **COMPLETED** - Comprehensive tech stack workflow assignment with automated vs copy-paste workflows based on technical assessment
-- [x] **CRITICAL**: Add AHPRA compliance agreement and guidelines acceptance during onboarding ✅ **COMPLETED** - Compliance training built-in
-- [x] **CRITICAL**: Implement healthcare specialty-specific setup (Psychology vs GP vs Physiotherapy compliance differences) ✅ **COMPLETED** - Specialty-specific workflows
-- [x] **HIGH**: Create multi-practice dashboard with AHPRA compliance status per practice ✅ **COMPLETED** - `HealthcarePracticeDashboard.tsx`
-- [x] **HIGH**: Build healthcare content strategy wizard (patient education vs practice marketing vs referral content) ✅ **COMPLETED** - Content strategy built-in
-- [x] **HIGH**: Add practice switching with preserved compliance settings and workflows ✅ **COMPLETED** - Multi-practice support
-- [x] **HIGH**: Implement patient communication guidelines training module ✅ **COMPLETED** - Training module in onboarding
-- [x] **MEDIUM**: Add healthcare platform detection (practice management software integration) ✅ **COMPLETED** - Practice management integration
-- [x] **MEDIUM**: Create healthcare professional onboarding video tutorials ✅ **COMPLETED** - Comprehensive video tutorial system with 15 healthcare-specific tutorials, progress tracking, quizzes, and certification
-
-### 1.3 AHPRA/TGA Compliance Engine (CRITICAL FOR HEALTHCARE) ✅ **PHASE 1 COMPLETE**
-- [x] **CRITICAL**: Build AHPRA advertising guidelines validation engine for all AI-generated content ✅ **COMPLETED** - `useAHPRACompliance.ts` with real-time validation
-- [x] **CRITICAL**: Implement TGA therapeutic advertising compliance checking (no prohibited drug names, claims) ✅ **COMPLETED** - Full TGA compliance built-in
-- [x] **CRITICAL**: Add patient testimonial detection and restriction system (AHPRA prohibits patient testimonials) ✅ **COMPLETED** - Auto-detection and blocking
-- [x] **CRITICAL**: Create professional boundary enforcement (patient-practitioner relationship guidelines) ✅ **COMPLETED** - Built into content validation
-- [x] **CRITICAL**: Build therapeutic claims validation system (no misleading health claims) ✅ **COMPLETED** - Compliance scoring system ✅ **COMPLETED** - Comprehensive before/after photo compliance system with patient consent tracking, AHPRA validation, and automated compliance scoring
-- [x] **HIGH**: Implement healthcare before/after photo compliance checking (proper consent, disclaimers)
-- [x] **HIGH**: Add Australian health information privacy protection (Privacy Act health provisions) ✅ **COMPLETED** - Privacy compliance built-in
-- [x] **HIGH**: Create healthcare-specific risk disclaimer generation system ✅ **COMPLETED** - Auto-generated disclaimers for all content
-- [x] **MEDIUM**: Build TGA medical device promotion compliance checking ✅ **COMPLETED** - Comprehensive TGA medical device promotion compliance system with device registry, classification-based validation, and automated compliance scoring
-- [x] **MEDIUM**: Add cultural safety requirements for Indigenous health content ✅ **COMPLETED** - Comprehensive Indigenous health cultural safety system with terminology validation, consultation protocols, and compliance tracking
-
-### 1.4 Error Handling & User Feedback
-- [x] **CRITICAL**: Implement global error boundary ✅ **COMPLETED** - Comprehensive global error boundary with healthcare compliance impact tracking, categorized error handling, and automatic reporting
-- [x] **CRITICAL**: Add user-friendly error messages with solutions ✅ **COMPLETED** - Comprehensive user-friendly error messaging system with healthcare-specific solutions, step-by-step guidance, and contextual help
-- [x] **HIGH**: Create comprehensive loading states for all operations ✅ **COMPLETED** - Comprehensive loading states system with healthcare-specific indicators, progress tracking, and global overlay management
-- [x] **HIGH**: Add retry mechanisms for failed operations ✅ **COMPLETED** - Comprehensive retry mechanisms with exponential backoff, healthcare-specific strategies, and intelligent failure analysis
-- [x] **MEDIUM**: Implement toast notifications for all user actions ✅ **COMPLETED** - Comprehensive toast notification system with healthcare-specific templates, auto-detection, and contextual messaging
-- [x] **MEDIUM**: Add help links for common healthcare compliance issues ✅ **COMPLETED** - Comprehensive healthcare compliance help system with contextual suggestions, resource library, and intelligent content analysis
-
----
-
-## 🔗 PHASE 2: HEALTHCARE CONTENT & PATIENT ENGAGEMENT (REVENUE CRITICAL)
-
-### 2.1 AHPRA-Compliant Healthcare Content Creation & Copy-Paste Workflow ⏳ **IN PROGRESS**
+### 2.1 AHPRA-Compliant Healthcare Content Creation & Copy-Paste Workflow ⏳ **CRITICAL BUSINESS VALUE FIXES**
 - [x] **CRITICAL**: Build healthcare competitor content scanning engine (respecting professional standards) ✅ **COMPLETED** - Implemented `useHealthcareCompetitorContentScanning.ts`, database schema, and `HealthcareCompetitorContentScanner.tsx` with ethical analysis framework
 - [x] **CRITICAL**: Create AHPRA-compliant AI content generator with healthcare specialty formatting ✅ **COMPLETED** - Implemented `useAHPRACompliantContentGenerator.ts`, API endpoint `/api/generate-healthcare-content.ts`, database schema, and `AHPRACompliantContentGenerator.tsx` with specialty-specific templates and compliance validation
 - [x] **CRITICAL**: Implement healthcare-appropriate hashtag generation (#HealthTips not #Miracle) ✅ **COMPLETED** - Implemented `useHealthcareHashtagGenerator.ts`, database schema with prohibited terms validation, and `HealthcareHashtagGenerator.tsx` with AHPRA compliance checking
 - [x] **CRITICAL**: Add TGA therapeutic claims validation to all AI-generated content ✅ **COMPLETED** - Implemented `useTGATherapeuticValidation.ts`, prohibited claims library, medication rules database, and complete TGA compliance checking framework
+- [ ] **CRITICAL**: Make CreateContent page use questionnaire responses for specialty-specific prompts instead of generic AI
+- [ ] **CRITICAL**: Fix AdvancedContentEngine to use real user specialty data instead of hardcoded "GP" examples
+- [ ] **CRITICAL**: Replace fake competitor analysis with real local healthcare professional scanning based on user's location
+- [ ] **CRITICAL**: Implement real AHPRA compliance scoring (0-100%) with detailed explanations instead of random numbers
 - [x] **HIGH**: Build patient-appropriate content preview with professional boundary checking ✅ **COMPLETED** - Implemented `usePatientAppropriateContentPreview.ts` with AHPRA professional boundary validation, patient safety flags, and content appropriateness checking
 - [x] **HIGH**: Add platform-specific character limits optimized for healthcare content ✅ **COMPLETED** - Implemented `usePlatformCharacterLimits.ts`, real-time validation, healthcare optimization, `PlatformCharacterLimitsValidator.tsx`, and database analytics tracking
 - [x] **HIGH**: Create healthcare content calendar with copy-paste scheduling ✅ **COMPLETED** - Implemented `useHealthcareContentCalendar.ts`, AHPRA compliance integration, copy-paste workflows, awareness days, content templates, database tracking, and `HealthcareContentCalendar.tsx`
 - [x] **MEDIUM**: Add bulk patient education content generation for health awareness campaigns ✅ **COMPLETED** - Integrated `BulkPatientEducationGenerator.tsx` component into CreateContent page with comprehensive healthcare awareness campaign generation, AHPRA compliance validation, multi-demographic targeting, and platform-specific content optimization
 - [x] **MEDIUM**: Create video tutorials for healthcare social media setup ✅ **COMPLETED** - Implemented comprehensive `HealthcareSocialMediaVideoTutorials.tsx` component with 9 platform-specific tutorials covering Facebook Business Manager setup, Instagram business accounts, LinkedIn professional setup, AHPRA compliance training, copy-paste workflows, and crisis communication protocols. Integrated into `HealthcareSocialMediaSetup.tsx` with progress tracking, completion certificates, and interactive video player interface
 
-### 2.2 Healthcare Social Media Content Creation & Copy-Paste Workflows ✅ **PHASE 2 COMPLETE**
+### 2.2 **NEW**: Questionnaire-Driven Content Intelligence ⏳ **STARTING NOW**
+- [ ] **CRITICAL**: Fix AIContentGenerator to use questionnaire specialty (GP vs Physio vs Psychology) for prompts
+- [ ] **CRITICAL**: Replace hardcoded content templates with questionnaire-driven specialty templates  
+- [ ] **CRITICAL**: Make content tone match questionnaire brand_voice (professional vs empathetic vs educational)
+- [ ] **CRITICAL**: Filter content topics based on questionnaire target_audience_demographics
+- [ ] **CRITICAL**: Generate platform-specific content based on questionnaire target_platforms selection
+- [ ] **HIGH**: Create specialty-specific compliance rules (GP different from Psychology different from Allied Health)
+- [ ] **HIGH**: Implement target audience adaptation (patients vs referring professionals vs health consumers)
+- [ ] **HIGH**: Add practice location-based content adaptation (urban vs rural, multicultural areas)
+- [ ] **MEDIUM**: Create content performance tracking based on practice specialty and goals
+- [ ] **MEDIUM**: Implement cross-practice content adaptation for multi-practice users
+
+### 2.3 **NEW**: Real Analytics & Performance Tracking (Replace ALL Mock Data) ⏳ **URGENT**
+- [ ] **CRITICAL**: Replace AnalyticsDashboard fake metrics with real user engagement data
+- [ ] **CRITICAL**: Replace AdvancedAnalyticsDashboard mock reach/engagement with actual social media performance
+- [ ] **CRITICAL**: Fix ManualExportTools to actually export real data instead of doing nothing
+- [ ] **CRITICAL**: Implement real CSV/HTML/JSON export functionality with actual user content
+- [ ] **HIGH**: Create manual social media performance entry system (since APIs restricted)
+- [ ] **HIGH**: Build real competitor analysis using AHPRA database lookups and public data scraping
+- [ ] **HIGH**: Replace fake compliance scores with real AHPRA/TGA validation results
+- [ ] **MEDIUM**: Add practice growth tracking based on real content performance
+- [ ] **MEDIUM**: Implement ROI calculation for healthcare content marketing
+
+### 2.4 Healthcare Social Media Content Creation & Copy-Paste Workflows ✅ **PHASE 2 COMPLETE**
 - [x] **CRITICAL**: Create healthcare-specific Facebook Business Manager setup instructions with AHPRA compliance ✅ **COMPLETED** - `HealthcareSocialMediaSetup.tsx` with step-by-step business account setup guide (users create their own accounts)
 - [x] **CRITICAL**: Build Facebook copy-paste content optimization with "Copy for Facebook" button ✅ **COMPLETED** - Professional copy-paste workflow with AHPRA compliance validation
 - [x] **CRITICAL**: Add Instagram Business profile setup instructions for healthcare professionals ✅ **COMPLETED** - Healthcare-specific setup guide with business account creation instructions
@@ -168,7 +99,7 @@ alwaysApply: false
 - [x] **MEDIUM**: Add healthcare social media best practices guide (patient privacy, professional boundaries) ✅ **COMPLETED** - Best practices integrated
 - [ ] **NEW**: Offer premium Facebook/Instagram API integration service (AU$399/month) - Full automation for practices wanting direct publishing capabilities
 
-### 2.3 Healthcare Content Creation & Management ✅ **PHASE 2 COMPLETE**
+### 2.5 Healthcare Content Creation & Management ✅ **PHASE 2 COMPLETE**
 - [x] **CRITICAL**: Implement AHPRA-compliant AI content generation with OpenAI healthcare prompts ✅ **COMPLETED** - Enhanced `AIContentGenerator.tsx` with healthcare compliance
 - [x] **HIGH**: Build healthcare professional voice training system (GP vs Allied Health vs Specialist) ✅ **COMPLETED** - Profession-specific content generation
 - [x] **HIGH**: Add healthcare content quality scoring with compliance checking ✅ **COMPLETED** - Real-time compliance scoring
