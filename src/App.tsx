@@ -228,15 +228,8 @@ function App() {
                       </ProtectedRoute>
                     } />
                     
-                    <Route path="/blog/*" element={
-                      <ProtectedRoute>
-                        <EmailConfirmationGuard>
-                          <AppLayout>
-                            <LazyBlog />
-                          </AppLayout>
-                        </EmailConfirmationGuard>
-                      </ProtectedRoute>
-                    } />
+                    {/* PUBLIC BLOG ROUTE - NO LOGIN REQUIRED */}
+                    <Route path="/blog/*" element={<LazyBlog />} />
                     
                     <Route path="/templates" element={
                       <ProtectedRoute>
