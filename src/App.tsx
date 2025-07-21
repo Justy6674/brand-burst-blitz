@@ -25,6 +25,8 @@ const PageLoader = ({ page }: { page: string }) => (
   </div>
 );
 
+// DEPLOYMENT VERSION: 21-JUL-2025-18:00 - LazyBusinessQuestionnaire FIX APPLIED
+
 // Lazy load all major components to reduce initial bundle size
 const CreateContent = lazy(() => import("./pages/CreateContent").then(module => ({ default: module.CreateContent })));
 const Blog = lazy(() => import("./pages/Blog").then(module => ({ default: module.Blog })));
