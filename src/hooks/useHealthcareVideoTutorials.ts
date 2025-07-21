@@ -95,7 +95,7 @@ export const useHealthcareVideoTutorials = () => {
         const { data: professionalData } = await supabase
           .from('healthcare_professionals')
           .select('profession_type')
-          .eq('id', user.id)
+          .eq('user_id', user.id)
           .single();
         
         userPracticeType = professionalData?.profession_type || 'GP';

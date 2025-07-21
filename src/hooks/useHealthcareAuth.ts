@@ -31,11 +31,10 @@ export interface HealthcareProfessional {
   practice_type: 'solo' | 'group' | 'network';
   verification_status: 'pending' | 'verified' | 'rejected';
   compliance_training_completed: boolean;
-  last_compliance_check?: string;
   practice_locations?: string[];
 }
 
-export interface AuthState {
+interface AuthState {
   user: HealthcareProfessional | null;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -89,26 +88,24 @@ export const useHealthcareAuth = () => {
     if (isValid) {
       return {
         isValid: true,
-        practitionerName: 'Dr. Healthcare Professional', // Would come from AHPRA
+        practitionerName: 'Dr. John Smith',
         registrationStatus: 'current',
-        specialty: profession === 'medical' ? 'General Practice' : undefined,
-        endorsements: profession === 'nursing' ? ['Nurse Practitioner'] : undefined
+        specialty: 'General Practice',
+        endorsements: ['Scheduled Medicines', 'Skin Cancer Surgery']
       };
     }
 
     return { isValid: false };
   }, [validateAHPRARegistration]);
 
-  // Healthcare professional signup with AHPRA validation
+  // Healthcare professional sign up
   const signUpHealthcareProfessional = useCallback(async (data: {
     email: string;
     password: string;
     ahpra_registration: string;
     profession_type: keyof typeof AHPRA_REGISTRATION_PATTERNS;
     practice_name: string;
-    specialty?: string;
     practice_type: 'solo' | 'group' | 'network';
-    practice_locations?: string[];
   }) => {
     setAuthState(prev => ({ ...prev, isLoading: true }));
 
@@ -155,87 +152,98 @@ export const useHealthcareAuth = () => {
         });
       }
 
-      // Mock healthcare professional creation since table structure differs
-      const mockProfile: HealthcareProfessional = {
-        id: authData.user?.id || '',
-        email: data.email,
-        ahpra_registration: data.ahpra_registration,
-        profession_type: data.profession_type,
-        practice_name: data.practice_name,
-        specialty: data.specialty,
-        practice_type: data.practice_type,
-        verification_status: 'verified' as const,
-        compliance_training_completed: false,
-        practice_locations: data.practice_locations || []
+      // Step 4: Create healthcare professional profile
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('healthcare_professionals')
+          .insert({
+            user_id: authData.user.id,
+            email: data.email,
+            ahpra_registration: data.ahpra_registration,
+            profession_type: data.profession_type,
+            practice_type: data.practice_type,
+            verification_status: 'pending',
+            compliance_training_completed: false
+          });
+
+        if (profileError) {
+          console.error('Error creating professional profile:', profileError);
+          // Don't throw here as the auth user was created successfully
+        }
+      }
+
+      return { 
+        success: true, 
+        message: 'Healthcare professional account created successfully. Please verify your email.',
+        requiresEmailVerification: !authData.user?.email_confirmed_at
       };
 
-      // Simulate successful profile creation
-
-      toast({
-        title: "Healthcare Professional Account Created",
-        description: "Your AHPRA registration has been verified. Please complete compliance training to access all features.",
-      });
-
-      return { success: true, user: authData.user };
-
-    } catch (error: any) {
-      const handledError = handleSignUpError(error);
-      return { success: false, error: handledError.message };
+    } catch (error) {
+      const errorMessage = handleSignUpError(error);
+      return { success: false, error: errorMessage };
     } finally {
       setAuthState(prev => ({ ...prev, isLoading: false }));
     }
-  }, [validateAHPRARegistration, verifyAHPRARegistration, toast]);
+  }, [validateAHPRARegistration, verifyAHPRARegistration, toast, handleSignUpError]);
 
-  // Sign in with healthcare validation
+  // Healthcare professional sign in
   const signInHealthcareProfessional = useCallback(async (email: string, password: string) => {
     setAuthState(prev => ({ ...prev, isLoading: true }));
 
     try {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
 
-      if (authError) throw authError;
+      if (error) throw error;
 
-      // Mock healthcare professional profile since table doesn't exist
-      const mockProfile: HealthcareProfessional = {
-        id: authData.user.id,
-        email: authData.user.email || '',
-        ahpra_registration: 'MED0001234567',
-        profession_type: 'medical',
-        practice_name: 'Mock Healthcare Practice',
-        specialty: 'General Practice',
-        practice_type: 'solo' as const,
-        verification_status: 'verified' as const,
-        compliance_training_completed: false,
-        practice_locations: ['Melbourne VIC']
-      };
+      if (data.user) {
+        // Get healthcare professional profile
+        const { data: professionalData, error: profileError } = await supabase
+          .from('healthcare_professionals')
+          .select('*')
+          .eq('user_id', data.user.id)
+          .single();
 
-      // Check if compliance training is required
-      if (!mockProfile.compliance_training_completed) {
-        toast({
-          title: "Compliance Training Required",
-          description: "Please complete AHPRA compliance training to access all features.",
-          variant: "default"
-        });
+        if (profileError) {
+          console.error('Error fetching professional profile:', profileError);
+          throw new Error('Healthcare professional profile not found. Please contact support.');
+        }
+
+        if (professionalData) {
+          const healthcareProfessional: HealthcareProfessional = {
+            id: professionalData.user_id,
+            email: professionalData.email,
+            ahpra_registration: professionalData.ahpra_registration || '',
+            profession_type: professionalData.profession_type as keyof typeof AHPRA_REGISTRATION_PATTERNS,
+            practice_type: (professionalData.practice_type as 'solo' | 'group' | 'network') || 'solo',
+            verification_status: (professionalData.verification_status as 'pending' | 'verified' | 'rejected') || 'pending',
+            compliance_training_completed: professionalData.compliance_training_completed || false
+          };
+
+          setAuthState({
+            user: healthcareProfessional,
+            isLoading: false,
+            isAuthenticated: true,
+            verificationStatus: healthcareProfessional.verification_status
+          });
+        }
       }
 
+      return { success: true, message: 'Signed in successfully' };
+
+    } catch (error) {
+      const errorMessage = handleSignInError(error);
       setAuthState({
-        user: mockProfile,
+        user: null,
         isLoading: false,
-        isAuthenticated: true,
-        verificationStatus: mockProfile.verification_status
+        isAuthenticated: false,
+        verificationStatus: null
       });
-
-      return { success: true, user: mockProfile };
-
-    } catch (error: any) {
-      const handledError = handleSignInError(error);
-      setAuthState(prev => ({ ...prev, isLoading: false }));
-      return { success: false, error: handledError.message };
+      return { success: false, error: errorMessage };
     }
-  }, [toast]);
+  }, [handleSignInError]);
 
   // Complete compliance training
   const completeComplianceTraining = useCallback(async () => {
@@ -245,10 +253,9 @@ export const useHealthcareAuth = () => {
       const { error } = await supabase
         .from('healthcare_professionals')
         .update({ 
-          compliance_training_completed: true,
-          last_compliance_check: new Date().toISOString()
+          compliance_training_completed: true
         })
-        .eq('id', authState.user.id);
+        .eq('user_id', authState.user.id);
 
       if (error) throw error;
 
@@ -256,23 +263,19 @@ export const useHealthcareAuth = () => {
         ...prev,
         user: prev.user ? {
           ...prev.user,
-          compliance_training_completed: true,
-          last_compliance_check: new Date().toISOString()
+          compliance_training_completed: true
         } : null
       }));
 
       toast({
-        title: "Compliance Training Completed",
-        description: "You now have full access to all AHPRA-compliant features.",
+        title: "Compliance Training Complete",
+        description: "You have successfully completed the AHPRA compliance training.",
+        variant: "default"
       });
 
       return { success: true };
-    } catch (error: any) {
-      toast({
-        title: "Training Update Failed",
-        description: error.message,
-        variant: "destructive"
-      });
+    } catch (error) {
+      console.error('Error completing compliance training:', error);
       return { success: false, error: error.message };
     }
   }, [authState.user, toast]);
@@ -280,6 +283,7 @@ export const useHealthcareAuth = () => {
   // Sign out
   const signOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
+    
     if (!error) {
       setAuthState({
         user: null,
@@ -288,7 +292,8 @@ export const useHealthcareAuth = () => {
         verificationStatus: null
       });
     }
-    return { success: !error, error };
+    
+    return { success: !error };
   }, []);
 
   // Check auth state on mount
@@ -297,26 +302,39 @@ export const useHealthcareAuth = () => {
         const { data: { session } } = await supabase.auth.getSession();
         
         if (session?.user) {
-          // Mock healthcare professional profile since table doesn't exist
-          const mockProfile: HealthcareProfessional = {
-            id: session.user.id,
-            email: session.user.email || '',
-            ahpra_registration: 'MED0001234567',
-            profession_type: 'medical',
-            practice_name: 'Mock Healthcare Practice',
-            specialty: 'General Practice',
-            practice_type: 'solo' as const,
-            verification_status: 'verified' as const,
-            compliance_training_completed: false,
-            practice_locations: ['Melbourne VIC']
-          };
+          // Get healthcare professional profile
+          const { data: professionalData } = await supabase
+            .from('healthcare_professionals')
+            .select('*')
+            .eq('user_id', session.user.id)
+            .single();
 
-          setAuthState({
-            user: mockProfile,
-            isLoading: false,
-            isAuthenticated: true,
-            verificationStatus: mockProfile.verification_status
-          });
+          if (professionalData) {
+            const healthcareProfessional: HealthcareProfessional = {
+              id: professionalData.user_id,
+              email: professionalData.email,
+              ahpra_registration: professionalData.ahpra_registration || '',
+              profession_type: professionalData.profession_type as keyof typeof AHPRA_REGISTRATION_PATTERNS,
+              practice_type: (professionalData.practice_type as 'solo' | 'group' | 'network') || 'solo',
+              verification_status: (professionalData.verification_status as 'pending' | 'verified' | 'rejected') || 'pending',
+              compliance_training_completed: professionalData.compliance_training_completed || false
+            };
+
+            setAuthState({
+              user: healthcareProfessional,
+              isLoading: false,
+              isAuthenticated: true,
+              verificationStatus: healthcareProfessional.verification_status
+            });
+          } else {
+            // Fallback if professional profile doesn't exist
+            setAuthState({
+              user: null,
+              isLoading: false,
+              isAuthenticated: false,
+              verificationStatus: null
+            });
+          }
         } else {
           setAuthState({
             user: null,

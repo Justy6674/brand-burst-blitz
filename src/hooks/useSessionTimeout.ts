@@ -73,7 +73,7 @@ export const useSessionTimeout = (customConfig?: Partial<SessionTimeoutConfig>) 
           const { data } = await supabase
             .from('healthcare_professionals')
             .select('id')
-            .eq('id', user.id)
+            .eq('user_id', user.id)
             .single();
           
           setIsHealthcareProfessional(!!data);
