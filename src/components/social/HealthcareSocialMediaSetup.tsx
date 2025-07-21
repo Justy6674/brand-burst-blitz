@@ -8,10 +8,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { useHealthcareAuth } from '@/hooks/useHealthcareAuth';
 import { useAHPRACompliance } from '@/hooks/useAHPRACompliance';
 import { HealthcareFacebookSetup } from './HealthcareFacebookSetup';
+import { HealthcareSocialMediaVideoTutorials } from './HealthcareSocialMediaVideoTutorials';
 import { 
   Shield, Copy, CheckCircle, AlertTriangle, Users, 
   Facebook, Instagram, Linkedin, Twitter, Eye,
-  Calendar, Clock, Zap, FileText, Heart, Brain
+  Calendar, Clock, Zap, FileText, Heart, Brain, Video
 } from 'lucide-react';
 
 interface SocialTemplate {
@@ -193,8 +194,9 @@ export const HealthcareSocialMediaSetup = () => {
       </Alert>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="templates">Content Templates</TabsTrigger>
+          <TabsTrigger value="video-tutorials">Video Tutorials</TabsTrigger>
           <TabsTrigger value="facebook-setup">Facebook Setup</TabsTrigger>
           <TabsTrigger value="instagram-analytics">Instagram Analytics</TabsTrigger>
           <TabsTrigger value="platforms">Other Platforms</TabsTrigger>
@@ -315,6 +317,19 @@ export const HealthcareSocialMediaSetup = () => {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        <TabsContent value="video-tutorials" className="space-y-6">
+          <HealthcareSocialMediaVideoTutorials 
+            practiceType={user?.practice_type || 'gp'}
+            onTutorialComplete={(tutorialId) => {
+              console.log('Tutorial completed:', tutorialId);
+            }}
+            onAllRequiredComplete={() => {
+              console.log('All required tutorials completed');
+              // Could show completion certificate or unlock features
+            }}
+          />
         </TabsContent>
 
         <TabsContent value="facebook-setup" className="space-y-6">

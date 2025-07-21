@@ -222,43 +222,127 @@ export function HealthcareGoogleAnalytics({ practiceId, onSetupComplete }: Healt
     try {
       setIsLoading(true);
 
-      // In production, this would call Google Analytics Reporting API
-      // For now, generate healthcare-relevant mock data
-      const mockMetrics: HealthcareWebsiteMetrics = {
+      // Call real Google Analytics API via Edge Function
+      const { data, error } = await supabase.functions.invoke('collect-google-analytics', {
+        body: {
+          measurementId: analyticsConfig.measurement_id,
+          propertyId: analyticsConfig.property_id,
+          startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+          endDate: new Date().toISOString(),
+          practiceId: practiceId || user?.id,
+          healthcareFocus: true
+        }
+      });
+
+      if (error) {
+        console.error('Error loading real Google Analytics data:', error);
+        // Fallback to placeholder data with clear indication
+        const fallbackMetrics: HealthcareWebsiteMetrics = {
+          overview: {
+            total_users: 0,
+            new_users: 0,
+            sessions: 0,
+            page_views: 0,
+            average_session_duration: 0,
+            bounce_rate: 0
+          },
+          patient_journey: {
+            appointment_inquiries: 0,
+            contact_form_submissions: 0,
+            phone_clicks: 0,
+            location_clicks: 0,
+            service_page_views: 0,
+            patient_education_engagement: 0
+          },
+          content_performance: [],
+          traffic_sources: [],
+          device_insights: {
+            mobile: { percentage: 0, sessions: 0 },
+            desktop: { percentage: 0, sessions: 0 },
+            tablet: { percentage: 0, sessions: 0 }
+          },
+          geographic_data: []
+        };
+        
+        setWebsiteMetrics(fallbackMetrics);
+        toast({
+          title: "Google Analytics Setup Required",
+          description: "Configure Google Analytics to see real healthcare practice data",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Process real Google Analytics data for healthcare practices
+      const realMetrics: HealthcareWebsiteMetrics = {
         overview: {
-          total_users: 2340 + Math.floor(Math.random() * 500),
-          new_users: 1890 + Math.floor(Math.random() * 200),
-          sessions: 3420 + Math.floor(Math.random() * 600),
-          page_views: 8750 + Math.floor(Math.random() * 1000),
-          average_session_duration: 185 + Math.random() * 60,
-          bounce_rate: 0.42 + Math.random() * 0.1
+          total_users: data.uniqueVisitors || 0,
+          new_users: data.newVsReturning?.new || 0,
+          sessions: data.uniqueVisitors || 0, // GA4 doesn't have sessions, use users
+          page_views: data.pageViews || 0,
+          average_session_duration: data.sessionDuration || 0,
+          bounce_rate: data.bounceRate || 0
         },
         patient_journey: {
-          appointment_inquiries: 127 + Math.floor(Math.random() * 30),
-          contact_form_submissions: 89 + Math.floor(Math.random() * 20),
-          phone_clicks: 156 + Math.floor(Math.random() * 40),
-          location_clicks: 234 + Math.floor(Math.random() * 50),
-          service_page_views: 1240 + Math.floor(Math.random() * 200),
-          patient_education_engagement: 890 + Math.floor(Math.random() * 150)
+          appointment_inquiries: data.conversions?.appointmentBookings || 0,
+          contact_form_submissions: data.conversions?.contactForms || 0,
+          phone_clicks: data.conversions?.phoneClicks || 0,
+          location_clicks: data.conversions?.directionsClicks || 0,
+          service_page_views: data.topPages?.filter((page: any) => 
+            page.page.includes('service') || page.page.includes('treatment')
+          ).reduce((sum: number, page: any) => sum + page.views, 0) || 0,
+          patient_education_engagement: data.topPages?.filter((page: any) => 
+            page.page.includes('health') || page.page.includes('education') || page.page.includes('blog')
+          ).reduce((sum: number, page: any) => sum + page.views, 0) || 0
         },
-        content_performance: generateContentPerformanceData(),
-        traffic_sources: generateTrafficSourcesData(),
+        content_performance: (data.topPages || []).map((page: any) => ({
+          page_path: page.page,
+          page_title: page.title || page.page,
+          views: page.views || 0,
+          unique_visitors: page.views || 0, // GA4 approximation
+          avg_time_on_page: page.timeOnPage || 0,
+          bounce_rate: page.exitRate || 0,
+          healthcare_content_type: classifyHealthcareContent(page.page),
+          patient_value_score: calculatePatientValueScore(page.page, page.timeOnPage || 0)
+        })),
+        traffic_sources: (data.trafficSources || []).map((source: any) => ({
+          source: source.source,
+          medium: source.medium,
+          users: source.sessions,
+          sessions: source.sessions,
+          conversion_rate: source.conversions || 0,
+          healthcare_relevant: isHealthcareRelevantSource(source.source)
+        })),
         device_insights: {
-          mobile: { percentage: 65, sessions: 2223 },
-          desktop: { percentage: 28, sessions: 957 },
-          tablet: { percentage: 7, sessions: 240 }
+          mobile: { 
+            percentage: data.deviceBreakdown?.mobile || 0, 
+            sessions: Math.round((data.uniqueVisitors || 0) * (data.deviceBreakdown?.mobile || 0) / 100) 
+          },
+          desktop: { 
+            percentage: data.deviceBreakdown?.desktop || 0, 
+            sessions: Math.round((data.uniqueVisitors || 0) * (data.deviceBreakdown?.desktop || 0) / 100) 
+          },
+          tablet: { 
+            percentage: data.deviceBreakdown?.tablet || 0, 
+            sessions: Math.round((data.uniqueVisitors || 0) * (data.deviceBreakdown?.tablet || 0) / 100) 
+          }
         },
-        geographic_data: generateGeographicData()
+        geographic_data: generateHealthcareGeographicData(data.trafficSources || [])
       };
 
-      setWebsiteMetrics(mockMetrics);
+      setWebsiteMetrics(realMetrics);
       setLastUpdate(new Date());
+
+      toast({
+        title: "Real Analytics Loaded",
+        description: `Loaded real Google Analytics data for your healthcare practice`,
+      });
 
     } catch (error) {
       console.error('Error loading website metrics:', error);
       toast({
-        title: "Metrics Error",
-        description: "Failed to load website analytics",
+        title: "Analytics Error",
+        description: "Failed to load Google Analytics data. Please check your configuration.",
         variant: "destructive"
       });
     } finally {
@@ -266,48 +350,49 @@ export function HealthcareGoogleAnalytics({ practiceId, onSetupComplete }: Healt
     }
   };
 
-  const generateContentPerformanceData = () => {
-    const healthcarePages = [
-      { path: '/services/general-practice', title: 'General Practice Services', type: 'service_page' },
-      { path: '/health-tips/diabetes-prevention', title: 'Diabetes Prevention Tips', type: 'patient_education' },
-      { path: '/about/our-team', title: 'Meet Our Healthcare Team', type: 'practice_info' },
-      { path: '/services/mental-health', title: 'Mental Health Services', type: 'service_page' },
-      { path: '/blog/heart-health-awareness', title: 'Heart Health Awareness', type: 'patient_education' },
-      { path: '/contact', title: 'Contact Us', type: 'contact_page' },
-      { path: '/services/preventive-care', title: 'Preventive Healthcare', type: 'service_page' },
-      { path: '/patient-resources', title: 'Patient Resources', type: 'patient_education' }
-    ];
-
-    return healthcarePages.map(page => ({
-      page_path: page.path,
-      page_title: page.title,
-      views: Math.floor(Math.random() * 800) + 200,
-      unique_visitors: Math.floor(Math.random() * 600) + 150,
-      avg_time_on_page: Math.random() * 240 + 60,
-      bounce_rate: Math.random() * 0.4 + 0.2,
-      healthcare_content_type: page.type,
-      patient_value_score: Math.random() * 40 + 60
-    }));
+  // Helper function to classify healthcare content types
+  const classifyHealthcareContent = (pagePath: string): string => {
+    const path = pagePath.toLowerCase();
+    if (path.includes('service') || path.includes('treatment')) return 'service_page';
+    if (path.includes('blog') || path.includes('health') || path.includes('education')) return 'patient_education';
+    if (path.includes('about') || path.includes('team') || path.includes('doctor')) return 'practice_info';
+    if (path.includes('contact') || path.includes('appointment') || path.includes('book')) return 'contact_page';
+    return 'general';
   };
 
-  const generateTrafficSourcesData = () => {
-    return [
-      { source: 'google', medium: 'organic', users: 1240, sessions: 1890, conversion_rate: 8.3, healthcare_relevant: true },
-      { source: 'direct', medium: '(none)', users: 540, sessions: 780, conversion_rate: 12.1, healthcare_relevant: true },
-      { source: 'facebook', medium: 'social', users: 320, sessions: 450, conversion_rate: 5.7, healthcare_relevant: true },
-      { source: 'healthdirect.gov.au', medium: 'referral', users: 180, sessions: 220, conversion_rate: 15.2, healthcare_relevant: true },
-      { source: 'instagram', medium: 'social', users: 150, sessions: 210, conversion_rate: 4.8, healthcare_relevant: true },
-      { source: 'linkedin', medium: 'social', users: 89, sessions: 120, conversion_rate: 6.1, healthcare_relevant: true }
-    ];
+  // Helper function to calculate patient value score based on content engagement
+  const calculatePatientValueScore = (pagePath: string, timeOnPage: number): number => {
+    let baseScore = Math.min(timeOnPage / 60 * 20, 80); // Max 80 points for time spent
+    
+    // Bonus points for healthcare-valuable content
+    const path = pagePath.toLowerCase();
+    if (path.includes('education') || path.includes('health')) baseScore += 15;
+    if (path.includes('prevention') || path.includes('wellness')) baseScore += 10;
+    if (path.includes('service') || path.includes('treatment')) baseScore += 5;
+    
+    return Math.min(baseScore, 100);
   };
 
-  const generateGeographicData = () => {
+  // Helper function to determine if traffic source is healthcare-relevant
+  const isHealthcareRelevantSource = (source: string): boolean => {
+    const healthcareSources = [
+      'healthdirect.gov.au', 'health.gov.au', 'betterhealth.vic.gov.au',
+      'nhs.uk', 'mayoclinic.org', 'webmd.com', 'healthline.com',
+      'medical', 'health', 'doctor', 'clinic', 'physio', 'psychology'
+    ];
+    
+    return healthcareSources.some(keyword => source.toLowerCase().includes(keyword));
+  };
+
+  // Helper function to generate healthcare-relevant geographic data
+  const generateHealthcareGeographicData = (trafficSources: any[]) => {
+    // This would ideally come from Google Analytics geographic reports
+    // For now, create reasonable healthcare practice geographic distribution
     return [
-      { location: 'Melbourne, VIC', users: 890, sessions: 1340, local_practice_relevance: 95 },
-      { location: 'Sydney, NSW', users: 450, sessions: 650, local_practice_relevance: 30 },
-      { location: 'Hawthorn, VIC', users: 230, sessions: 320, local_practice_relevance: 90 },
-      { location: 'Richmond, VIC', users: 180, sessions: 270, local_practice_relevance: 85 },
-      { location: 'Brisbane, QLD', users: 120, sessions: 180, local_practice_relevance: 25 }
+      { location: 'Local Area (5km)', users: 0, sessions: 0, local_practice_relevance: 100 },
+      { location: 'Regional (10-20km)', users: 0, sessions: 0, local_practice_relevance: 70 },
+      { location: 'State/Territory', users: 0, sessions: 0, local_practice_relevance: 30 },
+      { location: 'Other States', users: 0, sessions: 0, local_practice_relevance: 10 }
     ];
   };
 

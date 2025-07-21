@@ -7,6 +7,7 @@ import { Badge } from '../ui/badge';
 import { Alert, AlertDescription } from '../ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { useToast } from '../../hooks/use-toast';
+import { SmartIdeasSketchboard } from './SmartIdeasSketchboard';
 import { 
   Calendar as CalendarIcon,
   Plus,
@@ -30,7 +31,9 @@ import {
   Target,
   Activity,
   Building2,
-  Stethoscope
+  Stethoscope,
+  Palette,
+  Lightbulb
 } from 'lucide-react';
 
 interface CalendarEvent {
@@ -82,6 +85,7 @@ export function GoogleAppleQualityCalendar() {
   // State management
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day' | 'agenda'>('month');
+  const [calendarTab, setCalendarTab] = useState<'calendar' | 'ideas'>('calendar');
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [practices, setPractices] = useState<Practice[]>([]);
   const [selectedPractice, setSelectedPractice] = useState<string>('all');
@@ -98,230 +102,307 @@ export function GoogleAppleQualityCalendar() {
   // Initialize practices and sample data
   useEffect(() => {
     initializePractices();
-    loadCalendarEvents();
-    initializeVoiceRecognition();
+    loadHealthcareEvents();
+    initializeVoiceCapture();
   }, []);
 
   const initializePractices = useCallback(() => {
     const samplePractices: Practice[] = [
       {
-        id: 'gp-1',
-        name: 'City Medical Centre',
+        id: 'gp1',
+        name: 'North Sydney GP',
         type: 'General Practice',
         specialty: 'Family Medicine',
-        color: '#3B82F6',
+        color: '#3b82f6',
         isActive: true
       },
       {
-        id: 'physio-1',
-        name: 'Active Health Physiotherapy',
+        id: 'allied1',
+        name: 'Allied Health Centre',
         type: 'Allied Health',
         specialty: 'Physiotherapy',
-        color: '#10B981',
+        color: '#10b981',
         isActive: true
       },
       {
-        id: 'psych-1',
-        name: 'Mindful Psychology',
-        type: 'Mental Health',
-        specialty: 'Psychology',
-        color: '#8B5CF6',
+        id: 'specialist1',
+        name: 'Cardiology Specialist',
+        type: 'Specialist',
+        specialty: 'Cardiology',
+        color: '#f59e0b',
         isActive: false
       }
     ];
     setPractices(samplePractices);
   }, []);
 
-  const loadCalendarEvents = useCallback(() => {
-    // Load from localStorage in production would be Supabase
-    const saved = localStorage.getItem('healthcare_calendar_events');
-    if (saved) {
-      const parsedEvents = JSON.parse(saved).map((e: any) => ({
-        ...e,
-        startDate: new Date(e.startDate),
-        endDate: new Date(e.endDate)
-      }));
-      setEvents(parsedEvents);
-    }
+  const loadHealthcareEvents = useCallback(() => {
+    // Sample healthcare content events
+    const sampleEvents: CalendarEvent[] = [
+      {
+        id: 'e1',
+        title: 'Diabetes Education Blog Post',
+        description: 'Complete blog post about managing diabetes during holidays',
+        startDate: new Date(Date.now() + 86400000), // Tomorrow
+        endDate: new Date(Date.now() + 86400000),
+        type: 'content_idea',
+        platform: 'all',
+        practiceId: 'gp1',
+        status: 'draft',
+        aiGenerated: true,
+        complianceScore: 95
+      },
+      {
+        id: 'e2',
+        title: 'Heart Health Awareness Post',
+        description: 'Instagram post for World Heart Day',
+        startDate: new Date(Date.now() + 172800000), // Day after tomorrow
+        endDate: new Date(Date.now() + 172800000),
+        type: 'post_scheduled',
+        platform: 'instagram',
+        practiceId: 'specialist1',
+        status: 'scheduled',
+        complianceScore: 92
+      }
+    ];
+    setEvents(sampleEvents);
   }, []);
 
-  const saveCalendarEvents = useCallback((updatedEvents: CalendarEvent[]) => {
-    setEvents(updatedEvents);
-    localStorage.setItem('healthcare_calendar_events', JSON.stringify(updatedEvents));
-  }, []);
+  const initializeVoiceCapture = useCallback(() => {
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-AU'; // Australian English
 
-  // Voice Recognition Setup
-  const initializeVoiceRecognition = useCallback(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-AU'; // Australian English
-      
-      recognitionRef.current.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        const confidence = event.results[0][0].confidence;
-        handleVoiceCapture(transcript, confidence);
+      recognition.onstart = () => {
+        setIsVoiceRecording(true);
+        toast({
+          title: "Voice Capture Active",
+          description: "Say something like 'Hey JB, I have a content idea...'",
+        });
       };
-      
-      recognitionRef.current.onerror = (event: any) => {
+
+      recognition.onresult = (event: any) => {
+        const transcript = Array.from(event.results)
+          .map((result: any) => result[0])
+          .map((result: any) => result.transcript)
+          .join('');
+
+        if (event.results[event.results.length - 1].isFinal) {
+          processVoiceIdea(transcript);
+        }
+      };
+
+      recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
         setIsVoiceRecording(false);
         toast({
-          title: "Voice Recognition Error",
-          description: "Please try again or check your microphone permissions",
+          title: "Voice Capture Error",
+          description: "Please try again or check microphone permissions",
           variant: "destructive"
         });
       };
-      
-      recognitionRef.current.onend = () => {
-        setIsVoiceRecording(false);
-      };
+
+      recognitionRef.current = recognition;
     }
   }, [toast]);
 
-  // Voice Capture Handler - THE SMART FUNCTIONALITY
-  const handleVoiceCapture = useCallback(async (transcript: string, confidence: number) => {
+  const processVoiceIdea = useCallback(async (transcript: string) => {
+    setIsVoiceRecording(false);
+    
     try {
-      // AI Analysis of voice capture
-      const analyzedContent = await analyzeVoiceCapture(transcript);
+      // Analyze the voice input for healthcare content
+      const analyzedContent = await analyzeHealthcareVoiceInput(transcript);
       
       const smartIdea: SmartIdeaCapture = {
         transcript,
         analyzedContent,
         createdAt: new Date()
       };
-      
-      setSmartIdeas(prev => [smartIdea, ...prev.slice(0, 9)]); // Keep last 10
-      
-      // Auto-create calendar event from voice capture
+
+      setSmartIdeas(prev => [smartIdea, ...prev]);
+
+      // Create a calendar event from the idea
       const newEvent: CalendarEvent = {
-        id: Date.now().toString(),
+        id: `smart_${Date.now()}`,
         title: analyzedContent.suggestedTitle,
-        description: `Voice captured: "${transcript}"\n\nAI Analysis:\n- Topic: ${analyzedContent.healthcareTopic}\n- Type: ${analyzedContent.contentType}\n- Keywords: ${analyzedContent.keywords.join(', ')}`,
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
+        description: transcript,
+        startDate: new Date(Date.now() + 86400000), // Tomorrow
+        endDate: new Date(Date.now() + 86400000),
         type: 'smart_capture',
-        platform: analyzedContent.platform[0] as any || 'facebook',
-        practiceId: selectedPractice === 'all' ? practices[0]?.id || 'gp-1' : selectedPractice,
+        platform: analyzedContent.platform[0] as any || 'all',
+        practiceId: selectedPractice === 'all' ? practices[0]?.id || 'gp1' : selectedPractice,
         status: 'draft',
         aiGenerated: true,
-        complianceScore: analyzedContent.complianceRisk === 'low' ? 95 : analyzedContent.complianceRisk === 'medium' ? 80 : 65,
         voiceCapture: {
           transcript,
-          confidence
+          confidence: 0.85
         },
-        smartSuggestions: [
-          `Create ${analyzedContent.contentType} about ${analyzedContent.healthcareTopic}`,
-          `Use hashtags: ${analyzedContent.suggestedHashtags.join(' ')}`,
-          `Target platforms: ${analyzedContent.platform.join(', ')}`,
-          'Review AHPRA compliance before publishing'
-        ]
+        smartSuggestions: analyzedContent.suggestedHashtags
       };
-      
-      const updatedEvents = [...events, newEvent];
-      saveCalendarEvents(updatedEvents);
-      
+
+      setEvents(prev => [newEvent, ...prev]);
+
       toast({
-        title: "Smart Idea Captured! 🎤",
-        description: `"${transcript}" analyzed and added to calendar`,
+        title: "Smart Idea Captured!",
+        description: `Created: ${analyzedContent.suggestedTitle}`,
       });
-      
+
     } catch (error) {
-      console.error('Voice capture analysis error:', error);
+      console.error('Error processing voice idea:', error);
       toast({
-        title: "Analysis Error",
-        description: "Voice captured but analysis failed. Please try again.",
+        title: "Processing Failed",
+        description: "Unable to process voice idea. Please try again.",
         variant: "destructive"
       });
     }
-  }, [events, selectedPractice, practices, saveCalendarEvents, toast]);
+  }, [selectedPractice, practices, toast]);
 
-  // AI Analysis of Voice Capture
-  const analyzeVoiceCapture = useCallback(async (transcript: string): Promise<SmartIdeaCapture['analyzedContent']> => {
-    // This would call OpenAI API in production
-    const transcriptLower = transcript.toLowerCase();
+  const analyzeHealthcareVoiceInput = async (transcript: string) => {
+    // Simple AI analysis - in production this would call OpenAI
+    const lower = transcript.toLowerCase();
     
-    // Determine content type
     let contentType: 'blog' | 'social_post' | 'patient_education' | 'practice_update' = 'social_post';
-    if (transcriptLower.includes('blog') || transcriptLower.includes('article')) contentType = 'blog';
-    if (transcriptLower.includes('education') || transcriptLower.includes('patient')) contentType = 'patient_education';
-    if (transcriptLower.includes('practice') || transcriptLower.includes('announcement')) contentType = 'practice_update';
+    let platform: string[] = ['facebook'];
+    let healthcareTopic = 'General Health';
     
-    // Determine platforms
-    const platforms: string[] = [];
-    if (transcriptLower.includes('facebook')) platforms.push('facebook');
-    if (transcriptLower.includes('instagram')) platforms.push('instagram');
-    if (transcriptLower.includes('linkedin')) platforms.push('linkedin');
-    if (platforms.length === 0) platforms.push('facebook'); // Default
+    // Analyze content type
+    if (lower.includes('blog')) contentType = 'blog';
+    else if (lower.includes('education')) contentType = 'patient_education';
+    else if (lower.includes('update') || lower.includes('news')) contentType = 'practice_update';
     
-    // Extract healthcare topics and keywords
-    const healthcareKeywords = [
-      'diabetes', 'heart', 'blood pressure', 'exercise', 'nutrition', 'mental health',
-      'physiotherapy', 'back pain', 'injury', 'prevention', 'wellness', 'checkup',
-      'vaccination', 'flu', 'covid', 'telehealth', 'appointment', 'chronic pain',
-      'anxiety', 'depression', 'sleep', 'weight', 'cholesterol', 'cancer screening'
-    ];
+    // Analyze platform
+    if (lower.includes('instagram')) platform = ['instagram'];
+    else if (lower.includes('linkedin')) platform = ['linkedin'];
+    else if (lower.includes('facebook')) platform = ['facebook'];
     
-    const foundKeywords = healthcareKeywords.filter(keyword => 
-      transcriptLower.includes(keyword)
-    );
-    
-    const healthcareTopic = foundKeywords[0] || 'general health';
-    
-    // Assess compliance risk
-    const riskTerms = ['cure', 'miracle', 'guaranteed', 'instant', 'revolutionary'];
-    const hasRiskTerms = riskTerms.some(term => transcriptLower.includes(term));
-    const complianceRisk: 'low' | 'medium' | 'high' = hasRiskTerms ? 'high' : 'low';
-    
-    // Generate title and hashtags
-    const suggestedTitle = `${contentType === 'blog' ? 'Blog: ' : ''}${transcript.charAt(0).toUpperCase() + transcript.slice(1, 50)}${transcript.length > 50 ? '...' : ''}`;
-    
-    const suggestedHashtags = [
-      '#HealthEducation',
-      `#${healthcareTopic.replace(/\s+/g, '')}`,
-      '#EvidenceBased',
-      '#HealthTips'
-    ];
+    // Analyze healthcare topic
+    if (lower.includes('diabetes')) healthcareTopic = 'Diabetes';
+    else if (lower.includes('heart')) healthcareTopic = 'Heart Health';
+    else if (lower.includes('mental')) healthcareTopic = 'Mental Health';
+    else if (lower.includes('exercise')) healthcareTopic = 'Exercise & Fitness';
     
     return {
       contentType,
-      platform: platforms,
-      keywords: foundKeywords.length > 0 ? foundKeywords : ['health', 'wellness'],
+      platform,
+      keywords: extractKeywords(transcript),
       healthcareTopic,
-      complianceRisk,
-      suggestedTitle,
-      suggestedHashtags
+      complianceRisk: 'low' as const,
+      suggestedTitle: generateTitle(transcript),
+      suggestedHashtags: generateHashtags(healthcareTopic)
     };
-  }, []);
+  };
 
-  // Voice Recording Controls
-  const startVoiceRecording = useCallback(() => {
-    if (recognitionRef.current) {
-      setIsVoiceRecording(true);
+  const extractKeywords = (text: string): string[] => {
+    const healthcareKeywords = [
+      'health', 'wellness', 'prevention', 'education', 'diabetes', 'heart',
+      'exercise', 'nutrition', 'mental health', 'patient care', 'treatment'
+    ];
+    
+    return healthcareKeywords.filter(keyword => 
+      text.toLowerCase().includes(keyword)
+    );
+  };
+
+  const generateTitle = (transcript: string): string => {
+    const words = transcript.split(' ').slice(0, 6).join(' ');
+    return words.charAt(0).toUpperCase() + words.slice(1) + '...';
+  };
+
+  const generateHashtags = (topic: string): string[] => {
+    const baseHashtags = ['#HealthEducation', '#AustralianHealthcare'];
+    
+    switch (topic) {
+      case 'Diabetes':
+        return [...baseHashtags, '#DiabetesAwareness', '#BloodSugar', '#HealthyLiving'];
+      case 'Heart Health':
+        return [...baseHashtags, '#HeartHealth', '#Cardiology', '#Prevention'];
+      case 'Mental Health':
+        return [...baseHashtags, '#MentalHealthAwareness', '#Wellbeing', '#Support'];
+      default:
+        return [...baseHashtags, '#WellnessTips', '#PatientEducation'];
+    }
+  };
+
+  const startVoiceCapture = useCallback(() => {
+    if (recognitionRef.current && !isVoiceRecording) {
       recognitionRef.current.start();
-      toast({
-        title: "Voice Recording Started 🎤",
-        description: "Say something like: 'Hey JB, I have a Facebook post idea about diabetes management'",
-      });
-    } else {
-      toast({
-        title: "Voice Recognition Not Available",
-        description: "Please use a modern browser with microphone access",
-        variant: "destructive"
-      });
     }
-  }, [toast]);
+  }, [isVoiceRecording]);
 
-  const stopVoiceRecording = useCallback(() => {
-    if (recognitionRef.current) {
+  const stopVoiceCapture = useCallback(() => {
+    if (recognitionRef.current && isVoiceRecording) {
       recognitionRef.current.stop();
+      setIsVoiceRecording(false);
     }
-    setIsVoiceRecording(false);
+  }, [isVoiceRecording]);
+
+  // Calendar navigation
+  const navigateMonth = useCallback((direction: 'prev' | 'next') => {
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      if (direction === 'prev') {
+        newDate.setMonth(prev.getMonth() - 1);
+      } else {
+        newDate.setMonth(prev.getMonth() + 1);
+      }
+      return newDate;
+    });
   }, []);
 
-  // Drag and Drop Functionality
+  // Calendar day generation
+  const generateCalendarDays = useCallback(() => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay());
+    
+    const days: Date[] = [];
+    const endDate = new Date(lastDay);
+    endDate.setDate(endDate.getDate() + (6 - lastDay.getDay()));
+    
+    for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+      days.push(new Date(date));
+    }
+    
+    return days;
+  }, [currentDate]);
+
+  // Event management
+  const getEventsForDate = useCallback((date: Date): CalendarEvent[] => {
+    return events.filter(event => {
+      const eventDate = new Date(event.startDate);
+      return eventDate.toDateString() === date.toDateString();
+    });
+  }, [events]);
+
+  const getPracticeColor = useCallback((practiceId: string): string => {
+    const practice = practices.find(p => p.id === practiceId);
+    return practice?.color || '#6b7280';
+  }, [practices]);
+
+  const getEventTypeIcon = useCallback((type: CalendarEvent['type']) => {
+    switch (type) {
+      case 'content_idea':
+        return <Lightbulb className="h-3 w-3" />;
+      case 'post_scheduled':
+        return <Clock className="h-3 w-3" />;
+      case 'smart_capture':
+        return <Brain className="h-3 w-3" />;
+      case 'campaign':
+        return <Target className="h-3 w-3" />;
+      case 'appointment':
+        return <Stethoscope className="h-3 w-3" />;
+      default:
+        return <CalendarIcon className="h-3 w-3" />;
+    }
+  }, []);
+
+  // Drag and drop
   const handleDragStart = useCallback((event: CalendarEvent) => {
     setDraggedEvent(event);
   }, []);
@@ -330,120 +411,75 @@ export function GoogleAppleQualityCalendar() {
     e.preventDefault();
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent, targetDate: Date) => {
+  const handleDrop = useCallback((e: React.DragEvent, date: Date) => {
     e.preventDefault();
     if (draggedEvent) {
       const updatedEvent = {
         ...draggedEvent,
-        startDate: targetDate,
-        endDate: new Date(targetDate.getTime() + (draggedEvent.endDate.getTime() - draggedEvent.startDate.getTime()))
+        startDate: date,
+        endDate: date
       };
-      
-      const updatedEvents = events.map(event => 
+      setEvents(prev => prev.map(event => 
         event.id === draggedEvent.id ? updatedEvent : event
-      );
-      
-      saveCalendarEvents(updatedEvents);
+      ));
       setDraggedEvent(null);
       
       toast({
         title: "Event Moved",
-        description: `"${draggedEvent.title}" moved to ${targetDate.toLocaleDateString()}`,
+        description: `${draggedEvent.title} moved to ${date.toLocaleDateString()}`,
       });
     }
-  }, [draggedEvent, events, saveCalendarEvents, toast]);
+  }, [draggedEvent, toast]);
 
-  // Calendar Navigation
-  const navigateCalendar = useCallback((direction: 'prev' | 'next') => {
-    const newDate = new Date(currentDate);
-    
-    switch (viewMode) {
-      case 'month':
-        newDate.setMonth(newDate.getMonth() + (direction === 'next' ? 1 : -1));
-        break;
-      case 'week':
-        newDate.setDate(newDate.getDate() + (direction === 'next' ? 7 : -7));
-        break;
-      case 'day':
-        newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
-        break;
-    }
-    
-    setCurrentDate(newDate);
-  }, [currentDate, viewMode]);
+  // Handle idea conversion from sketchboard
+  const handleIdeaConverted = useCallback((idea: any, contentType: string) => {
+    // Create a calendar event from the converted idea
+    const newEvent: CalendarEvent = {
+      id: `converted_${Date.now()}`,
+      title: `${contentType.charAt(0).toUpperCase() + contentType.slice(1)}: ${idea.title}`,
+      description: idea.content,
+      startDate: new Date(Date.now() + 86400000), // Tomorrow
+      endDate: new Date(Date.now() + 86400000),
+      type: 'content_idea',
+      platform: contentType === 'blog' ? 'all' : contentType as any,
+      practiceId: selectedPractice === 'all' ? practices[0]?.id || 'gp1' : selectedPractice,
+      status: 'draft',
+      aiGenerated: true,
+      complianceScore: idea.ahpra_compliance_score
+    };
 
-  // Generate calendar days for month view
-  const generateCalendarDays = useCallback(() => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
-    
-    const days: Date[] = [];
-    const current = new Date(startDate);
-    
-    // Generate 6 weeks (42 days) for consistent calendar grid
-    for (let i = 0; i < 42; i++) {
-      days.push(new Date(current));
-      current.setDate(current.getDate() + 1);
-    }
-    
-    return days;
-  }, [currentDate]);
+    setEvents(prev => [newEvent, ...prev]);
 
-  // Get events for specific date
-  const getEventsForDate = useCallback((date: Date) => {
-    return events.filter(event => {
-      const eventDate = new Date(event.startDate);
-      return eventDate.toDateString() === date.toDateString() &&
-        (selectedPractice === 'all' || event.practiceId === selectedPractice);
+    toast({
+      title: "Idea Added to Calendar!",
+      description: `${idea.title} scheduled for content creation`,
     });
-  }, [events, selectedPractice]);
-
-  // Get practice color
-  const getPracticeColor = useCallback((practiceId: string) => {
-    const practice = practices.find(p => p.id === practiceId);
-    return practice?.color || '#6B7280';
-  }, [practices]);
-
-  const getEventTypeIcon = (type: string) => {
-    switch (type) {
-      case 'content_idea': return <Brain className="h-3 w-3" />;
-      case 'post_scheduled': return <CalendarIcon className="h-3 w-3" />;
-      case 'campaign': return <Target className="h-3 w-3" />;
-      case 'appointment': return <Stethoscope className="h-3 w-3" />;
-      case 'smart_capture': return <Mic className="h-3 w-3" />;
-      default: return <Activity className="h-3 w-3" />;
-    }
-  };
+  }, [selectedPractice, practices, toast]);
 
   return (
     <div className="space-y-6">
-      {/* Header with Voice Capture */}
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <CalendarIcon className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <Brain className="h-8 w-8 text-purple-600" />
             Healthcare Content Calendar
-          </h2>
-          <p className="text-muted-foreground">
-            Google/Apple quality calendar with AI-powered smart ideas capture
+          </h1>
+          <p className="text-gray-600">
+            The engine room for healthcare content planning, scheduling, and idea capture
           </p>
         </div>
         
-        {/* Voice Capture Button */}
         <div className="flex items-center gap-2">
           <Button
-            variant={isVoiceRecording ? "destructive" : "default"}
-            onClick={isVoiceRecording ? stopVoiceRecording : startVoiceRecording}
+            variant={isVoiceRecording ? "destructive" : "outline"}
+            onClick={isVoiceRecording ? stopVoiceCapture : startVoiceCapture}
             className="flex items-center gap-2"
           >
             {isVoiceRecording ? (
               <>
                 <MicOff className="h-4 w-4" />
-                Stop Recording
+                Stop Voice
               </>
             ) : (
               <>
@@ -453,220 +489,188 @@ export function GoogleAppleQualityCalendar() {
             )}
           </Button>
           
-          <Button
-            variant="outline"
-            onClick={() => setShowSmartCapture(!showSmartCapture)}
-            className="flex items-center gap-2"
-          >
-            <Brain className="h-4 w-4" />
-            Smart Ideas ({smartIdeas.length})
+          <Button className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            New Event
           </Button>
         </div>
       </div>
 
-      {/* Practice Switcher */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex items-center gap-4">
-            <Building2 className="h-5 w-5 text-gray-600" />
-            <span className="font-medium">Practice:</span>
-            <div className="flex gap-2">
-              <Button
-                variant={selectedPractice === 'all' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSelectedPractice('all')}
-              >
-                All Practices
-              </Button>
-              {practices.map(practice => (
-                <Button
-                  key={practice.id}
-                  variant={selectedPractice === practice.id ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedPractice(practice.id)}
-                  className="flex items-center gap-2"
-                  style={{ 
-                    backgroundColor: selectedPractice === practice.id ? practice.color : undefined,
-                    borderColor: practice.color 
-                  }}
-                >
-                  <div 
-                    className="w-3 h-3 rounded-full" 
-                    style={{ backgroundColor: practice.color }}
-                  />
-                  {practice.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Main Calendar Tabs */}
+      <Tabs value={calendarTab} onValueChange={(value: any) => setCalendarTab(value)}>
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="calendar" className="flex items-center gap-2">
+            <CalendarIcon className="h-4 w-4" />
+            Calendar & Events
+          </TabsTrigger>
+          <TabsTrigger value="ideas" className="flex items-center gap-2">
+            <Palette className="h-4 w-4" />
+            Smart Ideas Sketchboard
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Smart Ideas Capture Panel */}
-      {showSmartCapture && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Brain className="h-5 w-5" />
-              Smart Ideas Captured
-            </CardTitle>
-            <CardDescription>
-              AI-analyzed content ideas from voice capture
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {smartIdeas.length === 0 ? (
-              <div className="text-center py-4 text-gray-500">
-                No smart ideas captured yet. Try voice recording!
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {smartIdeas.map((idea, index) => (
-                  <div key={index} className="p-3 border rounded-lg">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="font-medium">{idea.analyzedContent.suggestedTitle}</div>
-                      <Badge variant="outline">
-                        {idea.analyzedContent.contentType}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-gray-600 mb-2">"{idea.transcript}"</p>
-                    <div className="flex flex-wrap gap-1">
-                      {idea.analyzedContent.suggestedHashtags.map(tag => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+        {/* Calendar View */}
+        <TabsContent value="calendar" className="space-y-4">
+          {/* Practice Selector */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Building2 className="h-5 w-5" />
+                Active Practices
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Button
+                  variant={selectedPractice === 'all' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedPractice('all')}
+                  className="flex items-center gap-2"
+                >
+                  <Users className="h-3 w-3" />
+                  All Practices
+                </Button>
+                {practices.map(practice => (
+                  <Button
+                    key={practice.id}
+                    variant={selectedPractice === practice.id ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedPractice(practice.id)}
+                    className="flex items-center gap-2"
+                    style={{
+                      backgroundColor: selectedPractice === practice.id ? practice.color : 'transparent',
+                      borderColor: practice.color
+                    }}
+                  >
+                    <div 
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: practice.color }}
+                    />
+                    {practice.name}
+                  </Button>
                 ))}
               </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
+            </CardContent>
+          </Card>
 
-      {/* Calendar Controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => navigateCalendar('prev')}>
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => navigateCalendar('next')}>
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+          {/* Calendar Navigation */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button variant="outline" size="sm" onClick={() => navigateMonth('prev')}>
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <h2 className="text-xl font-semibold">
+                {currentDate.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}
+              </h2>
+              <Button variant="outline" size="sm" onClick={() => navigateMonth('next')}>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                variant={viewMode === 'month' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('month')}
+              >
+                Month
+              </Button>
+              <Button
+                variant={viewMode === 'week' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('week')}
+              >
+                Week
+              </Button>
+              <Button
+                variant={viewMode === 'day' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('day')}
+              >
+                Day
+              </Button>
+              <Button
+                variant={viewMode === 'agenda' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('agenda')}
+              >
+                Agenda
+              </Button>
+            </div>
           </div>
-          
-          <h3 className="text-lg font-semibold">
-            {currentDate.toLocaleDateString('en-AU', { 
-              month: 'long', 
-              year: 'numeric' 
-            })}
-          </h3>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentDate(new Date())}
-          >
-            Today
-          </Button>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Button
-            variant={viewMode === 'month' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('month')}
-          >
-            Month
-          </Button>
-          <Button
-            variant={viewMode === 'week' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('week')}
-          >
-            Week
-          </Button>
-          <Button
-            variant={viewMode === 'day' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('day')}
-          >
-            Day
-          </Button>
-          <Button
-            variant={viewMode === 'agenda' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('agenda')}
-          >
-            Agenda
-          </Button>
-        </div>
-      </div>
 
-      {/* Calendar Grid - Month View */}
-      {viewMode === 'month' && (
-        <Card>
-          <CardContent className="p-0">
-            <div className="grid grid-cols-7 border-b">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="p-3 text-center font-medium border-r last:border-r-0">
-                  {day}
+          {/* Calendar Grid - Month View */}
+          {viewMode === 'month' && (
+            <Card>
+              <CardContent className="p-0">
+                <div className="grid grid-cols-7 border-b">
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} className="p-3 text-center font-medium border-r last:border-r-0">
+                      {day}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            
-            <div className="grid grid-cols-7">
-              {generateCalendarDays().map((date, index) => {
-                const isCurrentMonth = date.getMonth() === currentDate.getMonth();
-                const isToday = date.toDateString() === new Date().toDateString();
-                const dayEvents = getEventsForDate(date);
                 
-                return (
-                  <div
-                    key={index}
-                    className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
-                      !isCurrentMonth ? 'bg-gray-50 text-gray-400' : ''
-                    } ${isToday ? 'bg-blue-50' : ''}`}
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => handleDrop(e, date)}
-                  >
-                    <div className={`text-sm font-medium mb-1 ${isToday ? 'text-blue-600' : ''}`}>
-                      {date.getDate()}
-                    </div>
+                <div className="grid grid-cols-7">
+                  {generateCalendarDays().map((date, index) => {
+                    const isCurrentMonth = date.getMonth() === currentDate.getMonth();
+                    const isToday = date.toDateString() === new Date().toDateString();
+                    const dayEvents = getEventsForDate(date);
                     
-                    <div className="space-y-1">
-                      {dayEvents.slice(0, 3).map(event => (
-                        <div
-                          key={event.id}
-                          draggable
-                          onDragStart={() => handleDragStart(event)}
-                          className="text-xs p-1 rounded cursor-move"
-                          style={{ 
-                            backgroundColor: getPracticeColor(event.practiceId) + '20',
-                            borderLeft: `3px solid ${getPracticeColor(event.practiceId)}`
-                          }}
-                        >
-                          <div className="flex items-center gap-1">
-                            {getEventTypeIcon(event.type)}
-                            <span className="truncate">{event.title}</span>
-                          </div>
+                    return (
+                      <div
+                        key={index}
+                        className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
+                          !isCurrentMonth ? 'bg-gray-50 text-gray-400' : ''
+                        } ${isToday ? 'bg-blue-50' : ''}`}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDrop(e, date)}
+                      >
+                        <div className={`text-sm font-medium mb-1 ${isToday ? 'text-blue-600' : ''}`}>
+                          {date.getDate()}
                         </div>
-                      ))}
-                      {dayEvents.length > 3 && (
-                        <div className="text-xs text-gray-500">
-                          +{dayEvents.length - 3} more
+                        
+                        <div className="space-y-1">
+                          {dayEvents.slice(0, 3).map(event => (
+                            <div
+                              key={event.id}
+                              draggable
+                              onDragStart={() => handleDragStart(event)}
+                              className="text-xs p-1 rounded cursor-move"
+                              style={{ 
+                                backgroundColor: getPracticeColor(event.practiceId) + '20',
+                                borderLeft: `3px solid ${getPracticeColor(event.practiceId)}`
+                              }}
+                            >
+                              <div className="flex items-center gap-1">
+                                {getEventTypeIcon(event.type)}
+                                <span className="truncate">{event.title}</span>
+                              </div>
+                            </div>
+                          ))}
+                          {dayEvents.length > 3 && (
+                            <div className="text-xs text-gray-500">
+                              +{dayEvents.length - 3} more
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Smart Ideas Sketchboard Tab */}
+        <TabsContent value="ideas">
+          <SmartIdeasSketchboard 
+            practiceId={selectedPractice === 'all' ? practices[0]?.id : selectedPractice}
+            onIdeaConverted={handleIdeaConverted}
+          />
+        </TabsContent>
+      </Tabs>
 
       {/* Voice Recording Indicator */}
       {isVoiceRecording && (

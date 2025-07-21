@@ -1,8 +1,9 @@
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import { GlobalErrorBoundary } from "@/components/error/GlobalErrorBoundary";
@@ -10,121 +11,285 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { EmailConfirmationGuard } from "@/components/auth/EmailConfirmationGuard";
 import AuthPage from "@/components/auth/AuthPage";
 import AppLayout from "@/components/layout/AppLayout";
-import Index from "./pages/Index";
-import Features from "./pages/Features";
-import Pricing from "./pages/Pricing";
-import CommonQuestions from "./pages/CommonQuestions";
-import Dashboard from "./pages/Dashboard";
-import { CreateContent } from "./pages/CreateContent";
-import { Blog } from "./pages/Blog";
-import Competitors from "./pages/Competitors";
-import Templates from "./pages/Templates";
-import Posts from "./pages/Posts";
-import SocialMedia from "./pages/SocialMedia";
-import Calendar from "./pages/Calendar";
-import Analytics from "./pages/Analytics";
-import Diary from "./pages/Diary";
-import BusinessSettings from "./pages/BusinessSettings";
-import CrossBusinessFeatures from "./pages/CrossBusinessFeatures";
-import AdminPanel from "./pages/AdminPanel";
-import PromptsPage from "./pages/PromptsPage";
-import NotFound from "./pages/NotFound";
-import BlogPage from "./pages/BlogPage";
-import BlogAdmin from "./pages/BlogAdmin";
-import BlogPost from "./components/blog/BlogPost";
-import AustralianSetupService from "./pages/AustralianSetupService";
-import AustralianServices from "./pages/AustralianServices";
-import AllServices from "./pages/AllServices";
-import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
-import Discover from "./pages/Discover";
-import Onboarding from "./pages/Onboarding";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import { EmbeddableBlog } from './components/blog/EmbeddableBlog';
-import { BlogEmbedWizard } from './components/blog/BlogEmbedWizard';
-import { ComprehensiveContentStudio } from './components/studio/ComprehensiveContentStudio';
-import { HealthcareBlogEmbed } from './pages/HealthcareBlogEmbed';
-import OAuthCallback from './pages/OAuthCallback';
-import PublishingPipelinePage from './pages/PublishingPipeline';
-import { HealthcareValidationDashboard } from './components/validation/HealthcareValidationDashboard';
-import { HealthcareCopyPasteWorkflow } from './components/social/HealthcareCopyPasteWorkflow';
+import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
+import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
+
+// Loading component for lazy loaded routes
+const PageLoader = ({ page }: { page: string }) => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <p className="text-sm text-muted-foreground">Loading {page}...</p>
+    </div>
+  </div>
+);
+
+// Lazy load all major components to reduce initial bundle size
+const CreateContent = lazy(() => import("./pages/CreateContent").then(module => ({ default: module.CreateContent })));
+const Blog = lazy(() => import("./pages/Blog").then(module => ({ default: module.Blog })));
+const Competitors = lazy(() => import("./pages/Competitors"));
+const Templates = lazy(() => import("./pages/Templates"));
+const Posts = lazy(() => import("./pages/Posts"));
+const SocialMedia = lazy(() => import("./pages/SocialMedia"));
+const Calendar = lazy(() => import("./pages/Calendar"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const Diary = lazy(() => import("./pages/Diary"));
+const BusinessSettings = lazy(() => import("./pages/BusinessSettings"));
+const CrossBusinessFeatures = lazy(() => import("./pages/CrossBusinessFeatures"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const PromptsPage = lazy(() => import("./pages/PromptsPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const AustralianSetupService = lazy(() => import("./pages/AustralianSetupService"));
+const AustralianServices = lazy(() => import("./pages/AustralianServices"));
+const AllServices = lazy(() => import("./pages/AllServices"));
+const Discover = lazy(() => import("./pages/Discover"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
+const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
+
+// Lazy load complex components
+const BlogPost = lazy(() => import("./components/blog/BlogPost"));
+const EmbeddableBlog = lazy(() => import('./components/blog/EmbeddableBlog').then(module => ({ default: module.EmbeddableBlog })));
+const BlogEmbedWizard = lazy(() => import('./components/blog/BlogEmbedWizard').then(module => ({ default: module.BlogEmbedWizard })));
+const ComprehensiveContentStudio = lazy(() => import('./components/studio/ComprehensiveContentStudio').then(module => ({ default: module.ComprehensiveContentStudio })));
+const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed').then(module => ({ default: module.HealthcareBlogEmbed })));
+const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
+const HealthcareValidationDashboard = lazy(() => import('./components/validation/HealthcareValidationDashboard').then(module => ({ default: module.HealthcareValidationDashboard })));
+const HealthcareCopyPasteWorkflow = lazy(() => import('./components/social/HealthcareCopyPasteWorkflow').then(module => ({ default: module.HealthcareCopyPasteWorkflow })));
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <UserProfileProvider>
-          <GlobalErrorBoundary>
-          <Toaster />
-          <Sonner />
-          <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/features" element={<Features />} />
-              <Route path="/all-services" element={<AllServices />} />
-              <Route path="/discover" element={<Discover />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/common-questions" element={<CommonQuestions />} />
-              <Route path="/australian-setup-service" element={<AustralianSetupService />} />
-              <Route path="/australian-services" element={<AustralianServices />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/embed/blog" element={<EmbeddableBlog />} />
-              <Route path="/auth" element={
-                <ProtectedRoute requireAuth={false}>
-                  <AuthPage />
-                </ProtectedRoute>
-              } />
-              <Route path="/auth/callback" element={<OAuthCallback />} />
-              <Route path="/questionnaire" element={
-                <ProtectedRoute>
-                  <BusinessQuestionnaire />
-                </ProtectedRoute>
-              } />
-              <Route path="/questionnaire-required" element={
-                <ProtectedRoute>
-                  <BusinessQuestionnaire />
-                </ProtectedRoute>
-              } />
-              <Route path="/onboarding" element={
-                <ProtectedRoute>
-                  <Onboarding />
-                </ProtectedRoute>
-              } />
-              <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <EmailConfirmationGuard>
-                    <AppLayout />
-                  </EmailConfirmationGuard>
-                </ProtectedRoute>
-              }>
-                <Route index element={<Dashboard />} />
-                <Route path="create" element={<CreateContent />} />
-                <Route path="posts" element={<Posts />} />
-                <Route path="competitors" element={<Competitors />} />
-                <Route path="templates" element={<Templates />} />
-                <Route path="social" element={<SocialMedia />} />
-                <Route path="calendar" element={<Calendar />} />
-                <Route path="diary" element={<Diary />} />
-                <Route path="analytics" element={<Analytics />} />
-                <Route path="business-settings" element={<BusinessSettings />} />
-                <Route path="cross-business" element={<CrossBusinessFeatures />} />
-                <Route path="blog-admin" element={<BlogAdmin />} />
-                <Route path="admin" element={<AdminPanel />} />
-                <Route path="prompts" element={<PromptsPage />} />
-                <Route path="content-studio" element={<ComprehensiveContentStudio />} />
-                <Route path="blog-embed" element={<HealthcareBlogEmbed />} />
-                <Route path="validation" element={<HealthcareValidationDashboard />} />
-                <Route path="copy-paste-workflow" element={<HealthcareCopyPasteWorkflow practiceType="General Practice" specialty="Family Medicine" />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </GlobalErrorBoundary>
-        </UserProfileProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+// High-order component for lazy loading with error boundary
+const withLazyLoading = (Component: React.LazyExoticComponent<React.ComponentType<any>>, pageName: string) => {
+  return (props: any) => (
+    <Suspense fallback={<PageLoader page={pageName} />}>
+      <Component {...props} />
+    </Suspense>
+  );
+};
+
+// Create lazy loaded components with error boundaries
+const LazyCreateContent = withLazyLoading(CreateContent, 'Content Creator');
+const LazyBlog = withLazyLoading(Blog, 'Blog Manager');
+const LazyCompetitors = withLazyLoading(Competitors, 'Competitors');
+const LazyTemplates = withLazyLoading(Templates, 'Templates');
+const LazyPosts = withLazyLoading(Posts, 'Posts');
+const LazySocialMedia = withLazyLoading(SocialMedia, 'Social Media');
+const LazyCalendar = withLazyLoading(Calendar, 'Calendar');
+const LazyAnalytics = withLazyLoading(Analytics, 'Analytics');
+const LazyDiary = withLazyLoading(Diary, 'Diary');
+const LazyBusinessSettings = withLazyLoading(BusinessSettings, 'Settings');
+const LazyCrossBusinessFeatures = withLazyLoading(CrossBusinessFeatures, 'Business Features');
+const LazyAdminPanel = withLazyLoading(AdminPanel, 'Admin Panel');
+const LazyPromptsPage = withLazyLoading(PromptsPage, 'Prompts');
+const LazyBlogPage = withLazyLoading(BlogPage, 'Blog');
+const LazyBlogAdmin = withLazyLoading(BlogAdmin, 'Blog Admin');
+const LazyAustralianSetupService = withLazyLoading(AustralianSetupService, 'Setup Service');
+const LazyAustralianServices = withLazyLoading(AustralianServices, 'Australian Services');
+const LazyAllServices = withLazyLoading(AllServices, 'All Services');
+const LazyDiscover = withLazyLoading(Discover, 'Discover');
+const LazyOnboarding = withLazyLoading(Onboarding, 'Onboarding');
+const LazyPrivacyPolicy = withLazyLoading(PrivacyPolicy, 'Privacy Policy');
+const LazyOAuthCallback = withLazyLoading(OAuthCallback, 'Authentication');
+const LazyPublishingPipelinePage = withLazyLoading(PublishingPipelinePage, 'Publishing');
+const LazyNotFound = withLazyLoading(NotFound, '404');
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <GlobalErrorBoundary>
+          <AuthProvider>
+            <UserProfileProvider>
+              <BusinessProfileProvider>
+                <BusinessThemeProvider>
+                  <Router>
+                    <Routes>
+                      <Route path="/auth" element={<AuthPage />} />
+                      <Route path="/oauth/callback" element={<LazyOAuthCallback />} />
+                      
+                      <Route path="/" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyDiscover />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/onboarding" element={
+                        <ProtectedRoute>
+                          <AppLayout>
+                            <LazyOnboarding />
+                          </AppLayout>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/create" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyCreateContent />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/blog" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyBlog />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/blog/:businessId" element={<LazyBlogPage />} />
+                      
+                      <Route path="/blog-admin" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyBlogAdmin />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/competitors" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyCompetitors />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/templates" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyTemplates />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/posts" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyPosts />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/social" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazySocialMedia />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/calendar" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyCalendar />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/analytics" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyAnalytics />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/diary" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyDiary />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/settings" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyBusinessSettings />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/cross-business" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyCrossBusinessFeatures />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/admin" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyAdminPanel />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/prompts" element={
+                        <ProtectedRoute>
+                          <EmailConfirmationGuard>
+                            <AppLayout>
+                              <LazyPromptsPage />
+                            </AppLayout>
+                          </EmailConfirmationGuard>
+                        </ProtectedRoute>
+                      } />
+                      
+                      <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
+                      <Route path="/australian-services" element={<LazyAustralianServices />} />
+                      <Route path="/services" element={<LazyAllServices />} />
+                      <Route path="/privacy" element={<LazyPrivacyPolicy />} />
+                      <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
+                      
+                      <Route path="*" element={<LazyNotFound />} />
+                    </Routes>
+                  </Router>
+                  <Toaster />
+                  <Sonner />
+                </BusinessThemeProvider>
+              </BusinessProfileProvider>
+            </UserProfileProvider>
+          </AuthProvider>
+        </GlobalErrorBoundary>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
 
 export default App;
