@@ -53,6 +53,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
 const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
 const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
+const PublicBlog = lazy(() => import("./pages/PublicBlog").then(module => ({ default: module.PublicBlog })));
 
 // MISSING PUBLIC PAGES - CRITICAL FIX
 const Pricing = lazy(() => import("./pages/Pricing"));
@@ -116,6 +117,7 @@ const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Busine
 const LazyPricing = withLazyLoading(Pricing, 'Pricing');
 const LazyFeatures = withLazyLoading(Features, 'Features');
 const LazyCommonQuestions = withLazyLoading(CommonQuestions, 'FAQ');
+const LazyPublicBlog = withLazyLoading(PublicBlog, 'Blog');
 
 function App() {
   return (
@@ -229,7 +231,18 @@ function App() {
                     } />
                     
                     {/* PUBLIC BLOG ROUTE - NO LOGIN REQUIRED */}
-                    <Route path="/blog/*" element={<LazyBlog />} />
+                    <Route path="/blog" element={<LazyPublicBlog />} />
+                    
+                    {/* PROTECTED BLOG MANAGER FOR AUTHENTICATED USERS */}
+                    <Route path="/blog-manager/*" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyBlog />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
                     
                     <Route path="/templates" element={
                       <ProtectedRoute>
