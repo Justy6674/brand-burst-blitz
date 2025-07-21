@@ -52,6 +52,11 @@ const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
 const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
 const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
 
+// MISSING PUBLIC PAGES - CRITICAL FIX
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Features = lazy(() => import("./pages/Features"));
+const CommonQuestions = lazy(() => import("./pages/CommonQuestions"));
+
 // Lazy load complex components
 const BlogPost = lazy(() => import("./components/blog/BlogPost"));
 const EmbeddableBlog = lazy(() => import('./components/blog/EmbeddableBlog').then(module => ({ default: module.EmbeddableBlog })));
@@ -105,6 +110,11 @@ const LazyBlogPost = withLazyLoading(BlogPost, 'Blog Post');
 const LazyEmbeddableBlog = withLazyLoading(EmbeddableBlog, 'Embeddable Blog');
 const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Business Questionnaire');
 
+// MISSING PUBLIC PAGE COMPONENTS - CRITICAL FIX
+const LazyPricing = withLazyLoading(Pricing, 'Pricing');
+const LazyFeatures = withLazyLoading(Features, 'Features');
+const LazyCommonQuestions = withLazyLoading(CommonQuestions, 'FAQ');
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -120,6 +130,24 @@ function App() {
                     
                     {/* PUBLIC HEALTHCARE LANDING PAGE */}
                     <Route path="/" element={<Index />} />
+                    
+                    {/* PUBLIC PAGES - CRITICAL MISSING ROUTES */}
+                    <Route path="/pricing" element={<LazyPricing />} />
+                    <Route path="/features" element={<LazyFeatures />} />
+                    <Route path="/faq" element={<LazyCommonQuestions />} />
+                    <Route path="/questions" element={<LazyCommonQuestions />} />
+                    
+                    {/* PUBLIC BLOG PAGES - NO LOGIN REQUIRED */}
+                    <Route path="/blog-post/:id" element={<LazyBlogPost />} />
+                    <Route path="/embeddable-blog" element={<LazyEmbeddableBlog />} />
+                    <Route path="/blog-public" element={<LazyBlogPage />} />
+                    
+                    {/* PUBLIC SERVICES */}
+                    <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
+                    <Route path="/australian-services" element={<LazyAustralianServices />} />
+                    <Route path="/services" element={<LazyAllServices />} />
+                    <Route path="/privacy" element={<LazyPrivacyPolicy />} />
+                    <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
                     
                     {/* PROTECTED MEMBERS DASHBOARD */}
                     <Route path="/dashboard" element={
@@ -201,18 +229,6 @@ function App() {
                         <EmailConfirmationGuard>
                           <AppLayout>
                             <LazyBlog />
-                          </AppLayout>
-                        </EmailConfirmationGuard>
-                      </ProtectedRoute>
-                    } />
-                    
-                    <Route path="/blog-post/:id" element={<LazyBlogPost />} />
-                    <Route path="/embeddable-blog" element={<LazyEmbeddableBlog />} />
-                    <Route path="/blog-admin" element={
-                      <ProtectedRoute>
-                        <EmailConfirmationGuard>
-                          <AppLayout>
-                            <LazyBlogAdmin />
                           </AppLayout>
                         </EmailConfirmationGuard>
                       </ProtectedRoute>
@@ -315,12 +331,6 @@ function App() {
                         </EmailConfirmationGuard>
                       </ProtectedRoute>
                     } />
-                    
-                    <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
-                    <Route path="/australian-services" element={<LazyAustralianServices />} />
-                    <Route path="/services" element={<LazyAllServices />} />
-                    <Route path="/privacy" element={<LazyPrivacyPolicy />} />
-                    <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
                     
                     <Route path="*" element={<LazyNotFound />} />
                   </Routes>
