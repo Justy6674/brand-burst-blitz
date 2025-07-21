@@ -239,75 +239,111 @@ export const HealthcareRevenueServicesEngine: React.FC = () => {
     }
   };
 
-  // Start service order process
-  const handleOrderService = async (service: HealthcareService) => {
-    setLoading(true);
+  const handleServicePurchase = async (service: HealthcareService) => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) throw new Error('Not authenticated');
-
-      // In a real implementation, this would integrate with Stripe for Australian payments
-      const response = await fetch(
-        `${supabase.supabaseUrl}/functions/v1/create-healthcare-service-order`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`
-          },
-          body: JSON.stringify({
-            service_id: service.id,
-            service_name: service.name,
-            price: service.price,
-            currency: 'AUD'
-          })
+      setLoading(true);
+      
+      // REAL SERVICE ORDER PROCESSING - No more simulation
+      const { data, error } = await supabase.functions.invoke('process-healthcare-service-order', {
+        body: {
+          serviceId: service.id,
+          userId: user?.id,
+          practiceId: user?.id,
+          serviceType: service.category,
+          price: service.price,
+          deliveryExpected: service.deliveryTime
         }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to create service order');
-      }
-
-      toast({
-        title: "Service Order Created",
-        description: `Your ${service.name} order has been created. Proceeding to payment.`,
       });
 
-      // In production, redirect to Stripe checkout
-      // window.location.href = result.checkout_url;
-      
-      // For demo, simulate successful order
-      simulateServiceDelivery(service.id);
+      if (error) {
+        throw new Error(error.message || 'Order processing failed');
+      }
 
-    } catch (error) {
-      console.error('Error ordering service:', error);
+      if (data.success) {
+        toast({
+          title: "Service Ordered Successfully",
+          description: `${service.name} has been ordered. Expected delivery: ${service.deliveryTime}`,
+        });
+
+        // Start real service delivery tracking
+        startRealServiceDelivery(service.id, data.orderId);
+        
+        // Update service status
+        setServices(prev => prev.map(s => 
+          s.id === service.id 
+            ? { ...s, status: 'ordered' as const }
+            : s
+        ));
+      } else {
+        throw new Error(data.error || 'Service order failed');
+      }
+
+    } catch (error: any) {
+      console.error('Service purchase error:', error);
       toast({
         title: "Order Failed",
-        description: "Unable to process your service order. Please try again.",
-        variant: "destructive",
+        description: error.message || "Failed to process service order",
+        variant: "destructive"
       });
     } finally {
       setLoading(false);
     }
   };
 
-  // Simulate service delivery progress (in production, this would be real backend processes)
-  const simulateServiceDelivery = (serviceId: string) => {
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 15 + 5; // Random progress between 5-20%
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        toast({
-          title: "Service Delivered",
-          description: "Your healthcare service has been completed and delivered!",
-        });
+  // REAL SERVICE DELIVERY TRACKING - Replace simulation
+  const startRealServiceDelivery = async (serviceId: string, orderId: string) => {
+    try {
+      // Subscribe to real-time service delivery updates
+      const { data, error } = await supabase.functions.invoke('track-service-delivery', {
+        body: {
+          serviceId,
+          orderId,
+          userId: user?.id,
+          enableRealTimeUpdates: true
+        }
+      });
+
+      if (error) {
+        console.error('Service tracking error:', error);
+        return;
       }
-      setOrderProgress(prev => ({ ...prev, [serviceId]: Math.min(progress, 100) }));
-    }, 2000);
+
+      // Set up real-time subscription for delivery updates
+      const subscription = supabase
+        .channel(`service_delivery_${orderId}`)
+        .on('postgres_changes', {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'service_orders',
+          filter: `id=eq.${orderId}`
+        }, (payload) => {
+          // Update service delivery progress with real data
+          const newProgress = payload.new.progress_percentage || 0;
+          setServiceProgress(prev => ({
+            ...prev,
+            [serviceId]: {
+              progress: newProgress,
+              status: payload.new.status,
+              lastUpdate: new Date(payload.new.updated_at)
+            }
+          }));
+
+          // Notify when service is completed
+          if (newProgress >= 100) {
+            toast({
+              title: "Service Completed",
+              description: "Your healthcare service has been delivered successfully",
+            });
+          }
+        })
+        .subscribe();
+
+      // Store subscription for cleanup
+      setActiveSubscriptions(prev => [...prev, subscription]);
+
+    } catch (error) {
+      console.error('Error setting up service tracking:', error);
+    }
   };
 
   const getServiceIcon = (category: string) => {
@@ -426,7 +462,7 @@ export const HealthcareRevenueServicesEngine: React.FC = () => {
                     </div>
                     
                     <Button 
-                      onClick={() => handleOrderService(service)}
+                      onClick={() => handleServicePurchase(service)}
                       disabled={loading || service.status === 'coming_soon'}
                       className="bg-green-600 hover:bg-green-700"
                     >

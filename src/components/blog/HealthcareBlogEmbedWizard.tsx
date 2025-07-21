@@ -17,6 +17,8 @@ import {
   Smartphone, Monitor, Globe, Shield, ChevronRight, ChevronLeft,
   Zap, FileText, Settings, Star, Play, Download
 } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
+import { supabase } from '@/lib/supabase';
 
 interface WizardStep {
   id: string;
@@ -143,77 +145,63 @@ export const HealthcareBlogEmbedWizard = () => {
     show_practice_registration: true
   });
 
-  // Mock blog posts for preview
-  const mockBlogPosts = [
-    {
-      id: '1',
-      title: 'Understanding Heart Health: A Patient Guide',
-      slug: 'understanding-heart-health-patient-guide',
-      excerpt: 'Learn about maintaining cardiovascular health through lifestyle choices and regular check-ups.',
-      content: 'Heart health is fundamental to overall wellbeing...',
-      featured_image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400',
-      categories: ['Patient Education', 'General Health'],
-      tags: ['heart health', 'prevention'],
-      author: {
-        name: user?.practice_name || 'Healthcare Professional',
-        ahpra_registration: user?.ahpra_registration,
-        specialty: user?.profession_type?.replace('_', ' ') || 'Healthcare'
-      },
-      published_date: new Date().toISOString(),
-      seo_meta: {
-        title: 'Understanding Heart Health: A Patient Guide',
-        description: 'Learn about maintaining cardiovascular health through lifestyle choices and regular check-ups.',
-        keywords: ['heart health', 'cardiovascular', 'prevention', 'patient education'],
-        canonical_url: `${formData.website_url}/blog/understanding-heart-health-patient-guide`
-      },
-      compliance_status: {
-        ahpra_compliant: true,
-        tga_compliant: true,
-        compliance_score: 98,
-        disclaimers: ['This information is for educational purposes only. Consult your healthcare provider for medical advice.']
-      },
-      healthcare_metadata: {
-        target_audience: 'patients' as const,
-        medical_accuracy_verified: true,
-        evidence_based: true,
-        specialty_specific: ['General Practice', 'Cardiology']
+  // REAL BLOG POSTS - No more mock data
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+
+  useEffect(() => {
+    loadRealBlogPosts();
+  }, []);
+
+  const loadRealBlogPosts = async () => {
+    try {
+      setIsLoadingPosts(true);
+      
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('user_id', user?.id)
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (error) {
+        console.error('Error loading blog posts:', error);
+        setBlogPosts([]);
+        return;
       }
-    },
-    {
-      id: '2',
-      title: 'Mental Health Support: When to Seek Help',
-      slug: 'mental-health-support-when-to-seek-help',
-      excerpt: 'Recognising the signs when professional mental health support may be beneficial.',
-      content: 'Mental health is just as important as physical health...',
-      featured_image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400',
-      categories: ['Mental Health', 'Patient Education'],
-      tags: ['mental health', 'support', 'wellbeing'],
-      author: {
-        name: user?.practice_name || 'Healthcare Professional',
-        ahpra_registration: user?.ahpra_registration,
-        specialty: user?.profession_type?.replace('_', ' ') || 'Healthcare'
-      },
-      published_date: new Date(Date.now() - 86400000).toISOString(),
-      seo_meta: {
-        title: 'Mental Health Support: When to Seek Help',
-        description: 'Recognising the signs when professional mental health support may be beneficial.',
-        keywords: ['mental health', 'psychology', 'support', 'wellbeing'],
-        canonical_url: `${formData.website_url}/blog/mental-health-support-when-to-seek-help`
-      },
-      compliance_status: {
-        ahpra_compliant: true,
-        tga_compliant: true,
-        compliance_score: 96,
-        disclaimers: ['This information is for educational purposes only. Consult your healthcare provider for mental health concerns.']
-      },
-      healthcare_metadata: {
-        target_audience: 'patients' as const,
-        medical_accuracy_verified: true,
-        evidence_based: true,
-        specialty_specific: ['Psychology', 'Mental Health']
+
+      // Transform Supabase data to component format
+      const realPosts: BlogPost[] = (data || []).map(post => ({
+        id: post.id,
+        title: post.title,
+        excerpt: post.excerpt || post.content?.substring(0, 150) + '...',
+        content: post.content,
+        author: 'Healthcare Professional',
+        date: new Date(post.created_at).toLocaleDateString(),
+        category: post.category || 'Healthcare',
+        tags: post.tags || [],
+        featured_image: post.featured_image,
+        compliance_score: post.compliance_score || 100
+      }));
+
+      setBlogPosts(realPosts);
+
+      if (realPosts.length === 0) {
+        toast({
+          title: "No Blog Posts Found",
+          description: "Create some blog posts first to use the embed wizard",
+          variant: "default"
+        });
       }
+
+    } catch (error) {
+      console.error('Error loading real blog posts:', error);
+      setBlogPosts([]);
+    } finally {
+      setIsLoadingPosts(false);
     }
-  ];
+  };
 
   const markStepComplete = (stepId: string) => {
     setCompletedSteps(prev => new Set([...prev, stepId]));
@@ -285,9 +273,9 @@ export const HealthcareBlogEmbedWizard = () => {
         }
       };
 
-      const filteredPosts = mockBlogPosts.filter(post => 
+      const filteredPosts = blogPosts.filter(post => 
         formData.selected_categories.length === 0 || 
-        post.categories.some(cat => formData.selected_categories.includes(cat))
+        post.category.some(cat => formData.selected_categories.includes(cat))
       );
 
       const result = await generateSSRHTML(filteredPosts, config);

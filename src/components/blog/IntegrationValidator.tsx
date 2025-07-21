@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { CheckCircle, XCircle, AlertTriangle, Loader2, TestTube } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { blogService, PlatformIntegration } from '@/services/blogService';
+import { supabase } from '@/lib/supabase';
 
 interface IntegrationValidatorProps {
   integration: PlatformIntegration;
@@ -253,15 +254,37 @@ export const IntegrationValidator: React.FC<IntegrationValidatorProps> = ({
 
       case 'wp_connection':
         if (config.siteUrl && config.username && config.applicationPassword) {
-          // Simulate WordPress connection test
-          const connectionSuccess = Math.random() > 0.2; // 80% success rate simulation
-          return connectionSuccess
-            ? { status: 'passed', message: 'WordPress connection successful' }
-            : { 
-                status: 'failed', 
-                message: 'Failed to connect to WordPress',
-                recommendation: 'Check your credentials and ensure the WordPress site is accessible'
-              };
+          // REAL WORDPRESS VALIDATION - No more simulation
+          const { data, error } = await supabase.functions.invoke('validate-wordpress-integration', {
+            body: {
+              siteUrl: config.siteUrl,
+              username: config.username,
+              password: config.applicationPassword,
+              restApiEnabled: true
+            }
+          });
+
+          if (error) {
+            return {
+              status: 'failed',
+              message: `WordPress connection failed: ${error.message}`,
+              recommendation: 'Check your WordPress credentials and REST API settings'
+            };
+          }
+
+          if (data.success) {
+            return {
+              status: 'passed',
+              message: 'WordPress connection successful',
+              recommendation: `Connected to ${config.siteUrl} successfully`
+            };
+          } else {
+            return {
+              status: 'failed',
+              message: 'WordPress validation failed',
+              recommendation: data.error || 'Unable to connect to WordPress site'
+            };
+          }
         }
         return { status: 'failed', message: 'WordPress credentials not provided' };
 
@@ -281,17 +304,44 @@ export const IntegrationValidator: React.FC<IntegrationValidatorProps> = ({
       case 'custom_endpoint':
         if (config.apiEndpoint) {
           try {
-            // Simulate endpoint test
-            const endpointValid = Math.random() > 0.3; // 70% success rate simulation
-            return endpointValid
-              ? { status: 'passed', message: 'API endpoint is accessible' }
-              : { 
-                  status: 'failed', 
-                  message: 'API endpoint is not responding',
-                  recommendation: 'Check your API endpoint URL and ensure it\'s accessible'
-                };
-          } catch (error) {
-            return { status: 'failed', message: 'Invalid API endpoint URL' };
+            // REAL ENDPOINT VALIDATION - No more simulation
+            const { data, error } = await supabase.functions.invoke('validate-custom-endpoint', {
+              body: {
+                endpoint: config.apiEndpoint,
+                method: config.method || 'POST',
+                headers: config.headers,
+                authToken: config.authToken
+              }
+            });
+
+            if (error) {
+              return {
+                status: 'failed',
+                message: `Custom endpoint failed: ${error.message}`,
+                recommendation: 'Check your endpoint URL and authentication'
+              };
+            }
+
+            if (data.success) {
+              return {
+                status: 'passed',
+                message: 'Custom endpoint validation successful',
+                recommendation: `Endpoint ${config.apiEndpoint} is working correctly`
+              };
+            } else {
+              return {
+                status: 'warning',
+                message: 'Custom endpoint validation warning',
+                recommendation: data.warning || 'Endpoint may have limited functionality'
+              };
+            }
+
+          } catch (error: any) {
+            return {
+              status: 'failed',
+              message: 'Custom endpoint error',
+              recommendation: error.message || 'Unknown validation error'
+            };
           }
         }
         return { status: 'failed', message: 'API endpoint not provided' };

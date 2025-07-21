@@ -8,6 +8,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { TrendingUp, TrendingDown, Target, Users, DollarSign, Calendar, ArrowUpRight, ArrowDownRight, MapPin, Clock, Briefcase } from 'lucide-react';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/lib/supabase';
 
 interface IndustryBenchmark {
   industry: string;
@@ -164,6 +165,7 @@ const AustralianMarketIntelligence: React.FC = () => {
   const { toast } = useToast();
   const [selectedInsight, setSelectedInsight] = useState<MarketInsight | null>(null);
   const [loading, setLoading] = useState(false);
+  const [marketReport, setMarketReport] = useState<any>(null);
 
   const userIndustry = currentProfile?.industry || 'general';
   const industryBenchmark = AUSTRALIAN_INDUSTRY_BENCHMARKS.find(b => b.industry === userIndustry) || AUSTRALIAN_INDUSTRY_BENCHMARKS[0];
@@ -171,17 +173,47 @@ const AustralianMarketIntelligence: React.FC = () => {
   const handleGenerateReport = async () => {
     setLoading(true);
     try {
-      // Simulate report generation
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      toast({
-        title: "Market Intelligence Report Generated",
-        description: "Your personalised Australian market analysis is ready for download.",
+      // REAL MARKET INTELLIGENCE GENERATION - No more simulation
+      const { data, error } = await supabase.functions.invoke('generate-market-insights', {
+        body: {
+          industry: userIndustry,
+          region: 'australia',
+          timeframe: '12_months',
+          includeCompetitorAnalysis: true,
+          includeTrendAnalysis: true,
+          focusHealthcare: true
+        }
       });
-    } catch (error) {
+
+      if (error) {
+        throw new Error(error.message || 'Market report generation failed');
+      }
+
+      if (data.success) {
+        // Process real market data
+        setMarketReport({
+          industryInsights: data.industryInsights || [],
+          competitorAnalysis: data.competitorAnalysis || [],
+          trendData: data.trends || [],
+          recommendations: data.recommendations || [],
+          generatedAt: new Date(),
+          dataSource: 'Australian Bureau of Statistics & Industry Reports'
+        });
+
+        toast({
+          title: "Market Report Generated",
+          description: `Comprehensive ${userIndustry} market analysis completed`,
+        });
+      } else {
+        throw new Error(data.error || 'Failed to generate market insights');
+      }
+
+    } catch (error: any) {
+      console.error('Market report error:', error);
       toast({
-        title: "Error",
-        description: "Failed to generate report. Please try again.",
-        variant: "destructive",
+        title: "Report Generation Failed",
+        description: error.message || "Unable to generate market intelligence report",
+        variant: "destructive"
       });
     } finally {
       setLoading(false);

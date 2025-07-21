@@ -17,6 +17,8 @@ import {
   DollarSign,
   AlertCircle
 } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
+import { supabase } from '@/lib/supabase';
 
 interface PricingPlan {
   name: string;
@@ -37,15 +39,71 @@ const AustralianSetupPricing = () => {
   const [abnNumber, setAbnNumber] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [isEligible, setIsEligible] = useState<boolean | null>(null);
+  const [abnValidation, setAbnValidation] = useState({
+    isValid: false,
+    businessName: '',
+    status: '',
+    entityType: ''
+  });
 
-  const validateABN = async () => {
+  const validateABN = async (abnNumber: string) => {
     if (!abnNumber.trim()) return;
     
     setIsValidating(true);
-    // Simulate ABN validation
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsEligible(true);
-    setIsValidating(false);
+    try {
+      // REAL ABN VALIDATION - No more simulation
+      const { data, error } = await supabase.functions.invoke('validate-australian-business', {
+        body: {
+          abn: abnNumber.replace(/\s/g, ''), // Remove spaces
+          validateWithATO: true,
+          checkBusinessStatus: true
+        }
+      });
+
+      if (error) {
+        throw new Error(error.message || 'ABN validation failed');
+      }
+
+      if (data.valid) {
+        setAbnValidation({
+          isValid: true,
+          businessName: data.businessName,
+          status: data.status,
+          entityType: data.entityType
+        });
+        
+        toast({
+          title: "ABN Validated",
+          description: `Valid ABN for ${data.businessName}`,
+        });
+      } else {
+        setAbnValidation({
+          isValid: false,
+          error: data.error || 'Invalid ABN number'
+        });
+        
+        toast({
+          title: "Invalid ABN",
+          description: data.error || "Please check your ABN number",
+          variant: "destructive"
+        });
+      }
+
+    } catch (error: any) {
+      console.error('ABN validation error:', error);
+      setAbnValidation({
+        isValid: false,
+        error: error.message || 'ABN validation service unavailable'
+      });
+      
+      toast({
+        title: "Validation Error",
+        description: error.message || "Failed to validate ABN",
+        variant: "destructive"
+      });
+    } finally {
+      setIsValidating(false);
+    }
   };
 
   const pricingPlans: PricingPlan[] = [
@@ -155,7 +213,7 @@ const AustralianSetupPricing = () => {
               maxLength={11}
             />
             <Button 
-              onClick={validateABN}
+              onClick={() => validateABN(abnNumber)}
               disabled={isValidating || abnNumber.length !== 11}
               className="bg-gradient-primary"
             >
@@ -163,7 +221,7 @@ const AustralianSetupPricing = () => {
             </Button>
           </div>
           
-          {isEligible === true && (
+          {abnValidation.isValid && (
             <div className="mt-4 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
               <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
                 <Check className="w-5 h-5" />
@@ -172,11 +230,11 @@ const AustralianSetupPricing = () => {
             </div>
           )}
           
-          {isEligible === false && (
+          {!abnValidation.isValid && (
             <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg">
               <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
                 <AlertCircle className="w-5 h-5" />
-                <span className="font-medium">This service is only available for registered Australian businesses.</span>
+                <span className="font-medium">{abnValidation.error}</span>
               </div>
             </div>
           )}
@@ -310,7 +368,7 @@ const AustralianSetupPricing = () => {
                       ? 'bg-green-600 hover:bg-green-700' 
                       : 'bg-gradient-primary'
                   }`}
-                  disabled={!isEligible}
+                  disabled={!abnValidation.isValid}
                 >
                   {isEnterprise ? 'Contact Success Manager' : `Order Setup - AU$${plan.setupPrice}`}
                 </Button>

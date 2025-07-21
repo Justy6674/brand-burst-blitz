@@ -1,14 +1,44 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# Robots.txt for Australian Healthcare Platform
+# Allow Google to crawl blog for SEO while protecting members area
 
 User-agent: *
+
+# ALLOW: Public pages and blog for SEO
 Allow: /
+Allow: /blog
+Allow: /blog/*
+Allow: /pricing
+Allow: /features
+Allow: /services
+Allow: /all-services
+Allow: /common-questions
+Allow: /faq
+Allow: /privacy
+Allow: /australian-services
+Allow: /australian-setup-service
+
+# DISALLOW: Members-only healthcare platform
+Disallow: /dashboard
+Disallow: /create-content
+Disallow: /calendar
+Disallow: /analytics
+Disallow: /social-media
+Disallow: /onboarding
+Disallow: /questionnaire
+Disallow: /admin
+Disallow: /settings
+Disallow: /business-settings
+Disallow: /competitors
+Disallow: /templates
+Disallow: /prompts
+Disallow: /publishing
+Disallow: /auth/*
+Disallow: /api/*
+
+# Healthcare data protection
+Disallow: /patient-data
+Disallow: /medical-records
+Disallow: /practice-data
+
+# Sitemap location for Google
+Sitemap: https://brand-burst-blitz.lovableproject.com/sitemap.xml

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,8 +40,59 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
   const [domainExtensions, setDomainExtensions] = useState<string[]>(['.com.au', '.com']);
   const [includeTrademarkScreening, setIncludeTrademarkScreening] = useState(false);
   
-  // Mock user tier - in real app, get from user subscription
-  const [userTier] = useState<'Starter' | 'Professional' | 'Enterprise'>('Starter');
+  // REAL USER SUBSCRIPTION DATA - No more mock tier
+  const [userSubscription, setUserSubscription] = useState<{
+    tier: 'free' | 'basic' | 'premium' | 'enterprise';
+    features: string[];
+    nameSearchLimit: number;
+  } | null>(null);
+
+  useEffect(() => {
+    loadUserSubscription();
+  }, []);
+
+  const loadUserSubscription = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Get real subscription data
+      const { data, error } = await supabase
+        .from('user_subscriptions')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('is_active', true)
+        .single();
+
+      if (error) {
+        console.error('Error loading subscription:', error);
+        // Default to free tier if no subscription found
+        setUserSubscription({
+          tier: 'free',
+          features: ['Basic name suggestions'],
+          nameSearchLimit: 5
+        });
+        return;
+      }
+
+      // Map real subscription data
+      const subscriptionTier = data.plan_name?.toLowerCase() || 'free';
+      setUserSubscription({
+        tier: subscriptionTier as any,
+        features: data.features || ['Basic features'],
+        nameSearchLimit: data.name_search_limit || 5
+      });
+
+    } catch (error) {
+      console.error('Error loading user subscription:', error);
+      // Fallback to free tier
+      setUserSubscription({
+        tier: 'free',
+        features: ['Basic name suggestions'],
+        nameSearchLimit: 5
+      });
+    }
+  };
 
   const totalSteps = 3;
   const progressPercentage = (currentStep / totalSteps) * 100;
@@ -64,9 +115,9 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
   const calculatePricing = () => {
     // No free options - all tiers pay
     let basePrice = 99;
-    if (userTier === 'Professional') {
+    if (userSubscription?.tier === 'professional') {
       basePrice = 79;
-    } else if (userTier === 'Enterprise') {
+    } else if (userSubscription?.tier === 'enterprise') {
       basePrice = 69; // Discounted but not free
     }
 
@@ -98,7 +149,7 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
           businessName,
           domainExtensions,
           includeTrademarkScreening,
-          userTier
+          userTier: userSubscription?.tier
         }
       });
 
@@ -314,10 +365,10 @@ export const NameScoutWizard: React.FC<NameScoutWizardProps> = ({
                   <span className="font-semibold">Total Cost:</span>
                   <div className="text-right">
                     <span className="text-lg font-bold">AU${pricing.total}</span>
-                    {userTier === 'Professional' && (
+                    {userSubscription?.tier === 'professional' && (
                       <p className="text-xs text-muted-foreground">Professional pricing</p>
                     )}
-                    {userTier === 'Enterprise' && (
+                    {userSubscription?.tier === 'enterprise' && (
                       <p className="text-xs text-muted-foreground">Enterprise pricing</p>
                     )}
                     <p className="text-xs text-muted-foreground mt-1">Cancel subscription anytime</p>
