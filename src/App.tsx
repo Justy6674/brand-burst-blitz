@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -96,6 +96,13 @@ const LazyPrivacyPolicy = withLazyLoading(PrivacyPolicy, 'Privacy Policy');
 const LazyOAuthCallback = withLazyLoading(OAuthCallback, 'Authentication');
 const LazyPublishingPipelinePage = withLazyLoading(PublishingPipelinePage, 'Publishing');
 const LazyNotFound = withLazyLoading(NotFound, '404');
+const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Business Questionnaire');
+const LazyHealthcareValidationDashboard = withLazyLoading(HealthcareValidationDashboard, 'Healthcare Validation Dashboard');
+const LazyComprehensiveContentStudio = withLazyLoading(ComprehensiveContentStudio, 'Comprehensive Content Studio');
+const LazyHealthcareCopyPasteWorkflow = withLazyLoading(HealthcareCopyPasteWorkflow, 'Healthcare Copy Paste Workflow');
+const LazyHealthcareBlogEmbed = withLazyLoading(HealthcareBlogEmbed, 'Healthcare Blog Embed');
+const LazyBlogPost = withLazyLoading(BlogPost, 'Blog Post');
+const LazyEmbeddableBlog = withLazyLoading(EmbeddableBlog, 'Embeddable Blog');
 
 function App() {
   return (
@@ -106,180 +113,212 @@ function App() {
             <UserProfileProvider>
               <BusinessProfileProvider>
                 <BusinessThemeProvider>
-                  <Router>
-                    <Routes>
-                      <Route path="/auth" element={<AuthPage />} />
-                      <Route path="/oauth/callback" element={<LazyOAuthCallback />} />
-                      
-                      <Route path="/" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyDiscover />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/onboarding" element={
-                        <ProtectedRoute>
+                  <Routes>
+                    <Route path="/auth" element={<AuthPage />} />
+                    <Route path="/oauth/callback" element={<LazyOAuthCallback />} />
+                    
+                    <Route path="/" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
                           <AppLayout>
-                            <LazyOnboarding />
+                            <LazyDiscover />
                           </AppLayout>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/create" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyCreateContent />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/blog" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyBlog />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/blog/:businessId" element={<LazyBlogPage />} />
-                      
-                      <Route path="/blog-admin" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyBlogAdmin />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/competitors" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyCompetitors />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/templates" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyTemplates />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/posts" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyPosts />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/social" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazySocialMedia />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/calendar" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyCalendar />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/analytics" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyAnalytics />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/diary" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyDiary />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/settings" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyBusinessSettings />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/cross-business" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyCrossBusinessFeatures />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/admin" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyAdminPanel />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/prompts" element={
-                        <ProtectedRoute>
-                          <EmailConfirmationGuard>
-                            <AppLayout>
-                              <LazyPromptsPage />
-                            </AppLayout>
-                          </EmailConfirmationGuard>
-                        </ProtectedRoute>
-                      } />
-                      
-                      <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
-                      <Route path="/australian-services" element={<LazyAustralianServices />} />
-                      <Route path="/services" element={<LazyAllServices />} />
-                      <Route path="/privacy" element={<LazyPrivacyPolicy />} />
-                      <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
-                      
-                      <Route path="*" element={<LazyNotFound />} />
-                    </Routes>
-                  </Router>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/analytics" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyAnalytics />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/onboarding" element={
+                      <ProtectedRoute>
+                        <LazyOnboarding />
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/questionnaire" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <LazyBusinessQuestionnaire />
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/create-content" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyCreateContent />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/calendar" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyCalendar />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/diary" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyDiary />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/social-media" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazySocialMedia />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/blog/*" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyBlog />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/blog-post/:id" element={<LazyBlogPost />} />
+                    <Route path="/embeddable-blog" element={<LazyEmbeddableBlog />} />
+                    <Route path="/blog-admin" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyBlogAdmin />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/templates" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyTemplates />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/prompts" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyPromptsPage />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/competitors" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyCompetitors />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/settings" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyBusinessSettings />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/admin" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <LazyAdminPanel />
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/cross-business-features" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyCrossBusinessFeatures />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/healthcare-validation-dashboard" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyHealthcareValidationDashboard />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/comprehensive-content-studio" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyComprehensiveContentStudio />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/healthcare-copy-paste-workflow" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyHealthcareCopyPasteWorkflow />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/healthcare-blog-embed" element={
+                      <ProtectedRoute>
+                        <EmailConfirmationGuard>
+                          <AppLayout>
+                            <LazyHealthcareBlogEmbed />
+                          </AppLayout>
+                        </EmailConfirmationGuard>
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
+                    <Route path="/australian-services" element={<LazyAustralianServices />} />
+                    <Route path="/services" element={<LazyAllServices />} />
+                    <Route path="/privacy" element={<LazyPrivacyPolicy />} />
+                    <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
+                    
+                    <Route path="*" element={<LazyNotFound />} />
+                  </Routes>
                   <Toaster />
                   <Sonner />
                 </BusinessThemeProvider>

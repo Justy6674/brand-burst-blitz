@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useCallback, useRef, useEffect } from 'react';
 import { useToastManager } from '@/hooks/useToastManager';
-import { useRouter } from 'next/router';
+import { useLocation } from 'react-router-dom';
 
 interface UserAction {
   type: string;
@@ -10,316 +10,334 @@ interface UserAction {
   route?: string;
 }
 
+interface ToastConfig {
+  id: string;
+  message: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  duration?: number;
+  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  persistent?: boolean;
+  showCloseButton?: boolean;
+  actionable?: boolean;
+  actionText?: string;
+  onAction?: () => void;
+  icon?: React.ReactNode;
+  priority?: 'low' | 'medium' | 'high';
+}
+
 interface AutoToastContextType {
   trackAction: (action: UserAction) => void;
-  enableAutoNotifications: boolean;
-  setEnableAutoNotifications: (enabled: boolean) => void;
+  showToast: (config: ToastConfig) => void;
+  hideToast: (id: string) => void;
+  clearAllToasts: () => void;
+  isEnabled: boolean;
+  setEnabled: (enabled: boolean) => void;
+  getActiveToasts: () => ToastConfig[];
+  updateToastSettings: (settings: Partial<AutoToastSettings>) => void;
 }
+
+interface AutoToastSettings {
+  enableAutoNotifications: boolean;
+  enableSuccessNotifications: boolean;
+  enableErrorNotifications: boolean;
+  enableWarningNotifications: boolean;
+  enableInfoNotifications: boolean;
+  defaultDuration: number;
+  defaultPosition: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  enableSounds: boolean;
+  enableAnimation: boolean;
+  stackToasts: boolean;
+  maxToasts: number;
+  enableDarkMode: boolean;
+  enablePersistentToasts: boolean;
+}
+
+const DEFAULT_SETTINGS: AutoToastSettings = {
+  enableAutoNotifications: true,
+  enableSuccessNotifications: true,
+  enableErrorNotifications: true,
+  enableWarningNotifications: true,
+  enableInfoNotifications: true,
+  defaultDuration: 5000,
+  defaultPosition: 'top-right',
+  enableSounds: false,
+  enableAnimation: true,
+  stackToasts: true,
+  maxToasts: 5,
+  enableDarkMode: false,
+  enablePersistentToasts: false
+};
 
 const AutoToastContext = createContext<AutoToastContextType | undefined>(undefined);
 
+export const useAutoToast = () => {
+  const context = useContext(AutoToastContext);
+  if (context === undefined) {
+    throw new Error('useAutoToast must be used within an AutoToastProvider');
+  }
+  return context;
+};
+
 interface AutoToastProviderProps {
   children: React.ReactNode;
-  enableByDefault?: boolean;
-  healthcareMode?: boolean;
+  settings?: Partial<AutoToastSettings>;
 }
 
-// Action patterns that should trigger notifications
-const ACTION_PATTERNS = {
-  // Form submissions
-  formSubmit: {
-    pattern: /submit|save|create|update|delete/i,
-    category: 'data',
-    templates: {
-      submit: 'data.saved',
-      save: 'data.saved',
-      create: 'content.created',
-      update: 'data.saved',
-      delete: 'success.operation'
-    }
-  },
-
-  // Authentication actions
-  auth: {
-    pattern: /login|logout|signin|signout|register/i,
-    category: 'auth',
-    templates: {
-      login: 'auth.login.success',
-      signin: 'auth.login.success',
-      logout: 'auth.logout.success',
-      signout: 'auth.logout.success',
-      register: 'auth.login.success'
-    }
-  },
-
-  // Healthcare specific actions
-  healthcare: {
-    pattern: /patient|appointment|medical|health|treatment|diagnosis/i,
-    category: 'healthcare',
-    templates: {
-      patient: 'healthcare.patient.created',
-      appointment: 'healthcare.appointment.scheduled',
-      medical: 'healthcare.data.backup',
-      health: 'healthcare.data.backup',
-      treatment: 'healthcare.patient.updated',
-      diagnosis: 'healthcare.patient.updated'
-    }
-  },
-
-  // Compliance actions
-  compliance: {
-    pattern: /compliance|audit|ahpra|tga|regulation|review/i,
-    category: 'compliance',
-    templates: {
-      compliance: 'compliance.audit.complete',
-      audit: 'compliance.audit.complete',
-      ahpra: 'compliance.ahpra.validated',
-      tga: 'compliance.tga.approved',
-      regulation: 'compliance.audit.complete',
-      review: 'compliance.audit.complete'
-    }
-  },
-
-  // Content management
-  content: {
-    pattern: /publish|schedule|draft|content|post|media/i,
-    category: 'general',
-    templates: {
-      publish: 'content.published',
-      schedule: 'content.scheduled',
-      draft: 'content.saved',
-      content: 'content.created',
-      post: 'content.published',
-      media: 'media.uploaded'
-    }
-  },
-
-  // Data operations
-  data: {
-    pattern: /export|import|sync|backup|restore/i,
-    category: 'data',
-    templates: {
-      export: 'data.export.complete',
-      import: 'data.import.success',
-      sync: 'data.sync.complete',
-      backup: 'healthcare.data.backup',
-      restore: 'data.sync.complete'
-    }
-  }
-};
-
-// Route-based action detection
-const ROUTE_ACTIONS = {
-  '/dashboard': { action: 'navigation', message: 'Dashboard loaded', show: false },
-  '/auth': { action: 'auth.navigation', message: 'Authentication page', show: false },
-  '/patients': { action: 'healthcare.navigation', message: 'Patient records accessed', show: true },
-  '/appointments': { action: 'healthcare.navigation', message: 'Appointment system accessed', show: true },
-  '/compliance': { action: 'compliance.navigation', message: 'Compliance dashboard accessed', show: true },
-  '/content': { action: 'content.navigation', message: 'Content management accessed', show: false },
-  '/settings': { action: 'settings.navigation', message: 'Settings updated', show: false }
-};
-
-export const AutoToastProvider: React.FC<AutoToastProviderProps> = ({
-  children,
-  enableByDefault = true,
-  healthcareMode = true
+export const AutoToastProvider: React.FC<AutoToastProviderProps> = ({ 
+  children, 
+  settings: initialSettings = {} 
 }) => {
-  const {
-    showToast,
-    showSuccess,
-    showHealthcareSuccess,
-    showComplianceResult,
-    showContentUpdate,
-    showDataOperation
-  } = useToastManager();
+  const [settings, setSettings] = React.useState<AutoToastSettings>({
+    ...DEFAULT_SETTINGS,
+    ...initialSettings
+  });
+  
+  const [isEnabled, setIsEnabled] = React.useState(settings.enableAutoNotifications);
+  const [activeToasts, setActiveToasts] = React.useState<ToastConfig[]>([]);
+  
+  const actionQueue = useRef<UserAction[]>([]);
+  const toastTimeouts = useRef<Map<string, NodeJS.Timeout>>(new Map());
+  const { addToast, removeToast } = useToastManager();
+  
+  const location = useLocation();
 
-  const [enableAutoNotifications, setEnableAutoNotifications] = React.useState(enableByDefault);
-  const actionHistory = useRef<UserAction[]>([]);
-  const lastActionTime = useRef<number>(0);
-  const router = useRouter();
+  const generateToastId = useCallback(() => {
+    return `toast_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }, []);
 
-  // Track user action and potentially show toast
   const trackAction = useCallback((action: UserAction) => {
-    if (!enableAutoNotifications) return;
+    if (!isEnabled) return;
 
-    // Prevent spam - ignore actions within 500ms of each other
-    const now = Date.now();
-    if (now - lastActionTime.current < 500) return;
-    lastActionTime.current = now;
+    const enhancedAction = {
+      ...action,
+      timestamp: Date.now(),
+      route: location.pathname
+    };
 
-    // Add to history
-    actionHistory.current.push(action);
-    
+    actionQueue.current.push(enhancedAction);
+
     // Keep only last 100 actions
-    if (actionHistory.current.length > 100) {
-      actionHistory.current = actionHistory.current.slice(-100);
+    if (actionQueue.current.length > 100) {
+      actionQueue.current = actionQueue.current.slice(-100);
     }
 
-    // Analyze action and show appropriate toast
-    analyzeAndNotify(action);
-  }, [enableAutoNotifications]);
+    // Auto-trigger contextual toasts based on actions
+    handleContextualToasts(enhancedAction);
+  }, [isEnabled, location.pathname]);
 
-  const analyzeAndNotify = useCallback((action: UserAction) => {
-    const { type, data, element } = action;
-    
-    // Check against action patterns
-    for (const [patternName, config] of Object.entries(ACTION_PATTERNS)) {
-      if (config.pattern.test(type) || config.pattern.test(element || '')) {
-        const matchedAction = extractActionFromText(type, config.pattern);
-        const templateKey = config.templates[matchedAction as keyof typeof config.templates];
-        
-        if (templateKey) {
-          // Healthcare-specific handling
-          if (healthcareMode && config.category === 'healthcare') {
-            showHealthcareSuccess(matchedAction, data?.message);
-          } else if (healthcareMode && config.category === 'compliance') {
-            showComplianceResult('ahpra', 'approved', data?.message);
-          } else if (config.category === 'general' && templateKey.startsWith('content')) {
-            showContentUpdate(matchedAction as any, data?.message);
-          } else if (config.category === 'data') {
-            showDataOperation(matchedAction as any, data?.message);
-          } else {
-            showToast(templateKey, {
-              description: data?.message || generateContextualMessage(action)
-            });
-          }
-          return;
-        }
-      }
-    }
+  const handleContextualToasts = useCallback((action: UserAction) => {
+    if (!settings.enableAutoNotifications) return;
 
-    // Fallback for unrecognized actions
-    if (shouldShowFallbackNotification(action)) {
-      showSuccess(
-        formatActionTitle(type),
-        generateContextualMessage(action)
-      );
-    }
-  }, [healthcareMode, showToast, showSuccess, showHealthcareSuccess, showComplianceResult, showContentUpdate, showDataOperation]);
-
-  const extractActionFromText = (text: string, pattern: RegExp): string => {
-    const match = text.toLowerCase().match(pattern);
-    return match ? match[0] : 'operation';
-  };
-
-  const formatActionTitle = (actionType: string): string => {
-    return actionType
-      .split(/[-_\s]/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  };
-
-  const generateContextualMessage = (action: UserAction): string => {
-    const { type, data, route } = action;
-    
-    if (data?.message) return data.message;
-    
-    if (route?.includes('patient')) return 'Patient information updated successfully';
-    if (route?.includes('appointment')) return 'Appointment changes saved';
-    if (route?.includes('compliance')) return 'Compliance check completed';
-    if (route?.includes('content')) return 'Content operation completed';
-    
-    if (type.includes('save')) return 'Changes saved successfully';
-    if (type.includes('create')) return 'Item created successfully';
-    if (type.includes('update')) return 'Information updated successfully';
-    if (type.includes('delete')) return 'Item removed successfully';
-    
-    return 'Operation completed successfully';
-  };
-
-  const shouldShowFallbackNotification = (action: UserAction): boolean => {
-    const { type, element } = action;
-    
-    // Show for buttons with action-like text
-    if (element?.includes('button') && /save|submit|create|update|delete|send/i.test(type)) {
-      return true;
-    }
-    
-    // Show for form submissions
-    if (type.includes('submit') || type.includes('form')) {
-      return true;
-    }
-    
-    // Don't show for navigation or minor actions
-    if (/click|hover|focus|blur|scroll/i.test(type)) {
-      return false;
-    }
-    
-    return false;
-  };
-
-  // Auto-detect route changes
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      const routeConfig = ROUTE_ACTIONS[url as keyof typeof ROUTE_ACTIONS];
-      
-      if (routeConfig && routeConfig.show && enableAutoNotifications) {
-        trackAction({
-          type: routeConfig.action,
-          timestamp: Date.now(),
-          route: url,
-          data: { message: routeConfig.message }
-        });
-      }
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => router.events.off('routeChangeComplete', handleRouteChange);
-  }, [router.events, trackAction, enableAutoNotifications]);
-
-  // Auto-detect form submissions
-  useEffect(() => {
-    if (!enableAutoNotifications) return;
-
-    const handleFormSubmit = (event: Event) => {
-      const form = event.target as HTMLFormElement;
-      const formData = new FormData(form);
-      const action = form.action || 'form-submit';
-      
-      trackAction({
-        type: 'form-submit',
-        timestamp: Date.now(),
-        element: 'form',
-        data: {
-          action,
-          fields: formData.keys ? Array.from(formData.keys()).length : 0
-        }
+    // Form submission success
+    if (action.type === 'form_submit' && action.data?.success) {
+      showToast({
+        id: generateToastId(),
+        message: action.data.message || 'Form submitted successfully!',
+        type: 'success',
+        duration: settings.defaultDuration
       });
+    }
+
+    // API errors
+    if (action.type === 'api_error') {
+      showToast({
+        id: generateToastId(),
+        message: action.data?.message || 'Something went wrong. Please try again.',
+        type: 'error',
+        duration: settings.defaultDuration * 1.5
+      });
+    }
+
+    // File upload progress
+    if (action.type === 'file_upload_complete') {
+      showToast({
+        id: generateToastId(),
+        message: `File "${action.data?.filename}" uploaded successfully!`,
+        type: 'success',
+        duration: settings.defaultDuration
+      });
+    }
+
+    // Authentication events
+    if (action.type === 'auth_success') {
+      showToast({
+        id: generateToastId(),
+        message: 'Welcome back! You\'re now signed in.',
+        type: 'success',
+        duration: settings.defaultDuration
+      });
+    }
+
+    // Data save events
+    if (action.type === 'data_saved') {
+      showToast({
+        id: generateToastId(),
+        message: action.data?.message || 'Changes saved successfully!',
+        type: 'success',
+        duration: 3000
+      });
+    }
+
+    // Warning events
+    if (action.type === 'validation_warning') {
+      showToast({
+        id: generateToastId(),
+        message: action.data?.message || 'Please check your input.',
+        type: 'warning',
+        duration: settings.defaultDuration
+      });
+    }
+
+    // Network connectivity
+    if (action.type === 'network_offline') {
+      showToast({
+        id: 'network_offline',
+        message: 'You\'re offline. Some features may not work.',
+        type: 'warning',
+        persistent: true,
+        showCloseButton: true
+      });
+    }
+
+    if (action.type === 'network_online') {
+      hideToast('network_offline');
+      showToast({
+        id: generateToastId(),
+        message: 'Connection restored!',
+        type: 'success',
+        duration: 3000
+      });
+    }
+  }, [settings, generateToastId]);
+
+  const showToast = useCallback((config: ToastConfig) => {
+    if (!isEnabled) return;
+
+    // Check if we should show this type of toast
+    const shouldShow = (
+      (config.type === 'success' && settings.enableSuccessNotifications) ||
+      (config.type === 'error' && settings.enableErrorNotifications) ||
+      (config.type === 'warning' && settings.enableWarningNotifications) ||
+      (config.type === 'info' && settings.enableInfoNotifications)
+    );
+
+    if (!shouldShow) return;
+
+    // Remove oldest toast if we've hit the max
+    if (settings.stackToasts && activeToasts.length >= settings.maxToasts) {
+      const oldestToast = activeToasts[0];
+      hideToast(oldestToast.id);
+    }
+
+    const toastWithDefaults = {
+      ...config,
+      duration: config.duration || settings.defaultDuration,
+      position: config.position || settings.defaultPosition
     };
 
-    const handleButtonClick = (event: Event) => {
-      const button = event.target as HTMLButtonElement;
-      const buttonText = button.textContent?.toLowerCase() || '';
-      const buttonType = button.type || 'button';
+    setActiveToasts(prev => [...prev, toastWithDefaults]);
+
+    // Use the toast manager hook
+    addToast({
+      id: config.id,
+      title: config.message,
+      variant: config.type === 'error' ? 'destructive' : 'default',
+      duration: toastWithDefaults.duration
+    });
+
+    // Auto-hide non-persistent toasts
+    if (!config.persistent && toastWithDefaults.duration) {
+      const timeout = setTimeout(() => {
+        hideToast(config.id);
+      }, toastWithDefaults.duration);
       
-      // Only track action buttons, not navigation
-      if (/save|submit|create|update|delete|send|publish|schedule/i.test(buttonText)) {
-        trackAction({
-          type: buttonText,
-          timestamp: Date.now(),
-          element: 'button',
-          data: {
-            buttonType,
-            buttonText
-          }
-        });
-      }
+      toastTimeouts.current.set(config.id, timeout);
+    }
+  }, [isEnabled, settings, activeToasts, addToast]);
+
+  const hideToast = useCallback((id: string) => {
+    setActiveToasts(prev => prev.filter(toast => toast.id !== id));
+    
+    // Clear timeout if exists
+    const timeout = toastTimeouts.current.get(id);
+    if (timeout) {
+      clearTimeout(timeout);
+      toastTimeouts.current.delete(id);
+    }
+
+    // Remove from toast manager
+    removeToast(id);
+  }, [removeToast]);
+
+  const clearAllToasts = useCallback(() => {
+    // Clear all timeouts
+    toastTimeouts.current.forEach(timeout => clearTimeout(timeout));
+    toastTimeouts.current.clear();
+    
+    // Clear state
+    setActiveToasts([]);
+  }, []);
+
+  const getActiveToasts = useCallback(() => {
+    return [...activeToasts];
+  }, [activeToasts]);
+
+  const updateToastSettings = useCallback((newSettings: Partial<AutoToastSettings>) => {
+    setSettings(prev => ({ ...prev, ...newSettings }));
+  }, []);
+
+  // Handle route changes
+  const handleRouteChange = useCallback(() => {
+    trackAction({
+      type: 'route_change',
+      timestamp: Date.now(),
+      route: location.pathname,
+      data: { pathname: location.pathname }
+    });
+  }, [trackAction, location.pathname]);
+
+  // Track route changes using React Router's useLocation
+  useEffect(() => {
+    if (isEnabled && settings.enableAutoNotifications) {
+      handleRouteChange();
+    }
+  }, [location.pathname, handleRouteChange, isEnabled, settings.enableAutoNotifications]);
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      toastTimeouts.current.forEach(timeout => clearTimeout(timeout));
+    };
+  }, []);
+
+  // Network status monitoring
+  useEffect(() => {
+    const handleOnline = () => {
+      trackAction({ type: 'network_online', timestamp: Date.now() });
     };
 
-    // Add event listeners
-    document.addEventListener('submit', handleFormSubmit);
-    document.addEventListener('click', handleButtonClick);
+    const handleOffline = () => {
+      trackAction({ type: 'network_offline', timestamp: Date.now() });
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
 
     return () => {
-      document.removeEventListener('submit', handleFormSubmit);
-      document.removeEventListener('click', handleButtonClick);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
     };
-  }, [enableAutoNotifications, trackAction]);
+  }, [trackAction]);
 
   const contextValue: AutoToastContextType = {
     trackAction,
-    enableAutoNotifications,
-    setEnableAutoNotifications
+    showToast,
+    hideToast,
+    clearAllToasts,
+    isEnabled,
+    setEnabled: setIsEnabled,
+    getActiveToasts,
+    updateToastSettings
   };
 
   return (
@@ -329,55 +347,71 @@ export const AutoToastProvider: React.FC<AutoToastProviderProps> = ({
   );
 };
 
-export const useAutoToast = () => {
-  const context = useContext(AutoToastContext);
-  if (!context) {
-    throw new Error('useAutoToast must be used within an AutoToastProvider');
-  }
-  return context;
-};
-
-// Manual action tracking hook for custom implementations
+// Hook for easy action tracking
 export const useActionTracker = () => {
   const { trackAction } = useAutoToast();
 
-  const trackHealthcareAction = useCallback((action: string, details?: any) => {
+  const trackFormSubmit = useCallback((success: boolean, message?: string, data?: any) => {
     trackAction({
-      type: `healthcare-${action}`,
+      type: 'form_submit',
       timestamp: Date.now(),
-      data: details
+      data: { success, message, ...data }
     });
   }, [trackAction]);
 
-  const trackComplianceAction = useCallback((action: string, details?: any) => {
+  const trackApiError = useCallback((error: Error, endpoint?: string) => {
     trackAction({
-      type: `compliance-${action}`,
+      type: 'api_error',
       timestamp: Date.now(),
-      data: details
+      data: { 
+        message: error.message,
+        endpoint,
+        stack: error.stack
+      }
     });
   }, [trackAction]);
 
-  const trackContentAction = useCallback((action: string, details?: any) => {
+  const trackFileUpload = useCallback((filename: string, size: number) => {
     trackAction({
-      type: `content-${action}`,
+      type: 'file_upload_complete',
       timestamp: Date.now(),
-      data: details
+      data: { filename, size }
     });
   }, [trackAction]);
 
-  const trackDataAction = useCallback((action: string, details?: any) => {
+  const trackAuthSuccess = useCallback((userId?: string) => {
     trackAction({
-      type: `data-${action}`,
+      type: 'auth_success',
       timestamp: Date.now(),
-      data: details
+      data: { userId }
+    });
+  }, [trackAction]);
+
+  const trackDataSaved = useCallback((entity: string, id?: string) => {
+    trackAction({
+      type: 'data_saved',
+      timestamp: Date.now(),
+      data: { entity, id, message: `${entity} saved successfully!` }
+    });
+  }, [trackAction]);
+
+  const trackValidationWarning = useCallback((field: string, message: string) => {
+    trackAction({
+      type: 'validation_warning',
+      timestamp: Date.now(),
+      data: { field, message }
     });
   }, [trackAction]);
 
   return {
-    trackAction,
-    trackHealthcareAction,
-    trackComplianceAction,
-    trackContentAction,
-    trackDataAction
+    trackFormSubmit,
+    trackApiError,
+    trackFileUpload,
+    trackAuthSuccess,
+    trackDataSaved,
+    trackValidationWarning,
+    trackAction
   };
-}; 
+};
+
+export default AutoToastProvider; 
