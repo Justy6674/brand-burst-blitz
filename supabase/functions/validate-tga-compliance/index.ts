@@ -1,207 +1,338 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+// Real TGA Therapeutic Goods Compliance Validation
+// Australian Therapeutic Goods Administration compliance checking for healthcare content
+
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
 interface TGAComplianceRequest {
   content: string;
-  advertisingType: 'healthcare_service' | 'therapeutic_goods' | 'medicine' | 'device';
-  targetAudience: 'general_public' | 'healthcare_professionals';
-  practiceType?: string;
-}
-
-interface TGAViolation {
-  ruleCode: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
-  description: string;
-  suggestion: string;
-  regulatoryReference: string;
+  contentType: 'social_media' | 'blog_post' | 'advertisement' | 'email' | 'website';
+  healthcareProfession: string;
+  targetAudience: 'patients' | 'professionals' | 'general_public';
+  includesDevices?: boolean;
+  includesMedications?: boolean;
+  includesTherapeuticClaims?: boolean;
 }
 
 interface TGAComplianceResponse {
   isCompliant: boolean;
-  complianceScore: number;
-  violations: TGAViolation[];
-  warnings: string[];
-  recommendations: string[];
-  regulatoryRequirements: string[];
+  complianceScore: number; // 0-100
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  violations: Array<{
+    type: string;
+    severity: 'warning' | 'error' | 'critical';
+    message: string;
+    suggestion: string;
+    regulation: string;
+  }>;
+  suggestions: string[];
+  requiredDisclaimmers: string[];
+  approvedVersion?: string;
+  error?: string;
 }
 
-// TGA Prohibited Therapeutic Claims (Comprehensive List)
-const TGA_PROHIBITED_CLAIMS = [
-  // Direct therapeutic claims
-  'treats', 'cures', 'heals', 'eliminates', 'prevents', 'reverses',
-  'fixes', 'stops', 'reduces symptoms of', 'relieves pain from',
+interface TGARegulationRule {
+  pattern: RegExp;
+  type: string;
+  severity: 'warning' | 'error' | 'critical';
+  message: string;
+  suggestion: string;
+  regulation: string;
+  appliesTo: string[];
+}
+
+const logStep = (step: string, data?: any) => {
+  console.log(`[TGA Compliance] ${step}`, data ? JSON.stringify(data) : '');
+};
+
+// TGA Therapeutic Goods Regulations - Comprehensive Rules
+const TGA_REGULATION_RULES: TGARegulationRule[] = [
+  // Critical violations - Prohibited therapeutic claims
+  {
+    pattern: /\b(cure|cures|curing|guaranteed|miracle|instant|immediate|permanent|100%)\b/gi,
+    type: 'prohibited_therapeutic_claim',
+    severity: 'critical',
+    message: 'Prohibited therapeutic claim detected',
+    suggestion: 'Remove absolute claims. Use evidence-based language like "may help" or "studies suggest"',
+    regulation: 'Therapeutic Goods Act 1989 - Section 42DL',
+    appliesTo: ['all']
+  },
+  {
+    pattern: /\b(prevent|prevents|preventing|immunity|immune|immunise|immunize)\s+(cancer|covid|coronavirus|disease|illness)\b/gi,
+    type: 'disease_prevention_claim',
+    severity: 'critical',
+    message: 'Unsubstantiated disease prevention claim',
+    suggestion: 'Only make claims supported by TGA-approved evidence',
+    regulation: 'Therapeutic Goods Regulations 1990 - Schedule 4',
+    appliesTo: ['all']
+  },
   
-  // Disease-specific claims
-  'arthritis relief', 'diabetes treatment', 'cancer cure', 'depression treatment',
-  'anxiety relief', 'heart disease prevention', 'stroke prevention',
+  // High severity - Medical device claims
+  {
+    pattern: /\b(diagnose|treat|surgery|surgical|medical device|implant|prosthetic)\b/gi,
+    type: 'medical_device_claim',
+    severity: 'error',
+    message: 'Medical device advertising requires TGA compliance',
+    suggestion: 'Ensure all medical devices are TGA-approved and include ARTG number',
+    regulation: 'Therapeutic Goods Act 1989 - Chapter 5',
+    appliesTo: ['medical', 'dental', 'physiotherapy']
+  },
+  {
+    pattern: /\b(prescription|script|pharmaceutical|medicine|drug|tablet|capsule)\b/gi,
+    type: 'pharmaceutical_reference',
+    severity: 'error',
+    message: 'Pharmaceutical content requires careful compliance',
+    suggestion: 'Include appropriate disclaimers and TGA warnings',
+    regulation: 'Therapeutic Goods Regulations 1990 - Part 5-1',
+    appliesTo: ['medical', 'pharmacy']
+  },
   
-  // Outcome guarantees
-  'guaranteed results', 'proven to work', 'clinically proven', 'medically proven',
-  'scientifically proven', '100% effective', 'guaranteed to cure',
+  // Medium severity - Therapeutic claims
+  {
+    pattern: /\b(relieves|reduces|improves|enhances|boosts|strengthens)\s+(pain|symptoms|health|wellbeing|performance)\b/gi,
+    type: 'therapeutic_claim',
+    severity: 'warning',
+    message: 'Therapeutic claim requires evidence base',
+    suggestion: 'Add disclaimer: "Individual results may vary. Consult healthcare professional"',
+    regulation: 'TGA Guidelines on Advertising Therapeutic Goods',
+    appliesTo: ['all']
+  },
+  {
+    pattern: /\b(clinical trial|research shows|studies prove|scientifically proven)\b/gi,
+    type: 'scientific_claim',
+    severity: 'warning',
+    message: 'Scientific claims must be substantiated',
+    suggestion: 'Provide references to peer-reviewed studies',
+    regulation: 'TGA Evidence Guidelines for Listed Medicines',
+    appliesTo: ['all']
+  },
   
-  // Superlative medical claims
-  'miracle cure', 'breakthrough treatment', 'revolutionary medicine',
-  'wonder drug', 'magical healing', 'instant relief'
+  // Patient testimonials and reviews
+  {
+    pattern: /\b(patient said|testimonial|review|before and after|success story)\b/gi,
+    type: 'patient_testimonial',
+    severity: 'error',
+    message: 'Patient testimonials may violate TGA advertising guidelines',
+    suggestion: 'Remove patient testimonials or ensure compliance with TGA testimonial guidelines',
+    regulation: 'TGA Advertising Code - Section 4.2',
+    appliesTo: ['medical', 'dental', 'physiotherapy', 'psychology']
+  },
+  
+  // Comparison claims
+  {
+    pattern: /\b(better than|superior to|more effective|outperforms|#1|best|leading)\b/gi,
+    type: 'comparison_claim',
+    severity: 'warning',
+    message: 'Comparison claims require substantiation',
+    suggestion: 'Provide evidence for comparative claims or remove superlatives',
+    regulation: 'Australian Consumer Law - Misleading Claims',
+    appliesTo: ['all']
+  },
+  
+  // Price and promotional content
+  {
+    pattern: /\b(free|discount|special offer|limited time|bulk bill|no gap)\b/gi,
+    type: 'promotional_content',
+    severity: 'warning',
+    message: 'Promotional healthcare content requires careful wording',
+    suggestion: 'Ensure promotional content does not overshadow health information',
+    regulation: 'TGA Advertising Guidelines - Section 6',
+    appliesTo: ['all']
+  }
 ];
 
-// TGA Restricted Medicine/Device Brand Names
-const TGA_RESTRICTED_BRANDS = [
-  // Prescription medicines
-  'botox', 'dysport', 'xeomin', 'azzalure', 'juvederm', 'restylane',
-  'teosyal', 'belotero', 'sculptra', 'radiesse',
-  
-  // Medical devices
-  'coolsculpting', 'ultherapy', 'thermage', 'fraxel', 'picoway',
-  
-  // Therapeutic goods
-  'medical grade', 'prescription strength', 'pharmaceutical grade'
-];
-
-// TGA Requirements by Advertising Type
-const TGA_REQUIREMENTS = {
-  healthcare_service: [
-    'Include practitioner qualifications and registration',
-    'Provide balanced information about risks and benefits',
-    'Include disclaimer about individual results varying',
-    'Mention consultation requirement for treatment decisions'
+// Required disclaimers based on content type and profession
+const TGA_REQUIRED_DISCLAIMERS = {
+  'therapeutic_claims': [
+    'Individual results may vary. Always consult with a qualified healthcare professional.',
+    'This information is for educational purposes only and is not intended as medical advice.'
   ],
-  therapeutic_goods: [
-    'Include ARTG number if applicable',
-    'Provide balanced risk/benefit information',
-    'Include appropriate warnings and precautions',
-    'Reference product information or consumer medicine information'
+  'medical_devices': [
+    'Medical devices shown are registered with the TGA (ARTG number required).',
+    'Consult your healthcare provider before using any medical device.'
   ],
-  medicine: [
-    'Must not advertise prescription medicines to general public',
-    'Include active ingredients for over-the-counter medicines',
-    'Provide clear dosage and usage instructions',
-    'Include all mandatory warnings and contraindications'
+  'pharmaceutical_content': [
+    'Medicines have benefits and risks. Always read the label and follow directions.',
+    'If symptoms persist, consult your healthcare professional.'
   ],
-  device: [
-    'Include TGA device classification if applicable',
-    'Provide clear instructions for use',
-    'Include safety warnings and contraindications',
-    'Reference manufacturer information'
+  'before_after_photos': [
+    'Results may vary between individuals.',
+    'Photos are of actual patients with their consent.',
+    'Individual outcomes depend on various factors including health status.'
+  ],
+  'general_health': [
+    'This information is general in nature and should not replace professional medical advice.',
+    'Always consult with a qualified healthcare professional for diagnosis and treatment.'
   ]
 };
 
-// Helper logging function
-const logStep = (step: string, details?: any) => {
-  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
-  console.log(`[TGA-COMPLIANCE] ${step}${detailsStr}`);
-};
-
-// Analyze therapeutic claims in content
-const analyzeTherapeuticClaims = (content: string): TGAViolation[] => {
-  const violations: TGAViolation[] = [];
-  const contentLower = content.toLowerCase();
-  
-  // Check for prohibited therapeutic claims
-  const prohibitedFound = TGA_PROHIBITED_CLAIMS.filter(claim => 
-    contentLower.includes(claim.toLowerCase())
-  );
-  
-  if (prohibitedFound.length > 0) {
-    violations.push({
-      ruleCode: 'TGA-4.2',
-      severity: 'critical',
-      description: `Prohibited therapeutic claims detected: ${prohibitedFound.join(', ')}`,
-      suggestion: 'Remove direct therapeutic claims. Use educational language about general health benefits instead.',
-      regulatoryReference: 'Therapeutic Goods Advertising Code Section 4.2 - Prohibited Representations'
-    });
-  }
-  
-  return violations;
-};
-
-// Analyze medicine/device brand name mentions
-const analyzeBrandNameMentions = (content: string): TGAViolation[] => {
-  const violations: TGAViolation[] = [];
-  const contentLower = content.toLowerCase();
-  
-  const brandsFound = TGA_RESTRICTED_BRANDS.filter(brand => 
-    contentLower.includes(brand.toLowerCase())
-  );
-  
-  if (brandsFound.length > 0) {
-    violations.push({
-      ruleCode: 'TGA-5.1',
-      severity: 'critical',
-      description: `Prescription medicine/device brand names mentioned: ${brandsFound.join(', ')}`,
-      suggestion: 'Replace brand names with generic therapeutic descriptions or remove entirely.',
-      regulatoryReference: 'Therapeutic Goods Advertising Code Section 5.1 - Prescription Medicine Advertising'
-    });
-  }
-  
-  return violations;
-};
-
-// Check for mandatory disclaimers and warnings
-const checkMandatoryDisclamers = (
+// Analyze content for TGA compliance
+function analyzeTGACompliance(
   content: string, 
-  advertisingType: string,
+  contentType: string, 
+  profession: string, 
   targetAudience: string
-): TGAViolation[] => {
-  const violations: TGAViolation[] = [];
-  const contentLower = content.toLowerCase();
+): TGAComplianceResponse {
+  const violations: Array<{
+    type: string;
+    severity: 'warning' | 'error' | 'critical';
+    message: string;
+    suggestion: string;
+    regulation: string;
+  }> = [];
   
-  // Check for treatment/health advice without disclaimers
-  const hasHealthAdvice = /treatment|therapy|medicine|medication|procedure|diagnosis/i.test(content);
-  const hasDisclaimer = /consult|seek advice|individual results|professional guidance/i.test(content);
+  const suggestions: string[] = [];
+  const requiredDisclaimmers: string[] = [];
   
-  if (hasHealthAdvice && !hasDisclaimer && targetAudience === 'general_public') {
-    violations.push({
-      ruleCode: 'TGA-3.1',
-      severity: 'high',
-      description: 'Health advice provided without appropriate consumer disclaimers',
-      suggestion: 'Add disclaimer: "Individual results may vary. Consult a healthcare professional for advice specific to your situation."',
-      regulatoryReference: 'Therapeutic Goods Advertising Code Section 3.1 - Consumer Protection'
-    });
+  let complianceScore = 100;
+  let riskLevel: 'low' | 'medium' | 'high' | 'critical' = 'low';
+  
+  // Check against all TGA regulation rules
+  for (const rule of TGA_REGULATION_RULES) {
+    // Check if rule applies to this profession
+    if (rule.appliesTo.includes('all') || rule.appliesTo.includes(profession)) {
+      const matches = content.match(rule.pattern);
+      
+      if (matches) {
+        violations.push({
+          type: rule.type,
+          severity: rule.severity,
+          message: `${rule.message}: "${matches[0]}"`,
+          suggestion: rule.suggestion,
+          regulation: rule.regulation
+        });
+        
+        // Deduct compliance score based on severity
+        switch (rule.severity) {
+          case 'critical':
+            complianceScore -= 30;
+            riskLevel = 'critical';
+            break;
+          case 'error':
+            complianceScore -= 15;
+            if (riskLevel !== 'critical') riskLevel = 'high';
+            break;
+          case 'warning':
+            complianceScore -= 5;
+            if (riskLevel === 'low') riskLevel = 'medium';
+            break;
+        }
+      }
+    }
   }
   
-  // Check for missing risk information
-  const mentionsBenefits = /benefit|improve|enhance|better|help/i.test(content);
-  const mentionsRisks = /risk|side effect|complication|contraindication|warning/i.test(content);
+  // Determine required disclaimers based on violations
+  const violationTypes = violations.map(v => v.type);
   
-  if (mentionsBenefits && !mentionsRisks && advertisingType !== 'healthcare_service') {
-    violations.push({
-      ruleCode: 'TGA-4.3',
-      severity: 'medium',
-      description: 'Benefits mentioned without balanced risk information',
-      suggestion: 'Include appropriate risk information and contraindications alongside benefits.',
-      regulatoryReference: 'Therapeutic Goods Advertising Code Section 4.3 - Balanced Information'
-    });
+  if (violationTypes.includes('therapeutic_claim') || violationTypes.includes('prohibited_therapeutic_claim')) {
+    requiredDisclaimmers.push(...TGA_REQUIRED_DISCLAIMERS.therapeutic_claims);
   }
   
-  return violations;
-};
+  if (violationTypes.includes('medical_device_claim')) {
+    requiredDisclaimmers.push(...TGA_REQUIRED_DISCLAIMERS.medical_devices);
+  }
+  
+  if (violationTypes.includes('pharmaceutical_reference')) {
+    requiredDisclaimmers.push(...TGA_REQUIRED_DISCLAIMERS.pharmaceutical_content);
+  }
+  
+  if (violationTypes.includes('patient_testimonial')) {
+    requiredDisclaimmers.push(...TGA_REQUIRED_DISCLAIMERS.before_after_photos);
+  }
+  
+  // Add general health disclaimer for all healthcare content
+  requiredDisclaimmers.push(...TGA_REQUIRED_DISCLAIMERS.general_health);
+  
+  // General suggestions based on content type
+  if (contentType === 'social_media') {
+    suggestions.push('Keep social media health content general and educational');
+    suggestions.push('Include clear disclaimers in captions or comments');
+  }
+  
+  if (targetAudience === 'patients') {
+    suggestions.push('Use plain language and avoid complex medical terminology');
+    suggestions.push('Encourage patients to consult their healthcare provider');
+  }
+  
+  // Ensure minimum compliance score
+  complianceScore = Math.max(0, complianceScore);
+  
+  // Generate approved version suggestion if violations exist
+  let approvedVersion: string | undefined;
+  if (violations.length > 0) {
+    approvedVersion = generateTGACompliantVersion(content, violations);
+  }
+  
+  return {
+    isCompliant: violations.filter(v => v.severity === 'critical' || v.severity === 'error').length === 0,
+    complianceScore,
+    riskLevel,
+    violations,
+    suggestions,
+    requiredDisclaimmers: [...new Set(requiredDisclaimmers)], // Remove duplicates
+    approvedVersion
+  };
+}
 
-// Check for evidence and substantiation requirements
-const checkEvidenceRequirements = (content: string): TGAViolation[] => {
-  const violations: TGAViolation[] = [];
-  const contentLower = content.toLowerCase();
+// Generate a TGA-compliant version of the content
+function generateTGACompliantVersion(content: string, violations: any[]): string {
+  let compliantContent = content;
   
-  // Check for unsubstantiated claims
-  const scientificClaims = /clinically proven|scientifically proven|studies show|research proves/i.test(content);
-  const hasEvidence = /study|trial|research|clinical data|peer-reviewed/i.test(content);
+  // Apply fixes for common violations
+  compliantContent = compliantContent
+    // Remove absolute claims
+    .replace(/\b(cure|cures|curing|guaranteed|miracle|instant|permanent|100%)\b/gi, 'may help with')
+    // Soften therapeutic claims
+    .replace(/\b(prevents|will prevent|stops)\b/gi, 'may help support')
+    // Add qualifiers to strong claims
+    .replace(/\b(eliminates|removes|destroys)\b/gi, 'may help reduce')
+    // Replace superlatives
+    .replace(/\b(best|#1|leading|superior)\b/gi, 'quality')
+    // Add uncertainty to scientific claims
+    .replace(/\b(proves|proven|guarantees)\b/gi, 'suggests');
   
-  if (scientificClaims && !hasEvidence) {
-    violations.push({
-      ruleCode: 'TGA-4.1',
-      severity: 'high',
-      description: 'Scientific claims made without adequate evidence substantiation',
-      suggestion: 'Provide specific references to clinical studies or remove unsubstantiated scientific claims.',
-      regulatoryReference: 'Therapeutic Goods Advertising Code Section 4.1 - Substantiation'
-    });
+  // Add standard disclaimer
+  compliantContent += '\n\n*This information is general in nature. Individual results may vary. Always consult with a qualified healthcare professional for advice specific to your situation.';
+  
+  return compliantContent;
+}
+
+// Cache compliance results to improve performance
+async function cacheTGACompliance(
+  supabaseClient: any, 
+  contentHash: string, 
+  result: TGAComplianceResponse
+): Promise<void> {
+  try {
+    await supabaseClient
+      .from('tga_compliance_cache')
+      .upsert({
+        content_hash: contentHash,
+        compliance_result: result,
+        cached_at: new Date().toISOString()
+      });
+  } catch (error) {
+    logStep("TGA compliance cache write failed", { error: error.message });
   }
-  
-  return violations;
-};
+}
+
+// Generate content hash for caching
+function generateContentHash(content: string, metadata: string): string {
+  // Simple hash function for content + metadata
+  let hash = 0;
+  const str = content + metadata;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return Math.abs(hash).toString(36);
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -217,95 +348,94 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
+    // Authentication check
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) throw new Error("No authorization header provided");
     
     const token = authHeader.replace("Bearer ", "");
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
     if (userError) throw new Error(`Authentication error: ${userError.message}`);
+    
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated");
     
-    logStep("User authenticated", { userId: user.id });
+    logStep("User authenticated", { userId: user.id, email: user.email });
 
     const { 
       content, 
-      advertisingType, 
-      targetAudience, 
-      practiceType 
+      contentType, 
+      healthcareProfession, 
+      targetAudience,
+      includesDevices = false,
+      includesMedications = false,
+      includesTherapeuticClaims = false
     }: TGAComplianceRequest = await req.json();
     
-    if (!content || !advertisingType || !targetAudience) {
-      throw new Error("Content, advertising type, and target audience are required");
+    if (!content || !contentType || !healthcareProfession) {
+      throw new Error("Content, content type, and healthcare profession are required");
     }
 
     logStep("Analyzing TGA compliance", { 
-      advertisingType, 
-      targetAudience, 
-      contentLength: content.length 
+      contentLength: content.length,
+      contentType,
+      profession: healthcareProfession,
+      audience: targetAudience
     });
 
-    // Perform comprehensive TGA compliance analysis
-    const violations: TGAViolation[] = [
-      ...analyzeTherapeuticClaims(content),
-      ...analyzeBrandNameMentions(content),
-      ...checkMandatoryDisclamers(content, advertisingType, targetAudience),
-      ...checkEvidenceRequirements(content)
-    ];
+    // Generate content hash for caching
+    const metadata = `${contentType}-${healthcareProfession}-${targetAudience}`;
+    const contentHash = generateContentHash(content, metadata);
 
-    // Generate warnings and recommendations
-    const warnings: string[] = [];
-    const recommendations: string[] = [];
+    // Check cache first
+    const cached = await supabaseClient
+      .from('tga_compliance_cache')
+      .select('*')
+      .eq('content_hash', contentHash)
+      .gte('cached_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()) // 24 hour cache
+      .single();
 
-    // Add advertising-type specific recommendations
-    const requirements = TGA_REQUIREMENTS[advertisingType as keyof typeof TGA_REQUIREMENTS] || [];
-    recommendations.push(...requirements);
+    if (cached.data) {
+      logStep("TGA compliance found in cache");
+      return new Response(JSON.stringify(cached.data.compliance_result), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
 
-    // Calculate compliance score
-    const criticalViolations = violations.filter(v => v.severity === 'critical').length;
-    const highViolations = violations.filter(v => v.severity === 'high').length;
-    const mediumViolations = violations.filter(v => v.severity === 'medium').length;
-    const lowViolations = violations.filter(v => v.severity === 'low').length;
+    // Perform TGA compliance analysis
+    const complianceResult = analyzeTGACompliance(
+      content,
+      contentType,
+      healthcareProfession,
+      targetAudience
+    );
 
-    let complianceScore = 100;
-    complianceScore -= criticalViolations * 40;
-    complianceScore -= highViolations * 25;
-    complianceScore -= mediumViolations * 15;
-    complianceScore -= lowViolations * 5;
-    complianceScore = Math.max(0, complianceScore);
+    logStep("TGA compliance analysis complete", {
+      isCompliant: complianceResult.isCompliant,
+      score: complianceResult.complianceScore,
+      riskLevel: complianceResult.riskLevel,
+      violationCount: complianceResult.violations.length
+    });
 
-    const isCompliant = criticalViolations === 0 && highViolations === 0;
+    // Cache the result
+    await cacheTGACompliance(supabaseClient, contentHash, complianceResult);
 
-    // Store compliance check for audit
+    // Log compliance check for analytics
     await supabaseClient
-      .from('tga_compliance_audit')
-      .insert([{
+      .from('tga_compliance_stats')
+      .insert({
         user_id: user.id,
-        content_hash: btoa(content).substring(0, 50), // First 50 chars of base64 hash
-        advertising_type: advertisingType,
+        content_type: contentType,
+        healthcare_profession: healthcareProfession,
         target_audience: targetAudience,
-        compliance_score: complianceScore,
-        is_compliant: isCompliant,
-        violations_count: violations.length,
+        compliance_score: complianceResult.complianceScore,
+        risk_level: complianceResult.riskLevel,
+        violation_count: complianceResult.violations.length,
+        is_compliant: complianceResult.isCompliant,
         checked_at: new Date().toISOString()
-      }]);
+      });
 
-    const response: TGAComplianceResponse = {
-      isCompliant,
-      complianceScore: Math.round(complianceScore),
-      violations,
-      warnings,
-      recommendations,
-      regulatoryRequirements: requirements
-    };
-
-    logStep("TGA compliance analysis completed", { 
-      isCompliant, 
-      complianceScore: response.complianceScore,
-      violationsCount: violations.length 
-    });
-
-    return new Response(JSON.stringify(response), {
+    return new Response(JSON.stringify(complianceResult), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
@@ -317,10 +447,11 @@ serve(async (req) => {
     return new Response(JSON.stringify({ 
       isCompliant: false,
       complianceScore: 0,
+      riskLevel: 'critical',
       violations: [],
-      warnings: [errorMessage],
-      recommendations: [],
-      regulatoryRequirements: []
+      suggestions: [],
+      requiredDisclaimmers: [],
+      error: errorMessage
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,

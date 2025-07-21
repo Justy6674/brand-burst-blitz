@@ -1,6 +1,17 @@
 import React from 'react';
-import { GoogleAppleQualityCalendar } from '@/components/calendar/GoogleAppleQualityCalendar';
+import { ProfessionalCalendarEngine } from '@/components/calendar/ProfessionalCalendarEngine';
 
 export default function Calendar() {
-  return <GoogleAppleQualityCalendar />;
+  return (
+    <div className="h-screen flex flex-col">
+      <ProfessionalCalendarEngine 
+        defaultView="month"
+        showPracticeSwitcher={true}
+        enableSmartSuggestions={true}
+        enableVoiceCapture={true}
+        enableDragDrop={true}
+        enableRealTimeSync={true}
+      />
+    </div>
+  );
 }
