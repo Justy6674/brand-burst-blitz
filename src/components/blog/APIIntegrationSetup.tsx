@@ -7,7 +7,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { CheckCircle, AlertCircle, Key, TestTube } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { useUser } from '@/hooks/use-user';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
 
 interface APIIntegrationSetupProps {
   businessId: string;

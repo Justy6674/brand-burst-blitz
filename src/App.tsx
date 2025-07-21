@@ -8,11 +8,9 @@ import { UserProfileProvider } from '@/contexts/UserProfileContext';
 import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
 import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
 import { AuthProvider } from '@/components/auth/AuthProvider';
-import { AppLayout } from '@/components/layout/AppLayout';
 import { GlobalErrorBoundary } from '@/components/error/GlobalErrorBoundary';
-import { PerformanceMonitor } from '@/components/monitoring/PerformanceMonitor';
 
-// DEPLOYMENT VERSION: 25-JUL-2025-15:00 - MEMBERS APP READY WITH WORKING BUILD
+// DEPLOYMENT VERSION: 25-JUL-2025-15:30 - PLATFORM SHOWCASE READY
 
 // Lazy load only existing pages
 const Index = lazy(() => import('./pages/Index'));
@@ -60,11 +58,7 @@ const SEOHead = () => {
       '/features': 'Features - AHPRA Compliant Marketing Tools',
       '/blog': 'Healthcare Marketing Blog - Patient Education Content',
       '/common-questions': 'FAQ - Healthcare Marketing Questions',
-      '/services': 'Healthcare Marketing Services - Australia',
-      '/dashboard': 'Dashboard - Healthcare Practice Management',
-      '/create-content': 'Content Creation - AHPRA Compliant Content',
-      '/calendar': 'Smart Calendar - Healthcare Practice Management',
-      '/analytics': 'Analytics - Healthcare Practice Performance'
+      '/services': 'Healthcare Marketing Services - Australia'
     };
 
     const title = titles[location.pathname] || 'Australian Healthcare Marketing Platform';
@@ -149,125 +143,21 @@ function App() {
                           </Suspense>
                         } />
 
-                        {/* Members App Routes - Protected with AppLayout */}
+                        {/* Members Routes */}
                         <Route path="/dashboard" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading dashboard...</div>}>
-                              <Dashboard />
-                            </Suspense>
-                          </AppLayout>
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading dashboard...</div>}>
+                            <Dashboard />
+                          </Suspense>
                         } />
                         <Route path="/create-content" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading content creation...</div>}>
-                              <CreateContent />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/calendar" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading calendar...</div>}>
-                              <Calendar />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/analytics" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading analytics...</div>}>
-                              <Analytics />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/social-media" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading social media...</div>}>
-                              <SocialMedia />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/templates" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading templates...</div>}>
-                              <Templates />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/competitors" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading competitors...</div>}>
-                              <Competitors />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/blog-admin" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading blog...</div>}>
-                              <BlogPage />
-                            </Suspense>
-                          </AppLayout>
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading content creation...</div>}>
+                            <CreateContent />
+                          </Suspense>
                         } />
                         <Route path="/discover" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading discover...</div>}>
-                              <Discover />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/prompts" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading prompts...</div>}>
-                              <PromptsPage />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/business-settings" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading settings...</div>}>
-                              <BusinessSettings />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/admin" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading admin...</div>}>
-                              <AdminPanel />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/publishing-pipeline" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading publishing...</div>}>
-                              <PublishingPipeline />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/diary" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading diary...</div>}>
-                              <Diary />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/posts" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading posts...</div>}>
-                              <Posts />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/cross-business" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading cross-business...</div>}>
-                              <CrossBusinessFeatures />
-                            </Suspense>
-                          </AppLayout>
-                        } />
-                        <Route path="/healthcare-blog-embed" element={
-                          <AppLayout>
-                            <Suspense fallback={<div className="flex items-center justify-center p-8">Loading blog embed...</div>}>
-                              <HealthcareBlogEmbed />
-                            </Suspense>
-                          </AppLayout>
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading discover...</div>}>
+                            <Discover />
+                          </Suspense>
                         } />
 
                         {/* Auth Routes */}
@@ -281,11 +171,6 @@ function App() {
                             <Onboarding />
                           </Suspense>
                         } />
-                        <Route path="/auth/callback" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Processing authentication...</div>}>
-                            <OAuthCallback />
-                          </Suspense>
-                        } />
 
                         <Route path="*" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
@@ -293,8 +178,6 @@ function App() {
                           </Suspense>
                         } />
                       </Routes>
-
-                      <PerformanceMonitor />
                     </div>
                   </BusinessThemeProvider>
                 </BusinessProfileProvider>
