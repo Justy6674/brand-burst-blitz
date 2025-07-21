@@ -50,7 +50,7 @@ const Onboarding = lazy(() => import("./pages/Onboarding"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
 const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
-const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
+const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire").then(module => ({ default: module.default })));
 
 // Lazy load complex components
 const BlogPost = lazy(() => import("./components/blog/BlogPost"));
