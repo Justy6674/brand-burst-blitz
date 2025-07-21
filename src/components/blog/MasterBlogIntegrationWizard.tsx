@@ -12,7 +12,7 @@ import { ComprehensivePlatformSelector } from './ComprehensivePlatformSelector';
 import { UniversalCodeGenerator } from './UniversalCodeGenerator';
 import { PlatformDefinition } from '@/data/platformDefinitions';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 interface MasterBlogIntegrationWizardProps {
   className?: string;

@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { CheckCircle, XCircle, AlertTriangle, Loader2, TestTube } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { blogService, PlatformIntegration } from '@/services/blogService';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 interface IntegrationValidatorProps {
   integration: PlatformIntegration;

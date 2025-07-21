@@ -18,7 +18,7 @@ import {
   Zap, FileText, Settings, Star, Play, Download
 } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 interface WizardStep {
   id: string;
