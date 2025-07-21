@@ -53,15 +53,6 @@ const BOUNDARY_VIOLATIONS = [
   'guaranteed satisfaction', 'money back guarantee'
 ];
 
-interface AHPRAComplianceResult {
-  isCompliant: boolean;
-  complianceScore: number;
-  violations: string[];
-  warnings: string[];
-  suggestions: string[];
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
-}
-
 // AHPRA Prohibited Terms (Updated July 2025)
 const PROHIBITED_TERMS = [
   'miracle', 'cure', 'guaranteed', 'instant', 'breakthrough', 'revolutionary',
@@ -83,102 +74,151 @@ export function useAHPRACompliance() {
 
   const validateContent = useCallback(async (
     content: string,
-    practiceType: string,
-    contentType: string
-  ): Promise<AHPRAComplianceResult> => {
+    practiceType: HealthcarePracticeType,
+    contentType: 'social_media' | 'blog' | 'advertisement' | 'website'
+  ): Promise<ComplianceResult> => {
     setIsValidating(true);
     
     try {
       const contentLower = content.toLowerCase();
-      const violations: string[] = [];
-      const warnings: string[] = [];
-      const suggestions: string[] = [];
+      const violations: ComplianceViolation[] = [];
+      const recommendedChanges: string[] = [];
 
       // Check for prohibited terms
       const prohibitedFound = PROHIBITED_TERMS.filter(term => 
         contentLower.includes(term.toLowerCase())
       );
 
-      // Check for therapeutic claims
+      if (prohibitedFound.length > 0) {
+        violations.push({
+          type: 'ahpra',
+          severity: 'high',
+          message: `Prohibited advertising terms found: ${prohibitedFound.join(', ')}`,
+          suggestion: 'Remove exaggerated claims and use evidence-based language',
+          regulation: 'AHPRA Guidelines Section 9.3 - Advertising Restrictions'
+        });
+        recommendedChanges.push('Replace exaggerated terms with evidence-based language');
+      }
+
+      // Check for TGA therapeutic claims
       const therapeuticFound = TGA_THERAPEUTIC_CLAIMS.filter(term => 
         contentLower.includes(term.toLowerCase())
       );
+
+      if (therapeuticFound.length > 0) {
+        violations.push({
+          type: 'tga',
+          severity: 'critical',
+          message: `TGA therapeutic claims detected: ${therapeuticFound.join(', ')}`,
+          suggestion: 'Avoid making direct therapeutic claims without proper evidence and registration',
+          regulation: 'TGA Therapeutic Goods Advertising Code Section 4'
+        });
+        recommendedChanges.push('Remove therapeutic claims or ensure proper TGA registration');
+      }
 
       // Check for patient testimonials
       const testimonialFound = TESTIMONIAL_INDICATORS.filter(term => 
         contentLower.includes(term.toLowerCase())
       );
 
-      // Add violations
-      if (prohibitedFound.length > 0) {
-        violations.push(`Prohibited advertising terms found: ${prohibitedFound.join(', ')}`);
-        suggestions.push('Remove exaggerated claims and use evidence-based language');
-      }
-
-      if (therapeuticFound.length > 0) {
-        violations.push(`TGA therapeutic claims detected: ${therapeuticFound.join(', ')}`);
-        suggestions.push('Avoid making direct therapeutic claims without proper evidence');
-      }
-
       if (testimonialFound.length > 0) {
-        violations.push(`Potential patient testimonials detected: ${testimonialFound.join(', ')}`);
-        suggestions.push('Remove patient testimonials as they are prohibited by AHPRA');
+        violations.push({
+          type: 'patient_testimonial',
+          severity: 'critical',
+          message: `Patient testimonials detected: ${testimonialFound.join(', ')}`,
+          suggestion: 'Remove patient testimonials as they are prohibited by AHPRA',
+          regulation: 'AHPRA Guidelines Section 8.12 - Testimonials and Reviews'
+        });
+        recommendedChanges.push('Remove all patient testimonials and success stories');
+      }
+
+      // Check for professional boundary violations
+      const boundaryFound = BOUNDARY_VIOLATIONS.filter(term => 
+        contentLower.includes(term.toLowerCase())
+      );
+
+      if (boundaryFound.length > 0) {
+        violations.push({
+          type: 'professional_boundaries',
+          severity: 'medium',
+          message: `Professional boundary violations: ${boundaryFound.join(', ')}`,
+          suggestion: 'Use factual language about qualifications and avoid superlative claims',
+          regulation: 'AHPRA Guidelines Section 8.5 - Professional Boundaries'
+        });
+        recommendedChanges.push('Replace superlative claims with factual professional information');
       }
 
       // Check for missing disclaimers
       const hasHealthAdvice = /should|must|recommend|advise|treatment|diagnosis/i.test(content);
       const hasDisclaimer = /disclaimer|consult|seek professional|individual circumstances/i.test(content);
-      const missingDisclaimers = hasHealthAdvice && !hasDisclaimer;
-
-      if (missingDisclaimers) {
-        warnings.push('Health advice provided without appropriate disclaimer');
-        suggestions.push('Add disclaimer: "This information is general. Consult your healthcare provider for advice specific to your situation."');
-      }
-
-      // Check content length appropriateness
-      if (content.length < 50) {
-        warnings.push('Content may be too brief to be educational');
-        suggestions.push('Consider adding more educational value while maintaining compliance');
-      }
-
-      // Check for professional language
-      if (!/\b(evidence|research|study|clinical)\b/i.test(content) && contentType === 'patient_education') {
-        warnings.push('Consider referencing evidence-based information');
-        suggestions.push('Include references to research or clinical evidence where appropriate');
-      }
-
-      // Determine risk level
-      let riskLevel: 'low' | 'medium' | 'high' | 'critical' = 'low';
       
-      if (testimonialFound.length > 0) {
-        riskLevel = 'critical';
-      } else if (therapeuticFound.length > 0 || missingDisclaimers) {
-        riskLevel = 'high';
-      } else if (prohibitedFound.length > 0) {
-        riskLevel = 'medium';
+      if (hasHealthAdvice && !hasDisclaimer) {
+        violations.push({
+          type: 'ahpra',
+          severity: 'medium',
+          message: 'Health advice provided without appropriate disclaimer',
+          suggestion: 'Add disclaimer about seeking professional advice for individual circumstances',
+          regulation: 'AHPRA Guidelines Section 8.3 - Professional Advice Disclaimers'
+        });
+        recommendedChanges.push('Add appropriate health advice disclaimer');
+      }
+
+      // Check for AHPRA registration display requirement
+      if (contentType === 'advertisement' && !content.includes(practiceType.ahpra_registration)) {
+        violations.push({
+          type: 'ahpra',
+          severity: 'high',
+          message: 'AHPRA registration number not displayed in advertisement',
+          suggestion: 'Include AHPRA registration number in healthcare advertisements',
+          regulation: 'AHPRA Guidelines Section 8.1 - Registration Display Requirements'
+        });
+        recommendedChanges.push(`Include AHPRA registration: ${practiceType.ahpra_registration}`);
+      }
+
+      // Check for drug brand name violations
+      const drugNamesFound = TGA_PROHIBITED_DRUG_NAMES.filter(drug => 
+        contentLower.includes(drug.toLowerCase())
+      );
+
+      if (drugNamesFound.length > 0) {
+        violations.push({
+          type: 'tga',
+          severity: 'critical',
+          message: `Prescription drug brand names mentioned: ${drugNamesFound.join(', ')}`,
+          suggestion: 'Use generic therapeutic descriptions instead of brand names',
+          regulation: 'TGA Therapeutic Goods Advertising Code Section 5.2'
+        });
+        recommendedChanges.push('Replace drug brand names with generic therapeutic descriptions');
       }
 
       // Calculate compliance score
-      const totalIssues = violations.length + (warnings.length * 0.5);
-      const complianceScore = Math.max(0, Math.min(100, 100 - (totalIssues * 15)));
+      const criticalViolations = violations.filter(v => v.severity === 'critical').length;
+      const highViolations = violations.filter(v => v.severity === 'high').length;
+      const mediumViolations = violations.filter(v => v.severity === 'medium').length;
+      const lowViolations = violations.filter(v => v.severity === 'low').length;
 
-      const result: AHPRAComplianceResult = {
-        isCompliant: violations.length === 0,
-        complianceScore: Math.round(complianceScore),
+      let score = 100;
+      score -= criticalViolations * 30;
+      score -= highViolations * 20;
+      score -= mediumViolations * 10;
+      score -= lowViolations * 5;
+      score = Math.max(0, score);
+
+      const result: ComplianceResult = {
+        isCompliant: criticalViolations === 0 && highViolations === 0,
         violations,
-        warnings,
-        suggestions,
-        riskLevel
+        score: Math.round(score),
+        recommendedChanges
       };
 
       // Show compliance alerts for critical issues
-      if (riskLevel === 'critical') {
+      if (criticalViolations > 0) {
         toast({
-          title: "CRITICAL AHPRA Violation",
-          description: "Content violates AHPRA guidelines and cannot be published",
+          title: "CRITICAL AHPRA/TGA Violation",
+          description: "Content violates mandatory compliance guidelines and cannot be published",
           variant: "destructive"
         });
-      } else if (riskLevel === 'high') {
+      } else if (highViolations > 0) {
         toast({
           title: "AHPRA Compliance Warning",
           description: "Content may violate professional guidelines",
@@ -192,40 +232,54 @@ export function useAHPRACompliance() {
       console.error('AHPRA validation error:', error);
       return {
         isCompliant: false,
-        complianceScore: 0,
-        violations: ['Validation error occurred'],
-        warnings: [],
-        suggestions: ['Please try again or contact support'],
-        riskLevel: 'critical'
+        violations: [{
+          type: 'ahpra',
+          severity: 'critical',
+          message: 'Validation error occurred',
+          suggestion: 'Please try again or contact support',
+          regulation: 'System Error'
+        }],
+        score: 0,
+        recommendedChanges: ['Please try again or contact support']
       };
     } finally {
       setIsValidating(false);
     }
   }, [toast]);
 
-  const getComplianceGuidelines = useCallback((practiceType: string, contentType: string) => {
+  const getComplianceGuidelines = useCallback((practiceType: HealthcarePracticeType, contentType: string) => {
     const guidelines = {
-      patient_education: [
-        'Focus on general health information, not specific medical advice',
+      social_media: [
+        'Focus on educational health information, not specific medical advice',
         'Include appropriate disclaimers about consulting healthcare providers',
+        'Avoid patient testimonials and success stories',
         'Use evidence-based language and avoid exaggerated claims',
-        'Maintain professional boundaries and avoid patient testimonials'
+        'Include AHPRA registration number in bio or contact information'
       ],
-      practice_update: [
-        'Share practice news and general information',
-        'Avoid therapeutic claims about services',
-        'Include contact information for appointments',
-        'Maintain professional and educational tone'
-      ],
-      health_tip: [
-        'Provide general wellness advice, not medical recommendations',
+      blog: [
+        'Provide general health information with educational value',
         'Include disclaimers about individual circumstances',
-        'Use evidence-based information where possible',
-        'Encourage consultation with healthcare providers'
+        'Reference evidence-based research where appropriate',
+        'Maintain professional boundaries in language and claims',
+        'Include author credentials and AHPRA registration'
+      ],
+      advertisement: [
+        'Display AHPRA registration number prominently',
+        'Avoid therapeutic claims without proper substantiation',
+        'Include contact information and practice location',
+        'Use professional language and avoid superlatives',
+        'Include appropriate disclaimers and risk information'
+      ],
+      website: [
+        'Provide comprehensive practice and practitioner information',
+        'Include detailed AHPRA registration and credentials',
+        'Maintain educational focus with appropriate disclaimers',
+        'Avoid patient testimonials in prominent locations',
+        'Include professional indemnity and privacy information'
       ]
     };
 
-    return guidelines[contentType as keyof typeof guidelines] || guidelines.patient_education;
+    return guidelines[contentType as keyof typeof guidelines] || guidelines.social_media;
   }, []);
 
   return {
