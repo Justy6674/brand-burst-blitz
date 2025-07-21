@@ -317,8 +317,31 @@ export function RealHealthcareAnalytics() {
       const updatedPosts = [...postPerformances, postData];
       setPostPerformances(updatedPosts);
 
-      // Save to localStorage (in production would save to Supabase)
-      localStorage.setItem('healthcare_analytics', JSON.stringify(updatedPosts));
+      // Save to Supabase healthcare_post_analytics table - NO localStorage fallback
+      const { error: saveError } = await supabase
+        .from('healthcare_post_analytics')
+        .insert({
+          user_id: user?.id,
+          platform: postData.platform,
+          content_preview: postData.content.substring(0, 200),
+          date_posted: postData.datePosted.toISOString(),
+          likes: postData.likes,
+          comments: postData.comments,
+          shares: postData.shares,
+          patient_inquiries: postData.patientInquiries,
+          reach: postData.reach || 0,
+          compliance_score: postData.complianceScore
+        });
+
+      if (saveError) {
+        console.error('Error saving to Supabase:', saveError);
+        toast({
+          title: "Save Error",
+          description: "Failed to save post performance data",
+          variant: "destructive"
+        });
+        return;
+      }
 
       // Reset form
       setNewPost({
