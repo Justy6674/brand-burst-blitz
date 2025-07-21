@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicHeader from '@/components/layout/PublicHeader';
 import { HeroSection } from '@/components/layout/HeroSection';
 import { Link } from 'react-router-dom';
+import { useBusinessProfileContext } from '@/contexts/BusinessProfileContext';
+import { useAuth } from '@/components/auth/AuthProvider';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Building2, 
   Heart, 
@@ -15,9 +18,36 @@ import {
   Laptop,
   ArrowRight,
   Check,
-  Star
+  Star,
+  Stethoscope,
+  Brain,
+  Activity
 } from 'lucide-react';
 import aiContentHero from '@/assets/ai-content-creation-hero.jpg';
+
+interface QuestionnaireResponse {
+  business_name: string;
+  industry: string;
+  target_audience_demographics: string;
+  primary_goals: string[];
+  brand_voice: string;
+  target_platforms: string[];
+  content_topics: string[];
+  specialty?: string;
+}
+
+interface PersonalizedContent {
+  title: string;
+  description: string;
+  icon: any;
+  color: string;
+  nextSteps: string[];
+  personalizedSamples: {
+    platform: string;
+    content: string;
+    reasoning: string;
+  }[];
+}
 
 const industries = [
   {
@@ -170,15 +200,207 @@ const industries = [
 ];
 
 const Discover = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const { user } = useAuth();
+  const { activeProfile } = useBusinessProfileContext();
+  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireResponse | null>(null);
+  const [personalizedContent, setPersonalizedContent] = useState<PersonalizedContent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleIndustrySelect = (industryId: string) => {
-    setSelectedIndustry(industryId);
-    // Store selection in localStorage for use in signup flow
-    localStorage.setItem('selected-industry', industryId);
+  useEffect(() => {
+    loadQuestionnaireData();
+  }, [user]);
+
+  const loadQuestionnaireData = async () => {
+    if (!user?.id) return;
+
+    try {
+      // Get questionnaire responses from business profile compliance_settings
+      const { data: profileData, error } = await supabase
+        .from('business_profiles')
+        .select('compliance_settings, business_name, industry, default_ai_tone')
+        .eq('user_id', user.id)
+        .eq('is_primary', true)
+        .single();
+
+      if (error || !profileData) {
+        // No questionnaire completed - show onboarding message
+        setIsLoading(false);
+        return;
+      }
+
+      // Extract questionnaire data from compliance_settings
+      const complianceSettings = typeof profileData.compliance_settings === 'string' 
+        ? JSON.parse(profileData.compliance_settings)
+        : profileData.compliance_settings;
+
+      const questionnaireResponses = complianceSettings?.questionnaire_data;
+
+      if (questionnaireResponses) {
+        const fullData: QuestionnaireResponse = {
+          business_name: profileData.business_name,
+          industry: profileData.industry,
+          target_audience_demographics: questionnaireResponses.target_audience || 'Australian healthcare consumers',
+          primary_goals: questionnaireResponses.goals?.primary || ['patient-education'],
+          brand_voice: profileData.default_ai_tone || 'professional',
+          target_platforms: questionnaireResponses.platforms || ['facebook'],
+          content_topics: ['patient-education', 'health-tips', 'practice-updates'],
+          specialty: getSpecialtyFromIndustry(profileData.industry)
+        };
+
+        setQuestionnaireData(fullData);
+        generatePersonalizedContent(fullData);
+      }
+
+    } catch (error) {
+      console.error('Error loading questionnaire data:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const selectedIndustryData = industries.find(ind => ind.id === selectedIndustry);
+  const getSpecialtyFromIndustry = (industry: string): string => {
+    const specialtyMap: { [key: string]: string } = {
+      'health': 'General Practice',
+      'psychology': 'Clinical Psychology', 
+      'physio': 'Physiotherapy',
+      'allied_health': 'Allied Health',
+      'dental': 'Dentistry'
+    };
+    return specialtyMap[industry] || 'Healthcare Professional';
+  };
+
+  const generatePersonalizedContent = (data: QuestionnaireResponse) => {
+    const specialtyIcon = getSpecialtyIcon(data.industry);
+    const personalizedSamples = generateRealSamples(data);
+    
+    const content: PersonalizedContent = {
+      title: `${data.business_name} - ${data.specialty}`,
+      description: `Personalized content strategy for your ${data.specialty.toLowerCase()} practice targeting ${data.target_audience_demographics}`,
+      icon: specialtyIcon,
+      color: getSpecialtyColor(data.industry),
+      nextSteps: generatePersonalizedNextSteps(data),
+      personalizedSamples
+    };
+
+    setPersonalizedContent(content);
+  };
+
+  const getSpecialtyIcon = (industry: string) => {
+    const iconMap: { [key: string]: any } = {
+      'health': Stethoscope,
+      'psychology': Brain,
+      'physio': Activity,
+      'allied_health': Heart,
+      'dental': Heart
+    };
+    return iconMap[industry] || Stethoscope;
+  };
+
+  const getSpecialtyColor = (industry: string): string => {
+    const colorMap: { [key: string]: string } = {
+      'health': 'bg-blue-500',
+      'psychology': 'bg-purple-500',
+      'physio': 'bg-green-500',
+      'allied_health': 'bg-orange-500',
+      'dental': 'bg-teal-500'
+    };
+    return colorMap[industry] || 'bg-blue-500';
+  };
+
+  const generateRealSamples = (data: QuestionnaireResponse) => {
+    // Generate REAL content samples based on user's questionnaire responses
+    const samples = [];
+
+    for (const platform of data.target_platforms.slice(0, 2)) {
+      const content = generateSpecialtyContent(data, platform);
+      samples.push({
+        platform: platform.charAt(0).toUpperCase() + platform.slice(1),
+        content,
+        reasoning: `Tailored for ${data.specialty} professionals using ${data.brand_voice} tone targeting ${data.target_audience_demographics}`
+      });
+    }
+
+    return samples;
+  };
+
+  const generateSpecialtyContent = (data: QuestionnaireResponse, platform: string): string => {
+    const contentTemplates = {
+      'health': {
+        'facebook': `🩺 At ${data.business_name}, we're committed to providing comprehensive ${data.specialty.toLowerCase()} care for ${data.target_audience_demographics}. Our evidence-based approach ensures you receive the highest quality healthcare. Book your appointment today! #AustralianHealthcare #${data.specialty.replace(' ', '')} #QualityCare`,
+        'linkedin': `As a ${data.specialty} practice, ${data.business_name} is dedicated to advancing healthcare outcomes for our community. We focus on preventive care and evidence-based treatments. Connect with us to learn more about our professional healthcare services.`,
+        'instagram': `🏥 ${data.business_name} - Your trusted ${data.specialty.toLowerCase()} team! We're here to support your health journey with compassionate, professional care. ✨ #HealthcareExcellence #${data.specialty.replace(' ', '')} #PatientCare`
+      },
+      'psychology': {
+        'facebook': `🧠 ${data.business_name} provides professional psychology services with a focus on evidence-based treatments. We understand seeking mental health support takes courage. Our ${data.brand_voice} approach creates a safe space for healing. #MentalHealthMatters #Psychology #WellbeingSupport`,
+        'linkedin': `${data.business_name} - Professional psychology services supporting mental health and wellbeing. We provide evidence-based psychological assessments and interventions for ${data.target_audience_demographics}. Contact us for professional consultation.`,
+        'instagram': `💜 Mental health matters. At ${data.business_name}, we provide compassionate psychology services in a safe, professional environment. Your wellbeing is our priority. #MentalHealthSupport #Psychology #Wellbeing`
+      }
+    };
+
+    const industryTemplates = contentTemplates[data.industry as keyof typeof contentTemplates];
+    if (industryTemplates) {
+      return industryTemplates[platform as keyof typeof industryTemplates] || industryTemplates['facebook'];
+    }
+
+    // Fallback for other healthcare specialties
+    return `At ${data.business_name}, we provide professional ${data.specialty.toLowerCase()} services focused on quality care for ${data.target_audience_demographics}. Contact us to learn more about how we can support your health goals.`;
+  };
+
+  const generatePersonalizedNextSteps = (data: QuestionnaireResponse): string[] => {
+    const steps = [
+      `Create ${data.specialty}-specific patient education content`,
+      `Develop ${data.brand_voice} content for ${data.target_platforms.join(' and ')}`
+    ];
+
+    if (data.primary_goals.includes('patient-education')) {
+      steps.push('Generate AHPRA-compliant educational materials');
+    }
+    if (data.primary_goals.includes('practice-growth')) {
+      steps.push('Create referral-generating professional content');
+    }
+
+    return steps;
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Sparkles className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p>Loading your personalized healthcare content strategy...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!questionnaireData) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <Card className="max-w-2xl mx-auto">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Stethoscope className="h-6 w-6" />
+                Complete Your Healthcare Practice Profile
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p>To see personalized content recommendations for your healthcare practice, please complete our business intelligence questionnaire.</p>
+              <Link to="/questionnaire">
+                <Button className="w-full">
+                  Complete Practice Questionnaire
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // REAL PERSONALIZED CONTENT - NO MORE FAKE INDUSTRY SAMPLES
+  const IconComponent = personalizedContent?.icon || Stethoscope;
 
   return (
     <div className="min-h-screen bg-background">
@@ -218,7 +440,7 @@ const Discover = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {industries.map((industry) => {
               const Icon = industry.icon;
-              const isSelected = selectedIndustry === industry.id;
+              const isSelected = questionnaireData?.industry === industry.id;
               
               return (
                 <Card 
@@ -226,7 +448,6 @@ const Discover = () => {
                   className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
                     isSelected ? 'ring-2 ring-primary shadow-lg' : 'hover:shadow-lg'
                   }`}
-                  onClick={() => handleIndustrySelect(industry.id)}
                 >
                   <CardHeader className="pb-4">
                     <div className="flex items-center space-x-3">
@@ -261,16 +482,16 @@ const Discover = () => {
           </div>
 
           {/* Industry-Specific Preview */}
-          {selectedIndustryData && (
+          {questionnaireData && (
             <Card className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className={`w-16 h-16 ${selectedIndustryData.color} rounded-xl flex items-center justify-center`}>
-                    <selectedIndustryData.icon className="w-8 h-8 text-white" />
+                  <div className={`w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center`}>
+                    <Stethoscope className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-2xl">Perfect for {selectedIndustryData.name}</CardTitle>
-                    <p className="text-muted-foreground">Here's what you'll get with industry-specific AI</p>
+                    <CardTitle className="text-2xl">Your Healthcare Practice Dashboard</CardTitle>
+                    <p className="text-muted-foreground">Personalized content strategy powered by your questionnaire responses</p>
                   </div>
                 </div>
               </CardHeader>
@@ -279,7 +500,7 @@ const Discover = () => {
                   <div>
                     <h4 className="font-semibold mb-4 text-lg">Content Examples:</h4>
                     <div className="space-y-3">
-                      {selectedIndustryData.examples.map((example, idx) => (
+                      {industries.find(ind => ind.id === questionnaireData.industry)?.examples.map((example, idx) => (
                         <div key={idx} className="flex items-center space-x-2">
                           <Star className="w-4 h-4 text-primary" />
                           <span>{example}</span>
@@ -292,7 +513,7 @@ const Discover = () => {
                     <div className="space-y-3">
                       <div className="flex items-center space-x-2">
                         <Check className="w-4 h-4 text-success" />
-                        <span>{selectedIndustryData.regulations}</span>
+                        <span>{industries.find(ind => ind.id === questionnaireData.industry)?.regulations}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Check className="w-4 h-4 text-success" />
@@ -310,7 +531,7 @@ const Discover = () => {
                 <div className="mt-8 p-6 bg-muted/30 rounded-lg">
                   <h4 className="font-semibold mb-4 text-lg">Live AI-Generated Content Samples:</h4>
                   <div className="grid gap-4">
-                    {selectedIndustryData.samplePosts.map((post, idx) => (
+                    {industries.find(ind => ind.id === questionnaireData.industry)?.samplePosts.map((post, idx) => (
                       <div key={idx} className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="secondary" className="text-xs">
@@ -332,7 +553,7 @@ const Discover = () => {
                   </div>
                   <div className="mt-4 text-center">
                     <p className="text-sm text-muted-foreground">
-                      ✨ This is what AI generates for your {selectedIndustryData.name.toLowerCase()} business - no signup required to preview!
+                      ✨ This is what AI generates for your {industries.find(ind => ind.id === questionnaireData.industry)?.name.toLowerCase()} business - no signup required to preview!
                     </p>
                   </div>
                 </div>
@@ -341,7 +562,7 @@ const Discover = () => {
                   <Button variant="premium" size="lg" asChild>
                     <Link to="/auth">
                       <Sparkles className="w-5 h-5 mr-2" />
-                      Start Creating {selectedIndustryData.name} Content
+                      Start Creating {industries.find(ind => ind.id === questionnaireData.industry)?.name} Content
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
@@ -356,18 +577,85 @@ const Discover = () => {
           )}
 
           {/* Call to Action */}
-          {!selectedIndustry && (
+          {!questionnaireData && (
             <div className="text-center">
               <p className="text-muted-foreground mb-6">
                 Don't see your industry? We support all Australian businesses with general business content.
               </p>
-              <Button variant="outline" size="lg" onClick={() => handleIndustrySelect('general')}>
+              <Button variant="outline" size="lg" onClick={() => {}}>
                 Choose General Business
               </Button>
             </div>
           )}
         </div>
       </section>
+
+      {/* PERSONALIZED HEADER - REAL PRACTICE DATA */}
+      <div className="mb-8">
+        <Card className="bg-gradient-to-r from-primary/10 to-secondary/10">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <div className={`w-16 h-16 ${personalizedContent?.color} rounded-xl flex items-center justify-center`}>
+                <IconComponent className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold">{personalizedContent?.title}</h1>
+                <p className="text-muted-foreground">{personalizedContent?.description}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* PERSONALIZED CONTENT SAMPLES - REAL USER DATA */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        {personalizedContent?.personalizedSamples.map((sample, index) => (
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Badge variant="outline">{sample.platform}</Badge>
+                Content Sample
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-muted p-4 rounded-lg mb-4">
+                <p className="text-sm">{sample.content}</p>
+              </div>
+              <p className="text-xs text-muted-foreground">{sample.reasoning}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* PERSONALIZED NEXT STEPS - REAL GOALS */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Your Personalized Action Plan</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {personalizedContent?.nextSteps.map((step, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <Check className="w-5 h-5 text-green-500" />
+                <span>{step}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex gap-4">
+            <Link to="/create-content">
+              <Button>
+                Start Creating Content
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Link to="/questionnaire">
+              <Button variant="outline">
+                Update Practice Profile
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
