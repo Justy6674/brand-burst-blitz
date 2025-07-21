@@ -6,10 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthErrorHandler } from '@/hooks/useAuthErrorHandler';
-import { Loader2, ArrowLeft, Sparkles, Shield, Zap } from 'lucide-react';
+import { Loader2, ArrowLeft, Sparkles, Shield, Zap, AlertTriangle } from 'lucide-react';
+import { useAuth } from '@/components/auth/AuthProvider';
 
 const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,7 @@ const AuthPage = () => {
   const { toast } = useToast();
   const { handleSignInError, handleSignUpError, handlePasswordResetError } = useAuthErrorHandler();
   const [searchParams] = useSearchParams();
+  const { authError, clearAuthError, forceAuthReset } = useAuth();
 
   useEffect(() => {
     // Check for recovery mode from URL params
@@ -339,10 +341,30 @@ const AuthPage = () => {
                 </TabsTrigger>
               </TabsList>
 
-              {error && (
-                <Alert className="mb-4 border-red-400/30 bg-red-900/10 backdrop-blur-sm">
-                  <AlertDescription className="text-red-200">
-                    {error}
+              {authError && (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>Authentication Error</AlertTitle>
+                  <AlertDescription className="space-y-2">
+                    <p>{authError}</p>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={clearAuthError}
+                        className="h-8"
+                      >
+                        Dismiss
+                      </Button>
+                      <Button 
+                        variant="destructive" 
+                        size="sm" 
+                        onClick={forceAuthReset}
+                        className="h-8"
+                      >
+                        Clear Session
+                      </Button>
+                    </div>
                   </AlertDescription>
                 </Alert>
               )}
