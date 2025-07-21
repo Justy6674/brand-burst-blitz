@@ -138,6 +138,7 @@ function App() {
                     <Route path="/features" element={<LazyFeatures />} />
                     <Route path="/faq" element={<LazyCommonQuestions />} />
                     <Route path="/questions" element={<LazyCommonQuestions />} />
+                    <Route path="/common-questions" element={<LazyCommonQuestions />} />
                     
                     {/* PUBLIC BLOG PAGES - NO LOGIN REQUIRED */}
                     <Route path="/blog-post/:id" element={<LazyBlogPost />} />
@@ -148,6 +149,7 @@ function App() {
                     <Route path="/australian-setup-service" element={<LazyAustralianSetupService />} />
                     <Route path="/australian-services" element={<LazyAustralianServices />} />
                     <Route path="/services" element={<LazyAllServices />} />
+                    <Route path="/all-services" element={<LazyAllServices />} />
                     <Route path="/privacy" element={<LazyPrivacyPolicy />} />
                     <Route path="/publishing" element={<LazyPublishingPipelinePage />} />
                     
