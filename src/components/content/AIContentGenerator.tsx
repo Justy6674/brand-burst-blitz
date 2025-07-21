@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Wand2, Sparkles, FileText, MessageSquare, Megaphone, Brain, Zap, Shield, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Wand2, Sparkles, FileText, MessageSquare, Megaphone, Brain, Zap, Shield, AlertTriangle, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,6 +11,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAIGeneration } from '@/hooks/useAIGeneration';
 import { useContentTemplates } from '@/hooks/useContentTemplates';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
+import { useAuth } from '@/components/auth/AuthProvider';
+import { supabase } from '@/integrations/supabase/client';
 import { AdvancedContentEngine } from '@/components/ai/AdvancedContentEngine';
 import { AHPRAComplianceDashboard } from '@/components/compliance/AHPRAComplianceDashboard';
 import { useAHPRACompliance, ComplianceResult, HealthcarePracticeType } from '@/hooks/useAHPRACompliance';
@@ -44,6 +46,32 @@ const healthcarePracticeTypes = [
   { value: 'optometry', label: 'Optometry Practice' },
 ];
 
+// Healthcare practice type mapping from questionnaire industry to AHPRA types
+const getHealthcarePracticeType = (industry: string): HealthcarePracticeType => {
+  const mapping: Record<string, HealthcarePracticeType> = {
+    'health': 'gp',
+    'psychology': 'psychology',
+    'physio': 'allied_health',
+    'allied_health': 'allied_health',
+    'dental': 'dental',
+    'nursing': 'nursing'
+  };
+  return mapping[industry] || 'gp';
+};
+
+interface QuestionnaireData {
+  business_name?: string;
+  industry?: string;
+  target_audience_demographics?: string;
+  target_audience_psychographics?: string;
+  brand_voice?: string;
+  target_platforms?: string[];
+  content_topics?: string[];
+  primary_goals?: string[];
+  competitive_advantages?: string;
+  specialty?: string;
+}
+
 interface AIContentGeneratorProps {
   onContentGenerated?: (content: string, postId: string) => void;
 }
@@ -56,50 +84,146 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
   const [selectedTemplate, setSelectedTemplate] = useState<string | undefined>();
   const [selectedBusinessId, setSelectedBusinessId] = useState<string>('');
   const [generatedContent, setGeneratedContent] = useState('');
+  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireData | null>(null);
+  const [isLoadingQuestionnaire, setIsLoadingQuestionnaire] = useState(true);
+  const [complianceResult, setComplianceResult] = useState<ComplianceResult | null>(null);
+  const [showComplianceDashboard, setShowComplianceDashboard] = useState(false);
   
   // Healthcare-specific AHPRA compliance state
   const [practiceType, setPracticeType] = useState<'gp' | 'specialist' | 'allied_health' | 'psychology' | 'social_work' | 'nursing' | 'dental' | 'optometry'>('gp');
   const [ahpraRegistration, setAhpraRegistration] = useState('');
   const [specialty, setSpecialty] = useState('');
-  const [complianceResult, setComplianceResult] = useState<ComplianceResult | null>(null);
-  const [showComplianceDashboard, setShowComplianceDashboard] = useState(false);
 
   const { generateContent, isGenerating } = useAIGeneration();
   const { templates } = useContentTemplates();
   const { businessProfiles, isLoading: profilesLoading } = useBusinessProfile();
+  const { user } = useAuth();
 
-  // Use first business profile if none selected
-  const selectedProfile = selectedBusinessId 
-    ? businessProfiles?.find(p => p.id === selectedBusinessId) 
-    : businessProfiles?.[0];
+  // Get the primary business profile
+  const selectedProfile = businessProfiles?.find(p => p.is_primary) || businessProfiles?.[0];
 
   const filteredTemplates = templates.filter(template => template.type === selectedType);
 
-  const handleGenerate = async () => {
-    if (!prompt.trim()) return;
+  // Load questionnaire data on component mount
+  useEffect(() => {
+    loadQuestionnaireData();
+  }, [selectedProfile]);
 
-    // Validate AHPRA registration for healthcare content
-    if (!ahpraRegistration.trim()) {
-      alert('AHPRA registration number is required for healthcare content generation');
+  const loadQuestionnaireData = async () => {
+    if (!selectedProfile || !user) {
+      setIsLoadingQuestionnaire(false);
       return;
     }
 
     try {
-      // Healthcare-specific business context with AHPRA compliance
-      const healthcareContext = selectedProfile ? 
-        `Healthcare Practice: ${selectedProfile.business_name}, Type: ${practiceType}, AHPRA: ${ahpraRegistration}, Specialty: ${specialty || 'General'}, Website: ${selectedProfile.website_url || 'N/A'}. 
-        IMPORTANT: All content must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements. 
-        - No patient testimonials or reviews
-        - No prohibited drug names (Botox, Juvederm, etc.)
-        - Include appropriate risk disclaimers
-        - Maintain professional boundaries
-        - Use evidence-based language only` : 
-        undefined;
+      // Get questionnaire data from business profile compliance_settings
+      const { data: profileData, error } = await supabase
+        .from('business_profiles')
+        .select('compliance_settings, business_name, industry, default_ai_tone, website_url')
+        .eq('id', selectedProfile.id)
+        .single();
+
+      if (error || !profileData) {
+        console.error('Error loading questionnaire data:', error);
+        setIsLoadingQuestionnaire(false);
+        return;
+      }
+
+      // Parse compliance settings to get questionnaire data
+      let questionnaireResponses = null;
+      if (profileData.compliance_settings) {
+        try {
+          const complianceSettings = typeof profileData.compliance_settings === 'string' 
+            ? JSON.parse(profileData.compliance_settings)
+            : profileData.compliance_settings;
+          
+          questionnaireResponses = complianceSettings.questionnaire_data || complianceSettings;
+        } catch (parseError) {
+          console.error('Error parsing compliance settings:', parseError);
+        }
+      }
+
+      // Extract questionnaire data
+      const questData: QuestionnaireData = {
+        business_name: profileData.business_name,
+        industry: profileData.industry,
+        brand_voice: profileData.default_ai_tone,
+        target_audience_demographics: questionnaireResponses?.target_audience_demographics,
+        target_audience_psychographics: questionnaireResponses?.target_audience_psychographics,
+        target_platforms: questionnaireResponses?.target_platforms,
+        content_topics: questionnaireResponses?.content_topics,
+        primary_goals: questionnaireResponses?.primary_goals,
+        competitive_advantages: questionnaireResponses?.competitive_advantages,
+        specialty: getSpecialtyFromIndustry(profileData.industry)
+      };
+
+      setQuestionnaireData(questData);
+    } catch (error) {
+      console.error('Error loading questionnaire data:', error);
+    } finally {
+      setIsLoadingQuestionnaire(false);
+    }
+  };
+
+  const getSpecialtyFromIndustry = (industry: string): string => {
+    const specialtyMap: Record<string, string> = {
+      'health': 'General Practice',
+      'psychology': 'Clinical Psychology',
+      'physio': 'Physiotherapy',
+      'allied_health': 'Allied Health',
+      'dental': 'Dentistry',
+      'nursing': 'Nursing Practice'
+    };
+    return specialtyMap[industry] || 'Healthcare Professional';
+  };
+
+  const handleGenerate = async () => {
+    if (!prompt.trim()) return;
+
+    if (!questionnaireData) {
+      alert('Please complete your business questionnaire first to enable personalized content generation');
+      return;
+    }
+
+    try {
+      // Build healthcare-specific context using REAL questionnaire data
+      const practiceType = getHealthcarePracticeType(questionnaireData.industry || 'health');
+      const specialty = questionnaireData.specialty || 'General Healthcare';
+      const brandVoice = questionnaireData.brand_voice || 'professional';
+      const targetAudience = questionnaireData.target_audience_demographics || 'Australian healthcare consumers';
+      const targetPlatforms = questionnaireData.target_platforms || ['facebook'];
+      
+      // Create REAL personalized healthcare context
+      const healthcareContext = `Healthcare Practice: ${questionnaireData.business_name}
+Practice Type: ${practiceType}
+Specialty: ${specialty}
+Brand Voice: ${brandVoice}
+Target Audience: ${targetAudience}
+Target Platforms: ${targetPlatforms.join(', ')}
+Content Topics: ${questionnaireData.content_topics?.join(', ') || 'Patient education'}
+Primary Goals: ${questionnaireData.primary_goals?.join(', ') || 'Patient education'}
+Competitive Advantages: ${questionnaireData.competitive_advantages || 'Quality healthcare service'}
+
+IMPORTANT COMPLIANCE REQUIREMENTS:
+- All content must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements
+- No patient testimonials or reviews (AHPRA prohibition)
+- No prohibited drug names (Botox, Juvederm, etc.)
+- Include appropriate risk disclaimers for healthcare content
+- Maintain professional boundaries and evidence-based language
+- Content must be appropriate for ${specialty} practice targeting ${targetAudience}`;
 
       const result = await generateContent({
-        prompt: `${prompt}\n\nIMPORTANT: This content is for Australian healthcare professionals and must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements. Ensure no patient testimonials, prohibited drug names, or misleading therapeutic claims are included.`,
+        prompt: `${prompt}
+
+PERSONALIZATION CONTEXT: Create content specifically for a ${specialty} practice named "${questionnaireData.business_name}" that uses a ${brandVoice} tone and targets ${targetAudience}. 
+
+The content should reflect their competitive advantages: ${questionnaireData.competitive_advantages || 'Quality healthcare service'}
+
+This content will be used on: ${targetPlatforms.join(' and ')}
+
+COMPLIANCE: This content is for Australian healthcare professionals and must comply with AHPRA advertising guidelines and TGA therapeutic advertising requirements.`,
         templateId: selectedTemplate,
-        tone: selectedTone,
+        tone: brandVoice,
         type: selectedType === 'social_media' ? 'social' : selectedType === 'advertisement' ? 'ad' : selectedType as "blog" | "social" | "ad",
         businessContext: healthcareContext,
         businessProfileId: selectedProfile?.id
@@ -118,335 +242,205 @@ export const AIContentGenerator = ({ onContentGenerated }: AIContentGeneratorPro
 
   const TypeIcon = contentTypes.find(type => type.value === selectedType)?.icon || FileText;
 
+  if (isLoadingQuestionnaire || profilesLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="text-center">
+          <Sparkles className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p>Loading your healthcare practice data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!questionnaireData) {
+    return (
+      <div className="space-y-4">
+        <Alert>
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription>
+            <strong>Business Questionnaire Required</strong>
+            <br />
+            Please complete your business intelligence questionnaire to enable personalized, AHPRA-compliant content generation.
+            <br />
+            <Button variant="outline" size="sm" className="mt-2" onClick={() => window.location.href = '/questionnaire'}>
+              Complete Questionnaire
+            </Button>
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      <Card>
+      {/* Personalized Practice Overview */}
+      <Card className="bg-gradient-to-r from-primary/10 to-secondary/10">
         <CardHeader>
-          <div className="flex items-center space-x-2">
-            <Wand2 className="h-5 w-5 text-primary" />
-            <CardTitle>AI Content Generator</CardTitle>
-          </div>
+          <CardTitle className="flex items-center gap-2">
+            <CheckCircle className="h-5 w-5 text-green-500" />
+            Personalized for {questionnaireData.business_name}
+          </CardTitle>
           <CardDescription>
-            Choose between quick generation or advanced AI-powered content creation
+            Content optimized for {questionnaireData.specialty} practice using {questionnaireData.brand_voice} tone
           </CardDescription>
         </CardHeader>
-        
         <CardContent>
-          <Tabs value={mode} onValueChange={(value: any) => setMode(value)} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="quick" className="flex items-center gap-2">
-                <Zap className="h-4 w-4" />
-                Quick Generate
-              </TabsTrigger>
-              <TabsTrigger value="advanced" className="flex items-center gap-2">
-                <Brain className="h-4 w-4" />
-                Advanced Engine
-              </TabsTrigger>
-              <TabsTrigger value="compliance" className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
-                AHPRA Compliance
-              </TabsTrigger>
-            </TabsList>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <Label className="font-medium">Specialty</Label>
+              <p className="text-muted-foreground">{questionnaireData.specialty}</p>
+            </div>
+            <div>
+              <Label className="font-medium">Brand Voice</Label>
+              <p className="text-muted-foreground capitalize">{questionnaireData.brand_voice}</p>
+            </div>
+            <div>
+              <Label className="font-medium">Target Platforms</Label>
+              <p className="text-muted-foreground">{questionnaireData.target_platforms?.slice(0, 2).join(', ')}</p>
+            </div>
+            <div>
+              <Label className="font-medium">Primary Goals</Label>
+              <p className="text-muted-foreground">{questionnaireData.primary_goals?.slice(0, 2).join(', ')}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-            <TabsContent value="quick" className="space-y-6">
-          {/* Healthcare Practice Configuration */}
-          <Card className="border-blue-200 bg-blue-50/50">
+      <Tabs value={mode} onValueChange={(value) => setMode(value as any)} className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="quick" className="flex items-center gap-2">
+            <Zap className="h-4 w-4" />
+            Quick Generate
+          </TabsTrigger>
+          <TabsTrigger value="advanced" className="flex items-center gap-2">
+            <Brain className="h-4 w-4" />
+            Advanced
+          </TabsTrigger>
+          <TabsTrigger value="compliance" className="flex items-center gap-2">
+            <Shield className="h-4 w-4" />
+            AHPRA Compliance
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="quick" className="space-y-6">
+          <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-700">
-                <Shield className="h-5 w-5" />
-                Healthcare Practice Setup
+              <CardTitle className="flex items-center gap-2">
+                <Wand2 className="h-5 w-5" />
+                Quick Healthcare Content Generation
               </CardTitle>
               <CardDescription>
-                Configure your practice details for AHPRA-compliant content generation
+                Generate AHPRA-compliant content personalized for your {questionnaireData.specialty} practice
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Content Type Selection */}
+              <div className="space-y-2">
+                <Label>Content Type</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  {contentTypes.map((type) => (
+                    <Button
+                      key={type.value}
+                      variant={selectedType === type.value ? "default" : "outline"}
+                      onClick={() => setSelectedType(type.value as any)}
+                      className="flex items-center gap-2 h-auto p-4"
+                    >
+                      <type.icon className="h-4 w-4" />
+                      <div className="text-left">
+                        <div className="font-medium">{type.label}</div>
+                      </div>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Content Template Selection */}
+              {filteredTemplates.length > 0 && (
                 <div className="space-y-2">
-                  <Label>Practice Type</Label>
-                  <Select value={practiceType} onValueChange={(value: any) => setPracticeType(value)}>
+                  <Label>Content Template (Optional)</Label>
+                  <Select value={selectedTemplate} onValueChange={setSelectedTemplate}>
                     <SelectTrigger>
-                      <SelectValue />
+                      <SelectValue placeholder="Choose a template or create custom content..." />
                     </SelectTrigger>
                     <SelectContent>
-                      {healthcarePracticeTypes.map((type) => (
-                        <SelectItem key={type.value} value={type.value}>
-                          {type.label}
+                      {filteredTemplates.map((template) => (
+                        <SelectItem key={template.id} value={template.id}>
+                          {template.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-                
-                <div className="space-y-2">
-                  <Label>AHPRA Registration Number *</Label>
-                  <input
-                    type="text"
-                    placeholder="e.g., MED0001234567"
-                    value={ahpraRegistration}
-                    onChange={(e) => setAhpraRegistration(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+              )}
+
+              {/* Content Prompt */}
+              <div className="space-y-2">
+                <Label>Content Topic</Label>
+                <Textarea
+                  placeholder={`What would you like to create content about? Example: "Tips for managing diabetes in elderly patients" or "Benefits of regular physiotherapy for sports injuries"`}
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  rows={4}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Your content will be automatically personalized for {questionnaireData.specialty} practice with {questionnaireData.brand_voice} tone targeting {questionnaireData.target_audience_demographics?.slice(0, 50)}...
+                </p>
               </div>
-              
-              {practiceType === 'specialist' && (
+
+              <Button 
+                onClick={handleGenerate} 
+                disabled={isGenerating || !prompt.trim()}
+                className="w-full"
+                size="lg"
+              >
+                {isGenerating ? (
+                  <>
+                    <Sparkles className="h-4 w-4 mr-2 animate-spin" />
+                    Generating AHPRA-Compliant Content...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="h-4 w-4 mr-2" />
+                    Generate Personalized Healthcare Content
+                  </>
+                )}
+              </Button>
+
+              {/* Generated Content Preview */}
+              {generatedContent && (
                 <div className="space-y-2">
-                  <Label>Medical Specialty</Label>
-                  <input
-                    type="text"
-                    placeholder="e.g., Cardiology, Dermatology, Psychiatry"
-                    value={specialty}
-                    onChange={(e) => setSpecialty(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  <Label>Generated Content</Label>
+                  <div className="border rounded-lg p-4 bg-muted/30">
+                    <pre className="whitespace-pre-wrap font-sans text-sm">{generatedContent}</pre>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(generatedContent)}>
+                      Copy Content
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => setMode("compliance")}>
+                      Check AHPRA Compliance
+                    </Button>
+                  </div>
                 </div>
               )}
             </CardContent>
           </Card>
+        </TabsContent>
 
-          {/* Healthcare Practice Selection */}
-          {!profilesLoading && businessProfiles && businessProfiles.length > 0 && (
-            <div className="space-y-2">
-              <Label>Select Healthcare Practice</Label>
-              <Select 
-                value={selectedBusinessId || businessProfiles[0]?.id || ''} 
-                onValueChange={setSelectedBusinessId}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose healthcare practice..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {businessProfiles?.map((profile) => (
-                    <SelectItem key={profile.id} value={profile.id}>
-                      <div className="flex flex-col">
-                        <span>{profile.business_name}</span>
-                        {profile.website_url && (
-                          <span className="text-xs text-muted-foreground">{profile.website_url}</span>
-                        )}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
+        <TabsContent value="advanced" className="space-y-6">
+          <AdvancedContentEngine />
+        </TabsContent>
 
-          {/* Healthcare Content Type Selection */}
-          <div className="space-y-2">
-            <Label>Healthcare Content Type</Label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">{contentTypes.map((type) => {
-                const Icon = type.icon;
-                return (
-                  <Button
-                    key={type.value}
-                    variant={selectedType === type.value ? 'default' : 'outline'}
-                    onClick={() => setSelectedType(type.value as any)}
-                    className="flex flex-col items-center space-y-1 h-auto p-4"
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span className="text-xs text-center">{type.label}</span>
-                  </Button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Healthcare Tone Selection */}
-          <div className="space-y-2">
-            <Label>Healthcare Communication Tone</Label>
-            <Select value={selectedTone} onValueChange={setSelectedTone}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {healthcareTones.map((tone) => (
-                  <SelectItem key={tone.value} value={tone.value}>
-                    {tone.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Template Selection */}
-          {filteredTemplates.length > 0 && (
-            <div className="space-y-2">
-              <Label>Template (Optional)</Label>
-              <Select value={selectedTemplate} onValueChange={setSelectedTemplate}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose a template..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">No template</SelectItem>
-                  {filteredTemplates.map((template) => (
-                    <SelectItem key={template.id} value={template.id}>
-                      {template.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-
-          {/* Prompt Input */}
-          <div className="space-y-2">
-            <Label>Content Prompt</Label>
-            <Textarea
-              placeholder="Describe what you want to create... (e.g., 'Write a blog post about the benefits of remote work for productivity')"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              rows={4}
-            />
-          </div>
-
-          {/* AHPRA Compliance Warning */}
-          {!ahpraRegistration.trim() && (
-            <Alert className="border-red-200 bg-red-50">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                <strong>AHPRA Registration Required:</strong> Please enter your AHPRA registration number to ensure compliance with Australian healthcare advertising regulations.
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {/* Generate Button */}
-          <Button 
-            onClick={handleGenerate} 
-            disabled={!prompt.trim() || !ahpraRegistration.trim() || isGenerating}
-            className="w-full"
-            size="lg"
-          >
-            {isGenerating ? (
-              <>
-                <Sparkles className="mr-2 h-4 w-4 animate-spin" />
-                Generating AHPRA-Compliant Content...
-              </>
-            ) : (
-              <>
-                <Shield className="mr-2 h-4 w-4" />
-                Generate Healthcare Content
-              </>
-            )}
-          </Button>
-
-          {/* Business Context Display */}
-          {selectedProfile && (
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Badge variant="secondary">
-                {selectedProfile.business_name} - {selectedProfile.industry}
-              </Badge>
-              {selectedProfile.website_url && (
-                <Badge variant="outline">{selectedProfile.website_url}</Badge>
-              )}
-              <span>Business context will be included</span>
-            </div>
-          )}
-            </TabsContent>
-
-            <TabsContent value="advanced">
-              <AdvancedContentEngine />
-            </TabsContent>
-
-            <TabsContent value="compliance" className="space-y-6">
-              {generatedContent ? (
-                <AHPRAComplianceDashboard
-                  content={generatedContent}
-                  practiceType={{
-                    type: practiceType,
-                    ahpra_registration: ahpraRegistration,
-                    specialty: specialty || undefined
-                  }}
-                  contentType={selectedType}
-                  onComplianceChange={setComplianceResult}
-                />
-              ) : (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5 text-blue-600" />
-                      AHPRA/TGA Compliance Centre
-                    </CardTitle>
-                    <CardDescription>
-                      Generate content first to see AHPRA/TGA compliance analysis
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Alert className="border-blue-200 bg-blue-50">
-                      <Shield className="h-4 w-4" />
-                      <AlertDescription>
-                        After generating healthcare content, this tab will show:
-                        <ul className="mt-2 space-y-1 text-sm">
-                          <li>• AHPRA advertising guidelines compliance check</li>
-                          <li>• TGA therapeutic advertising validation</li>
-                          <li>• Patient testimonial detection</li>
-                          <li>• Professional boundary enforcement</li>
-                          <li>• Real-time compliance scoring</li>
-                        </ul>
-                      </AlertDescription>
-                    </Alert>
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
-
-      {/* Generated Content Preview with Compliance Status */}
-      {generatedContent && mode === "quick" && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <TypeIcon className="h-5 w-5 text-primary" />
-                <CardTitle>Generated Healthcare Content</CardTitle>
-              </div>
-              {complianceResult && (
-                <div className="flex items-center space-x-2">
-                  {complianceResult.isCompliant ? (
-                    <Badge variant="default" className="bg-green-100 text-green-800 border-green-200">
-                      ✅ AHPRA Compliant
-                    </Badge>
-                  ) : (
-                    <Badge variant="destructive">
-                      ⚠️ Compliance Issues
-                    </Badge>
-                  )}
-                  <Badge variant="outline">
-                    Score: {complianceResult.score}/100
-                  </Badge>
-                </div>
-              )}
-            </div>
-            <CardDescription>
-              Your AI-generated {contentTypes.find(t => t.value === selectedType)?.label.toLowerCase()} content
-              {complianceResult && !complianceResult.isCompliant && (
-                <span className="text-red-600 ml-2">
-                  • Check compliance tab for details
-                </span>
-              )}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-muted/50 rounded-lg p-4 max-h-96 overflow-y-auto">
-              <pre className="whitespace-pre-wrap text-sm">{generatedContent}</pre>
-            </div>
-            {complianceResult && !complianceResult.isCompliant && (
-              <div className="mt-4">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setMode("compliance")}
-                  className="w-full"
-                >
-                  <Shield className="mr-2 h-4 w-4" />
-                  View AHPRA Compliance Analysis
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
+        <TabsContent value="compliance" className="space-y-6">
+          <AHPRAComplianceDashboard 
+            content={generatedContent}
+            practiceType={getHealthcarePracticeType(questionnaireData.industry || 'health')}
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
+
+export default AIContentGenerator;
