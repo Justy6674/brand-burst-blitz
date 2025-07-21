@@ -27,7 +27,7 @@ const PageLoader = ({ page }: { page: string }) => (
   </div>
 );
 
-// DEPLOYMENT VERSION: 22-JUL-2025-01:00 - BLOG EMERGENCY FIX
+// DEPLOYMENT VERSION: 22-JUL-2025-01:15 - BLOG ROUTE FIXED
 
 // Lazy load all major components to reduce initial bundle size
 const CreateContent = lazy(() => import("./pages/CreateContent").then(module => ({ default: module.CreateContent })));
@@ -55,7 +55,6 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
 const PublishingPipelinePage = lazy(() => import('./pages/PublishingPipeline'));
 const BusinessQuestionnaire = lazy(() => import("./components/questionnaire/BusinessQuestionnaire"));
-const PublicBlog = lazy(() => import("./pages/PublicBlog").then(module => ({ default: module.PublicBlog })));
 
 // MISSING PUBLIC PAGES - CRITICAL FIX
 const Pricing = lazy(() => import("./pages/Pricing"));
@@ -119,7 +118,7 @@ const LazyBusinessQuestionnaire = withLazyLoading(BusinessQuestionnaire, 'Busine
 const LazyPricing = withLazyLoading(Pricing, 'Pricing');
 const LazyFeatures = withLazyLoading(Features, 'Features');
 const LazyCommonQuestions = withLazyLoading(CommonQuestions, 'FAQ');
-const LazyPublicBlog = withLazyLoading(PublicBlog, 'Blog');
+
 
 function App() {
   return (
@@ -233,8 +232,8 @@ function App() {
                         </ProtectedRoute>
                       } />
                       
-                      {/* PUBLIC BLOG ROUTE - NO LOGIN REQUIRED */}
-                      <Route path="/blog" element={<LazyPublicBlog />} />
+                      {/* PUBLIC BLOG ROUTE - NO LOGIN REQUIRED - FIXED! */}
+                      <Route path="/blog" element={<LazyBlogPage />} />
                       
                       {/* PROTECTED BLOG MANAGER FOR AUTHENTICATED USERS */}
                       <Route path="/blog-manager/*" element={
