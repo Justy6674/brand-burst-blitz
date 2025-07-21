@@ -1,12 +1,19 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { visualizer } from 'rollup-plugin-visualizer';
+import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  server: {
+    host: "::",
+    port: 8080,
+  },
   plugins: [
     react(),
+    mode === 'development' && componentTagger(),
     // Bundle analyzer for development
     visualizer({
       filename: 'dist/bundle-analysis.html',
@@ -14,7 +21,7 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true,
     }),
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -116,23 +123,6 @@ export default defineConfig({
   // Image optimization
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'],
   
-  // Development and preview server configuration
-  server: {
-    host: "::",
-    port: 8080,
-    // Enable HTTP/2 for development
-    https: false,
-    // Optimize HMR for large projects
-    hmr: {
-      overlay: true
-    },
-    // Australian timezone optimization
-    watch: {
-      usePolling: false,
-      interval: 100
-    }
-  },
-  
   // Preview server for production testing
   preview: {
     host: "::",
@@ -152,4 +142,4 @@ export default defineConfig({
     __BUILD_TIMESTAMP__: Date.now(),
     __CDN_OPTIMIZED__: process.env.NODE_ENV === 'production'
   }
-});
+}));
