@@ -18,7 +18,7 @@
     "preload:critical": "node scripts/preload-critical.js",
     "compress": "node scripts/compress-assets.js",
     "deploy:australia": "npm run build:australia && npm run compress",
-    "force-deploy": "echo 'FORCE DEPLOYMENT 21-JUL-2025-18:05' && npm run build"
+    "force-deploy": "echo 'FORCE DEPLOYMENT 22-JUL-2025-00:30 - COMINGSOONPOPUP FIX' && npm run build"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.18",

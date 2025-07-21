@@ -108,7 +108,7 @@ export function HealthcareFAQ() {
         {
           id: 'platform-6',
           question: 'How does the smart calendar and scheduling system work?',
-          answer: 'Our healthcare calendar integrates content scheduling, appointment reminders, and practice tasks in one view. It includes voice-activated idea capture ("Hey JB, I have a patient education post idea"), AI-powered optimal posting time suggestions, and integration with your existing practice management calendar. It's designed to be as intuitive as Google Calendar but healthcare-focused.',
+          answer: 'Our healthcare calendar integrates content scheduling, appointment reminders, and practice tasks in one view. It includes voice-activated idea capture ("Hey JB, I have a patient education post idea"), AI-powered optimal posting time suggestions, and integration with your existing practice management calendar. It is designed to be as intuitive as Google Calendar but healthcare-focused.',
           category: 'platform',
           tags: ['calendar', 'scheduling', 'integration'],
           priority: 'medium',
