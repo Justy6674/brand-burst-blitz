@@ -25,6 +25,7 @@ import AdminPanel from "./pages/AdminPanel";
 import PromptsPage from "./pages/PromptsPage";
 import NotFound from "./pages/NotFound";
 import BlogPage from "./pages/BlogPage";
+import EmbeddedBlogPage from "./pages/EmbeddedBlogPage";
 import BlogAdmin from "./pages/BlogAdmin";
 import BlogPost from "./components/blog/BlogPost";
 import AussieSetupService from "./pages/AussieSetupService";
@@ -49,6 +50,8 @@ const App = () => (
               <Route path="/australian-services" element={<AustralianServices />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/embedded-blog" element={<EmbeddedBlogPage />} />
+              <Route path="/embedded-blog/:slug" element={<BlogPost />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>

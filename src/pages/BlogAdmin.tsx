@@ -8,7 +8,9 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import BlogEmbedManager from '@/components/blog/BlogEmbedManager';
 import { 
   Plus, 
   Edit3, 
@@ -21,7 +23,8 @@ import {
   Globe,
   FileText,
   Clock,
-  Star
+  Star,
+  Share2
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -275,6 +278,17 @@ const BlogAdmin = () => {
           New Post
         </Button>
       </div>
+
+      <Tabs defaultValue="posts" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="posts">Manage Posts</TabsTrigger>
+          <TabsTrigger value="embed" className="flex items-center gap-2">
+            <Share2 className="h-4 w-4" />
+            Embed Blog
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="posts" className="space-y-6 mt-6">
 
       {currentPost && (
         <Card className="mb-8 glass-strong">
@@ -567,6 +581,12 @@ const BlogAdmin = () => {
           ))
         )}
       </div>
+        </TabsContent>
+
+        <TabsContent value="embed" className="mt-6">
+          <BlogEmbedManager />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
