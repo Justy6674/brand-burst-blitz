@@ -264,7 +264,7 @@ const Index = () => {
             {[
               {
                 title: "⚖️ AHPRA Compliance Crisis",
-                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
+                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without <span className='text-yellow-400'>compliant content systems</span>.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
