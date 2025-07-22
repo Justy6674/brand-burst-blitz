@@ -174,15 +174,26 @@ export class SupabaseStorage implements IStorage {
 
   // Posts/Content
   async getPost(id: string): Promise<Post | undefined> {
-    const result = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as Post;
   }
 
   async getUserPosts(userId: string, limit = 50): Promise<Post[]> {
-    return await db.select().from(posts)
-      .where(eq(posts.userId, userId))
-      .orderBy(desc(posts.createdAt))
+    const { data, error } = await supabaseAdmin
+      .from('posts')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
       .limit(limit);
+    
+    if (error || !data) return [];
+    return data as Post[];
   }
 
   async getBusinessPosts(businessProfileId: string, limit = 50): Promise<Post[]> {
@@ -193,8 +204,14 @@ export class SupabaseStorage implements IStorage {
   }
 
   async createPost(post: InsertPost & { userId: string }): Promise<Post> {
-    const result = await db.insert(posts).values(post).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('posts')
+      .insert(post)
+      .select()
+      .single();
+    
+    if (error || !data) throw new Error(error?.message || 'Failed to create post');
+    return data as Post;
   }
 
   async updatePost(id: string, updates: Partial<Post>): Promise<Post | undefined> {
