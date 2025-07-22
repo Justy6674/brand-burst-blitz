@@ -20,12 +20,7 @@ import {
   Globe,
   Camera,
   Settings,
-  Briefcase,
-  CheckCircle,
-  Crown,
-  Mail,
-  Clock,
-  Star
+  Briefcase
 } from "lucide-react";
 import featuresImage from '@/assets/features-image.jpg';
 
@@ -40,10 +35,7 @@ const AustralianServices = () => {
         "Blog posts, social media, marketing copy", 
         "Australian compliance built-in (AHPRA, TGA, ASIC)",
         "Brand voice training and consistency",
-        "SEO optimization for Google visibility",
-        "Multiple content formats and styles",
-        "Bulk content generation",
-        "Content optimization suggestions"
+        "SEO optimization for Google visibility"
       ]
     },
     {
@@ -55,10 +47,7 @@ const AustralianServices = () => {
         "Content versioning and revision history",
         "Bulk editing and batch operations",
         "Content performance tracking",
-        "Tag and category organization",
-        "Search and filter functionality",
-        "Content templates and reusable blocks",
-        "Publishing status management"
+        "Tag and category organization"
       ]
     },
     {
@@ -70,10 +59,7 @@ const AustralianServices = () => {
         "Multi-account management dashboard",
         "Cross-platform publishing",
         "Social media account setup service",
-        "Automated posting schedules",
-        "Social media analytics and insights",
-        "Engagement tracking and reporting",
-        "Social media compliance monitoring"
+        "Automated posting schedules"
       ]
     },
     {
@@ -85,10 +71,7 @@ const AustralianServices = () => {
         "Drag-and-drop scheduling", 
         "Multi-platform publishing calendar",
         "Campaign planning and coordination",
-        "Automated posting queues",
-        "Content gap identification",
-        "Editorial calendar planning",
-        "Team collaboration on schedules"
+        "Automated posting queues"
       ]
     },
     {
@@ -100,10 +83,7 @@ const AustralianServices = () => {
         "Market gap analysis and opportunities",
         "Content performance comparisons", 
         "Strategic recommendations engine",
-        "Industry trend identification",
-        "Competitive advantage insights",
-        "Competitor pricing analysis",
-        "Market positioning reports"
+        "Industry trend identification"
       ]
     },
     {
@@ -115,10 +95,7 @@ const AustralianServices = () => {
         "Social media engagement analytics",
         "SEO ranking and visibility tracking",
         "ROI and conversion reporting", 
-        "Custom dashboard widgets",
-        "Automated performance alerts",
-        "Audience insights and demographics",
-        "Competitive benchmarking"
+        "Custom dashboard widgets"
       ]
     },
     {
@@ -130,174 +107,43 @@ const AustralianServices = () => {
         "Custom template creation tools",
         "Template library and sharing",
         "Variable placeholders and automation",
-        "Brand-consistent formatting",
-        "Template performance tracking",
-        "A/B testing for templates",
-        "Template optimization suggestions"
+        "Brand-consistent formatting"
       ]
     },
     {
       icon: Search,
       title: "AI-Searchable Template Library", 
-      description: "Industry-tailored templates for Australian SMEs with AI-powered customization",
+      description: "Industry-tailored templates for Australian SMEs",
       features: [
         "Templates organized by industry (Retail, Trades, Hospitality, etc.)",
         "AI-searchable by keywords and hashtags",
         "EOFY, Melbourne Cup, local event templates",
         "Auto-insert city/industry hashtags",
-        "One-click template customization",
-        "Australian business context awareness",
-        "Seasonal and trending content templates",
-        "Local market optimization"
-      ]
-    },
-    {
-      icon: Globe,
-      title: "Local Market Data Feeds", 
-      description: "Real-time Australian business statistics for content creation",
-      features: [
-        "Live ABS business confidence data",
-        "Small Business insights and trends",
-        "Auto-generate 'Did you know?' posts",
-        "Monthly confidence index commentary",
-        "Industry-specific market data",
-        "Regional growth statistics",
-        "Consumer behavior insights",
-        "Automated content series generation"
-      ]
-    },
-    {
-      icon: Target,
-      title: "Geo-Targeted Content Engine", 
-      description: "Location-specific content suggestions and optimization",
-      features: [
-        "State/postcode-based content suggestions",
-        "Local event integration (Melbourne Cup, etc.)",
-        "City-specific hashtag insertion",
-        "Regional business trend awareness",
-        "Local SEO optimization",
-        "Community event suggestions",
-        "State-based compliance reminders",
-        "Suburb-level market insights"
-      ]
-    },
-    {
-      icon: Brain,
-      title: "AI Prompt Engineering Library", 
-      description: "Advanced AI prompts for superior content generation",
-      features: [
-        "Professional prompt engineering database",
-        "Industry-specific prompt collections",
-        "Custom prompt creation and testing",
-        "Prompt performance optimization",
-        "Community prompt sharing",
-        "A/B testing for prompts",
-        "Prompt version control",
-        "Advanced prompt techniques"
-      ]
-    },
-    {
-      icon: Building,
-      title: "Multi-Business Management", 
-      description: "Complete business profile and team management",
-      features: [
-        "Multiple business profile support",
-        "Cross-business content sharing",
-        "Brand-specific customization",
-        "Business compliance settings",
-        "Team collaboration tools",
-        "Business performance comparison",
-        "Role-based access control",
-        "Business workflow automation"
-      ]
-    },
-    {
-      icon: Settings,
-      title: "Comprehensive Content Studio", 
-      description: "All-in-one content creation ecosystem with AI-powered tools",
-      features: [
-        "AI content generation with OpenAI & Gemini",
-        "AI-searchable template library with 500+ templates",
-        "Website content scanner for competitor analysis",
-        "Professional image bank and asset management",
-        "Smart content scheduler with automation",
-        "Export hub with multiple format options",
-        "Embeddable widget for external websites",
-        "Unified content workflow management"
-      ]
-    },
-    {
-      icon: Globe,
-      title: "Blog Embed System", 
-      description: "Easy blog embedding for any website platform",
-      features: [
-        "Universal embed codes for WordPress, Squarespace, Wix",
-        "Smart setup wizard for top 10 platforms",
-        "Downloadable platform-specific instructions",
-        "Live preview and customization options",
-        "Responsive design across all devices",
-        "SEO-optimized embedded content",
-        "Custom styling and branding options",
-        "Analytics tracking for embedded content"
-      ]
-    },
-    {
-      icon: BarChart3,
-      title: "Cross-Business Features", 
-      description: "Enterprise-level business management capabilities",
-      features: [
-        "Cross-business analytics and reporting",
-        "Unified brand management",
-        "Business performance comparisons",
-        "Consolidated billing and invoicing",
-        "Enterprise-level security",
-        "Advanced user permissions",
-        "Business relationship mapping",
-        "Portfolio management tools"
+        "One-click template customization"
       ]
     }
   ];
 
   const bonusTools = [
     {
-      title: "Postcode Search Tools",
-      description: "Medicare telehealth eligibility and postcode verification",
-      perfect: ["Healthcare", "Allied Health", "Psychology"]
-    },
-    {
       title: "Medicare Compliance Suite",
       description: "AHPRA regulations, Medicare rules, and healthcare compliance",
       perfect: ["Doctors", "Specialists", "Allied Health"]
     },
     {
-      title: "Legal Industry Tools",
-      description: "Legal compliance, court rules, and professional standards",
-      perfect: ["Lawyers", "Barristers", "Legal Services"]
+      title: "Postcode Search Tools", 
+      description: "Medicare telehealth eligibility and postcode verification",
+      perfect: ["Healthcare", "Allied Health", "Psychology"]
     },
     {
-      title: "Financial Services Kit",
-      description: "ASIC compliance, financial product disclosure, and advisory standards",
-      perfect: ["Financial Advisors", "Accountants", "Brokers"]
+      title: "Business Name Generator",
+      description: "AI-powered business name creation with ASIC verification", 
+      perfect: ["Startups", "New Businesses", "Entrepreneurs"]
     },
     {
       title: "Domain Research Engine",
       description: "Advanced domain availability, pricing, and acquisition tools",
       perfect: ["All Businesses", "Startups", "Tech Companies"]
-    },
-    {
-      title: "Business Name Generator",
-      description: "AI-powered business name creation with ASIC verification",
-      perfect: ["Startups", "New Businesses", "Entrepreneurs"]
-    },
-    {
-      title: "Professional Logo Design",
-      description: "AI-generated logos with brand guidelines and variations",
-      perfect: ["All Businesses", "Startups", "Rebranding"]
-    },
-    {
-      title: "Website Development",
-      description: "Professional website creation with SEO optimization",
-      perfect: ["All Businesses", "Service Providers", "E-commerce"]
     }
   ];
 
@@ -310,9 +156,7 @@ const AustralianServices = () => {
         "Instagram Business profile setup", 
         "LinkedIn Business page optimization",
         "Meta App setup and verification",
-        "Australian business compliance check",
-        "Full platform integration testing",
-        "Quality assurance and handoff"
+        "Australian business compliance check"
       ]
     },
     {
@@ -323,9 +167,7 @@ const AustralianServices = () => {
         "Domain availability across extensions",
         "Similar business name analysis",
         "Optional trademark screening", 
-        "AI-generated business name alternatives",
-        "Professional PDF research report",
-        "Strategic naming recommendations"
+        "AI-generated business name alternatives"
       ]
     }
   ];
@@ -528,7 +370,7 @@ const AustralianServices = () => {
 
           <div className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-16 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary">15</div>
+              <div className="text-3xl font-bold text-primary">10</div>
               <div className="text-sm text-muted-foreground">Dashboard Features</div>
             </div>
             <div>
