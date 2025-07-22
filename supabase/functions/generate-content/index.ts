@@ -8,6 +8,10 @@ const corsHeaders = {
 };
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+<<<<<<< HEAD
+=======
+const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
@@ -44,6 +48,91 @@ serve(async (req) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+// AI Provider utility functions
+async function callOpenAI(messages: any[], model = 'gpt-4o-mini', requireJSON = false) {
+  if (!openAIApiKey) throw new Error('OpenAI API key not configured');
+  
+  const body: any = {
+    model,
+    messages,
+  };
+  
+  if (requireJSON) {
+    body.response_format = { type: "json_object" };
+  }
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${openAIApiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenAI API error: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0].message.content;
+}
+
+async function callGemini(messages: any[], requireJSON = false) {
+  if (!geminiApiKey) throw new Error('Gemini API key not configured');
+  
+  // Convert OpenAI format to Gemini format
+  const parts = messages.map(msg => ({ text: msg.content }));
+  
+  const body: any = {
+    contents: [{ parts }],
+    generationConfig: {
+      temperature: 0.7,
+      topP: 0.95,
+      topK: 64,
+      maxOutputTokens: 8192,
+    }
+  };
+  
+  if (requireJSON) {
+    body.generationConfig.responseMimeType = "application/json";
+  }
+
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Gemini API error: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.candidates[0].content.parts[0].text;
+}
+
+async function generateWithAI(messages: any[], requireJSON = false) {
+  // Try OpenAI first, fallback to Gemini
+  try {
+    console.log('Attempting OpenAI generation...');
+    return await callOpenAI(messages, 'gpt-4o-mini', requireJSON);
+  } catch (error) {
+    console.error('OpenAI failed, trying Gemini:', error.message);
+    try {
+      return await callGemini(messages, requireJSON);
+    } catch (geminiError) {
+      console.error('Both AI providers failed:', geminiError.message);
+      throw new Error(`All AI providers failed. OpenAI: ${error.message}, Gemini: ${geminiError.message}`);
+    }
+  }
+}
+
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 async function generateContent(requestBody: any, req: Request) {
   const { 
     prompt, 
@@ -51,6 +140,10 @@ async function generateContent(requestBody: any, req: Request) {
     tone = 'professional', 
     type = 'blog',
     businessContext,
+<<<<<<< HEAD
+=======
+    businessProfileId,
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
     target_audience,
     keywords = []
   } = requestBody;
@@ -109,6 +202,7 @@ async function generateContent(requestBody: any, req: Request) {
     }
   }
 
+<<<<<<< HEAD
   // Generate content with OpenAI
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -132,12 +226,26 @@ async function generateContent(requestBody: any, req: Request) {
 
   const data = await response.json();
   const generatedContent = JSON.parse(data.choices[0].message.content);
+=======
+  // Generate content with AI (with fallback)
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: `${prompt}\n\nTemplate reference: ${templateContent}` }
+  ];
+  
+  const aiResponse = await generateWithAI(messages, true);
+  const generatedContent = JSON.parse(aiResponse);
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   // Create post draft if generating new content
   const { data: post, error: postError } = await supabase
     .from('posts')
     .insert({
       user_id: user.id,
+<<<<<<< HEAD
+=======
+      business_profile_id: businessProfileId || null,
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
       type,
       content: generatedContent.content,
       title: generatedContent.title,
@@ -148,7 +256,12 @@ async function generateContent(requestBody: any, req: Request) {
       status: 'draft',
       metadata: {
         seo_data: generatedContent.seo_data,
+<<<<<<< HEAD
         generated_at: new Date().toISOString()
+=======
+        generated_at: new Date().toISOString(),
+        business_context: businessContext
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
       }
     })
     .select()
@@ -189,6 +302,7 @@ async function enhanceContent(requestBody: any) {
   - improvements_made: Array of improvements applied
   - quality_score: Score from 1-10 for content quality`;
 
+<<<<<<< HEAD
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -211,6 +325,15 @@ async function enhanceContent(requestBody: any) {
 
   const data = await response.json();
   const enhancedContent = JSON.parse(data.choices[0].message.content);
+=======
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: content }
+  ];
+  
+  const aiResponse = await generateWithAI(messages, true);
+  const enhancedContent = JSON.parse(aiResponse);
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(enhancedContent),
@@ -238,6 +361,7 @@ async function optimizeForSEO(requestBody: any) {
   - keyword_density: Object showing keyword usage percentages
   - meta_data: { title, description, keywords }`;
 
+<<<<<<< HEAD
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -260,6 +384,15 @@ async function optimizeForSEO(requestBody: any) {
 
   const data = await response.json();
   const seoData = JSON.parse(data.choices[0].message.content);
+=======
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: content }
+  ];
+  
+  const aiResponse = await generateWithAI(messages, true);
+  const seoData = JSON.parse(aiResponse);
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(seoData),
@@ -295,6 +428,7 @@ async function generatePlatformVariations(requestBody: any) {
   - character_count: Number of characters used
   - engagement_tips: Tips for maximizing engagement on this platform`;
 
+<<<<<<< HEAD
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -317,6 +451,15 @@ async function generatePlatformVariations(requestBody: any) {
 
   const data = await response.json();
   const variations = JSON.parse(data.choices[0].message.content);
+=======
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: base_content }
+  ];
+  
+  const aiResponse = await generateWithAI(messages, true);
+  const variations = JSON.parse(aiResponse);
+>>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(variations),

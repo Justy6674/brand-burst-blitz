@@ -13,5 +13,13 @@
     "VITE_SUPABASE_ANON_KEY": "@supabase_anon_key",
     "VITE_OPENAI_API_KEY": "@openai_api_key",
     "VITE_STRIPE_PUBLISHABLE_KEY": "@stripe_publishable_key"
+  },
+  "functions": {
+    "api/health.js": {
+      "runtime": "@vercel/node@3"
+    },
+    "api/blog.js": {
+      "runtime": "@vercel/node@3"
+    }
   }
 }

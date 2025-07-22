@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
 dist
 dist-ssr
@@ -33,3 +34,8 @@ supabase/.env
 # Supabase
 supabase/.branches
 supabase/.temp
+
+# Additional files
+server/public
+vite.config.ts.*
+*.tar.gz
