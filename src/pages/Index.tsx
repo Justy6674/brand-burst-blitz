@@ -22,7 +22,11 @@ import {
   Brain,
   Target,
   Shield,
-  Settings
+  Settings,
+  Heart,
+  Activity,
+  FileText,
+  UserCheck
 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import featuresImage from "@/assets/features-image.jpg";
@@ -112,32 +116,33 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <Badge className="mb-6 sm:mb-8 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-sm sm:text-base">
-              <Rocket className="w-4 h-4 mr-2" />
-              Transform Your Business Today
+              <Heart className="w-4 h-4 mr-2" />
+              AHPRA Compliant Healthcare Platform
             </Badge>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              <span className="text-gradient-hero block mb-2">AI-Powered Content</span> 
-              <span className="text-gradient-primary block">Creation Platform</span>
+              <span className="text-gradient-hero block mb-2">Australian Healthcare</span> 
+              <span className="text-gradient-primary block">Content & Analytics</span>
             </h1>
             
             {/* Simplified tagline - removed redundant text */}
             
             <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-              Generate professional social media posts, blogs, and marketing content in seconds. 
-              <strong className="text-foreground block mt-2">No more expensive agencies or endless hours writing content.</strong>
+              AHPRA compliant content generation, patient engagement tools, and competitive analysis for Australian healthcare professionals. 
+              <strong className="text-foreground block mt-2">Built specifically for Australian medical, dental, and allied health practices.</strong>
             </p>
             
             <div className="flex justify-center mb-8 sm:mb-12">
-              <Button 
-                variant="hero" 
-                size="xl" 
-                className="cursor-not-allowed opacity-75 text-lg px-8 py-4"
-                disabled
-              >
-                <Rocket className="w-5 h-5 mr-3" />
-                Coming August 2025
-              </Button>
+              <Link to="/dashboard">
+                <Button 
+                  variant="hero" 
+                  size="xl" 
+                  className="text-lg px-8 py-4"
+                >
+                  <Heart className="w-5 h-5 mr-3" />
+                  Start Your Healthcare Platform
+                </Button>
+              </Link>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-muted-foreground">
@@ -194,11 +199,11 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              The <span className="text-gradient-hero">$10,000 Problem</span> Every Business Faces
+              The <span className="text-gradient-hero">Healthcare Marketing</span> Challenge
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Business owners waste thousands on agencies and weeks on content creation. 
-              There's a better way.
+              Australian healthcare professionals struggle with AHPRA-compliant content creation and patient engagement. 
+              Our platform solves this with AI-powered, compliant content generation.
             </p>
           </div>
           
@@ -210,28 +215,28 @@ const Index = () => {
                   <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mr-4">
                     <DollarSign className="w-6 h-6 text-destructive" />
                   </div>
-                  <h3 className="text-2xl font-bold text-destructive">Before JB-SaaS</h3>
+                  <h3 className="text-2xl font-bold text-destructive">Traditional Approach</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Pay $5,000-$15,000 to agencies monthly</span>
+                    <span className="text-muted-foreground">Pay $3,000-$8,000 to healthcare marketing agencies</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Wait weeks for content approval</span>
+                    <span className="text-muted-foreground">Wait weeks for AHPRA-compliant content approval</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Spend 20+ hours weekly on social media</span>
+                    <span className="text-muted-foreground">Spend 15+ hours weekly on patient education content</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Struggle with brand consistency</span>
+                    <span className="text-muted-foreground">Risk non-compliant healthcare claims</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Miss posting schedules constantly</span>
+                    <span className="text-muted-foreground">Inconsistent patient engagement</span>
                   </li>
                 </ul>
               </CardContent>
@@ -244,28 +249,28 @@ const Index = () => {
                   <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mr-4">
                     <Sparkles className="w-6 h-6 text-success" />
                   </div>
-                  <h3 className="text-2xl font-bold text-success">With JB-SaaS</h3>
+                  <h3 className="text-2xl font-bold text-success">Healthcare Platform</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Pay just $49/month for unlimited content</span>
+                    <span className="text-foreground font-medium">AHPRA-compliant content for $199/month</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Generate posts in under 30 seconds</span>
+                    <span className="text-foreground font-medium">Generate compliant posts in 30 seconds</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Spend 5 minutes weekly on content</span>
+                    <span className="text-foreground font-medium">5 minutes weekly for patient education</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">AI maintains perfect brand voice</span>
+                    <span className="text-foreground font-medium">AI ensures compliance & professional tone</span>
                   </li>
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Never miss a post with auto-scheduling</span>
+                    <span className="text-foreground font-medium">Automated patient engagement scheduling</span>
                   </li>
                 </ul>
               </CardContent>
@@ -286,14 +291,14 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-20">
             <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 text-sm sm:text-base px-4 py-2">
-              <Brain className="w-4 h-4 mr-2" />
-              Complete Business Intelligence Platform
+              <Heart className="w-4 h-4 mr-2" />
+              Australian Healthcare Platform
             </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-8 leading-tight">
-              What You Get: <span className="text-gradient-primary block sm:inline">Enterprise-Level Features</span>
+              Healthcare-Specific: <span className="text-gradient-primary block sm:inline">AHPRA Compliant Features</span>
             </h2>
             <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              A sophisticated platform that replaces multiple expensive tools with one comprehensive solution.
+              Built specifically for Australian healthcare professionals with compliance, patient engagement, and practice growth tools.
             </p>
           </div>
 
@@ -306,27 +311,27 @@ const Index = () => {
                   <div className="w-16 h-16 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 group-hover:scale-110 transition-transform shadow-glow">
                     <BarChart3 className="w-8 h-8 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">Business Intelligence Dashboard</h3>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">Healthcare Analytics Dashboard</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Advanced analytics with growth scoring, strategic recommendations, and automated insights to drive business decisions.
+                  AHPRA-compliant analytics with patient engagement scoring, competitive analysis, and automated compliance monitoring.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Growth Score Tracking & Analysis</span>
+                    <span className="font-medium">Patient Engagement Score & Analysis</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Strategic Content Recommendations</span>
+                    <span className="font-medium">AHPRA-Compliant Content Recommendations</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Cross-Platform Performance Analytics</span>
+                    <span className="font-medium">Multi-Practice Performance Analytics</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">ROI & Engagement Reporting</span>
+                    <span className="font-medium">Practice Growth & Patient ROI Reporting</span>
                   </li>
                 </ul>
               </CardContent>
@@ -339,27 +344,27 @@ const Index = () => {
                   <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
                     <Brain className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">AI Content Creation Engine</h3>
+                  <h3 className="text-2xl font-bold text-foreground">AHPRA-Compliant AI Content</h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Generate professional blog posts, social media content, and ad copy with brand voice learning and consistency.
+                  Generate AHPRA-compliant patient education content, practice updates, and health information posts with medical accuracy verification.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Brand Voice Learning & Consistency</span>
+                    <span className="font-medium">Medical Practice Voice & Compliance</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Blog, Social & Ad Copy Generation</span>
+                    <span className="font-medium">Patient Education & Health Content</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Industry-Specific Content Templates</span>
+                    <span className="font-medium">Medical/Dental/Allied Health Templates</span>
                   </li>
                   <li className="flex items-center">
                     <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">AI Prompt Library Integration</span>
+                    <span className="font-medium">Healthcare-Specific AI Prompts</span>
                   </li>
                 </ul>
               </CardContent>
