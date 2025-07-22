@@ -1,5 +1,4 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from 'https://deno.land/std@0.190.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.51.0';
 
 const corsHeaders = {
@@ -8,10 +7,7 @@ const corsHeaders = {
 };
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
-<<<<<<< HEAD
-=======
 const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
@@ -29,15 +25,12 @@ serve(async (req) => {
         return await generateContent(requestBody, req);
       case 'enhance':
         return await enhanceContent(requestBody);
-      case 'seo_optimize':
+      case 'optimize_seo':
         return await optimizeForSEO(requestBody);
       case 'platform_variations':
         return await generatePlatformVariations(requestBody);
       default:
-        return new Response(
-          JSON.stringify({ error: 'Invalid action' }),
-          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+        throw new Error('Invalid action specified');
     }
   } catch (error) {
     console.error('Error in generate-content function:', error);
@@ -48,8 +41,6 @@ serve(async (req) => {
   }
 });
 
-<<<<<<< HEAD
-=======
 // AI Provider utility functions
 async function callOpenAI(messages: any[], model = 'gpt-4o-mini', requireJSON = false) {
   if (!openAIApiKey) throw new Error('OpenAI API key not configured');
@@ -132,7 +123,6 @@ async function generateWithAI(messages: any[], requireJSON = false) {
   }
 }
 
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 async function generateContent(requestBody: any, req: Request) {
   const { 
     prompt, 
@@ -140,10 +130,7 @@ async function generateContent(requestBody: any, req: Request) {
     tone = 'professional', 
     type = 'blog',
     businessContext,
-<<<<<<< HEAD
-=======
     businessProfileId,
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
     target_audience,
     keywords = []
   } = requestBody;
@@ -154,43 +141,33 @@ async function generateContent(requestBody: any, req: Request) {
     global: { headers: { Authorization: authHeader } }
   });
 
-  // Get user from auth
-  const { data: { user }, error: authError } = await supabase.auth.getUser(
-    authHeader.replace('Bearer ', '')
-  );
-
-  if (authError || !user) {
-    throw new Error('Unauthorized');
+  // Get user from auth header
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) {
+    throw new Error('Authentication required');
   }
 
-  // Build system prompt based on type and tone
-  let systemPrompt = `You are an expert content creator. Create ${type} content with a ${tone} tone.`;
+  // Build system prompt with business context
+  let systemPrompt = `You are an expert content creator specializing in ${type} content.
+  Create high-quality, engaging content with the tone: ${tone}.
   
-  if (businessContext) {
-    systemPrompt += ` Business context: ${businessContext}`;
-  }
+  Target Audience: ${target_audience}
+  Keywords to include: ${keywords.join(', ')}
+  Business Context: ${businessContext}
   
-  if (target_audience) {
-    systemPrompt += ` Target audience: ${target_audience}`;
-  }
-  
-  if (keywords.length > 0) {
-    systemPrompt += ` Include these keywords naturally: ${keywords.join(', ')}`;
-  }
-
-  systemPrompt += ` Respond with a JSON object containing:
-  - title: A compelling title (under 60 characters for SEO)
-  - content: The main content (well-structured with proper formatting)
-  - excerpt: A brief summary (under 160 characters)
-  - tags: Relevant tags array (5-10 tags)
+  Respond with a JSON object containing:
+  - title: Compelling title
+  - content: Main content body
+  - excerpt: Brief summary (150 chars)
+  - tags: Array of relevant tags
   - seo_data: { meta_title, meta_description, keywords }`;
 
-  // If template is provided, get template content
+  // Load template if specified
   let templateContent = '';
   if (templateId) {
     const { data: template } = await supabase
       .from('content_templates')
-      .select('template_content, ai_prompt_template')
+      .select('*')
       .eq('id', templateId)
       .single();
     
@@ -202,31 +179,6 @@ async function generateContent(requestBody: any, req: Request) {
     }
   }
 
-<<<<<<< HEAD
-  // Generate content with OpenAI
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${openAIApiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: `${prompt}\n\nTemplate reference: ${templateContent}` }
-      ],
-      response_format: { type: "json_object" }
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  const generatedContent = JSON.parse(data.choices[0].message.content);
-=======
   // Generate content with AI (with fallback)
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -235,17 +187,13 @@ async function generateContent(requestBody: any, req: Request) {
   
   const aiResponse = await generateWithAI(messages, true);
   const generatedContent = JSON.parse(aiResponse);
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   // Create post draft if generating new content
   const { data: post, error: postError } = await supabase
     .from('posts')
     .insert({
       user_id: user.id,
-<<<<<<< HEAD
-=======
       business_profile_id: businessProfileId || null,
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
       type,
       content: generatedContent.content,
       title: generatedContent.title,
@@ -256,12 +204,8 @@ async function generateContent(requestBody: any, req: Request) {
       status: 'draft',
       metadata: {
         seo_data: generatedContent.seo_data,
-<<<<<<< HEAD
-        generated_at: new Date().toISOString()
-=======
         generated_at: new Date().toISOString(),
         business_context: businessContext
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
       }
     })
     .select()
@@ -271,29 +215,14 @@ async function generateContent(requestBody: any, req: Request) {
     throw postError;
   }
 
-  return new Response(JSON.stringify({ 
-    ...generatedContent,
-    postId: post.id 
-  }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-  });
+  return new Response(
+    JSON.stringify({ ...generatedContent, post_id: post.id }),
+    { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
 }
 
 async function enhanceContent(requestBody: any) {
-  const { content, enhancement_options = {} } = requestBody;
-  
-  if (!content) {
-    return new Response(
-      JSON.stringify({ error: 'Content is required' }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  const enhancements = [];
-  if (enhancement_options.improve_readability) enhancements.push('improve readability and flow');
-  if (enhancement_options.add_seo_keywords) enhancements.push(`incorporate SEO keywords: ${enhancement_options.add_seo_keywords.join(', ')}`);
-  if (enhancement_options.adjust_tone) enhancements.push(`adjust tone to be more ${enhancement_options.adjust_tone}`);
-  if (enhancement_options.target_platform) enhancements.push(`optimize for ${enhancement_options.target_platform} platform`);
+  const { content, enhancements = ['readability', 'engagement', 'seo'] } = requestBody;
 
   const systemPrompt = `You are an expert content editor. Enhance the following content by: ${enhancements.join(', ')}.
   
@@ -302,30 +231,6 @@ async function enhanceContent(requestBody: any) {
   - improvements_made: Array of improvements applied
   - quality_score: Score from 1-10 for content quality`;
 
-<<<<<<< HEAD
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${openAIApiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: content }
-      ],
-      response_format: { type: "json_object" }
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status}`);
-  }
-
-  const data = await response.json();
-  const enhancedContent = JSON.parse(data.choices[0].message.content);
-=======
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: content }
@@ -333,7 +238,6 @@ async function enhanceContent(requestBody: any) {
   
   const aiResponse = await generateWithAI(messages, true);
   const enhancedContent = JSON.parse(aiResponse);
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(enhancedContent),
@@ -342,17 +246,9 @@ async function enhanceContent(requestBody: any) {
 }
 
 async function optimizeForSEO(requestBody: any) {
-  const { content, target_keywords = [] } = requestBody;
+  const { content } = requestBody;
   
-  if (!content) {
-    return new Response(
-      JSON.stringify({ error: 'Content is required' }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  const systemPrompt = `You are an SEO expert. Optimize the following content for search engines.
-  Target keywords: ${target_keywords.join(', ')}
+  const systemPrompt = `You are an SEO expert. Optimize this content for search engines while maintaining readability.
   
   Respond with a JSON object containing:
   - optimized_content: SEO-optimized version of the content
@@ -361,30 +257,6 @@ async function optimizeForSEO(requestBody: any) {
   - keyword_density: Object showing keyword usage percentages
   - meta_data: { title, description, keywords }`;
 
-<<<<<<< HEAD
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${openAIApiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: content }
-      ],
-      response_format: { type: "json_object" }
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status}`);
-  }
-
-  const data = await response.json();
-  const seoData = JSON.parse(data.choices[0].message.content);
-=======
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: content }
@@ -392,7 +264,6 @@ async function optimizeForSEO(requestBody: any) {
   
   const aiResponse = await generateWithAI(messages, true);
   const seoData = JSON.parse(aiResponse);
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(seoData),
@@ -401,25 +272,16 @@ async function optimizeForSEO(requestBody: any) {
 }
 
 async function generatePlatformVariations(requestBody: any) {
-  const { base_content, target_platforms = [] } = requestBody;
+  const { base_content, target_platforms = ['facebook', 'twitter', 'linkedin', 'instagram'] } = requestBody;
   
-  if (!base_content) {
-    return new Response(
-      JSON.stringify({ error: 'Base content is required' }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
   const platformSpecs = {
-    twitter: 'max 280 characters, use hashtags, engaging and conversational',
-    linkedin: 'professional tone, up to 3000 characters, include call-to-action',
-    facebook: 'engaging and personal, up to 2000 characters, encourage interaction',
-    instagram: 'visual-focused caption, use emojis and hashtags, storytelling approach'
+    facebook: 'Facebook post (max 2200 chars, engaging, can include hashtags)',
+    twitter: 'Twitter post (max 280 chars, concise, relevant hashtags)',
+    linkedin: 'LinkedIn post (professional tone, max 3000 chars, industry-relevant)',
+    instagram: 'Instagram caption (visual focus, max 2200 chars, hashtag-heavy)'
   };
 
-  const systemPrompt = `You are a social media expert. Create platform-specific variations of the following content for: ${target_platforms.join(', ')}.
-  
-  Platform specifications:
+  const systemPrompt = `Create platform-specific variations of this content for:
   ${target_platforms.map(platform => `${platform}: ${platformSpecs[platform] || 'standard social media format'}`).join('\n')}
   
   Respond with a JSON object where each platform is a key containing:
@@ -428,30 +290,6 @@ async function generatePlatformVariations(requestBody: any) {
   - character_count: Number of characters used
   - engagement_tips: Tips for maximizing engagement on this platform`;
 
-<<<<<<< HEAD
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${openAIApiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: base_content }
-      ],
-      response_format: { type: "json_object" }
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status}`);
-  }
-
-  const data = await response.json();
-  const variations = JSON.parse(data.choices[0].message.content);
-=======
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: base_content }
@@ -459,7 +297,6 @@ async function generatePlatformVariations(requestBody: any) {
   
   const aiResponse = await generateWithAI(messages, true);
   const variations = JSON.parse(aiResponse);
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
 
   return new Response(
     JSON.stringify(variations),
