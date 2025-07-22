@@ -119,3 +119,14 @@ The application uses a comprehensive PostgreSQL schema with the following core e
 - **Access Controls**: Role-based permissions with healthcare-specific restrictions
 
 The architecture prioritizes healthcare compliance, user experience, and scalability while maintaining a clean separation of concerns between frontend presentation, backend logic, and data persistence layers.
+
+## Recent Changes: Latest modifications with dates
+
+### January 22, 2025 - Supabase Migration Complete
+- ✅ Successfully migrated from Lovable to Replit environment  
+- ✅ Maintained Supabase database backend exclusively (no Replit PostgreSQL)
+- ✅ Updated server/db.ts to use Supabase Admin client with service role key
+- ✅ Converted storage layer from Drizzle ORM to native Supabase calls
+- ✅ Configured all environment secrets in Replit (OpenAI, Gemini, Supabase)
+- ✅ Restored all member tools for paid tiers ($97/$197/$497)
+- ✅ Healthcare platform fully operational with AHPRA compliance tools
