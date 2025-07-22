@@ -2,6 +2,12 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { 
@@ -241,33 +247,48 @@ const AustralianServices = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {platformFeatures.map((feature, index) => (
-              <Card key={index} className="p-6 hover-lift border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
-                <CardHeader className="pb-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                  <CardDescription className="text-base">{feature.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-6">
-                    {feature.features.map((item, fIndex) => (
-                      <li key={fIndex} className="flex items-start text-sm">
-                        <ArrowRight className="w-4 h-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/auth">
-                    <Button variant="outline" className="w-full">
-                      Join Waitlist
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <Accordion type="multiple" className="space-y-4">
+              {platformFeatures.map((feature, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border border-white/20 rounded-lg bg-white/10 backdrop-blur-md">
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <feature.icon className="w-6 h-6 text-black" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                        <p className="text-white/80 text-sm">{feature.description}</p>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="pt-4 border-t border-white/10">
+                      <ul className="space-y-3 mb-6">
+                        {feature.features.map((item, fIndex) => (
+                          <li key={fIndex} className="flex items-start text-white/90">
+                            <ArrowRight className="w-4 h-4 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex gap-3">
+                        <Link to="/auth" className="flex-1">
+                          <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-300">
+                            Join Waitlist
+                          </Button>
+                        </Link>
+                        <Link to="/dashboard/diary">
+                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                            📝 Add Ideas
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
@@ -292,30 +313,50 @@ const AustralianServices = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {bonusTools.map((tool, index) => (
-              <Card key={index} className="p-6 text-center border-primary/20 hover:border-primary/40 transition-colors">
-                <CardContent className="p-0">
-                  <h3 className="text-lg font-bold mb-2">{tool.title}</h3>
-                  <p className="text-muted-foreground mb-4 text-sm">{tool.description}</p>
-                  <div className="space-y-1 mb-4">
-                    <p className="text-sm font-medium">Perfect for:</p>
-                    <div className="flex flex-wrap gap-1 justify-center">
-                      {tool.perfect.map((profession, pIndex) => (
-                        <Badge key={pIndex} variant="outline" className="text-xs">
-                          {profession}
-                        </Badge>
-                      ))}
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="multiple" className="space-y-4">
+              {bonusTools.map((tool, index) => (
+                <AccordionItem key={index} value={`bonus-${index}`} className="border border-white/20 rounded-lg bg-white/10 backdrop-blur-md">
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex items-center gap-4 text-left w-full">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Target className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-white">{tool.title}</h3>
+                        <p className="text-white/80 text-sm">{tool.description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <Link to="/auth">
-                    <Button variant="outline" size="sm">
-                      Join Waitlist
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="pt-4 border-t border-white/10">
+                      <div className="mb-4">
+                        <p className="text-white/90 font-medium mb-2">Perfect for:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {tool.perfect.map((profession, pIndex) => (
+                            <Badge key={pIndex} className="bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
+                              {profession}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <Link to="/auth" className="flex-1">
+                          <Button className="w-full bg-green-400 text-black hover:bg-green-300">
+                            Join Waitlist
+                          </Button>
+                        </Link>
+                        <Link to="/dashboard/diary">
+                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                            📝 Add Ideas
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
@@ -340,33 +381,48 @@ const AustralianServices = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {professionalServices.map((service, index) => (
-              <Card key={index} className="p-8 hover-lift border-2 border-primary/20">
-                <CardHeader className="text-center pb-6">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                    {index === 0 ? <Users className="w-8 h-8 text-white" /> : <FileSearch className="w-8 h-8 text-white" />}
-                  </div>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-8">
-                    {service.features.map((feature, fIndex) => (
-                      <li key={fIndex} className="flex items-start text-sm">
-                        <ArrowRight className="w-4 h-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/auth">
-                    <Button className="w-full">
-                      Join Waitlist
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <Accordion type="multiple" className="space-y-4">
+              {professionalServices.map((service, index) => (
+                <AccordionItem key={index} value={`service-${index}`} className="border border-white/20 rounded-lg bg-white/10 backdrop-blur-md">
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        {index === 0 ? <Users className="w-6 h-6 text-white" /> : <FileSearch className="w-6 h-6 text-white" />}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">{service.title}</h3>
+                        <p className="text-white/80 text-sm">{service.description}</p>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="pt-4 border-t border-white/10">
+                      <ul className="space-y-3 mb-6">
+                        {service.features.map((feature, fIndex) => (
+                          <li key={fIndex} className="flex items-start text-white/90">
+                            <ArrowRight className="w-4 h-4 text-purple-400 mr-3 flex-shrink-0 mt-0.5" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex gap-3">
+                        <Link to="/auth" className="flex-1">
+                          <Button className="w-full bg-purple-400 text-white hover:bg-purple-300">
+                            Join Waitlist
+                          </Button>
+                        </Link>
+                        <Link to="/dashboard/diary">
+                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                            📝 Add Ideas
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
