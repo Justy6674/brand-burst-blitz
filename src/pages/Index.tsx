@@ -253,7 +253,7 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              <span className="text-yellow-highlight">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
+              <span className="text-yellow-400">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
             </h2>
             <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Five critical compliance and visibility problems threatening your practice every day you remain invisible.
