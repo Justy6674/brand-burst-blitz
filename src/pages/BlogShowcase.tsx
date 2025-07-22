@@ -132,10 +132,14 @@ export default function BlogShowcase() {
 
   const generateEmbedCode = () => {
     const code = `<!-- JBSAAS Healthcare Blog Widget -->
-<div id="jbsaas-blog-widget" 
-     data-business-id="your-business-id"
-     data-style="${embedStyle}"
+<div data-jbsaas-widget="blog" 
+     data-business-id="demo-healthcare-practice"
+     data-theme="healthcare"
+     data-layout="${embedStyle}"
      data-posts="6"
+     data-show-excerpt="true"
+     data-show-date="true"
+     data-show-author="true"
      data-ahpra-compliance="true">
 </div>
 <script src="${window.location.origin}/widget.js" async></script>

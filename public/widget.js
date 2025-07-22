@@ -1,347 +1,407 @@
 /**
- * JBSAAS Universal Blog Widget v2.0.0
- * Real-time blog content delivery for external websites
- * Connects to Supabase for live data, no placeholders
+ * JBSAAS Healthcare Blog Widget
+ * Version: 1.0.0
+ * Copyright (c) 2024 JBSAAS
+ * 
+ * This widget allows healthcare practices to embed their blog content
+ * on any website with full AHPRA compliance and SEO optimization.
  */
-(function(window) {
+
+(function(window, document) {
   'use strict';
+
+  // Widget namespace
+  window.JBSAAS = window.JBSAAS || {};
   
-  const JBSAAS = {
-    apiBase: window.location.hostname === 'localhost' 
-      ? 'http://localhost:54321/functions/v1'
-      : 'https://ijpzunqmsqvgzwshglfl.supabase.co/functions/v1',
-    
-    init: function(config) {
-      if (!config.containerId && !config.container) {
-        console.error('JBSAAS: Container ID or element required');
-        return;
+  // Widget configuration
+  const config = {
+    apiUrl: window.location.origin + '/functions/v1/blog-api',
+    cdnUrl: window.location.origin,
+    version: '1.0.0',
+    defaultOptions: {
+      theme: 'healthcare',
+      layout: 'grid',
+      postsPerPage: 6,
+      showExcerpt: true,
+      showDate: true,
+      showAuthor: true,
+      showCategories: true,
+      ahpraCompliance: true,
+      customStyles: {
+        primaryColor: '#3b82f6',
+        fontFamily: 'inherit'
       }
-      
-      const container = typeof config.container === 'string' 
-        ? document.getElementById(config.container)
-        : config.container || document.getElementById(config.containerId);
-        
-      if (!container) {
-        console.error('JBSAAS: Container element not found');
-        return;
-      }
-      
-      // Track widget analytics
-      this.trackEvent('load', {
-        businessId: config.businessId,
-        containerId: config.containerId || container.id,
-        theme: config.theme,
-        userAgent: navigator.userAgent
-      });
-      
-      switch(config.type || 'blog') {
-        case 'blog':
-          this.initBlog(container, config);
-          break;
-        case 'faq-chatbot':
-          this.initChatbot(container, config);
-          break;
-        default:
-          this.initBlog(container, config);
-      }
-    },
-    
-    initBlog: function(container, config) {
-      // Show loading state with healthcare styling
-      container.innerHTML = `
-        <div class="jbsaas-blog-widget" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-          <div class="jbsaas-loading" style="text-align: center; padding: 2rem; color: #666;">
-            <div style="display: inline-block; width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #007bff; border-radius: 50%; animation: jbsaas-spin 1s linear infinite;"></div>
-            <p style="margin-top: 1rem;">Loading healthcare blog posts...</p>
-          </div>
-        </div>
-        <style>
-          @keyframes jbsaas-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        </style>
-      `;
-      
-      // Fetch real blog posts from Supabase
-      this.fetchBlogPosts(config)
-        .then(data => {
-          if (data.success && data.posts) {
-            this.renderBlogPosts(container, data.posts, data.business_info, config);
-            this.trackEvent('view', {
-              businessId: config.businessId,
-              postsLoaded: data.posts.length
-            });
-          } else {
-            this.renderError(container, 'No blog posts available', config);
-          }
-        })
-        .catch(error => {
-          console.error('JBSAAS: Failed to load blog posts:', error);
-          this.renderError(container, 'Failed to load blog posts. Please try again later.', config);
-          this.trackEvent('error', {
-            businessId: config.businessId,
-            error: error.message
-          });
-        });
-    },
-    
-    fetchBlogPosts: async function(config) {
-      const businessId = config.businessId || config.blog_id || config.blogId;
-      const postsPerPage = config.postsPerPage || config.posts || 6;
-      
-      if (!businessId) {
-        throw new Error('Business ID required for blog widget');
-      }
-      
-      const apiUrl = `${this.apiBase}/blog-api?businessId=${encodeURIComponent(businessId)}&limit=${postsPerPage}&published=true&ahpraCompliant=true`;
-      
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'omit'
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-        
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.message || errorData.error || errorMessage;
-        } catch (e) {
-          // Use default error message
-        }
-        
-        throw new Error(errorMessage);
-      }
-      
-      const data = await response.json();
-      return data;
-    },
-    
-    renderBlogPosts: function(container, posts, businessInfo, config) {
-      const theme = config.theme || 'modern';
-      const layout = config.layout || 'grid';
-      const showExcerpt = config.showExcerpt !== false;
-      const showDate = config.showDate !== false;
-      const showAuthor = config.showAuthor !== false;
-      const showCategories = config.showCategories !== false;
-      const ahpraCompliance = config.ahpraCompliance !== false;
-      
-      if (!posts || posts.length === 0) {
-        this.renderError(container, 'No blog posts available at this time.', config);
-        return;
-      }
-      
-      const gridClass = layout === 'list' ? '' : 'display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;';
-      const themeStyles = this.getThemeStyles(theme);
-      
-      const postsHTML = posts.map(post => {
-        const postDate = new Date(post.published_date || post.created_at).toLocaleDateString('en-AU', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-        
-        const excerpt = showExcerpt && post.excerpt ? `<p style="color: #666; font-size: 14px; line-height: 1.5; margin: 0.5rem 0;">${this.escapeHtml(post.excerpt)}</p>` : '';
-        const dateDisplay = showDate ? `<span style="color: #888; font-size: 12px;">📅 ${postDate}</span>` : '';
-        const authorDisplay = showAuthor && post.author_name ? `<span style="color: #888; font-size: 12px;">👤 ${this.escapeHtml(post.author_name)}</span>` : '';
-        const categoriesDisplay = showCategories && post.categories && post.categories.length > 0 ? 
-          `<div style="margin-top: 0.5rem;">${post.categories.map(cat => `<span style="background: #e3f2fd; color: #1976d2; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 11px; margin-right: 0.5rem;">${this.escapeHtml(cat)}</span>`).join('')}</div>` : '';
-        
-        const metadata = [dateDisplay, authorDisplay].filter(Boolean).join(' • ');
-        
-        return `
-          <article style="${themeStyles.article}" 
-                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'" 
-                   onmouseout="this.style.boxShadow='${themeStyles.articleShadow}'; this.style.transform='translateY(0)'"
-                   onclick="this.handlePostClick('${post.canonical_url || '#'}', '${post.id}', '${config.businessId}')">
-            <h3 style="${themeStyles.title}">
-              ${this.escapeHtml(post.title)}
-            </h3>
-            ${metadata ? `<div style="margin-bottom: 1rem; font-size: 12px; color: #888;">${metadata}</div>` : ''}
-            ${excerpt}
-            ${categoriesDisplay}
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
-              <span style="color: #1976d2; font-size: 13px; font-weight: 500;">Read more →</span>
-            </div>
-          </article>
-        `;
-      }).join('');
-      
-      // AHPRA compliance footer
-      const complianceFooter = ahpraCompliance && businessInfo ? `
-        <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-left: 4px solid #007bff; font-size: 0.9em; color: #666; border-radius: 0 4px 4px 0;">
-          <p style="margin: 0 0 0.5rem 0;"><strong>Medical Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. Always consult with a qualified healthcare provider for medical advice specific to your situation.</p>
-          ${businessInfo.ahpra_registration ? `<p style="margin: 0; color: #1976d2; font-size: 0.8em;"><strong>AHPRA Registration:</strong> ${this.escapeHtml(businessInfo.ahpra_registration)}</p>` : ''}
-          <p style="margin: 0.5rem 0 0 0; color: #1976d2; font-size: 0.8em;"><strong>Practice:</strong> ${this.escapeHtml(businessInfo.practice_name)}</p>
-        </div>
-      ` : '';
-      
-      container.innerHTML = `
-        <div class="jbsaas-blog-widget" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-          <div style="${gridClass}">
-            ${postsHTML}
-          </div>
-          ${complianceFooter}
-          <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0;">
-            <a href="${businessInfo.website_url || '#'}" target="_blank" 
-               style="color: #1976d2; text-decoration: none; font-size: 14px; font-weight: 500;">
-              View All Posts →
-            </a>
-          </div>
-        </div>
-      `;
-      
-      // Add click handlers
-      this.addPostClickHandlers(container, config);
-    },
-    
-    renderError: function(container, message, config) {
-      container.innerHTML = `
-        <div class="jbsaas-blog-widget" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-          <div style="padding: 2rem; text-align: center; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9f9f9;">
-            <h3 style="margin: 0 0 1rem 0; color: #333;">Healthcare Blog</h3>
-            <p style="margin: 0; font-size: 14px;">${this.escapeHtml(message)}</p>
-            <p style="margin: 1rem 0 0 0; font-size: 12px; color: #999;">
-              Powered by JBSAAS Healthcare Platform
-            </p>
-          </div>
-        </div>
-      `;
-    },
-    
-    getThemeStyles: function(theme) {
-      const themes = {
-        modern: {
-          article: 'border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; background: white; transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; margin-bottom: 1.5rem;',
-          articleShadow: 'none',
-          title: 'margin: 0 0 0.5rem 0; color: #333; font-size: 18px; font-weight: 600; line-height: 1.3;'
-        },
-        healthcare: {
-          article: 'border: 1px solid #e3f2fd; border-radius: 12px; padding: 1.5rem; background: linear-gradient(to bottom, #ffffff, #f8fffe); transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; margin-bottom: 1.5rem; border-left: 4px solid #007bff;',
-          articleShadow: '0 2px 4px rgba(0,123,255,0.1)',
-          title: 'margin: 0 0 0.5rem 0; color: #1976d2; font-size: 18px; font-weight: 600; line-height: 1.3;'
-        },
-        minimal: {
-          article: 'border-bottom: 1px solid #f0f0f0; padding: 1.5rem 0; transition: opacity 0.2s; cursor: pointer;',
-          articleShadow: 'none',
-          title: 'margin: 0 0 0.5rem 0; color: #333; font-size: 16px; font-weight: 500; line-height: 1.4;'
-        }
-      };
-      
-      return themes[theme] || themes.modern;
-    },
-    
-    addPostClickHandlers: function(container, config) {
-      // Handle post clicks properly
-      container.addEventListener('click', (event) => {
-        const article = event.target.closest('article');
-        if (article && article.onclick) {
-          // Extract URL from onclick attribute
-          const onclickStr = article.getAttribute('onclick');
-          const urlMatch = onclickStr.match(/handlePostClick\('([^']+)',\s*'([^']+)',\s*'([^']+)'\)/);
-          
-          if (urlMatch) {
-            const [, url, postId, businessId] = urlMatch;
-            this.handlePostClick(url, postId, businessId);
-          }
-        }
-      });
-    },
-    
-    handlePostClick: function(url, postId, businessId) {
-      // Track click event
-      this.trackEvent('click', {
-        businessId: businessId,
-        postId: postId,
-        url: url
-      });
-      
-      // Open post in new tab
-      if (url && url !== '#') {
-        window.open(url, '_blank');
-      }
-    },
-    
-    trackEvent: function(eventType, data) {
-      // Send analytics to Supabase
-      try {
-        fetch(`${this.apiBase}/blog-widget-analytics`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            event_type: eventType,
-            widget_data: data,
-            page_url: window.location.href,
-            referrer_url: document.referrer,
-            timestamp: new Date().toISOString()
-          })
-        }).catch(error => {
-          // Silently fail analytics
-          console.debug('JBSAAS Analytics:', error);
-        });
-      } catch (error) {
-        // Silently fail analytics
-        console.debug('JBSAAS Analytics:', error);
-      }
-    },
-    
-    initChatbot: function(container, config) {
-      // Real chatbot implementation would go here
-      container.innerHTML = `
-        <div class="jbsaas-chatbot" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-          <div style="background: #1976d2; color: white; padding: 1rem; border-radius: 8px 8px 0 0;">
-            <h4 style="margin: 0; font-size: 16px;">Healthcare FAQ Assistant</h4>
-          </div>
-          <div style="background: white; border: 1px solid #e0e0e0; border-top: none; padding: 1rem; border-radius: 0 0 8px 8px;">
-            <p style="margin: 0; color: #666; font-size: 14px;">
-              Chat functionality requires integration setup. Contact support for activation.
-            </p>
-          </div>
-        </div>
-      `;
-    },
-    
-    escapeHtml: function(unsafe) {
-      return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
     }
   };
-  
-  // Auto-initialize if data attributes are present
-  document.addEventListener('DOMContentLoaded', function() {
-    const widgets = document.querySelectorAll('[data-jbsaas-widget]');
-    widgets.forEach(function(widget) {
-      const config = {
-        container: widget,
-        type: widget.getAttribute('data-jbsaas-widget') || 'blog',
-        businessId: widget.getAttribute('data-business-id'),
-        theme: widget.getAttribute('data-theme') || 'modern',
-        layout: widget.getAttribute('data-layout') || 'grid',
-        postsPerPage: parseInt(widget.getAttribute('data-posts')) || 6,
-        showExcerpt: widget.getAttribute('data-show-excerpt') !== 'false',
-        showDate: widget.getAttribute('data-show-date') !== 'false',
-        showAuthor: widget.getAttribute('data-show-author') !== 'false',
-        showCategories: widget.getAttribute('data-show-categories') !== 'false',
-        ahpraCompliance: widget.getAttribute('data-ahpra-compliance') !== 'false'
-      };
-      JBSAAS.init(config);
+
+  // Main widget initialization
+  window.JBSAAS.init = function(options) {
+    const settings = Object.assign({}, config.defaultOptions, options);
+    
+    if (!settings.businessId) {
+      console.error('JBSAAS Blog Widget: businessId is required');
+      return;
+    }
+
+    if (!settings.containerId) {
+      console.error('JBSAAS Blog Widget: containerId is required');
+      return;
+    }
+
+    const container = document.getElementById(settings.containerId);
+    if (!container) {
+      console.error('JBSAAS Blog Widget: Container element not found:', settings.containerId);
+      return;
+    }
+
+    // Show loading state
+    container.innerHTML = '<div class="jbsaas-loading">Loading healthcare blog posts...</div>';
+    
+    // Inject CSS
+    injectStyles(settings);
+    
+    // Fetch and render blog posts
+    fetchBlogPosts(settings)
+      .then(data => {
+        if (data.posts && data.posts.length > 0) {
+          renderBlogPosts(container, data.posts, settings);
+        } else {
+          container.innerHTML = '<div class="jbsaas-no-posts">No blog posts available yet.</div>';
+        }
+      })
+      .catch(error => {
+        console.error('JBSAAS Blog Widget Error:', error);
+        container.innerHTML = '<div class="jbsaas-error">Unable to load blog posts. Please try again later.</div>';
+      });
+  };
+
+  // Auto-initialize widgets with data attributes
+  window.JBSAAS.autoInit = function() {
+    const widgets = document.querySelectorAll('[data-jbsaas-widget="blog"]');
+    widgets.forEach(widget => {
+      const businessId = widget.getAttribute('data-business-id');
+      const theme = widget.getAttribute('data-theme') || 'healthcare';
+      const posts = parseInt(widget.getAttribute('data-posts') || '6');
+      const layout = widget.getAttribute('data-layout') || 'grid';
+      const showExcerpt = widget.getAttribute('data-show-excerpt') !== 'false';
+      const showDate = widget.getAttribute('data-show-date') !== 'false';
+      const showAuthor = widget.getAttribute('data-show-author') !== 'false';
+      const ahpraCompliance = widget.getAttribute('data-ahpra-compliance') !== 'false';
+      
+      if (!businessId) {
+        console.error('JBSAAS Blog Widget: data-business-id is required');
+        return;
+      }
+      
+      // Generate unique container ID
+      const containerId = 'jbsaas-blog-' + Math.random().toString(36).substr(2, 9);
+      widget.id = containerId;
+      
+      JBSAAS.init({
+        businessId: businessId,
+        containerId: containerId,
+        theme: theme,
+        layout: layout,
+        postsPerPage: posts,
+        showExcerpt: showExcerpt,
+        showDate: showDate,
+        showAuthor: showAuthor,
+        ahpraCompliance: ahpraCompliance
+      });
     });
-  });
-  
-  // Global API
-  window.JBSAAS = JBSAAS;
-  window.JBSAASBlog = JBSAAS;
-  
-})(window);
+  };
+
+  // Fetch blog posts from API
+  function fetchBlogPosts(settings) {
+    const params = new URLSearchParams({
+      businessId: settings.businessId,
+      limit: settings.postsPerPage.toString(),
+      published: 'true',
+      ahpraCompliant: settings.ahpraCompliance.toString()
+    });
+
+    return fetch(config.apiUrl + '?' + params.toString(), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog posts');
+      }
+      return response.json();
+    });
+  }
+
+  // Render blog posts
+  function renderBlogPosts(container, posts, settings) {
+    let html = '<div class="jbsaas-blog-widget jbsaas-' + settings.layout + '-layout">';
+    
+    posts.forEach(post => {
+      const postDate = new Date(post.published_date || post.created_at);
+      const formattedDate = postDate.toLocaleDateString('en-AU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      html += '<article class="jbsaas-blog-post">';
+      
+      // Featured image
+      if (post.featured_image && settings.layout !== 'list') {
+        html += '<div class="jbsaas-post-image">';
+        html += '<img src="' + escapeHtml(post.featured_image) + '" alt="' + escapeHtml(post.title) + '" loading="lazy">';
+        html += '</div>';
+      }
+      
+      html += '<div class="jbsaas-post-content">';
+      
+      // Categories
+      if (settings.showCategories && post.categories && post.categories.length > 0) {
+        html += '<div class="jbsaas-post-categories">';
+        post.categories.forEach(category => {
+          html += '<span class="jbsaas-category">' + escapeHtml(category) + '</span>';
+        });
+        html += '</div>';
+      }
+      
+      // Title
+      html += '<h3 class="jbsaas-post-title">';
+      html += '<a href="' + escapeHtml(post.canonical_url || '#') + '" target="_blank" rel="noopener">';
+      html += escapeHtml(post.title);
+      html += '</a>';
+      html += '</h3>';
+      
+      // Excerpt
+      if (settings.showExcerpt && post.excerpt) {
+        html += '<p class="jbsaas-post-excerpt">' + escapeHtml(post.excerpt) + '</p>';
+      }
+      
+      // Meta info
+      html += '<div class="jbsaas-post-meta">';
+      
+      if (settings.showAuthor && post.author_name) {
+        html += '<span class="jbsaas-author">By ' + escapeHtml(post.author_name) + '</span>';
+      }
+      
+      if (settings.showDate) {
+        html += '<span class="jbsaas-date">' + formattedDate + '</span>';
+      }
+      
+      html += '</div>';
+      
+      // AHPRA compliance badge
+      if (settings.ahpraCompliance && post.ahpra_compliant) {
+        html += '<div class="jbsaas-compliance">';
+        html += '<span class="jbsaas-ahpra-badge">✓ AHPRA Compliant</span>';
+        html += '</div>';
+      }
+      
+      html += '</div>'; // .jbsaas-post-content
+      html += '</article>';
+    });
+    
+    html += '</div>';
+    
+    // Add healthcare disclaimer if enabled
+    if (settings.ahpraCompliance) {
+      html += '<div class="jbsaas-healthcare-disclaimer">';
+      html += '<p>This information is for educational purposes only and should not replace professional medical advice. ';
+      html += 'Always consult with a qualified healthcare provider for medical concerns.</p>';
+      html += '</div>';
+    }
+    
+    container.innerHTML = html;
+  }
+
+  // Inject widget styles
+  function injectStyles(settings) {
+    const styleId = 'jbsaas-blog-widget-styles';
+    
+    // Check if styles already exist
+    if (document.getElementById(styleId)) {
+      return;
+    }
+    
+    const styles = `
+      .jbsaas-blog-widget {
+        font-family: ${settings.customStyles.fontFamily};
+        color: #1a202c;
+        line-height: 1.6;
+      }
+      
+      .jbsaas-loading {
+        text-align: center;
+        padding: 2rem;
+        color: #718096;
+      }
+      
+      .jbsaas-error,
+      .jbsaas-no-posts {
+        text-align: center;
+        padding: 2rem;
+        color: #718096;
+        background: #f7fafc;
+        border-radius: 0.5rem;
+      }
+      
+      /* Grid Layout */
+      .jbsaas-grid-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      /* List Layout */
+      .jbsaas-list-layout .jbsaas-blog-post {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .jbsaas-list-layout .jbsaas-blog-post:last-child {
+        border-bottom: none;
+      }
+      
+      /* Card Layout */
+      .jbsaas-cards-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+      
+      /* Blog Post Styles */
+      .jbsaas-blog-post {
+        background: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+      
+      .jbsaas-blog-post:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .jbsaas-post-image {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+      
+      .jbsaas-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .jbsaas-post-content {
+        padding: 1.5rem;
+      }
+      
+      .jbsaas-post-categories {
+        margin-bottom: 0.5rem;
+      }
+      
+      .jbsaas-category {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        margin-right: 0.5rem;
+        background: #edf2f7;
+        color: #4a5568;
+        font-size: 0.875rem;
+        border-radius: 9999px;
+      }
+      
+      .jbsaas-post-title {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+      
+      .jbsaas-post-title a {
+        color: #2d3748;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      
+      .jbsaas-post-title a:hover {
+        color: ${settings.customStyles.primaryColor};
+      }
+      
+      .jbsaas-post-excerpt {
+        margin: 0 0 1rem 0;
+        color: #4a5568;
+        font-size: 0.9375rem;
+      }
+      
+      .jbsaas-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.875rem;
+        color: #718096;
+      }
+      
+      .jbsaas-compliance {
+        margin-top: 0.75rem;
+      }
+      
+      .jbsaas-ahpra-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: #c6f6d5;
+        color: #22543d;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 0.25rem;
+      }
+      
+      .jbsaas-healthcare-disclaimer {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        color: #4a5568;
+      }
+      
+      @media (max-width: 768px) {
+        .jbsaas-grid-layout,
+        .jbsaas-cards-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    `;
+    
+    const styleElement = document.createElement('style');
+    styleElement.id = styleId;
+    styleElement.textContent = styles;
+    document.head.appendChild(styleElement);
+  }
+
+  // Utility function to escape HTML
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  // Auto-initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      window.JBSAAS.autoInit();
+    });
+  } else {
+    window.JBSAAS.autoInit();
+  }
+
+})(window, document);
