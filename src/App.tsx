@@ -15,7 +15,7 @@ import { GlobalErrorBoundary } from '@/components/error/GlobalErrorBoundary';
 // Lazy load only existing pages
 const Index = lazy(() => import('./pages/Index'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
-const CreateContent = lazy(() => import('./pages/CreateContent'));
+const CreateContent = lazy(() => import('./pages/CreateContent').then(module => ({ default: module.default || module.CreateContent })));
 const Calendar = lazy(() => import('./pages/Calendar'));
 const Analytics = lazy(() => import('./pages/Analytics'));
 const SocialMedia = lazy(() => import('./pages/SocialMedia'));
@@ -30,7 +30,7 @@ const PublishingPipeline = lazy(() => import('./pages/PublishingPipeline'));
 const Diary = lazy(() => import('./pages/Diary'));
 const Posts = lazy(() => import('./pages/Posts'));
 const CrossBusinessFeatures = lazy(() => import('./pages/CrossBusinessFeatures'));
-const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed'));
+const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed').then(module => ({ default: module.default || module.HealthcareBlogEmbed })));
 const BusinessQuestionnaire = lazy(() => import('./components/questionnaire/BusinessQuestionnaire'));
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -44,7 +44,7 @@ const AllServices = lazy(() => import('./pages/AllServices'));
 const AustralianServices = lazy(() => import('./pages/AustralianServices'));
 const AustralianSetupService = lazy(() => import('./pages/AustralianSetupService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const BlogShowcase = lazy(() => import('./pages/BlogShowcase'));
+// const BlogShowcase = lazy(() => import('./pages/BlogShowcase'));
 
 const queryClient = new QueryClient();
 
@@ -103,11 +103,7 @@ function App() {
                             <BlogPage />
                           </Suspense>
                         } />
-                        <Route path="/blog-showcase" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <BlogShowcase />
-                          </Suspense>
-                        } />
+                        {/* <Route path="/blog-showcase" element={<BlogShowcase />} /> */}
                         <Route path="/pricing" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <Pricing />
