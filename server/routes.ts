@@ -143,15 +143,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Blog Management
+  // Blog Management - Public Read-Only API (Google Crawlable)
   app.get("/api/blog-posts", async (req, res) => {
     try {
-      const { published, limit } = req.query;
+      const { published, limit, category, featured } = req.query;
+      
+      // For external frontends, default to published posts only
+      const shouldShowPublished = published === 'false' ? false : true;
+      
       const posts = await storage.getBlogPosts(
-        published === 'true' ? true : published === 'false' ? false : undefined,
-        limit ? parseInt(limit as string) : undefined
+        shouldShowPublished,
+        limit ? parseInt(limit as string) : 50
       );
-      res.json(posts);
+      
+      // Add SEO-friendly metadata for crawlers
+      res.set({
+        'Cache-Control': 'public, max-age=300', // 5 minutes cache
+        'Content-Type': 'application/json; charset=utf-8'
+      });
+      
+      res.json({
+        posts,
+        meta: {
+          total: posts.length,
+          published_only: shouldShowPublished,
+          crawlable: true,
+          api_version: '1.0'
+        }
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
@@ -163,12 +182,125 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!post) {
         return res.status(404).json({ error: "Blog post not found" });
       }
-      res.json(post);
+      
+      // Only serve published posts to external frontends
+      if (!post.published) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      
+      // SEO-friendly headers for individual posts
+      res.set({
+        'Cache-Control': 'public, max-age=600', // 10 minutes cache
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Content-Type': 'blog-post'
+      });
+      
+      res.json({
+        ...post,
+        meta: {
+          crawlable: true,
+          canonical_url: `/blog/${post.slug}`,
+          api_version: '1.0'
+        }
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
   });
 
+  // PUBLIC API - For External Frontends (Simple URLs)
+  app.get("/api/public/blog", async (req, res) => {
+    try {
+      const { limit = 10, category, featured } = req.query;
+      
+      // Only published posts for public API
+      const posts = await storage.getBlogPosts(true, parseInt(limit as string));
+      
+      // Filter by category or featured if specified
+      let filteredPosts = posts;
+      if (category) {
+        filteredPosts = posts.filter(post => post.category === category);
+      }
+      if (featured === 'true') {
+        filteredPosts = posts.filter(post => post.featured);
+      }
+      
+      // SEO and cache headers
+      res.set({
+        'Cache-Control': 'public, max-age=300',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-API-Version': '1.0',
+        'X-Crawlable': 'true'
+      });
+      
+      res.json({
+        success: true,
+        data: filteredPosts.map(post => ({
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          excerpt: post.excerpt,
+          author: post.author,
+          category: post.category,
+          tags: post.tags,
+          featuredImage: post.featuredImage,
+          publishedAt: post.createdAt,
+          url: `/blog/${post.slug}`
+        })),
+        meta: {
+          total: filteredPosts.length,
+          limit: parseInt(limit as string),
+          api_type: 'public_read_only',
+          crawlable: true
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/public/blog/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post || !post.published) {
+        return res.status(404).json({ error: "Article not found" });
+      }
+      
+      // SEO headers for individual posts
+      res.set({
+        'Cache-Control': 'public, max-age=600',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Content-Type': 'healthcare-blog-post'
+      });
+      
+      res.json({
+        success: true,
+        data: {
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          content: post.content,
+          excerpt: post.excerpt,
+          author: post.author,
+          category: post.category,
+          tags: post.tags,
+          featuredImage: post.featuredImage,
+          metaDescription: post.metaDescription,
+          publishedAt: post.createdAt,
+          featured: post.featured
+        },
+        meta: {
+          canonical_url: `/blog/${post.slug}`,
+          crawlable: true,
+          api_type: 'public_read_only'
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // PROTECTED: Blog creation (requires future authentication)
   app.post("/api/blog-posts", async (req, res) => {
     try {
       const postData = insertBlogPostSchema.parse(req.body);
