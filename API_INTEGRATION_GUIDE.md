@@ -13,7 +13,7 @@ Your healthcare platform blog content can now be displayed on ANY website or app
 
 ### Get All Blog Posts
 ```
-GET https://your-replit-app.replit.app/api/public/blog
+GET https://your-vercel-domain.vercel.app/api/blog
 ```
 
 **Example Response:**
@@ -43,7 +43,7 @@ GET https://your-replit-app.replit.app/api/public/blog
 
 ### Get Single Blog Post
 ```
-GET https://your-replit-app.replit.app/api/public/blog/your-post-slug
+GET https://your-vercel-domain.vercel.app/api/blog?slug=your-post-slug
 ```
 
 ## 🔧 Simple Integration Examples
@@ -52,7 +52,7 @@ GET https://your-replit-app.replit.app/api/public/blog/your-post-slug
 ```html
 <div id="blog-posts"></div>
 <script>
-fetch('https://your-replit-app.replit.app/api/public/blog?limit=5')
+fetch('https://your-vercel-domain.vercel.app/api/blog?limit=5')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('blog-posts');
