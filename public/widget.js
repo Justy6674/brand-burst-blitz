@@ -15,8 +15,8 @@
   
   // Widget configuration
   const config = {
-    apiUrl: window.location.origin + '/functions/v1/blog-api',
-    cdnUrl: window.location.origin,
+    apiUrl: 'https://brand-burst-blitz.vercel.app/functions/v1/blog-api',
+    cdnUrl: 'https://brand-burst-blitz.vercel.app',
     version: '1.0.0',
     defaultOptions: {
       theme: 'healthcare',
