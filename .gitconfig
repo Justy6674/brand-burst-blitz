@@ -1,7 +1,9 @@
 [user]
-	name = Justy6674
-	email = downscaleweightloss@gmail.com
+        name = Justy6674
+        email = downscaleweightloss@gmail.com
 [core]
-	autocrlf = input
+        autocrlf = input
 [init]
-	defaultBranch = main
+        defaultBranch = main
+[commit]
+        template = /dev/null
