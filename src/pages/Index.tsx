@@ -134,8 +134,8 @@ const Index = () => {
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              <span className="text-yellow-400">WHY</span> Healthcare Professionals Need<br />
-              This Platform
+              Australia's First <span className="text-yellow-400">AHPRA-Compliant</span><br />
+              Content Platform for <span className="text-yellow-400">Healthcare Professionals</span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
@@ -264,7 +264,7 @@ const Index = () => {
             {[
               {
                 title: "⚖️ AHPRA Compliance Crisis",
-                description: "Generic <span style='color: #ffd700; font-weight: 700;'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-highlight'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
+                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
