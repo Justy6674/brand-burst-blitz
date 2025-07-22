@@ -13,7 +13,7 @@ Your healthcare platform blog content can now be displayed on ANY website or app
 
 ### Get All Blog Posts
 ```
-GET https://your-vercel-domain.vercel.app/api/blog
+GET https://www.jbsaas.com/api/blog
 ```
 
 **Example Response:**
@@ -43,7 +43,7 @@ GET https://your-vercel-domain.vercel.app/api/blog
 
 ### Get Single Blog Post
 ```
-GET https://your-vercel-domain.vercel.app/api/blog?slug=your-post-slug
+GET https://www.jbsaas.com/api/blog?slug=your-post-slug
 ```
 
 ## 🔧 Simple Integration Examples
@@ -52,7 +52,7 @@ GET https://your-vercel-domain.vercel.app/api/blog?slug=your-post-slug
 ```html
 <div id="blog-posts"></div>
 <script>
-fetch('https://your-vercel-domain.vercel.app/api/blog?limit=5')
+fetch('https://www.jbsaas.com/api/blog?limit=5')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('blog-posts');
@@ -77,7 +77,7 @@ function BlogList() {
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
-    fetch('https://your-replit-app.replit.app/api/public/blog')
+    fetch('https://www.jbsaas.com/api/blog')
       .then(res => res.json())
       .then(data => setPosts(data.data));
   }, []);
@@ -100,17 +100,17 @@ function BlogList() {
 
 ### Get Latest 5 Posts
 ```
-/api/public/blog?limit=5
+https://www.jbsaas.com/api/blog?limit=5
 ```
 
 ### Get Featured Posts Only
 ```
-/api/public/blog?featured=true
+https://www.jbsaas.com/api/blog?featured=true
 ```
 
 ### Get Posts by Category
 ```
-/api/public/blog?category=Compliance
+https://www.jbsaas.com/api/blog?category=Compliance
 ```
 
 ## ✅ SEO & Google Benefits
@@ -156,9 +156,25 @@ Integrate professional healthcare content into your app.
 ### 4. Social Media Automation
 Pull blog content for social media posting.
 
+## 🌐 Available Domains
+
+Your JBSAAS blog API is available on both domains:
+
+**Primary Domain:**
+```
+https://www.jbsaas.com/api/blog
+```
+
+**Alternative Domain:**
+```
+https://jbsaas.ai/api/blog
+```
+
+Both domains serve the same content and functionality.
+
 ## 🚀 Go Live Checklist
 
-- [ ] Replace `your-replit-app.replit.app` with your actual Replit URL
+- [x] API endpoints configured for www.jbsaas.com and jbsaas.ai
 - [ ] Test the API endpoints in your browser
 - [ ] Implement the JavaScript code on your website
 - [ ] Check that posts are displaying correctly
@@ -170,9 +186,9 @@ Pull blog content for social media posting.
 **Working?** ✅ Your blog API is ready for external integration!
 
 **Not Working?** Check:
-1. Is your Replit app running?
-2. Are there published blog posts in your system?
-3. Is your website's JavaScript console showing any errors?
+1. Are there published blog posts in your JBSAAS system?
+2. Is your website's JavaScript console showing any errors?
+3. Try both domains: www.jbsaas.com and jbsaas.ai
 
 ---
 

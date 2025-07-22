@@ -10,16 +10,25 @@ module.exports = async function handler(req, res) {
     return res.status(200).end();
   }
 
-  // Environment variables
+  // Environment variables - Debug mode
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  // Add debug logging for Vercel
+  console.log('Environment check:', {
+    hasUrl: !!supabaseUrl,
+    hasKey: !!supabaseServiceKey,
+    urlLength: supabaseUrl ? supabaseUrl.length : 0,
+    keyLength: supabaseServiceKey ? supabaseServiceKey.length : 0
+  });
 
   if (!supabaseUrl || !supabaseServiceKey) {
     return res.status(500).json({
       error: 'Missing Supabase configuration',
       debug: {
         hasUrl: !!supabaseUrl,
-        hasKey: !!supabaseServiceKey
+        hasKey: !!supabaseServiceKey,
+        envKeys: Object.keys(process.env).filter(k => k.includes('SUPABASE'))
       }
     });
   }
