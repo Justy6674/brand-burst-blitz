@@ -176,57 +176,66 @@ const AustralianServices = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      {/* Hero Section with Background Image */}
-      <section className="relative py-16 lg:py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${featuresImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src={featuresImage}
+            alt="Platform Features Background"
+            className="w-full h-full object-cover object-center"
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
-        <div className="relative z-20 container mx-auto px-6 text-center">
-          <Badge className="mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-lg px-6 py-3 font-semibold">
-            🇦🇺 15 Platform Features + 2 Professional Services
-          </Badge>
-          
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white">
-            <span className="text-yellow-400">Everything You Get</span><br />
-            <span className="text-white">Inside</span>
-          </h1>
-          
-          <p className="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
-            Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/auth">
-              <Button size="xl" className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6">
-                Join Waitlist
-              </Button>
-            </Link>
-            <Link to="/pricing">
-              <Button size="xl" variant="outline" className="text-xl px-12 py-6 border-white text-white hover:bg-white/20">
-                View Pricing Plans
-              </Button>
-            </Link>
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-6 md:mb-8 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm text-green-400 border-green-500/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold animate-pulse">
+              🇦🇺 15 Platform Features + 2 Professional Services
+            </Badge>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
+              <span className="text-yellow-400">Everything You Get</span><br />
+              <span className="text-white">Inside</span>
+            </h1>
+            
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
+              Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
+            </p>
+            
+            <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
+              <Link to="/auth">
+                <Button size="xl" className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 animate-pulse">
+                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                  Join Waitlist
+                </Button>
+              </Link>
+              <Link to="/pricing">
+                <Button size="xl" variant="outline" className="w-full sm:w-auto text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 border-green-500 text-green-400 hover:bg-green-500/20">
+                  <Crown className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                  View Pricing Plans
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Complete Members Dashboard */}
-      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Platform features background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
+        </div>
+        <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Complete <span className="text-gradient-primary">Members Dashboard</span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              Complete <span className="text-yellow-400">Members Dashboard</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
               Your complete AI marketing command center. Every tool, feature, and capability in your members area.
             </p>
           </div>
@@ -263,13 +272,21 @@ const AustralianServices = () => {
       </section>
 
       {/* Profession-Specific Bonus Tools */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Bonus tools background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
+        </div>
+        <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Profession-Specific <span className="text-gradient-primary">Bonus Tools</span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              Profession-Specific <span className="text-yellow-400">Bonus Tools</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
               Industry-specific tools and services tailored to your profession's unique requirements and compliance needs.
             </p>
           </div>
@@ -303,13 +320,21 @@ const AustralianServices = () => {
       </section>
 
       {/* Business Start-up Services */}
-      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
-        <div className="container mx-auto px-6">
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Business services background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-purple-900/80 to-pink-900/85"></div>
+        </div>
+        <div className="relative z-20 container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Business <span className="text-gradient-primary">Start-up Services</span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              Business <span className="text-yellow-400">Start-up Services</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
               Expert-level business setup services to get you operational fast with full Australian compliance.
             </p>
           </div>
@@ -346,12 +371,20 @@ const AustralianServices = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8">
-            Ready to Transform <span className="text-gradient-primary">Your Business?</span>
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Final CTA background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-cyan-900/85"></div>
+        </div>
+        <div className="relative z-20 container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">
+            Ready to Transform <span className="text-yellow-400">Your Business?</span>
           </h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
             Get access to every feature shown above plus professional setup services. Start dominating your market today.
           </p>
           
