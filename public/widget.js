@@ -10,20 +10,35 @@
 (function(window, document) {
   'use strict';
 
+  // Safety check - ensure we're in a browser environment
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return;
+  }
+
   // Widget namespace
   window.JBSAAS = window.JBSAAS || {};
   
   // Determine the API URL from the script source
   function getApiBaseUrl() {
-    const scripts = document.getElementsByTagName('script');
-    for (let i = 0; i < scripts.length; i++) {
-      const src = scripts[i].src;
-      if (src && src.includes('/widget.js')) {
-        // Extract base URL from script source
-        const url = new URL(src);
-        return url.origin;
-      }
+    // Safety check for document
+    if (!document || !document.getElementsByTagName) {
+      return 'https://brand-burst-blitz.vercel.app';
     }
+    
+    try {
+      const scripts = document.getElementsByTagName('script');
+      for (let i = 0; i < scripts.length; i++) {
+        const src = scripts[i].src;
+        if (src && src.includes('/widget.js')) {
+          // Extract base URL from script source
+          const url = new URL(src);
+          return url.origin;
+        }
+      }
+    } catch (e) {
+      console.warn('JBSAAS Widget: Could not determine script origin, using default');
+    }
+    
     // Fallback to production URL if script source not found
     return 'https://brand-burst-blitz.vercel.app';
   }
