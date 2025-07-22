@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-project_id = "qdjscrevewcuqotkzcrm"
-=======
 project_id = "qdjscrevewcuqotkzcrm"
 
 [api]
@@ -96,4 +93,3 @@ verify_jwt = false
 
 [functions.collect-social-analytics]
 verify_jwt = false
->>>>>>> e3d359e83bde9c2c06ef9b41eabf2e4c882d4373
