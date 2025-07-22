@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Users, 
@@ -12,74 +11,163 @@ import {
   Building, 
   Heart,
   Zap, 
-  BarChart3, 
   Brain, 
   Target, 
   Shield,
+  BarChart3,
+  Calendar,
+  Search,
   Globe,
-  CheckCircle,
-  Crown,
-  Mail,
-  Clock,
-  Star
+  Camera,
+  Settings,
+  Briefcase
 } from "lucide-react";
 import featuresImage from '@/assets/features-image.jpg';
 
 const AustralianServices = () => {
-  const starterFeatures = [
-    'AI Content Generation: 100 posts/month',
-    'Social Media Management: 3 accounts',
-    'Content Scheduling & Publishing',
-    'Basic Analytics Dashboard',
-    'Industry-Specific Templates',
-    'Email Support'
-  ];
-
-  const professionalFeatures = [
-    'Everything in Starter PLUS:',
-    'Unlimited AI Content Generation',
-    'Social Media Management: 10 accounts',
-    'Advanced Analytics & Insights',
-    'Competitor Analysis Tools',
-    'Brand Voice Training',
-    'Custom Content Templates',
-    'Priority Support',
-    'Business Intelligence Dashboard'
-  ];
-
-  const enterpriseFeatures = [
-    'Everything in Professional',
-    'Unlimited team members & accounts',
-    'White-label solution',
-    'Custom integrations',
-    'Dedicated success manager'
-  ];
-
-  const currentTools = [
+  const platformFeatures = [
     {
-      name: 'Australian Quick-Start Social Setup',
-      price: '$199-299',
-      description: 'Complete Facebook Business Manager, Instagram Business profile setup and JBSAAS integration',
+      icon: Brain,
+      title: "AI Content Creation Hub",
+      description: "Advanced AI content generation with Australian compliance",
       features: [
-        'Facebook Business Manager setup',
-        'Instagram Business configuration',
-        'Meta App setup and verification',
-        'Australian business compliance',
-        'Full JBSAAS integration',
-        'Quality assurance testing'
+        "Industry-specific AI content generation",
+        "Blog posts, social media, marketing copy", 
+        "Australian compliance built-in (AHPRA, TGA, ASIC)",
+        "Brand voice training and consistency",
+        "SEO optimization for Google visibility"
       ]
     },
     {
-      name: 'Name & Domain Scout',
-      price: '$69-99',
-      description: 'Professional business name research including ASIC availability and domain checking',
+      icon: FileSearch,
+      title: "Content Management System", 
+      description: "Complete content library and publishing workflow",
       features: [
-        'ASIC business name availability',
-        'Domain availability checking',
-        'Similar name analysis',
-        'Optional trademark screening',
-        'AI-generated research summary',
-        'Professional PDF report'
+        "Draft, scheduled, and published content library",
+        "Content versioning and revision history",
+        "Bulk editing and batch operations",
+        "Content performance tracking",
+        "Tag and category organization"
+      ]
+    },
+    {
+      icon: Globe,
+      title: "Social Media Command Center",
+      description: "Unified social media management platform", 
+      features: [
+        "Facebook, Instagram, LinkedIn integration",
+        "Multi-account management dashboard",
+        "Cross-platform publishing",
+        "Social media account setup service",
+        "Automated posting schedules"
+      ]
+    },
+    {
+      icon: Calendar,
+      title: "Smart Content Calendar",
+      description: "Strategic content planning and automated scheduling",
+      features: [
+        "Visual content calendar interface",
+        "Drag-and-drop scheduling", 
+        "Multi-platform publishing calendar",
+        "Campaign planning and coordination",
+        "Automated posting queues"
+      ]
+    },
+    {
+      icon: Target,
+      title: "Competitor Intelligence Suite",
+      description: "AI-powered competitor analysis and market monitoring",
+      features: [
+        "Automated competitor content tracking",
+        "Market gap analysis and opportunities",
+        "Content performance comparisons", 
+        "Strategic recommendations engine",
+        "Industry trend identification"
+      ]
+    },
+    {
+      icon: BarChart3,
+      title: "Advanced Analytics Dashboard",
+      description: "Comprehensive performance insights and reporting",
+      features: [
+        "Real-time content performance metrics",
+        "Social media engagement analytics",
+        "SEO ranking and visibility tracking",
+        "ROI and conversion reporting", 
+        "Custom dashboard widgets"
+      ]
+    },
+    {
+      icon: Settings,
+      title: "Professional Content Templates",
+      description: "Industry-specific templates for every business need",
+      features: [
+        "Industry-specific content templates",
+        "Custom template creation tools",
+        "Template library and sharing",
+        "Variable placeholders and automation",
+        "Brand-consistent formatting"
+      ]
+    },
+    {
+      icon: Search,
+      title: "AI-Searchable Template Library", 
+      description: "Industry-tailored templates for Australian SMEs",
+      features: [
+        "Templates organized by industry (Retail, Trades, Hospitality, etc.)",
+        "AI-searchable by keywords and hashtags",
+        "EOFY, Melbourne Cup, local event templates",
+        "Auto-insert city/industry hashtags",
+        "One-click template customization"
+      ]
+    }
+  ];
+
+  const bonusTools = [
+    {
+      title: "Medicare Compliance Suite",
+      description: "AHPRA regulations, Medicare rules, and healthcare compliance",
+      perfect: ["Doctors", "Specialists", "Allied Health"]
+    },
+    {
+      title: "Postcode Search Tools", 
+      description: "Medicare telehealth eligibility and postcode verification",
+      perfect: ["Healthcare", "Allied Health", "Psychology"]
+    },
+    {
+      title: "Business Name Generator",
+      description: "AI-powered business name creation with ASIC verification", 
+      perfect: ["Startups", "New Businesses", "Entrepreneurs"]
+    },
+    {
+      title: "Domain Research Engine",
+      description: "Advanced domain availability, pricing, and acquisition tools",
+      perfect: ["All Businesses", "Startups", "Tech Companies"]
+    }
+  ];
+
+  const professionalServices = [
+    {
+      title: "Australian Social Setup Service",
+      description: "Complete Facebook Business Manager, Instagram Business, and LinkedIn setup with Australian compliance",
+      features: [
+        "Facebook Business Manager configuration",
+        "Instagram Business profile setup", 
+        "LinkedIn Business page optimization",
+        "Meta App setup and verification",
+        "Australian business compliance check"
+      ]
+    },
+    {
+      title: "Name & Domain Scout Service",
+      description: "Professional business name research with ASIC availability and domain analysis",
+      features: [
+        "ASIC business name availability check",
+        "Domain availability across extensions",
+        "Similar business name analysis",
+        "Optional trademark screening", 
+        "AI-generated business name alternatives"
       ]
     }
   ];
@@ -104,74 +192,67 @@ const AustralianServices = () => {
         
         <div className="relative z-20 container mx-auto px-6 text-center">
           <Badge className="mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-lg px-6 py-3 font-semibold">
-            🏥 Australian Healthcare Services & Platform
+            🇦🇺 15 Platform Features + 2 Professional Services
           </Badge>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white">
-            Complete <span className="text-yellow-400">Healthcare Platform</span><br />
-            & <span className="text-yellow-400">Professional Services</span>
+            <span className="text-yellow-400">Everything You Get</span><br />
+            <span className="text-white">Inside</span>
           </h1>
           
           <p className="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
-            AHPRA-compliant content platform plus professional Australian business setup services. Everything you need for healthcare marketing compliance.
+            Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/pricing">
+            <Link to="/auth">
               <Button size="xl" className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6">
-                <Crown className="w-6 h-6 mr-3" />
-                View Platform Pricing
+                Join Waitlist
               </Button>
             </Link>
-            <Link to="/aussie-setup-service">
+            <Link to="/pricing">
               <Button size="xl" variant="outline" className="text-xl px-12 py-6 border-white text-white hover:bg-white/20">
-                <Building className="w-6 h-6 mr-3" />
-                Professional Setup Services
+                View Pricing Plans
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Current Professional Services */}
+      {/* Complete Members Dashboard */}
       <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-6 bg-green-500 text-white text-lg px-6 py-2">
-              🇦🇺 Available Now
-            </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Professional <span className="text-gradient-primary">Setup Services</span>
+              Complete <span className="text-gradient-primary">Members Dashboard</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Skip the technical setup hassle. Our Australian team handles the complex configuration so you can focus on your healthcare practice.
+              Your complete AI marketing command center. Every tool, feature, and capability in your members area.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {currentTools.map((tool, index) => (
-              <Card key={index} className="p-8 hover-lift border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
-                <CardHeader className="text-center pb-6">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                    {index === 0 ? <Users className="w-8 h-8 text-white" /> : <FileSearch className="w-8 h-8 text-white" />}
+            {platformFeatures.map((feature, index) => (
+              <Card key={index} className="p-6 hover-lift border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                <CardHeader className="pb-4">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-white" />
                   </div>
-                  <CardTitle className="text-2xl">{tool.name}</CardTitle>
-                  <CardDescription className="text-lg">{tool.description}</CardDescription>
-                  <div className="text-3xl font-bold text-primary mt-4">{tool.price}</div>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardDescription className="text-base">{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3 mb-8">
-                    {tool.features.map((feature, fIndex) => (
-                      <li key={fIndex} className="flex items-center">
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>{feature}</span>
+                  <ul className="space-y-2 mb-6">
+                    {feature.features.map((item, fIndex) => (
+                      <li key={fIndex} className="flex items-start text-sm">
+                        <ArrowRight className="w-4 h-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                   <Link to="/auth">
-                    <Button className="w-full text-lg py-3">
-                      Get {tool.name}
-                      <ArrowRight className="w-5 h-5 ml-2" />
+                    <Button variant="outline" className="w-full">
+                      Join Waitlist
                     </Button>
                   </Link>
                 </CardContent>
@@ -181,108 +262,85 @@ const AustralianServices = () => {
         </div>
       </section>
 
-      {/* Platform Subscription Plans */}
+      {/* Profession-Specific Bonus Tools */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-6 bg-blue-500 text-white text-lg px-6 py-2">
-              🏥 Healthcare Platform
-            </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              AHPRA-Compliant <span className="text-gradient-primary">Subscription Plans</span>
+              Profession-Specific <span className="text-gradient-primary">Bonus Tools</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Choose your healthcare content platform subscription. All plans include AHPRA compliance and patient education features.
+              Industry-specific tools and services tailored to your profession's unique requirements and compliance needs.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
-            {/* Starter Plan */}
-            <Card className="relative p-8 border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full">
-              <CardHeader className="text-center pb-8">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl">Solo Practitioner</CardTitle>
-                <CardDescription>Individual healthcare professionals</CardDescription>
-                <div className="text-4xl font-bold text-green-600 mt-4">$79<span className="text-lg text-muted-foreground">/month</span></div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-3 mb-8 flex-1">
-                  {starterFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/pricing">
-                  <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
-                    Choose Solo Plan
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          <div className="grid lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {bonusTools.map((tool, index) => (
+              <Card key={index} className="p-6 text-center border-primary/20 hover:border-primary/40 transition-colors">
+                <CardContent className="p-0">
+                  <h3 className="text-lg font-bold mb-2">{tool.title}</h3>
+                  <p className="text-muted-foreground mb-4 text-sm">{tool.description}</p>
+                  <div className="space-y-1 mb-4">
+                    <p className="text-sm font-medium">Perfect for:</p>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      {tool.perfect.map((profession, pIndex) => (
+                        <Badge key={pIndex} variant="outline" className="text-xs">
+                          {profession}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <Link to="/auth">
+                    <Button variant="outline" size="sm">
+                      Join Waitlist
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Professional Plan - Most Popular */}
-            <Card className="relative p-8 border-2 border-blue-500 h-full bg-gradient-to-br from-blue-500/10 to-blue-600/10">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-1">
-                  <Star className="w-4 h-4 mr-1" />
-                  Most Popular
-                </Badge>
-              </div>
-              <CardHeader className="text-center pb-8">
-                <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl">Group Practice</CardTitle>
-                <CardDescription>Multiple practitioners & locations</CardDescription>
-                <div className="text-4xl font-bold text-blue-600 mt-4">$179<span className="text-lg text-muted-foreground">/month</span></div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-3 mb-8 flex-1">
-                  {professionalFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className={`text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/pricing">
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white">
-                    Choose Group Plan
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+      {/* Business Start-up Services */}
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Business <span className="text-gradient-primary">Start-up Services</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Expert-level business setup services to get you operational fast with full Australian compliance.
+            </p>
+          </div>
 
-            {/* Enterprise Plan */}
-            <Card className="relative p-8 border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full">
-              <CardHeader className="text-center pb-8">
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Crown className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl">Healthcare Network</CardTitle>
-                <CardDescription>Enterprise healthcare organisations</CardDescription>
-                <div className="text-4xl font-bold text-purple-600 mt-4">$449<span className="text-lg text-muted-foreground">/month</span></div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-3 mb-8 flex-1">
-                  {enterpriseFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/pricing">
-                  <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white">
-                    Contact Sales
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {professionalServices.map((service, index) => (
+              <Card key={index} className="p-8 hover-lift border-2 border-primary/20">
+                <CardHeader className="text-center pb-6">
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    {index === 0 ? <Users className="w-8 h-8 text-white" /> : <FileSearch className="w-8 h-8 text-white" />}
+                  </div>
+                  <CardTitle className="text-xl">{service.title}</CardTitle>
+                  <CardDescription className="text-base">{service.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 mb-8">
+                    {service.features.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-start text-sm">
+                        <ArrowRight className="w-4 h-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/auth">
+                    <Button className="w-full">
+                      Join Waitlist
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -291,22 +349,38 @@ const AustralianServices = () => {
       <section className="py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-8">
-            Ready to Start Your <span className="text-gradient-primary">Healthcare Platform?</span>
+            Ready to Transform <span className="text-gradient-primary">Your Business?</span>
           </h2>
+          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Get access to every feature shown above plus professional setup services. Start dominating your market today.
+          </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/pricing">
-              <Button size="xl" className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white font-bold text-xl px-12 py-6">
-                <Zap className="w-6 h-6 mr-3" />
-                Start Free Trial
-              </Button>
-            </Link>
             <Link to="/auth">
-              <Button size="xl" variant="outline" className="text-xl px-12 py-6">
-                <Mail className="w-6 h-6 mr-3" />
-                Contact Healthcare Team
+              <Button size="xl" className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white font-bold text-xl px-12 py-6">
+                Join Waitlist Now
               </Button>
             </Link>
+            <Link to="/pricing">
+              <Button size="xl" variant="outline" className="text-xl px-12 py-6">
+                View All Pricing
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-16 text-center">
+            <div>
+              <div className="text-3xl font-bold text-primary">10</div>
+              <div className="text-sm text-muted-foreground">Dashboard Features</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary">8</div>
+              <div className="text-sm text-muted-foreground">Bonus Tools</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary">$11,521</div>
+              <div className="text-sm text-muted-foreground">Monthly Savings</div>
+            </div>
           </div>
         </div>
       </section>
