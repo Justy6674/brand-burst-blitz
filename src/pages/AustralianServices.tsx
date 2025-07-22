@@ -20,7 +20,8 @@ import {
   Globe,
   Camera,
   Settings,
-  Briefcase
+  Briefcase,
+  Crown
 } from "lucide-react";
 import featuresImage from '@/assets/features-image.jpg';
 
