@@ -78,22 +78,25 @@ const EmbeddedBlogPage = () => {
 
       // Filter by user or business if specified
       if (userId) {
-        query = query.eq('user_id', userId);
+        query = (query as any).eq('user_id', userId);
       } else if (businessId) {
-        query = query.eq('business_profile_id', businessId);
+        query = (query as any).eq('business_profile_id', businessId);
       }
 
       const { data, error } = await query.limit(maxPosts);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase query error:', error);
+        throw error;
+      }
 
-      const allPosts = data || [];
+      const allPosts = (data as any[]) || [];
       setPosts(allPosts);
       setFeaturedPosts(allPosts.filter(post => post.featured).slice(0, 3));
 
       // Get business profile info if available
-      if (allPosts.length > 0 && allPosts[0].business_profiles) {
-        setBusinessProfile(allPosts[0].business_profiles);
+      if (allPosts.length > 0 && (allPosts[0] as any).business_profiles) {
+        setBusinessProfile((allPosts[0] as any).business_profiles);
       }
     } catch (error) {
       console.error('Error fetching embedded posts:', error);
