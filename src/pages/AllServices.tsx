@@ -1,31 +1,30 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import PublicHeader from "@/components/layout/PublicHeader";
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import PublicHeader from '@/components/layout/PublicHeader';
 import { 
-  Users, 
-  FileSearch, 
-  ArrowRight, 
-  Building, 
-  Heart,
   Zap, 
+  Users, 
   BarChart3, 
   Brain, 
   Target, 
   Shield,
+  Building,
+  FileSearch,
   Globe,
+  ArrowRight,
   CheckCircle,
   Crown,
   Mail,
   Clock,
   Star
-} from "lucide-react";
+} from 'lucide-react';
 import featuresImage from '@/assets/features-image.jpg';
 
-const AustralianServices = () => {
+const AllServices = () => {
   const starterFeatures = [
     'AI Content Generation: 100 posts/month',
     'Social Media Management: 3 accounts',
@@ -84,6 +83,16 @@ const AustralianServices = () => {
     }
   ];
 
+  const futureTools = [
+    'ASIC Business Search Tool',
+    'Domain Research & Ideas Generator',
+    'Website Design Concept Generator',
+    'Medicare Provider Tools',
+    'Postcode Search for Medicare Telehealth',
+    'Industry-Specific Professional Tools',
+    'Business Registration Assistant'
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <PublicHeader />
@@ -123,7 +132,7 @@ const AustralianServices = () => {
                 View Platform Pricing
               </Button>
             </Link>
-            <Link to="/aussie-setup-service">
+            <Link to="/australian-services">
               <Button size="xl" variant="outline" className="text-xl px-12 py-6 border-white text-white hover:bg-white/20">
                 <Building className="w-6 h-6 mr-3" />
                 Professional Setup Services
@@ -287,6 +296,37 @@ const AustralianServices = () => {
         </div>
       </section>
 
+      {/* Coming Soon Tools */}
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="mb-6 bg-orange-500 text-white text-lg px-6 py-2">
+              🚀 Coming Soon
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Future <span className="text-gradient-primary">Healthcare Tools</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              We're constantly building new tools and services for Australian healthcare professionals.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {futureTools.map((tool, index) => (
+              <Card key={index} className="p-6 text-center opacity-75 hover:opacity-100 transition-opacity">
+                <CardContent className="p-0">
+                  <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Clock className="w-6 h-6 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{tool}</h3>
+                  <p className="text-sm text-muted-foreground">In development</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-20">
         <div className="container mx-auto px-6 text-center">
@@ -314,4 +354,4 @@ const AustralianServices = () => {
   );
 };
 
-export default AustralianServices;
+export default AllServices;
