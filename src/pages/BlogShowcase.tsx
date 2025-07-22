@@ -142,7 +142,7 @@ export default function BlogShowcase() {
      data-show-author="true"
      data-ahpra-compliance="true">
 </div>
-<script src="${window.location.origin}/widget.js" async></script>
+<script src="https://brand-burst-blitz.vercel.app/widget.js" async></script>
 <!-- End JBSAAS Widget -->`;
     
     setEmbedCode(code);

@@ -309,7 +309,7 @@ Next Steps:
      data-show-author="true"
      style="width: 100%; min-height: 400px;">
 </div>
-<script src="${window.location.origin}/widget.js" async></script>
+<script src="https://brand-burst-blitz.vercel.app/widget.js" async></script>
 <!-- End JBSAAS Widget -->
 `.trim();
 

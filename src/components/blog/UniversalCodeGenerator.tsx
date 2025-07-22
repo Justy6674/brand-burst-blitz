@@ -727,12 +727,12 @@ Medical Disclaimer: This information is educational only. Always consult your he
      data-ahpra-compliance="true"
      style="width: 100%; min-height: 400px;">
 </div>
-<script src="${window.location.origin}/widget.js" async></script>
+<script src="https://brand-burst-blitz.vercel.app/widget.js" async></script>
 <!-- End JBSAAS Widget -->`;
 
     const iframeEmbed = `<!-- JBSAAS Healthcare Blog iFrame -->
 <iframe 
-  src="${window.location.origin}/embed/blog?businessId=${businessProfile?.id}&theme=healthcare&posts=6" 
+  src="https://brand-burst-blitz.vercel.app/embed/blog?businessId=${businessProfile?.id}&theme=healthcare&posts=6" 
   width="100%" 
   height="600" 
   frameborder="0" 
