@@ -1,5 +1,4 @@
-import { eq, and, desc, sql } from "drizzle-orm";
-import { db } from "./db";
+import { supabaseAdmin } from "./db";
 import {
   users,
   businessProfiles,
@@ -81,46 +80,96 @@ export interface IStorage {
   recordAnalytics(analytics: { postId: string; userId: string; platform: string; metrics: any }): Promise<any>;
 }
 
-export class DatabaseStorage implements IStorage {
+export class SupabaseStorage implements IStorage {
   // User management
   async getUser(id: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('users')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as User;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as User;
   }
 
   async createUser(user: InsertUser): Promise<User> {
-    const result = await db.insert(users).values(user).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('users')
+      .insert(user)
+      .select()
+      .single();
+    
+    if (error || !data) throw new Error(error?.message || 'Failed to create user');
+    return data as User;
   }
 
   async updateUser(id: string, updates: Partial<User>): Promise<User | undefined> {
-    const result = await db.update(users).set(updates).where(eq(users.id, id)).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('users')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as User;
   }
 
   // Business profiles
   async getBusinessProfile(id: string): Promise<BusinessProfile | undefined> {
-    const result = await db.select().from(businessProfiles).where(eq(businessProfiles.id, id)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('business_profiles')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as BusinessProfile;
   }
 
   async getUserBusinessProfiles(userId: string): Promise<BusinessProfile[]> {
-    return await db.select().from(businessProfiles).where(eq(businessProfiles.userId, userId));
+    const { data, error } = await supabaseAdmin
+      .from('business_profiles')
+      .select('*')
+      .eq('user_id', userId);
+    
+    if (error || !data) return [];
+    return data as BusinessProfile[];
   }
 
   async createBusinessProfile(profile: InsertBusinessProfile & { userId: string }): Promise<BusinessProfile> {
-    const result = await db.insert(businessProfiles).values(profile).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('business_profiles')
+      .insert(profile)
+      .select()
+      .single();
+    
+    if (error || !data) throw new Error(error?.message || 'Failed to create business profile');
+    return data as BusinessProfile;
   }
 
   async updateBusinessProfile(id: string, updates: Partial<BusinessProfile>): Promise<BusinessProfile | undefined> {
-    const result = await db.update(businessProfiles).set(updates).where(eq(businessProfiles.id, id)).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('business_profiles')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as BusinessProfile;
   }
 
   // Posts/Content
@@ -196,38 +245,74 @@ export class DatabaseStorage implements IStorage {
 
   // Blog posts
   async getBlogPost(id: string): Promise<BlogPost | undefined> {
-    const result = await db.select().from(blogPosts).where(eq(blogPosts.id, id)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('blog_posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as BlogPost;
   }
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
-    const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as BlogPost;
   }
 
   async getBlogPosts(published?: boolean, limit = 50): Promise<BlogPost[]> {
-    let query = db.select().from(blogPosts);
+    let query = supabaseAdmin
+      .from('blog_posts')
+      .select('*');
     
     if (published !== undefined) {
-      query = query.where(eq(blogPosts.published, published));
+      query = query.eq('published', published);
     }
     
-    return await query.orderBy(desc(blogPosts.createdAt)).limit(limit);
+    const { data, error } = await query
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    
+    if (error || !data) return [];
+    return data as BlogPost[];
   }
 
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
-    const result = await db.insert(blogPosts).values(post).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('blog_posts')
+      .insert(post)
+      .select()
+      .single();
+    
+    if (error || !data) throw new Error(error?.message || 'Failed to create blog post');
+    return data as BlogPost;
   }
 
   async updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost | undefined> {
-    const result = await db.update(blogPosts).set(updates).where(eq(blogPosts.id, id)).returning();
-    return result[0];
+    const { data, error } = await supabaseAdmin
+      .from('blog_posts')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error || !data) return undefined;
+    return data as BlogPost;
   }
 
   async deleteBlogPost(id: string): Promise<boolean> {
-    const result = await db.delete(blogPosts).where(eq(blogPosts.id, id));
-    return result.rowCount > 0;
+    const { error } = await supabaseAdmin
+      .from('blog_posts')
+      .delete()
+      .eq('id', id);
+    
+    return !error;
   }
 
   // Content ideas
@@ -302,4 +387,4 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new SupabaseStorage();
