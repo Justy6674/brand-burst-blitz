@@ -201,8 +201,8 @@ const AustralianServices = () => {
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              <span className="text-yellow-400">Everything You Get</span><br />
-              <span className="text-white">Inside</span>
+              <span className="text-yellow-400">WHY</span> Healthcare Professionals<br />
+              <span className="text-yellow-400">Need</span> This Platform
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
