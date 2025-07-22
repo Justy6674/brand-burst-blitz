@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { 
   Sparkles, 
@@ -22,14 +23,9 @@ import {
   Brain,
   Target,
   Shield,
-  Settings,
-  Heart,
-  Activity,
-  FileText,
-  UserCheck
+  Settings
 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
-import featuresImage from "@/assets/features-image.jpg";
 
 // Hidden Admin Access Component
 const AdminAccess = () => {
@@ -43,15 +39,23 @@ const AdminAccess = () => {
       setShowDialog(true);
       setClickCount(0);
     }
-    // Reset click count after 3 seconds
     setTimeout(() => setClickCount(0), 3000);
   };
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "jbsaas2025") {
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-admin-access', {
+        body: { password }
+      });
+      
+      if (error || !data?.isValid) {
+        setPassword("");
+        return;
+      }
+      
       window.location.href = "/dashboard/blog-admin";
-    } else {
+    } catch (error) {
       setPassword("");
     }
   };
@@ -91,727 +95,523 @@ const AdminAccess = () => {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Use standardized PublicHeader */}
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      
+      {/* Modern Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Modern Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20"></div>
+        
+        {/* Clean Geometric Shapes */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-100/40 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-purple-100/40 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-100/30 to-transparent rounded-full blur-3xl"></div>
+        
+        {/* Modern Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        
+        {/* Subtle Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay bg-noise"></div>
+      </div>
+      
       <PublicHeader />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Hero Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-background/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50"></div>
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src={heroImage}
+            alt="AI Marketing Hero Background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
-        {/* Hero Content */}
-        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <Badge className="mb-6 sm:mb-8 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-sm sm:text-base">
-              <Heart className="w-4 h-4 mr-2" />
-              AHPRA Compliant Healthcare Platform
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
+              🏥 AHPRA-Compliant Healthcare Content Platform
             </Badge>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-              <span className="text-gradient-hero block mb-2">Australian Healthcare</span> 
-              <span className="text-gradient-primary block">Content & Analytics</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
+              Australia's First <span className="text-yellow-400">AHPRA-Compliant</span><br />
+              Content Platform for <span className="text-yellow-400">Healthcare Professionals</span>
             </h1>
             
-            {/* Simplified tagline - removed redundant text */}
-            
-            <p className="text-lg sm:text-xl md:text-2xl text-foreground font-semibold mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
-              AHPRA compliant content generation, patient engagement tools, and competitive analysis for Australian healthcare professionals. 
-              <strong className="text-foreground block mt-2">Built specifically for Australian medical, dental, and allied health practices.</strong>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
+              AI-powered patient education content and AHPRA-compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners.
             </p>
             
-            <div className="flex justify-center mb-8 sm:mb-12">
-              <Link to="/dashboard">
-                <Button 
-                  variant="hero" 
-                  size="xl" 
-                  className="text-lg px-8 py-4"
-                >
-                  <Heart className="w-5 h-5 mr-3" />
-                  Start Your Healthcare Platform
-                </Button>
-              </Link>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base text-muted-foreground">
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Enterprise-Grade Security
-              </div>
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Advanced AI Technology
-              </div>
-              <div className="flex items-center">
-                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-success mr-2" />
-                Professional Support
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-8 sm:py-10 bg-gradient-to-b from-muted/40 via-muted/20 to-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">100%</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">AI-Powered Platform</div>
-            </div>
-            <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">10+</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Enterprise Features</div>
-            </div>
-            <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">24/7</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Platform Availability</div>
-            </div>
-            <div className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-primary/40 backdrop-blur-sm shadow-md hover:border-primary/60 transition-colors">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">Aug</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">2025 Launch Date</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem/Solution Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              The <span className="text-gradient-hero">Healthcare Marketing</span> Challenge
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Australian healthcare professionals struggle with AHPRA-compliant content creation and patient engagement. 
-              Our platform solves this with AI-powered, compliant content generation.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            {/* Before */}
-            <Card className="card-premium p-8 border-destructive/20">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mr-4">
-                    <DollarSign className="w-6 h-6 text-destructive" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-destructive">Traditional Approach</h3>
-                </div>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Pay $3,000-$8,000 to healthcare marketing agencies</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Wait weeks for AHPRA-compliant content approval</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Spend 15+ hours weekly on patient education content</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Risk non-compliant healthcare claims</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-destructive rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span className="text-muted-foreground">Inconsistent patient engagement</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            {/* After */}
-            <Card className="card-premium p-8 border-success/20 bg-gradient-to-br from-success/5 to-primary/5">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mr-4">
-                    <Sparkles className="w-6 h-6 text-success" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-success">Healthcare Platform</h3>
-                </div>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">AHPRA-compliant content for $199/month</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Generate compliant posts in 30 seconds</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">5 minutes weekly for patient education</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">AI ensures compliance & professional tone</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-5 h-5 text-success mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-foreground font-medium">Automated patient engagement scheduling</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="text-center">
-            <Button variant="premium" size="xl" className="group">
-              <Zap className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Transform My Business Now
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Features Showcase - Mobile-First Design */}
-      <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-background via-muted/10 to-muted/30">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-20">
-            <Badge className="mb-4 sm:mb-6 bg-primary/10 text-primary border-primary/20 text-sm sm:text-base px-4 py-2">
-              <Heart className="w-4 h-4 mr-2" />
-              Australian Healthcare Platform
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-8 leading-tight">
-              Healthcare-Specific: <span className="text-gradient-primary block sm:inline">AHPRA Compliant Features</span>
-            </h2>
-            <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Built specifically for Australian healthcare professionals with compliance, patient engagement, and practice growth tools.
-            </p>
-          </div>
-
-          {/* Enhanced Core Feature Modules - Mobile Optimized */}
-          <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12 mb-12 sm:mb-20">
-            {/* Enhanced Business Intelligence Dashboard */}
-            <Card className="p-4 sm:p-6 lg:p-8 hover-lift group bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-primary/50">
-              <CardContent className="p-0">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <BarChart3 className="w-8 h-8 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight">Healthcare Analytics Dashboard</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">
-                  AHPRA-compliant analytics with patient engagement scoring, competitive analysis, and automated compliance monitoring.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Patient Engagement Score & Analysis</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">AHPRA-Compliant Content Recommendations</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Multi-Practice Performance Analytics</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Practice Growth & Patient ROI Reporting</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* AI Content Creation Engine */}
-            <Card className="p-8 hover-lift group bg-gradient-to-br from-secondary/5 to-accent/5 border-2 border-secondary/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Brain className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">AHPRA-Compliant AI Content</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">
-                  Generate AHPRA-compliant patient education content, practice updates, and health information posts with medical accuracy verification.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Medical Practice Voice & Compliance</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Patient Education & Health Content</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Medical/Dental/Allied Health Templates</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Healthcare-Specific AI Prompts</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Competitive Intelligence */}
-            <Card className="p-8 hover-lift group bg-gradient-to-br from-accent/5 to-primary/5 border-2 border-accent/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Target className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">Competitive Intelligence</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">
-                  Automated competitor monitoring, content analysis, and actionable insights to stay ahead of your competition.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Automated Competitor Monitoring</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Content Performance Analysis</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Actionable Strategic Insights</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Market Gap Identification</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Multi-Business Management */}
-            <Card className="p-8 hover-lift group bg-gradient-to-br from-primary/5 to-muted/10 border-2 border-primary/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform shadow-glow">
-                    <Users className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">Multi-Business Management</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">
-                  Manage multiple business profiles, share templates across brands, and get unified reporting for all your ventures.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Business Profile Switching</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Cross-Business Template Sharing</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Unified Analytics & Reporting</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-4 h-4 text-success mr-3" />
-                    <span className="font-medium">Role-Based Team Access Control</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Australian Services Highlight */}
-          <div className="text-center mb-12 sm:mb-16">
-            <Card className="p-6 sm:p-8 border-2 border-green-500/30 bg-gradient-to-r from-green-50/50 to-blue-50/50 dark:from-green-950/20 dark:to-blue-950/20 shadow-xl">
-              <CardContent className="p-0">
-                <Badge className="mb-4 bg-green-600 text-white">
-                  🇦🇺 Australian Businesses Only
-                </Badge>
-                <h3 className="text-2xl sm:text-3xl font-bold mb-4">Specialized Australian Services</h3>
-                <p className="text-muted-foreground mb-6">
-                  Complete social media setup service and business name research designed exclusively for Australian businesses.
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2 mb-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600 mb-1">Quick-Start Social Setup</div>
-                    <div className="text-sm text-muted-foreground">From AU$199 - Full Facebook & Instagram setup</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">Name & Domain Scout</div>
-                    <div className="text-sm text-muted-foreground">From AU$79 - ASIC & trademark research</div>
-                  </div>
-                </div>
-                <Link to="/australian-services">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white">
-                    Learn About Australian Services
+            <div className="mb-8 md:mb-12">
+              <p className="text-xl md:text-2xl font-bold text-yellow-400 mb-6 md:mb-8 px-2">
+                $149/month replaces $16,000 in healthcare marketing agency costs
+              </p>
+              
+              <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
+                <Link to="/auth">
+                  <Button variant="hero" size="xl">
+                    <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                    Join Healthcare Professionals Waitlist
                   </Button>
                 </Link>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Enhanced Advanced Features Grid - Mobile First */}
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-16">
-            <Card className="p-4 sm:p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-muted/70">
-              <CardContent className="p-0">
-                <div className="w-14 h-14 sm:w-12 sm:h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Calendar className="w-7 h-7 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Content Calendar</h3>
-                <p className="text-muted-foreground mb-4">
-                  Visual scheduling with timeline management and multi-platform coordination.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Timeline visualization
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Publishing queue management
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Template Library</h3>
-                <p className="text-muted-foreground mb-4">
-                  Public and private templates with AI prompt integration for consistent content.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    AI prompt templates
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Usage analytics
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover-lift group bg-gradient-to-br from-muted/25 to-muted/5 border-2 border-muted/40 shadow-lg">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-glow">
-                  <Shield className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Enterprise Security</h3>
-                <p className="text-muted-foreground mb-4">
-                  Role-based access control, audit logs, and compliance monitoring for business safety.
-                </p>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    User role management
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-3 h-3 text-success mr-2" />
-                    Activity audit trails
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Value Proposition */}
-          <div className="text-center bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl p-8 border border-primary/20">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">Replace $10,000+ in Business Tools</h3>
-            <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
-              Our platform combines the functionality of expensive business intelligence tools, content agencies, 
-              competitive analysis services, and social media management platforms into one comprehensive solution.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span>• Business Intelligence Tools ($500+/month)</span>
-              <span>• Content Agencies ($5,000+/month)</span>
-              <span>• Competitive Analysis ($300+/month)</span>
-              <span>• Social Media Management ($200+/month)</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why This Matters - Education Section */}
-      <section className="py-20 bg-gradient-to-b from-muted/30 to-background">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              <Brain className="w-3 h-3 mr-1" />
-              Why Content Strategy Matters
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              How Businesses <span className="text-gradient-primary">Get Discovered</span> Online
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Most businesses struggle with trial and error in digital marketing. 
-              Understanding how search engines, social platforms, and AI agents work is crucial for success.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            {/* Search Engine Discovery */}
-            <Card className="p-8 hover-lift bg-gradient-to-br from-primary/5 to-background border-2 border-primary/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-6 shadow-glow">
-                  <TrendingUp className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Search Engine Visibility</h3>
-                <p className="text-muted-foreground mb-6">
-                  Google and Bing algorithms prioritize websites with fresh, relevant blog content. 
-                  Without regular content updates, your business becomes invisible in search results.
-                </p>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Regular blog posts improve search rankings</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>SEO-optimized content drives organic traffic</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Fresh content signals active business to search engines</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Social Media Engagement */}
-            <Card className="p-8 hover-lift bg-gradient-to-br from-secondary/5 to-background border-2 border-secondary/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-6 shadow-glow">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Social Media Discovery</h3>
-                <p className="text-muted-foreground mb-6">
-                  Consistent, creative social media content builds brand awareness and trust. 
-                  Platform algorithms favor accounts that post regularly with engaging, authentic content.
-                </p>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Regular posting increases algorithm visibility</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Authentic content builds customer relationships</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Cross-platform presence expands reach</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* AI Agent Discovery */}
-            <Card className="p-8 hover-lift bg-gradient-to-br from-accent/5 to-background border-2 border-accent/20 shadow-xl">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-6 shadow-glow">
-                  <Brain className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">AI Agent Recognition</h3>
-                <p className="text-muted-foreground mb-6">
-                  The future is AI agents recommending businesses. They analyze content quality, 
-                  consistency, and relevance to suggest services. Quality content = AI recommendations.
-                </p>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>AI agents analyze content for recommendations</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Quality content improves AI trust scores</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="w-4 h-4 text-success mr-3 mt-0.5 flex-shrink-0" />
-                    <span>Consistent messaging builds AI understanding</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* The Problem */}
-          <div className="text-center bg-gradient-to-r from-destructive/5 via-destructive/10 to-destructive/5 rounded-2xl p-8 mb-12 border border-destructive/20">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">The Reality Most Businesses Face</h3>
-            <p className="text-lg text-muted-foreground mb-6 max-w-4xl mx-auto">
-              Creating creative, accurate, honest, regular, and relatable content is <strong className="text-foreground">extremely time-consuming and expensive</strong>. 
-              Most businesses resort to trial and error, wasting months and thousands of dollars on ineffective strategies.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6 mt-8">
-              <div className="text-left">
-                <h4 className="font-semibold text-destructive mb-3">Common Struggles:</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Inconsistent posting schedules</li>
-                  <li>• Generic, boring content that doesn't engage</li>
-                  <li>• No understanding of what competitors are doing</li>
-                  <li>• Wasting money on agencies that don't understand your business</li>
-                </ul>
-              </div>
-              <div className="text-left">
-                <h4 className="font-semibold text-destructive mb-3">The Cost:</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• 20+ hours weekly on content creation</li>
-                  <li>• $5,000-$15,000 monthly on agencies</li>
-                  <li>• Missed opportunities due to poor online presence</li>
-                  <li>• Lost customers to competitors with better content</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* The Solution */}
-          <div className="text-center bg-gradient-to-r from-success/5 via-success/10 to-success/5 rounded-2xl p-8 border border-success/20">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">Our One-Stop Solution</h3>
-            <p className="text-lg text-muted-foreground mb-6 max-w-4xl mx-auto">
-              We provide an <strong className="text-foreground">easy, comprehensive platform</strong> that lets you emulate successful businesses in your industry. 
-              Our AI analyzes what works, creates content that converts, and handles the strategy so you can focus on running your business.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-8 h-8 text-success" />
-                </div>
-                <h4 className="font-semibold text-success mb-2">Learn from the Best</h4>
-                <p className="text-sm text-muted-foreground">Analyze successful competitors and emulate their strategies</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-success" />
-                </div>
-                <h4 className="font-semibold text-success mb-2">AI-Powered Creation</h4>
-                <p className="text-sm text-muted-foreground">Generate creative, accurate content that matches your brand voice</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Calendar className="w-8 h-8 text-success" />
-                </div>
-                <h4 className="font-semibold text-success mb-2">Automated Strategy</h4>
-                <p className="text-sm text-muted-foreground">Regular, consistent posting that builds your online presence</p>
+                <Link to="/pricing">
+                  <Button variant="secondary" size="xl">
+                    <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                    View Pricing
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section with Dashboard Background */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Dashboard Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${featuresImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-hero opacity-95"></div>
+      {/* WHO Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Circuit board macro technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
         </div>
         
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Transform Your Content Strategy
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Experience a comprehensive platform that combines AI content creation, business intelligence, 
-            and competitive analysis in one sophisticated solution.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button 
-              variant="glass" 
-              size="xl" 
-              className="group cursor-not-allowed opacity-75"
-              disabled
-            >
-              <Rocket className="w-5 h-5 mr-2" />
-              Coming August 2025
-            </Button>
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Australian healthcare professionals trapped in non-compliant marketing that risks AHPRA violations and patient trust.
+            </p>
           </div>
-          <div className="flex items-center justify-center space-x-6 text-sm text-white/80">
-            <div>Enterprise-Grade Platform</div>
-            <div>•</div>
-            <div>Professional Content Solutions</div>
-            <div>•</div>
-            <div>Setup in Under 5 Minutes</div>
+          
+          <div className="grid gap-8">
+            {[
+              {
+                title: "🩺 The Overwhelmed GP",
+                description: "Managing <span className='text-yellow-highlight'>200+ patients weekly</span> while creating <span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span>. Every social media post risks <span className='text-yellow-highlight'>$13,000+ fines</span> for regulatory violations.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
+              },
+              {
+                title: "🦴 The Growing Specialist", 
+                description: "Need <span className='text-yellow-highlight'>patient education content</span> demonstrating expertise without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Building trust while maintaining <span className='text-yellow-highlight'>professional boundaries</span>.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
+              },
+              {
+                title: "🧠 The Allied Health Professional",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Psychology, Physiotherapy, OT, Dietician, Exercise Physiologist</span> compliance requirements. Need referral-generating content that meets <span className='text-yellow-highlight'>professional standards</span>.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "💉 The Nurse Practitioner",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Weight loss, telehealth, alternative medicine, sexual health</span> compliance challenges. Building practice visibility while navigating <span className='text-yellow-highlight'>strict advertising guidelines</span>.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              },
+              {
+                title: "🏢 The Private Practice Entrepreneur",
+                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, AHPRA obligations</span>, and patient acquisition strategies.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
+              }
+            ].map((audience, index) => (
+              <Card key={index} className={`p-8 hover-lift ${audience.border} bg-gradient-to-br ${audience.gradient}`}>
+                <CardContent className="p-0">
+                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: audience.title }}></h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: audience.description }}></p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* WHY Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Colorful programming code technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-red-900/80 to-yellow-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-red-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-yellow-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-700 z-10"></div>
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              <span className="text-yellow-highlight">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
+            </h2>
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Five critical compliance and visibility problems threatening your practice every day you remain invisible.
+            </p>
+          </div>
+          
+          <div className="grid gap-8">
+            {[
+              {
+                title: "⚖️ AHPRA Compliance Crisis",
+                description: "Generic <span style='color: #ffd700; font-weight: 700;'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-highlight'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
+              },
+              {
+                title: "🚫 TGA Therapeutic Claims",
+                description: "Accidentally making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span> without TGA approval. <span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend healthcare professionals with compliant <span style='color: #ffd700; font-weight: 700;'>online content</span>.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
+              },
+              {
+                title: "👥 Patient Trust Boundaries",
+                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by AHPRA</span> - but patients still need to find and trust you.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
+              },
+              {
+                title: "🔍 Professional Invisibility", 
+                description: "Patients ask <span style='color: #ffd700; font-weight: 700;'>AI for healthcare providers</span> - you're invisible to <span className='text-yellow-highlight'>ChatGPT recommendations</span>. Without quality patient education content, referral sources and patients can't find you.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              },
+              {
+                title: "⏳ Content Creation Bottleneck",
+                description: "<span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span> takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused <span className='text-yellow-highlight'>content creation</span>.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              }
+            ].map((problem, index) => (
+              <Card key={index} className={`p-8 hover-lift ${problem.border} bg-gradient-to-br ${problem.gradient} transition-all duration-300`}>
+                <CardContent className="p-0">
+                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: problem.title }}></h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: problem.description }}></p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Matrix code digital background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-600 z-10"></div>
+         <div className="relative z-20 container mx-auto px-4 md:px-6">
+           <div className="text-center mb-12 md:mb-20">
+             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+               <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
+             </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+               AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
+             </p>
+          </div>
+
+           <div className="grid gap-6 md:gap-8">
+             {[
+                {
+                  title: "🏥 AHPRA-Compliant Patient Education",
+                  description: "Healthcare-trained AI creates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and treatment information that builds trust without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Every piece vetted for AHPRA compliance.",
+                  gradient: "from-blue-500/10 to-blue-600/10",
+                  border: "border-blue-500/20"
+                },
+                {
+                  title: "🩺 Healthcare Professional Directory Optimization",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>AI optimizes your listings</span> for <span className='text-yellow-highlight'>HealthEngine, HotDoc, and medical directories</span>. Ensures patients and AI agents like <span style='color: #ffd700; font-weight: 700;'>ChatGPT find and recommend you</span> for relevant health conditions.",
+                  gradient: "from-purple-500/10 to-purple-600/10",
+                  border: "border-purple-500/20"
+                },
+                {
+                  title: "📊 TGA-Compliant Content Monitoring",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>Real-time compliance scanning</span> prevents accidental therapeutic claims that could trigger <span className='text-yellow-highlight'>TGA violations</span>. Built-in safeguards for medical device advertising and supplement promotion.",
+                  gradient: "from-green-500/10 to-green-600/10",
+                  border: "border-green-500/20"
+                },
+                {
+                  title: "🎯 Professional Referral Network Building",
+                  description: "Create <span style='color: #ffd700; font-weight: 700;'>professional relationship content</span> that encourages <span className='text-yellow-highlight'>GP referrals and specialist collaboration</span>. Educational content that demonstrates expertise to fellow healthcare professionals.",
+                  gradient: "from-orange-500/10 to-orange-600/10",
+                  border: "border-orange-500/20"
+                },
+                {
+                  title: "⚕️ Clinical Authority Content Creation",
+                  description: "<span style='color: #ffd700; font-weight: 700;'>Evidence-based content</span> that positions you as a trusted healthcare authority. Research citations, clinical guideline references, and <span className='text-yellow-highlight'>professional credential highlighting</span> that builds patient confidence.",
+                  gradient: "from-red-500/10 to-red-600/10",
+                  border: "border-red-500/20"
+                },
+                {
+                  title: "🛡️ Multi-Platform AHPRA Protection",
+                  description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets AHPRA advertising guidelines and professional standards.",
+                  gradient: "from-yellow-500/10 to-yellow-600/10",
+                  border: "border-yellow-500/20"
+                }
+             ].map((feature, index) => (
+               <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
+                 <CardContent className="p-0">
+                   <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: feature.title }}></h3>
+                   <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
+                 </CardContent>
+               </Card>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Colorful programming code background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-cyan-900/80 to-pink-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-800 z-10"></div>
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Simple AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
+            </p>
+          </div>
+
+          <div className="grid gap-8">
+            {[
+              {
+                title: "📋 Healthcare Compliance Assessment",
+                description: "Complete our <span style='color: #ffd700; font-weight: 700;'>AHPRA-specific questionnaire</span> covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your <span style='color: #ffd700; font-weight: 700;'>compliance profile</span> and patient education <span style='color: #ffd700; font-weight: 700;'>content strategy</span>.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
+              },
+              {
+                title: "🛡️ Professional Setup & AHPRA Verification",
+                description: "Our healthcare compliance experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your content systems with built-in <span style='color: #ffd700; font-weight: 700;'>AHPRA safeguards</span>, TGA compliance checks, and professional boundary <span style='color: #ffd700; font-weight: 700;'>protection</span>. Setup within 48 hours.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "🧠 AI-Powered Patient Education Content",
+                description: "Healthcare-trained AI generates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and practice information that builds trust without violating <span style='color: #ffd700; font-weight: 700;'>advertising guidelines</span> or making prohibited therapeutic claims.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              },
+              {
+                title: "📊 Compliance Monitoring & AI Visibility",
+                description: "Continuous <span style='color: #ffd700; font-weight: 700;'>AHPRA compliance monitoring</span> ensures all content meets professional standards. Your educational content positions you as the <span style='color: #ffd700; font-weight: 700;'>trusted expert</span> ChatGPT and AI agents recommend to patients.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
+              }
+            ].map((step, index) => (
+              <Card key={index} className={`p-8 hover-lift ${step.border} bg-gradient-to-br ${step.gradient}`}>
+                <CardContent className="p-0">
+                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: step.title }}></h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: step.description }}></p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHEN Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Matrix digital code technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-violet-900/80 to-emerald-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-900 z-10"></div>
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              <span style={{color: '#ffd700', fontWeight: 700}}>When</span> You Need <span className="text-gradient-primary">This Subscription</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
+            </p>
+          </div>
+          
+          <div className="grid gap-6 md:gap-8">
+            {[
+              {
+                title: "🚨 Right Now - Emergency Visibility Crisis",
+                description: "You're <span className='text-yellow-highlight'>invisible on Google</span>, ignored by AI agents, and <span style='color: #ffd700; font-weight: 700;'>bleeding customers</span> to competitors. Every day you wait costs you potential revenue and market share.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
+              },
+              {
+                title: "📋 Agency Contract Renewal Time", 
+                description: "Your current agency wants <span className='text-yellow-highlight'>$8,000+ monthly</span> with no guarantee of <span className='text-yellow-highlight'>results</span>. Our subscription gives you better <span className='text-yellow-highlight'>results</span> for <span className='text-yellow-highlight'>$149/month</span> with full <span style='color: #ffd700; font-weight: 700;'>transparency and control</span>.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
+              },
+              {
+                title: "📈 Business Scaling Phase",
+                description: "You're ready to <span style='color: #ffd700; font-weight: 700;'>expand</span> but need consistent, compliant <span style='color: #ffd700; font-weight: 700;'>marketing</span> that scales with you. Our AI handles <span className='text-yellow-highlight'>increasing content demands</span> without increasing costs.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "⚠️ Compliance Deadline Pressure",
+                description: "<span style='color: #ffd700; font-weight: 700;'>Industry regulations</span> are tightening and generic <span className='text-yellow-highlight'>content</span> puts you at risk. Our built-in <span className='text-yellow-highlight'>compliance safeguards</span> protect you from costly violations and penalties.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
+              },
+              {
+                title: "💼 ROI Justification Required",
+                description: "You need to prove <span className='text-yellow-highlight'>marketing ROI</span> to stakeholders or investors. Our detailed <span className='text-yellow-highlight'>analytics</span> and <span className='text-yellow-highlight'>$11,551 monthly savings</span> provide clear, measurable <span style='color: #ffd700; font-weight: 700;'>business value</span>.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              }
+            ].map((timing, index) => (
+              <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
+                <CardContent className="p-0">
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: timing.title }}></h3>
+                  <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: timing.description }}></p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA - Dynamic Tech Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image - Success/Growth Theme */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Financial growth charts and technology success background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-purple-900/85 to-slate-900/90"></div>
+        </div>
+        
+        {/* Main Content */}
+        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
+          {/* Tech Badge */}
+          <div className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Rocket className="w-4 h-4 md:w-5 md:h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide text-xs md:text-sm">NEXT-GEN AI MARKETING</span>
+            <Zap className="w-4 h-4 md:w-5 md:h-5 ml-2 text-yellow-400 animate-pulse" />
+          </div>
+          
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent animate-fade-in">
+              Stop Being Invisible.
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent animate-fade-in animation-delay-300">
+              Start Dominating.
+            </span>
+          </h2>
+          
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed animate-fade-in animation-delay-500 px-2">
+            Join Australian businesses dominating their markets with <span style={{color: '#ffd700', fontWeight: 700}}>AI-powered content</span>.
+          </p>
+          
+          {/* Dynamic CTA Button */}
+          <div className="relative inline-block animate-fade-in animation-delay-700">
+            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
+            <Link to="/auth">
+              <Button variant="hero" size="xl">
+                <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                Join Waitlist Now
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 ml-2 md:ml-3" />
+              </Button>
+            </Link>
+          </div>
+          
+          {/* Tech Stats */}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16 animate-fade-in animation-delay-1000">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-yellow-400">98%</div>
+              <div className="text-xs md:text-sm text-gray-400">Success Rate</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-cyan-400">24/7</div>
+              <div className="text-xs md:text-sm text-gray-400">AI Working</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-green-400">$149</div>
+              <div className="text-xs md:text-sm text-gray-400">Per Month</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* Footer */}
-      <footer className="bg-gradient-to-b from-muted/20 to-muted/40 border-t border-border/50 py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="py-12 md:py-16 bg-muted/20 border-t">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <img 
-                  src="/jbsaaslogo.png" 
-                  alt="JB-SaaS Logo" 
-                  className="w-8 h-8"
-                />
-                <span className="text-xl font-bold text-gradient-primary">JB-SaaS</span>
-              </div>
-              <p className="text-muted-foreground">
-                Transforming business content creation with AI-powered automation.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Product</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">API</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Integrations</a></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Product</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/features" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Features</Link></li>
+                <li><Link to="/pricing" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Company</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Company</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/about" className="text-sm md:text-base text-muted-foreground hover:text-foreground">About</Link></li>
+                <li><Link to="/blog" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Blog</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Support</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Status</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Privacy</a></li>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Support</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/common-questions" className="text-sm md:text-base text-muted-foreground hover:text-foreground">FAQ</Link></li>
+                <li><Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Contact</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Legal</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><Link to="/privacy" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Privacy</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-border/30 mt-8 pt-8 flex justify-between items-center text-muted-foreground">
-            <p>&copy; 2024 JB-SaaS. All rights reserved.</p>
-            {/* Hidden Admin Access - Click 5 times */}
+          
+          <div className="border-t pt-6 md:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-SaaS. All rights reserved.</p>
             <AdminAccess />
           </div>
         </div>
