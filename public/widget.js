@@ -13,10 +13,27 @@
   // Widget namespace
   window.JBSAAS = window.JBSAAS || {};
   
+  // Determine the API URL from the script source
+  function getApiBaseUrl() {
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; i++) {
+      const src = scripts[i].src;
+      if (src && src.includes('/widget.js')) {
+        // Extract base URL from script source
+        const url = new URL(src);
+        return url.origin;
+      }
+    }
+    // Fallback to production URL if script source not found
+    return 'https://brand-burst-blitz.vercel.app';
+  }
+  
+  const baseUrl = getApiBaseUrl();
+  
   // Widget configuration
   const config = {
-    apiUrl: 'https://brand-burst-blitz.vercel.app/functions/v1/blog-api',
-    cdnUrl: 'https://brand-burst-blitz.vercel.app',
+    apiUrl: baseUrl + '/functions/v1/blog-api',
+    cdnUrl: baseUrl,
     version: '1.0.0',
     defaultOptions: {
       theme: 'healthcare',
@@ -212,6 +229,11 @@
       html += 'Always consult with a qualified healthcare provider for medical concerns.</p>';
       html += '</div>';
     }
+    
+    // Add powered by link (can be removed in paid plans)
+    html += '<div class="jbsaas-powered-by" style="text-align: center; margin-top: 1rem; font-size: 0.75rem; color: #718096;">';
+    html += 'Powered by <a href="' + baseUrl + '" target="_blank" style="color: #3b82f6;">JBSAAS Healthcare Platform</a>';
+    html += '</div>';
     
     container.innerHTML = html;
   }
