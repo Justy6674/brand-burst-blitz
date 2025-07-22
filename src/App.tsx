@@ -44,6 +44,7 @@ const AllServices = lazy(() => import('./pages/AllServices'));
 const AustralianServices = lazy(() => import('./pages/AustralianServices'));
 const AustralianSetupService = lazy(() => import('./pages/AustralianSetupService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const BlogShowcase = lazy(() => import('./pages/BlogShowcase'));
 
 const queryClient = new QueryClient();
 
@@ -97,6 +98,16 @@ function App() {
                             <Index />
                           </Suspense>
                         } />
+                        <Route path="/blog" element={
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+                            <BlogPage />
+                          </Suspense>
+                        } />
+                        <Route path="/blog-showcase" element={
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+                            <BlogShowcase />
+                          </Suspense>
+                        } />
                         <Route path="/pricing" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <Pricing />
@@ -110,11 +121,6 @@ function App() {
                         <Route path="/common-questions" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                             <CommonQuestions />
-                          </Suspense>
-                        } />
-                        <Route path="/blog" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <BlogPage />
                           </Suspense>
                         } />
                         <Route path="/services" element={
