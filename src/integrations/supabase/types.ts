@@ -2139,6 +2139,30 @@ export type Database = {
         }
         Relationships: []
       }
+      waitlist: {
+        Row: {
+          business_name: string | null
+          created_at: string
+          email: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          business_name?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       website_integrations: {
         Row: {
           business_id: string | null
