@@ -18,9 +18,10 @@ const PublicHeader = () => {
             alt="JB SAAS Logo" 
             className="h-8 w-auto"
           />
-          <span className="text-white text-xl font-semibold">
-            JB-SaaS
-          </span>
+          <div className="flex items-baseline">
+            <span className="text-white text-2xl font-bold">JB</span>
+            <span className="text-white/90 text-lg font-normal ml-0.5">SaaS</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
