@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ComingSoonPopup } from '@/components/common/ComingSoonPopup';
 import { 
@@ -17,6 +17,35 @@ import { useState } from 'react';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const navigationItems = [
+    { path: '/', label: 'Home' },
+    { path: '/all-services', label: 'Services' },
+    { path: '/blog', label: 'Blog' },
+    { path: '/pricing', label: 'Pricing' },
+    { path: '/common-questions', label: 'FAQ' }
+  ];
+
+  const isActivePath = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  const getActiveNavStyle = (path: string) => {
+    return isActivePath(path) 
+      ? `${navigationMenuTriggerStyle()} bg-primary/20 text-primary font-medium` 
+      : navigationMenuTriggerStyle();
+  };
+
+  const getMobileNavStyle = (path: string) => {
+    const baseClasses = "block py-2 transition-colors";
+    return isActivePath(path)
+      ? `${baseClasses} text-primary font-medium bg-primary/10 px-3 rounded`
+      : `${baseClasses} text-foreground hover:text-primary`;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -37,31 +66,13 @@ const PublicHeader = () => {
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/">Home</Link>
-                </NavigationMenuLink>
-               </NavigationMenuItem>
-               <NavigationMenuItem>
-                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                   <Link to="/all-services">Services</Link>
-                 </NavigationMenuLink>
-               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/blog">Blog</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/pricing">Pricing</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/common-questions">FAQ</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+              {navigationItems.map((item) => (
+                <NavigationMenuItem key={item.path}>
+                  <NavigationMenuLink asChild className={getActiveNavStyle(item.path)}>
+                    <Link to={item.path}>{item.label}</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
 
@@ -94,41 +105,16 @@ const PublicHeader = () => {
         {mobileMenuOpen && (
           <div className="md:hidden border-t bg-background/95 backdrop-blur">
             <nav className="px-4 py-4 space-y-4">
-              <Link
-                to="/"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-               <Link
-                 to="/all-services"
-                 className="block py-2 text-foreground hover:text-primary transition-colors"
-                 onClick={() => setMobileMenuOpen(false)}
-               >
-                 Services
-               </Link>
-              <Link
-                to="/blog"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Blog
-              </Link>
-              <Link
-                to="/pricing"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Pricing
-              </Link>
-              <Link
-                to="/common-questions"
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                FAQ
-              </Link>
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={getMobileNavStyle(item.path)}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
               <Link
                 to="/auth"
                 className="block py-2 text-foreground hover:text-primary transition-colors"

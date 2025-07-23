@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -7,6 +7,42 @@ import { WaitlistDialog } from '@/components/ui/waitlist-dialog';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const navigationItems = [
+    { path: '/', label: 'Home' },
+    { path: '/all-services', label: 'Services' },
+    { path: '/blog', label: 'Blog' },
+    { path: '/pricing', label: 'Pricing' },
+    { path: '/common-questions', label: 'FAQ' }
+  ];
+
+  const isActivePath = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  const getNavLinkClasses = (path: string) => {
+    const baseClasses = "px-4 py-2 rounded-full transition-all duration-200 text-sm font-medium";
+    const isActive = isActivePath(path);
+    
+    if (isActive) {
+      return `${baseClasses} bg-slate-700 text-white`;
+    }
+    return `${baseClasses} text-white/90 hover:text-white hover:bg-slate-700`;
+  };
+
+  const getMobileNavLinkClasses = (path: string) => {
+    const baseClasses = "px-4 py-2 rounded transition-colors";
+    const isActive = isActivePath(path);
+    
+    if (isActive) {
+      return `${baseClasses} bg-slate-700 text-white`;
+    }
+    return `${baseClasses} text-white hover:bg-slate-800`;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-slate-900">
@@ -25,21 +61,15 @@ const PublicHeader = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-2 bg-slate-800/50 px-2 py-2 rounded-full">
-          <Link to="/" className="px-4 py-2 text-white/90 hover:text-white hover:bg-slate-700 rounded-full transition-all duration-200 text-sm font-medium">
-            Home
-          </Link>
-          <Link to="/australian-services" className="px-4 py-2 text-white/90 hover:text-white hover:bg-slate-700 rounded-full transition-all duration-200 text-sm font-medium">
-            Services
-          </Link>
-          <Link to="/blog" className="px-4 py-2 text-white/90 hover:text-white hover:bg-slate-700 rounded-full transition-all duration-200 text-sm font-medium bg-slate-700">
-            Blog
-          </Link>
-          <Link to="/pricing" className="px-4 py-2 text-white/90 hover:text-white hover:bg-slate-700 rounded-full transition-all duration-200 text-sm font-medium">
-            Pricing
-          </Link>
-          <Link to="/common-questions" className="px-4 py-2 text-white/90 hover:text-white hover:bg-slate-700 rounded-full transition-all duration-200 text-sm font-medium">
-            FAQ
-          </Link>
+          {navigationItems.map((item) => (
+            <Link 
+              key={item.path}
+              to={item.path} 
+              className={getNavLinkClasses(item.path)}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         {/* Desktop CTA */}
@@ -74,41 +104,16 @@ const PublicHeader = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-slate-900 border-t border-slate-800">
           <nav className="container py-4 flex flex-col space-y-2">
-            <Link 
-              to="/" 
-              className="px-4 py-2 text-white hover:bg-slate-800 rounded transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/australian-services" 
-              className="px-4 py-2 text-white hover:bg-slate-800 rounded transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Services
-            </Link>
-            <Link 
-              to="/blog" 
-              className="px-4 py-2 text-white hover:bg-slate-800 rounded transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Blog
-            </Link>
-            <Link 
-              to="/pricing" 
-              className="px-4 py-2 text-white hover:bg-slate-800 rounded transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link 
-              to="/common-questions" 
-              className="px-4 py-2 text-white hover:bg-slate-800 rounded transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              FAQ
-            </Link>
+            {navigationItems.map((item) => (
+              <Link 
+                key={item.path}
+                to={item.path} 
+                className={getMobileNavLinkClasses(item.path)}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-slate-800">
               <WaitlistDialog>
                 <Button variant="ghost" className="text-white hover:bg-slate-800 w-full justify-start">
