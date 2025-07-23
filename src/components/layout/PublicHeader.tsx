@@ -12,11 +12,13 @@ const PublicHeader = () => {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">JB</span>
-          </div>
+          <img 
+            src="/jbsaaslogo.png" 
+            alt="JB SAAS Logo" 
+            className="h-8 w-auto"
+          />
           <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-none">
-            JB-Software-As-A-Service
+            Healthcare Platform
           </span>
         </Link>
 
@@ -26,7 +28,7 @@ const PublicHeader = () => {
             Home
           </Link>
           <Link to="/australian-services" className="text-foreground hover:text-primary transition-colors">
-            🇦🇺 Services
+            Services
           </Link>
           <Link to="/blog" className="text-foreground hover:text-primary transition-colors">
             Blog
@@ -79,7 +81,7 @@ const PublicHeader = () => {
               className="text-foreground hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              🇦🇺 Services
+              Services
             </Link>
             <Link 
               to="/blog" 
