@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 // import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -33,7 +34,7 @@ import BlogAdmin from "./pages/BlogAdmin";
 import BlogPost from "./components/blog/BlogPost";
 import AussieSetupService from "./pages/AussieSetupService";
 import AustralianServices from "./pages/AustralianServices";
-import AllServices from "./pages/AllServices";
+import PricingWithServices from "./pages/PricingWithServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 
 const queryClient = new QueryClient();
@@ -52,7 +53,8 @@ const App = () => (
               <Route path="/common-questions" element={<CommonQuestions />} />
               <Route path="/aussie-setup-service" element={<AussieSetupService />} />
               <Route path="/australian-services" element={<AustralianServices />} />
-              <Route path="/services" element={<AllServices />} />
+              <Route path="/services" element={<AustralianServices />} />
+              <Route path="/pricing-with-services" element={<PricingWithServices />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/embedded-blog" element={<EmbeddedBlogPage />} />

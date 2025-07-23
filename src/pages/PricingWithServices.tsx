@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -24,7 +25,7 @@ import {
 } from 'lucide-react';
 import featuresImage from '@/assets/features-image.jpg';
 
-const AllServices = () => {
+const PricingWithServices = () => {
   const starterFeatures = [
     'AI Content Generation: 100 posts/month',
     'Social Media Management: 3 accounts',
@@ -126,16 +127,16 @@ const AllServices = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/pricing">
+            <Link to="/auth">
               <Button size="xl" className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-bold text-xl px-12 py-6">
                 <Crown className="w-6 h-6 mr-3" />
-                View Platform Pricing
+                Start Your Trial
               </Button>
             </Link>
-            <Link to="/australian-services">
+            <Link to="/services">
               <Button size="xl" variant="outline" className="text-xl px-12 py-6 border-white text-white hover:bg-white/20">
                 <Building className="w-6 h-6 mr-3" />
-                Professional Setup Services
+                View All Services
               </Button>
             </Link>
           </div>
@@ -225,7 +226,7 @@ const AllServices = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/pricing">
+                <Link to="/auth">
                   <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
                     Choose Solo Plan
                   </Button>
@@ -258,7 +259,7 @@ const AllServices = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/pricing">
+                <Link to="/auth">
                   <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white">
                     Choose Group Plan
                   </Button>
@@ -285,7 +286,7 @@ const AllServices = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/pricing">
+                <Link to="/auth">
                   <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white">
                     Contact Sales
                   </Button>
@@ -335,7 +336,7 @@ const AllServices = () => {
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/pricing">
+            <Link to="/auth">
               <Button size="xl" className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-400 hover:to-blue-500 text-white font-bold text-xl px-12 py-6">
                 <Zap className="w-6 h-6 mr-3" />
                 Start Free Trial
@@ -354,4 +355,4 @@ const AllServices = () => {
   );
 };
 
-export default AllServices;
+export default PricingWithServices;
