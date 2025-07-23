@@ -5,6 +5,7 @@ import { AppSidebar } from './AppSidebar';
 import { AppHeader } from './AppHeader';
 import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
 import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
+import { QuickAddFAB } from '@/components/common/QuickAddFAB';
 
 const AppLayout = () => {
   return (
@@ -19,6 +20,7 @@ const AppLayout = () => {
                 <Outlet />
               </main>
             </div>
+            <QuickAddFAB />
           </div>
         </SidebarProvider>
       </BusinessThemeProvider>
