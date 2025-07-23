@@ -8,6 +8,7 @@ const corsHeaders = {
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
+const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY');
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
@@ -107,18 +108,72 @@ async function callGemini(messages: any[], requireJSON = false) {
   return data.candidates[0].content.parts[0].text;
 }
 
-async function generateWithAI(messages: any[], requireJSON = false) {
-  // Try OpenAI first, fallback to Gemini
+async function callClaude(messages: any[], requireJSON = false) {
+  if (!anthropicApiKey) throw new Error('Anthropic API key not configured');
+  
+  // Convert messages format for Claude
+  const systemMessage = messages.find(msg => msg.role === 'system')?.content || '';
+  const userMessages = messages.filter(msg => msg.role !== 'system');
+  
+  let prompt = '';
+  if (requireJSON) {
+    prompt = `${systemMessage}\n\nPlease respond with valid JSON only.\n\n${userMessages.map(msg => msg.content).join('\n')}`;
+  } else {
+    prompt = `${systemMessage}\n\n${userMessages.map(msg => msg.content).join('\n')}`;
+  }
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${anthropicApiKey}`,
+      'Content-Type': 'application/json',
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 4000,
+      messages: [
+        { role: 'user', content: prompt }
+      ],
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Claude API error: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.content[0].text;
+}
+
+async function generateWithAI(messages: any[], requireJSON = false, preferredModel?: string) {
+  // Try preferred model first if specified
+  if (preferredModel === 'claude') {
+    try {
+      console.log('Using Claude as requested...');
+      return await callClaude(messages, requireJSON);
+    } catch (error) {
+      console.error('Claude failed, falling back to other providers:', error.message);
+    }
+  }
+  
+  // Try OpenAI first, then fallback to Claude, then Gemini
   try {
     console.log('Attempting OpenAI generation...');
     return await callOpenAI(messages, 'gpt-4o-mini', requireJSON);
   } catch (error) {
-    console.error('OpenAI failed, trying Gemini:', error.message);
+    console.error('OpenAI failed, trying Claude:', error.message);
     try {
-      return await callGemini(messages, requireJSON);
-    } catch (geminiError) {
-      console.error('Both AI providers failed:', geminiError.message);
-      throw new Error(`All AI providers failed. OpenAI: ${error.message}, Gemini: ${geminiError.message}`);
+      return await callClaude(messages, requireJSON);
+    } catch (claudeError) {
+      console.error('Claude failed, trying Gemini:', claudeError.message);
+      try {
+        return await callGemini(messages, requireJSON);
+      } catch (geminiError) {
+        console.error('All AI providers failed:', geminiError.message);
+        throw new Error(`All AI providers failed. OpenAI: ${error.message}, Claude: ${claudeError.message}, Gemini: ${geminiError.message}`);
+      }
     }
   }
 }

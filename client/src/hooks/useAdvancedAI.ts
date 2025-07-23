@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export interface AIModel {
-  id: "gpt4" | "o3" | "gemini";
+  id: "gpt4" | "o3" | "gemini" | "claude";
   name: string;
   description: string;
   strengths: string[];
@@ -17,7 +17,7 @@ export interface ContentGenerationRequest {
   targetAudience?: string;
   targetLength: "short" | "medium" | "long";
   keywords: string[];
-  aiModel: "gpt4" | "o3" | "gemini";
+  aiModel: "gpt4" | "o3" | "gemini" | "claude";
   businessId?: string;
   industryContext?: string;
 }
@@ -68,6 +68,13 @@ export const useAdvancedAI = () => {
       description: "Best for technical and data-driven content",
       strengths: ["Technical accuracy", "Data analysis", "Structured content"],
       pricing: "Lower cost"
+    },
+    {
+      id: "claude",
+      name: "Claude (Anthropic)",
+      description: "Best for thoughtful analysis and nuanced content",
+      strengths: ["Deep reasoning", "Ethical considerations", "Nuanced writing"],
+      pricing: "Medium cost"
     }
   ];
 
