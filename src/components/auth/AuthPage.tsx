@@ -14,10 +14,10 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('login');
+  const [waitlistSuccess, setWaitlistSuccess] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -67,55 +67,39 @@ const AuthPage = () => {
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleWaitlist = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const redirectUrl = `${window.location.origin}/dashboard`;
-      
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email,
             business_name: businessName,
           }
-        }
-      });
+        ]);
 
       if (error) {
-        if (error.message.includes('User already registered')) {
-          setError('An account with this email already exists. Please try logging in instead.');
+        if (error.message.includes('duplicate key')) {
+          setError('This email is already on our waitlist!');
         } else {
           setError(error.message);
         }
         return;
       }
 
+      setWaitlistSuccess(true);
       toast({
-        title: "Account created successfully!",
-        description: "Please check your email for a confirmation link.",
+        title: "Welcome to the waitlist!",
+        description: "We'll notify you when JB-SaaS is ready for your business.",
       });
 
-      // Switch to login tab after successful signup
-      setActiveTab('login');
-      setPassword('');
-      setConfirmPassword('');
+      // Clear form
+      setEmail('');
+      setBusinessName('');
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
     } finally {
@@ -159,8 +143,8 @@ const AuthPage = () => {
                 <TabsTrigger value="login" className="font-medium">
                   Sign In
                 </TabsTrigger>
-                <TabsTrigger value="signup" className="font-medium">
-                  Sign Up
+                <TabsTrigger value="waitlist" className="font-medium">
+                  Join Waitlist
                 </TabsTrigger>
               </TabsList>
 
@@ -218,74 +202,86 @@ const AuthPage = () => {
                 </form>
               </TabsContent>
 
-              <TabsContent value="signup" className="space-y-4">
-                <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="business-name">Business Name</Label>
-                    <Input
-                      id="business-name"
-                      type="text"
-                      placeholder="Your business name"
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                      required
-                      className="bg-background/50 border-white/10"
-                    />
+              <TabsContent value="waitlist" className="space-y-4">
+                {waitlistSuccess ? (
+                  <div className="text-center space-y-4">
+                    <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                      <Sparkles className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold text-foreground">You're on the list!</h3>
+                      <p className="text-muted-foreground">
+                        We'll notify you as soon as JB-SaaS is ready for your business.
+                      </p>
+                    </div>
+                    <Button 
+                      onClick={() => {
+                        setWaitlistSuccess(false);
+                        setActiveTab('login');
+                      }}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Back to Sign In
+                    </Button>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="bg-background/50 border-white/10"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      placeholder="Create a password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="bg-background/50 border-white/10"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirm Password</Label>
-                    <Input
-                      id="confirm-password"
-                      type="password"
-                      placeholder="Confirm your password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                      className="bg-background/50 border-white/10"
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-gradient-primary hover:scale-105 transition-all"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Creating account...
-                      </>
-                    ) : (
-                      <>
-                        <Zap className="mr-2 h-4 w-4" />
-                        Create Account
-                      </>
-                    )}
-                  </Button>
-                </form>
+                ) : (
+                  <form onSubmit={handleWaitlist} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="waitlist-business-name">Business Name</Label>
+                      <Input
+                        id="waitlist-business-name"
+                        type="text"
+                        placeholder="Your business name"
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        required
+                        className="bg-background/50 border-white/10"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="waitlist-email">Email</Label>
+                      <Input
+                        id="waitlist-email"
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="bg-background/50 border-white/10"
+                      />
+                    </div>
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-gradient-primary hover:scale-105 transition-all"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Joining waitlist...
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="mr-2 h-4 w-4" />
+                          Join Waitlist
+                        </>
+                      )}
+                    </Button>
+                    <div className="text-center">
+                      <p className="text-xs text-muted-foreground">
+                        Already have an account?{' '}
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('login')}
+                          className="text-primary hover:underline"
+                        >
+                          Sign in here
+                        </button>
+                      </p>
+                    </div>
+                  </form>
+                )}
               </TabsContent>
             </Tabs>
           </CardContent>
