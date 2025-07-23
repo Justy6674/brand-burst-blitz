@@ -14,6 +14,7 @@ import CommonQuestions from "./pages/CommonQuestions";
 import Dashboard from "./pages/Dashboard";
 import Ideas from "./pages/Ideas";
 import IdeasLibrary from "./pages/IdeasLibrary";
+import IdeasNotebook from "./pages/IdeasNotebook";
 import { CreateContent } from "./pages/CreateContent";
 import Competitors from "./pages/Competitors";
 import Templates from "./pages/Templates";
@@ -75,6 +76,7 @@ const App = () => (
                 <Route index element={<Dashboard />} />
                 <Route path="ideas" element={<Ideas />} />
                 <Route path="ideas-library" element={<IdeasLibrary />} />
+                <Route path="ideas-notebook" element={<IdeasNotebook />} />
                 <Route path="create" element={<CreateContent />} />
                 <Route path="posts" element={<Posts />} />
                 <Route path="competitors" element={<Competitors />} />

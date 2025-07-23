@@ -31,7 +31,8 @@ import {
   BookOpen,
   Edit3,
   Lightbulb,
-  Library
+  Library,
+  Notebook
 } from 'lucide-react';
 
 const navigationItems = [
@@ -46,9 +47,9 @@ const navigationItems = [
     icon: Lightbulb,
   },
   {
-    title: 'Ideas Library',
-    url: '/dashboard/ideas-library',
-    icon: Library,
+    title: 'Ideas Notebook',
+    url: '/dashboard/ideas-notebook',
+    icon: Notebook,
   },
   {
     title: 'Create Content',

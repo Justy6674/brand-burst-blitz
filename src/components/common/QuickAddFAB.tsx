@@ -254,19 +254,35 @@ export function QuickAddFAB() {
 
       setResult(data);
       
-      // Save to localStorage for Ideas Library
-      const savedIdeas = JSON.parse(localStorage.getItem('quick-ideas') || '[]');
-      const newIdea = {
-        ...data,
-        id: `idea-${Date.now()}`,
-        timestamp: new Date().toISOString()
-      };
-      savedIdeas.unshift(newIdea); // Add to beginning
-      localStorage.setItem('quick-ideas', JSON.stringify(savedIdeas.slice(0, 50))); // Keep last 50 ideas
+      // Save to database
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (userData.user) {
+          await supabase.from('ideas').insert({
+            user_id: userData.user.id,
+            title: data.originalText.substring(0, 100), // First 100 chars as title
+            original_text: data.originalText,
+            ai_analysis: {
+              summary: data.content.analysis,
+              viability_score: data.content.compliance_score,
+              market_potential: 'AI-generated analysis available',
+              provider: data.content.provider
+            },
+            content_generated: data.content,
+            source_type: 'voice',
+            tags: ['idea', 'voice', 'healthcare'],
+            priority: 3,
+            status: 'captured'
+          });
+        }
+      } catch (dbError) {
+        console.error('Failed to save to database:', dbError);
+        // Continue anyway, data is still in state
+      }
       
       toast({
         title: `✨ Content generated with ${data.content.provider.toUpperCase()}!`,
-        description: `${data.transcribed ? 'Voice transcribed and ' : ''}content ready to copy • Saved to Ideas Library`,
+        description: `${data.transcribed ? 'Voice transcribed and ' : ''}content ready to copy • Saved to Ideas Notebook`,
       });
     } catch (error) {
       console.error('Error processing audio:', error);
@@ -304,19 +320,35 @@ export function QuickAddFAB() {
 
       setResult(data);
       
-      // Save to localStorage for Ideas Library
-      const savedIdeas = JSON.parse(localStorage.getItem('quick-ideas') || '[]');
-      const newIdea = {
-        ...data,
-        id: `idea-${Date.now()}`,
-        timestamp: new Date().toISOString()
-      };
-      savedIdeas.unshift(newIdea); // Add to beginning
-      localStorage.setItem('quick-ideas', JSON.stringify(savedIdeas.slice(0, 50))); // Keep last 50 ideas
+      // Save to database
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (userData.user) {
+          await supabase.from('ideas').insert({
+            user_id: userData.user.id,
+            title: data.originalText.substring(0, 100), // First 100 chars as title
+            original_text: data.originalText,
+            ai_analysis: {
+              summary: data.content.analysis,
+              viability_score: data.content.compliance_score,
+              market_potential: 'AI-generated analysis available',
+              provider: data.content.provider
+            },
+            content_generated: data.content,
+            source_type: 'text',
+            tags: ['idea', 'text', 'healthcare'],
+            priority: 3,
+            status: 'captured'
+          });
+        }
+      } catch (dbError) {
+        console.error('Failed to save to database:', dbError);
+        // Continue anyway, data is still in state
+      }
       
       toast({
         title: `🚀 Content generated with ${data.content.provider.toUpperCase()}!`,
-        description: "Your idea has been transformed into engaging content • Saved to Ideas Library",
+        description: "Your idea has been transformed into engaging content • Saved to Ideas Notebook",
       });
     } catch (error) {
       console.error('Error processing text:', error);

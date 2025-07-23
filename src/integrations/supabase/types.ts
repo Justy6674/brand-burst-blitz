@@ -533,11 +533,13 @@ export type Database = {
           attendees: Json | null
           business_profile_id: string | null
           color: string | null
+          content_tags: string[] | null
           created_at: string | null
           description: string | null
           end_datetime: string
           event_type: string
           id: string
+          idea_id: string | null
           is_recurring: boolean | null
           location: string | null
           metadata: Json | null
@@ -557,11 +559,13 @@ export type Database = {
           attendees?: Json | null
           business_profile_id?: string | null
           color?: string | null
+          content_tags?: string[] | null
           created_at?: string | null
           description?: string | null
           end_datetime: string
           event_type?: string
           id?: string
+          idea_id?: string | null
           is_recurring?: boolean | null
           location?: string | null
           metadata?: Json | null
@@ -581,11 +585,13 @@ export type Database = {
           attendees?: Json | null
           business_profile_id?: string | null
           color?: string | null
+          content_tags?: string[] | null
           created_at?: string | null
           description?: string | null
           end_datetime?: string
           event_type?: string
           id?: string
+          idea_id?: string | null
           is_recurring?: boolean | null
           location?: string | null
           metadata?: Json | null
@@ -605,6 +611,13 @@ export type Database = {
             columns: ["business_profile_id"]
             isOneToOne: false
             referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_idea_id_fkey"
+            columns: ["idea_id"]
+            isOneToOne: false
+            referencedRelation: "ideas"
             referencedColumns: ["id"]
           },
           {
@@ -1153,6 +1166,65 @@ export type Database = {
           verification_status?: string | null
         }
         Relationships: []
+      }
+      ideas: {
+        Row: {
+          ai_analysis: Json
+          business_profile_id: string | null
+          content_generated: Json
+          created_at: string
+          id: string
+          metadata: Json | null
+          original_text: string
+          priority: number | null
+          source_type: string
+          status: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_analysis?: Json
+          business_profile_id?: string | null
+          content_generated?: Json
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          original_text: string
+          priority?: number | null
+          source_type?: string
+          status?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_analysis?: Json
+          business_profile_id?: string | null
+          content_generated?: Json
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          original_text?: string
+          priority?: number | null
+          source_type?: string
+          status?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ideas_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       images: {
         Row: {
