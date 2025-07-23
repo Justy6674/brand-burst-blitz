@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_credentials: {
+        Row: {
+          created_at: string
+          id: string
+          last_changed_at: string
+          password_hash: string
+          salt: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_changed_at?: string
+          password_hash: string
+          salt: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_changed_at?: string
+          password_hash?: string
+          salt?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      admin_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          ip_address: string | null
+          session_token: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          ip_address?: string | null
+          session_token: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          ip_address?: string | null
+          session_token?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       analytics: {
         Row: {
           collected_at: string | null
@@ -95,6 +152,143 @@ export type Database = {
         }
         Relationships: []
       }
+      automation_rules: {
+        Row: {
+          actions: Json
+          business_id: string | null
+          conditions: Json
+          created_at: string | null
+          event_type: string | null
+          execution_count: number | null
+          id: string
+          is_active: boolean | null
+          last_executed_at: string | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          actions?: Json
+          business_id?: string | null
+          conditions?: Json
+          created_at?: string | null
+          event_type?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_executed_at?: string | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          actions?: Json
+          business_id?: string | null
+          conditions?: Json
+          created_at?: string | null
+          event_type?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_executed_at?: string | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_rules_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_customizations: {
+        Row: {
+          branding: Json
+          business_id: string
+          color_scheme: Json
+          created_at: string
+          id: string
+          image_settings: Json
+          layout_style: string
+          post_display: Json
+          seo_settings: Json
+          typography: Json
+          updated_at: string
+        }
+        Insert: {
+          branding?: Json
+          business_id: string
+          color_scheme?: Json
+          created_at?: string
+          id?: string
+          image_settings?: Json
+          layout_style?: string
+          post_display?: Json
+          seo_settings?: Json
+          typography?: Json
+          updated_at?: string
+        }
+        Update: {
+          branding?: Json
+          business_id?: string
+          color_scheme?: Json
+          created_at?: string
+          id?: string
+          image_settings?: Json
+          layout_style?: string
+          post_display?: Json
+          seo_settings?: Json
+          typography?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blog_images: {
+        Row: {
+          alt_text: string | null
+          business_id: string
+          created_at: string
+          dimensions: Json
+          filename: string
+          folder: string | null
+          id: string
+          size: number
+          tags: string[] | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          alt_text?: string | null
+          business_id: string
+          created_at?: string
+          dimensions: Json
+          filename: string
+          folder?: string | null
+          id?: string
+          size: number
+          tags?: string[] | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          alt_text?: string | null
+          business_id?: string
+          created_at?: string
+          dimensions?: Json
+          filename?: string
+          folder?: string | null
+          id?: string
+          size?: number
+          tags?: string[] | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author: string | null
@@ -149,13 +343,54 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_templates: {
+        Row: {
+          business_id: string | null
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          name: string
+          template_data: Json
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          business_id?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name: string
+          template_data: Json
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          business_id?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name?: string
+          template_data?: Json
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: []
+      }
       business_profiles: {
         Row: {
+          blog_integrations: Json | null
           brand_colors: Json | null
           business_name: string
           compliance_settings: Json | null
           created_at: string | null
           default_ai_tone: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url: string | null
           id: string
           industry: Database["public"]["Enums"]["industry_type"] | null
           is_primary: boolean | null
@@ -165,11 +400,13 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          blog_integrations?: Json | null
           brand_colors?: Json | null
           business_name: string
           compliance_settings?: Json | null
           created_at?: string | null
           default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url?: string | null
           id?: string
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
@@ -179,11 +416,13 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          blog_integrations?: Json | null
           brand_colors?: Json | null
           business_name?: string
           compliance_settings?: Json | null
           created_at?: string | null
           default_ai_tone?: Database["public"]["Enums"]["ai_tone"] | null
+          favicon_url?: string | null
           id?: string
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
@@ -242,6 +481,184 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "business_questionnaire_responses_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_event_attendees: {
+        Row: {
+          created_at: string | null
+          email: string
+          event_id: string
+          id: string
+          name: string | null
+          role: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          event_id: string
+          id?: string
+          name?: string | null
+          role?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          event_id?: string
+          id?: string
+          name?: string | null
+          role?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_event_attendees_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_events: {
+        Row: {
+          all_day: boolean | null
+          attachments: Json | null
+          attendees: Json | null
+          business_profile_id: string | null
+          color: string | null
+          created_at: string | null
+          description: string | null
+          end_datetime: string
+          event_type: string
+          id: string
+          is_recurring: boolean | null
+          location: string | null
+          metadata: Json | null
+          notifications: Json | null
+          parent_event_id: string | null
+          priority: number | null
+          recurrence_rule: Json | null
+          start_datetime: string
+          status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          all_day?: boolean | null
+          attachments?: Json | null
+          attendees?: Json | null
+          business_profile_id?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_datetime: string
+          event_type?: string
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          metadata?: Json | null
+          notifications?: Json | null
+          parent_event_id?: string | null
+          priority?: number | null
+          recurrence_rule?: Json | null
+          start_datetime: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          all_day?: boolean | null
+          attachments?: Json | null
+          attendees?: Json | null
+          business_profile_id?: string | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_datetime?: string
+          event_type?: string
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          metadata?: Json | null
+          notifications?: Json | null
+          parent_event_id?: string | null
+          priority?: number | null
+          recurrence_rule?: Json | null
+          start_datetime?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_parent_event_id_fkey"
+            columns: ["parent_event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_integrations: {
+        Row: {
+          access_token: string | null
+          business_profile_id: string | null
+          created_at: string | null
+          external_calendar_id: string
+          id: string
+          integration_type: string
+          last_sync_at: string | null
+          refresh_token: string | null
+          sync_enabled: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          external_calendar_id: string
+          id?: string
+          integration_type: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_enabled?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          business_profile_id?: string | null
+          created_at?: string | null
+          external_calendar_id?: string
+          id?: string
+          integration_type?: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_enabled?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_integrations_business_profile_id_fkey"
             columns: ["business_profile_id"]
             isOneToOne: false
             referencedRelation: "business_profiles"
@@ -636,6 +1053,107 @@ export type Database = {
         }
         Relationships: []
       }
+      external_calendar_integrations: {
+        Row: {
+          access_token: string | null
+          business_id: string | null
+          created_at: string | null
+          expires_at: string | null
+          external_calendar_id: string
+          id: string
+          integration_type: string
+          last_sync_at: string | null
+          refresh_token: string | null
+          sync_direction: string | null
+          sync_enabled: boolean | null
+          sync_error_message: string | null
+          sync_status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          business_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          external_calendar_id: string
+          id?: string
+          integration_type: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_direction?: string | null
+          sync_enabled?: boolean | null
+          sync_error_message?: string | null
+          sync_status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          business_id?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          external_calendar_id?: string
+          id?: string
+          integration_type?: string
+          last_sync_at?: string | null
+          refresh_token?: string | null
+          sync_direction?: string | null
+          sync_enabled?: boolean | null
+          sync_error_message?: string | null
+          sync_status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "external_calendar_integrations_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      healthcare_professionals: {
+        Row: {
+          ahpra_registration: string | null
+          compliance_training_completed: boolean | null
+          created_at: string | null
+          email: string
+          id: string
+          practice_type: string | null
+          profession_type: string | null
+          updated_at: string | null
+          user_id: string
+          verification_status: string | null
+        }
+        Insert: {
+          ahpra_registration?: string | null
+          compliance_training_completed?: boolean | null
+          created_at?: string | null
+          email: string
+          id?: string
+          practice_type?: string | null
+          profession_type?: string | null
+          updated_at?: string | null
+          user_id: string
+          verification_status?: string | null
+        }
+        Update: {
+          ahpra_registration?: string | null
+          compliance_training_completed?: boolean | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          practice_type?: string | null
+          profession_type?: string | null
+          updated_at?: string | null
+          user_id?: string
+          verification_status?: string | null
+        }
+        Relationships: []
+      }
       images: {
         Row: {
           alt_text: string | null
@@ -692,6 +1210,133 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      interest_registrations: {
+        Row: {
+          additional_notes: string | null
+          business_name: string
+          created_at: string
+          current_challenges: string[] | null
+          email: string
+          heard_about_us: string | null
+          id: string
+          industry: string | null
+          is_australian: boolean
+          monthly_marketing_spend: string | null
+          name: string
+          primary_goals: string[] | null
+          team_size: string | null
+          updated_at: string
+          wants_updates: boolean | null
+        }
+        Insert: {
+          additional_notes?: string | null
+          business_name: string
+          created_at?: string
+          current_challenges?: string[] | null
+          email: string
+          heard_about_us?: string | null
+          id?: string
+          industry?: string | null
+          is_australian?: boolean
+          monthly_marketing_spend?: string | null
+          name: string
+          primary_goals?: string[] | null
+          team_size?: string | null
+          updated_at?: string
+          wants_updates?: boolean | null
+        }
+        Update: {
+          additional_notes?: string | null
+          business_name?: string
+          created_at?: string
+          current_challenges?: string[] | null
+          email?: string
+          heard_about_us?: string | null
+          id?: string
+          industry?: string | null
+          is_australian?: boolean
+          monthly_marketing_spend?: string | null
+          name?: string
+          primary_goals?: string[] | null
+          team_size?: string | null
+          updated_at?: string
+          wants_updates?: boolean | null
+        }
+        Relationships: []
+      }
+      multi_site_publishing: {
+        Row: {
+          business_profile_id: string | null
+          created_at: string | null
+          error_message: string | null
+          id: string
+          integration_id: string | null
+          platform_name: string
+          platform_post_id: string | null
+          post_id: string | null
+          publish_status: string
+          published_at: string | null
+          published_url: string | null
+          scheduled_for: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          integration_id?: string | null
+          platform_name: string
+          platform_post_id?: string | null
+          post_id?: string | null
+          publish_status?: string
+          published_at?: string | null
+          published_url?: string | null
+          scheduled_for?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          integration_id?: string | null
+          platform_name?: string
+          platform_post_id?: string | null
+          post_id?: string | null
+          publish_status?: string
+          published_at?: string | null
+          published_url?: string | null
+          scheduled_for?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "multi_site_publishing_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "multi_site_publishing_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "website_integrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "multi_site_publishing_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
             referencedColumns: ["id"]
           },
         ]
@@ -775,6 +1420,148 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      notification_preferences: {
+        Row: {
+          business_id: string | null
+          created_at: string | null
+          daily_digest: boolean | null
+          email_notifications: boolean | null
+          event_reminders: boolean | null
+          id: string
+          inactivity_alerts: boolean | null
+          inactivity_threshold_days: number | null
+          push_notifications: boolean | null
+          sms_notifications: boolean | null
+          updated_at: string | null
+          user_id: string
+          weekly_digest: boolean | null
+        }
+        Insert: {
+          business_id?: string | null
+          created_at?: string | null
+          daily_digest?: boolean | null
+          email_notifications?: boolean | null
+          event_reminders?: boolean | null
+          id?: string
+          inactivity_alerts?: boolean | null
+          inactivity_threshold_days?: number | null
+          push_notifications?: boolean | null
+          sms_notifications?: boolean | null
+          updated_at?: string | null
+          user_id: string
+          weekly_digest?: boolean | null
+        }
+        Update: {
+          business_id?: string | null
+          created_at?: string | null
+          daily_digest?: boolean | null
+          email_notifications?: boolean | null
+          event_reminders?: boolean | null
+          id?: string
+          inactivity_alerts?: boolean | null
+          inactivity_threshold_days?: number | null
+          push_notifications?: boolean | null
+          sms_notifications?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+          weekly_digest?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_preferences_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_queue: {
+        Row: {
+          attempts: number | null
+          created_at: string | null
+          error_message: string | null
+          event_id: string | null
+          id: string
+          last_attempt_at: string | null
+          message_data: Json
+          notification_type: string
+          scheduled_for: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          attempts?: number | null
+          created_at?: string | null
+          error_message?: string | null
+          event_id?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          message_data?: Json
+          notification_type: string
+          scheduled_for: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          attempts?: number | null
+          created_at?: string | null
+          error_message?: string | null
+          event_id?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          message_data?: Json
+          notification_type?: string
+          scheduled_for?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_queue_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      oauth_states: {
+        Row: {
+          code_verifier: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          platform: string
+          redirect_uri: string | null
+          state_token: string
+          used: boolean | null
+          user_id: string
+        }
+        Insert: {
+          code_verifier?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          platform: string
+          redirect_uri?: string | null
+          state_token: string
+          used?: boolean | null
+          user_id: string
+        }
+        Update: {
+          code_verifier?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          platform?: string
+          redirect_uri?: string | null
+          state_token?: string
+          used?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
       }
       posts: {
         Row: {
@@ -862,6 +1649,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       prompts: {
         Row: {
@@ -968,16 +1782,65 @@ export type Database = {
           },
         ]
       }
+      publishing_queue_status: {
+        Row: {
+          created_at: string | null
+          error_message: string | null
+          id: string
+          platform_response: Json | null
+          processed_at: string | null
+          published_url: string | null
+          queue_item_id: string
+          retry_count: number | null
+          status: string
+        }
+        Insert: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          platform_response?: Json | null
+          processed_at?: string | null
+          published_url?: string | null
+          queue_item_id: string
+          retry_count?: number | null
+          status?: string
+        }
+        Update: {
+          created_at?: string | null
+          error_message?: string | null
+          id?: string
+          platform_response?: Json | null
+          processed_at?: string | null
+          published_url?: string | null
+          queue_item_id?: string
+          retry_count?: number | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publishing_queue_status_queue_item_id_fkey"
+            columns: ["queue_item_id"]
+            isOneToOne: false
+            referencedRelation: "publishing_queue"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       social_accounts: {
         Row: {
           access_token: string
+          account_avatar: string | null
           account_id: string
           account_name: string | null
+          account_username: string | null
           business_profile_id: string | null
           created_at: string | null
           expires_at: string | null
           id: string
           is_active: boolean | null
+          last_sync_at: string | null
+          oauth_refresh_token: string | null
+          oauth_scope: string | null
           page_id: string | null
           platform: Database["public"]["Enums"]["social_platform"]
           refresh_token: string | null
@@ -986,13 +1849,18 @@ export type Database = {
         }
         Insert: {
           access_token: string
+          account_avatar?: string | null
           account_id: string
           account_name?: string | null
+          account_username?: string | null
           business_profile_id?: string | null
           created_at?: string | null
           expires_at?: string | null
           id?: string
           is_active?: boolean | null
+          last_sync_at?: string | null
+          oauth_refresh_token?: string | null
+          oauth_scope?: string | null
           page_id?: string | null
           platform: Database["public"]["Enums"]["social_platform"]
           refresh_token?: string | null
@@ -1001,13 +1869,18 @@ export type Database = {
         }
         Update: {
           access_token?: string
+          account_avatar?: string | null
           account_id?: string
           account_name?: string | null
+          account_username?: string | null
           business_profile_id?: string | null
           created_at?: string | null
           expires_at?: string | null
           id?: string
           is_active?: boolean | null
+          last_sync_at?: string | null
+          oauth_refresh_token?: string | null
+          oauth_scope?: string | null
           page_id?: string | null
           platform?: Database["public"]["Enums"]["social_platform"]
           refresh_token?: string | null
@@ -1197,6 +2070,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_social_credentials: {
+        Row: {
+          app_id: string
+          app_secret: string
+          created_at: string
+          id: string
+          platform: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          app_id: string
+          app_secret: string
+          created_at?: string
+          id?: string
+          platform: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          app_id?: string
+          app_secret?: string
+          created_at?: string
+          id?: string
+          platform?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           created_at: string | null
@@ -1236,6 +2139,56 @@ export type Database = {
         }
         Relationships: []
       }
+      website_integrations: {
+        Row: {
+          business_id: string | null
+          business_profile_id: string | null
+          configuration: Json
+          created_at: string | null
+          id: string
+          integration_name: string
+          integration_type: string
+          is_active: boolean | null
+          last_sync_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          business_id?: string | null
+          business_profile_id?: string | null
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          integration_name: string
+          integration_type: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          business_id?: string | null
+          business_profile_id?: string | null
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          integration_name?: string
+          integration_type?: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "website_integrations_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -1244,6 +2197,14 @@ export type Database = {
       calculate_questionnaire_score: {
         Args: { responses: Json }
         Returns: number
+      }
+      create_admin_session: {
+        Args: {
+          admin_user_id: string
+          ip_addr?: string
+          user_agent_str?: string
+        }
+        Returns: string
       }
       generate_questionnaire_insights: {
         Args: { user_id_param: string; responses_param: Json }
@@ -1264,6 +2225,17 @@ export type Database = {
         Args: { _user_id: string }
         Returns: boolean
       }
+      validate_admin_session: {
+        Args: { token: string }
+        Returns: boolean
+      }
+      verify_admin_password: {
+        Args: { input_password: string }
+        Returns: {
+          is_valid: boolean
+          user_id: string
+        }[]
+      }
     }
     Enums: {
       ai_tone:
@@ -1273,6 +2245,21 @@ export type Database = {
         | "authoritative"
         | "empathetic"
         | "exciting"
+      healthcare_practice_type:
+        | "general_practice"
+        | "specialist_clinic"
+        | "hospital"
+        | "allied_health"
+        | "dental"
+        | "mental_health"
+      healthcare_profession_type:
+        | "gp"
+        | "specialist"
+        | "nurse"
+        | "allied_health"
+        | "dentist"
+        | "psychologist"
+        | "other"
       industry_type:
         | "health"
         | "finance"
@@ -1419,6 +2406,23 @@ export const Constants = {
         "authoritative",
         "empathetic",
         "exciting",
+      ],
+      healthcare_practice_type: [
+        "general_practice",
+        "specialist_clinic",
+        "hospital",
+        "allied_health",
+        "dental",
+        "mental_health",
+      ],
+      healthcare_profession_type: [
+        "gp",
+        "specialist",
+        "nurse",
+        "allied_health",
+        "dentist",
+        "psychologist",
+        "other",
       ],
       industry_type: [
         "health",
