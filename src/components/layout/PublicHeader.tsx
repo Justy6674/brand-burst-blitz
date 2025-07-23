@@ -18,7 +18,7 @@ const PublicHeader = () => {
             alt="JB SAAS Logo" 
             className="h-8 w-auto"
           />
-          <div className="text-white text-xl font-semibold">
+          <div className="text-white text-xl font-semibold whitespace-nowrap">
             JB SaaS
           </div>
         </Link>
