@@ -74,11 +74,11 @@ const PublicHeader = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center space-x-3">
-          <WaitlistDialog>
+          <Link to="/auth">
             <Button variant="ghost" className="text-white hover:bg-slate-800 rounded-full px-6 py-2 text-sm font-medium">
               Login
             </Button>
-          </WaitlistDialog>
+          </Link>
           <WaitlistDialog>
             <Button className="bg-gradient-to-r from-purple-500 to-cyan-400 hover:from-purple-600 hover:to-cyan-500 text-white px-6 py-2 rounded-full font-medium text-sm shadow-lg">
               Join Healthcare Professionals Waitlist
@@ -115,11 +115,11 @@ const PublicHeader = () => {
               </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-slate-800">
-              <WaitlistDialog>
+              <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="ghost" className="text-white hover:bg-slate-800 w-full justify-start">
                   Login
                 </Button>
-              </WaitlistDialog>
+              </Link>
               <WaitlistDialog>
                 <Button className="bg-gradient-to-r from-purple-500 to-cyan-400 hover:from-purple-600 hover:to-cyan-500 text-white w-full">
                   Join Healthcare Professionals Waitlist
