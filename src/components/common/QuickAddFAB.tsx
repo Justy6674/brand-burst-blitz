@@ -383,7 +383,7 @@ export function QuickAddFAB() {
                           value={textInput}
                           onChange={(e) => setTextInput(e.target.value)}
                           rows={4}
-                          className="resize-none bg-background border-input text-foreground"
+                          className="resize-none bg-background border-input text-foreground focus:bg-background focus:border-primary"
                           disabled={isProcessing}
                         />
                         <Button 
