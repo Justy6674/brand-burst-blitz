@@ -114,7 +114,7 @@ export function RealContentGenerator() {
           content: generatedContent.content,
           type: generatedContent.type as any,
           ai_tone: generatedContent.tone as any,
-          target_platforms: generatedContent.platforms as ("facebook" | "linkedin" | "reddit" | "instagram")[],
+          target_platforms: generatedContent.platforms as ("facebook" | "linkedin" | "instagram")[],
           tags: generatedContent.hashtags,
           status: 'draft'
         });
