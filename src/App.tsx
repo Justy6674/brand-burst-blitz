@@ -36,6 +36,8 @@ import AussieSetupService from "./pages/AussieSetupService";
 import AustralianServices from "./pages/AustralianServices";
 import PricingWithServices from "./pages/PricingWithServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
+import SlackSetupWizard from "./components/slack/SlackSetupWizard";
+import BillingDashboard from "./components/billing/BillingDashboard";
 
 const queryClient = new QueryClient();
 
@@ -87,6 +89,8 @@ const App = () => (
                 <Route path="calendar" element={<Calendar />} />
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="business-settings" element={<BusinessSettings />} />
+                <Route path="slack-setup" element={<SlackSetupWizard />} />
+                <Route path="billing" element={<BillingDashboard />} />
                 <Route path="cross-business" element={<CrossBusinessFeatures />} />
                 <Route path="blog-admin" element={<BlogAdmin />} />
                 <Route path="admin" element={<AdminPanel />} />

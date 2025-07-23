@@ -1,8 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import PublicHeader from "@/components/layout/PublicHeader";
+import { paddleService, HEALTHCARE_PLANS } from "@/lib/paddle-service";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Check,
   Star,
@@ -29,37 +34,62 @@ import {
 import roiDataHero from "@/assets/roi-data-driven-hero.jpg";
 
 const Pricing = () => {
-  const soloPractitionerFeatures = [
-    'Up to 5 practice locations',
-    'AHPRA compliance validation',
-    'Patient education content',
-    'Healthcare-specific templates',
-    'Professional boundary guidance',
-    'Basic analytics for healthcare practices',
-    'Australian healthcare compliance'
-  ];
+  const [loading, setLoading] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [currentSubscription, setCurrentSubscription] = useState<any>(null);
+  const { toast } = useToast();
 
-  const groupPracticeFeatures = [
-    'Everything in Solo Practitioner PLUS:',
-    'Unlimited practice locations',
-    'Multi-practitioner collaboration',
-    'Custom healthcare branding',
-    'Advanced patient education library',
-    'Healthcare team management',
-    'Specialty-specific content templates',
-    'Cross-practice referral tracking'
-  ];
+  useEffect(() => {
+    checkUserStatus();
+  }, []);
 
-  const healthcareNetworkFeatures = [
-    'Everything in Group Practice',
-    'White-label healthcare solution',
-    'Custom AHPRA compliance workflows',
-    '24/7 healthcare professional support',
-    'Dedicated healthcare account manager',
-    'Custom healthcare integrations',
-    'Healthcare network analytics',
-    'Enterprise SLA guarantees'
-  ];
+  const checkUserStatus = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    setUser(userData.user);
+    
+    if (userData.user) {
+      const subscription = await paddleService.getSubscription();
+      setCurrentSubscription(subscription);
+    }
+  };
+
+  const handleSubscribe = async (planId: string, planName: string) => {
+    try {
+      setLoading(planId);
+
+      if (!user) {
+        // Redirect to auth if not logged in
+        toast({
+          title: "Sign In Required",
+          description: "Please sign in to subscribe to a plan.",
+        });
+        return;
+      }
+
+      const checkoutData = await paddleService.initiateCheckout(
+        planId,
+        user.email,
+        { 
+          source: 'pricing_page',
+          plan_name: planName 
+        }
+      );
+
+      if (checkoutData.checkout_url) {
+        // Redirect to Paddle checkout
+        window.location.href = checkoutData.checkout_url;
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      toast({
+        title: "Error",
+        description: `Failed to start subscription: ${error.message}`,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -141,57 +171,114 @@ const Pricing = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
-            
-            {/* Solo Practitioner Plan */}
-            <Card className="relative border-2 border-green-500/30 hover:border-green-500/50 transition-colors h-full bg-gradient-to-br from-green-500/10 to-green-600/10">
-              <CardHeader className="text-center pb-6 md:pb-8">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Stethoscope className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                </div>
-                <CardTitle className="text-xl md:text-2xl">🩺 Solo Practitioner</CardTitle>
-                <CardDescription className="text-sm md:text-base">Individual healthcare professionals</CardDescription>
-                <div className="text-3xl md:text-4xl font-bold text-green-600 mt-4">
-                  $79<span className="text-base md:text-lg text-muted-foreground">/month</span>
-                </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Up to 5 practice locations</Badge>
-                <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {soloPractitionerFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-xs md:text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/auth">
-                  <Button className="w-full bg-green-500 hover:bg-green-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                    Get Started - $79/month
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          {/* Success/Error Messages */}
+          {currentSubscription && (
+            <Alert className="mb-8">
+              <CheckCircle className="h-4 w-4" />
+              <AlertDescription>
+                You currently have an active {paddleService.getPlanDetails(currentSubscription.product_id)?.name} subscription.
+                <Link to="/dashboard/billing" className="ml-2 underline">Manage your subscription →</Link>
+              </AlertDescription>
+            </Alert>
+          )}
 
-            {/* Group Practice Plan - Most Popular */}
-            <Card className="relative border-2 border-blue-500 h-full bg-gradient-to-br from-blue-500/10 to-blue-600/10">
-              <div className="absolute -top-2 md:-top-3 left-1/2 transform -translate-x-1/2 z-10">
-                <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 md:px-4 py-1 text-xs md:text-sm">
-                  <Star className="w-3 h-3 mr-1" />
-                  Most Popular
-                </Badge>
-              </div>
-              <CardHeader className="text-center pb-6 md:pb-8">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                </div>
-                <CardTitle className="text-xl md:text-2xl">🏥 Group Practice</CardTitle>
-                <CardDescription className="text-sm md:text-base">Multiple practitioners & locations</CardDescription>
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 mt-4">
-                  $179<span className="text-base md:text-lg text-muted-foreground">/month</span>
-                </div>
-                <Badge variant="secondary" className="mt-2 text-xs md:text-sm">Unlimited locations</Badge>
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
+            {Object.values(HEALTHCARE_PLANS).map((plan, index) => {
+              const isPopular = index === 1; // Professional plan
+              const isCurrentPlan = currentSubscription?.product_id === plan.id;
+              
+              return (
+                <Card 
+                  key={plan.id} 
+                  className={`relative border-2 h-full transition-all duration-300 hover:shadow-lg
+                    ${isPopular 
+                      ? 'border-blue-500 bg-gradient-to-br from-blue-500/10 to-blue-600/10 scale-105' 
+                      : 'border-gray-300/50 hover:border-primary/50 bg-gradient-to-br from-gray-50/10 to-gray-100/10'
+                    }
+                    ${isCurrentPlan ? 'ring-2 ring-green-500' : ''}
+                  `}
+                >
+                  {isPopular && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                      <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-1">
+                        <Star className="w-3 h-3 mr-1" />
+                        Most Popular
+                      </Badge>
+                    </div>
+                  )}
+                  
+                  {isCurrentPlan && (
+                    <div className="absolute -top-3 right-4 z-10">
+                      <Badge className="bg-green-500 text-white">
+                        Current Plan
+                      </Badge>
+                    </div>
+                  )}
+
+                  <CardHeader className="text-center pb-6">
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4
+                      ${isPopular ? 'bg-blue-500' : 'bg-primary'}
+                    `}>
+                      {index === 0 && <Stethoscope className="w-8 h-8 text-white" />}
+                      {index === 1 && <Heart className="w-8 h-8 text-white" />}
+                      {index === 2 && <Building className="w-8 h-8 text-white" />}
+                    </div>
+                    
+                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                    <CardDescription className="text-base">{plan.description}</CardDescription>
+                    
+                    <div className="text-4xl font-bold text-primary mt-4">
+                      ${plan.price}
+                      <span className="text-lg text-muted-foreground">/month</span>
+                    </div>
+                    
+                    <Badge variant="outline" className="mt-2">
+                      14-day free trial • {plan.currency}
+                    </Badge>
+                    
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Australian dollars, GST included
+                    </p>
+                  </CardHeader>
+
+                  <CardContent className="flex-1 flex flex-col">
+                    <ul className="space-y-3 mb-8 flex-1">
+                      {plan.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {isCurrentPlan ? (
+                      <Button disabled className="w-full" variant="outline">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        Current Plan
+                      </Button>
+                    ) : (
+                      <Button
+                        className={`w-full ${isPopular ? 'bg-blue-500 hover:bg-blue-600' : ''}`}
+                        onClick={() => handleSubscribe(plan.id, plan.name)}
+                        disabled={loading === plan.id}
+                      >
+                        {loading === plan.id ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <Rocket className="w-4 h-4 mr-2" />
+                            Start Free Trial
+                          </>
+                        )}
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
                 <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">

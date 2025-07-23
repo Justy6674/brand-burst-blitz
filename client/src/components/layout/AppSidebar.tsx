@@ -32,7 +32,9 @@ import {
   BookOpen,
   Edit3,
   Globe,
-  Copy
+  Copy,
+  MessageSquare,
+  CreditCard
 } from 'lucide-react';
 
 const navigationItems = [
@@ -100,6 +102,12 @@ const toolsItems = [
     icon: Instagram,
   },
   {
+    title: 'Slack Setup',
+    url: '/dashboard/slack-setup',
+    icon: MessageSquare,
+    description: 'Connect your practice Slack for notifications'
+  },
+  {
     title: 'Blog Embed',
     url: '/dashboard/blog-embed',
     icon: Globe,
@@ -116,6 +124,12 @@ const settingsItems = [
     title: 'Business Profile',
     url: '/dashboard/business-settings',
     icon: Target,
+  },
+  {
+    title: 'Billing & Subscription',
+    url: '/dashboard/billing',
+    icon: CreditCard,
+    description: 'Manage your subscription and billing'
   },
   {
     title: 'Cross-Business',

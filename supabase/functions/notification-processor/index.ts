@@ -70,6 +70,11 @@ const handler = async (req: Request): Promise<Response> => {
             notificationSent = await createInAppNotification(supabase, notification);
             break;
             
+          case 'slack':
+            // Send Slack notification
+            notificationSent = await sendSlackNotification(supabase, notification);
+            break;
+            
           default:
             console.error('Unknown notification type:', notification.notification_type);
         }
@@ -195,6 +200,155 @@ async function createInAppNotification(supabase: any, notification: any): Promis
   } catch (error) {
     console.error('Failed to create in-app notification:', error);
     return false;
+  }
+}
+
+async function sendSlackNotification(supabase: any, notification: any): Promise<boolean> {
+  try {
+    // Get practice Slack configuration
+    const { data: practiceData, error: practiceError } = await supabase
+      .from('business_profiles')
+      .select('slack_webhook_url, slack_settings')
+      .eq('user_id', notification.user_id)
+      .single();
+
+    if (practiceError || !practiceData?.slack_webhook_url) {
+      console.log('No Slack webhook configured for user:', notification.user_id);
+      return false;
+    }
+
+    const messageData = notification.message_data;
+    const slackMessage = formatSlackMessage(messageData, notification);
+
+    // Send to Slack webhook
+    const response = await fetch(practiceData.slack_webhook_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(slackMessage)
+    });
+
+    if (response.ok) {
+      console.log('Slack notification sent successfully');
+      return true;
+    } else {
+      console.error('Slack API error:', response.status, await response.text());
+      return false;
+    }
+  } catch (error) {
+    console.error('Failed to send Slack notification:', error);
+    return false;
+  }
+}
+
+function formatSlackMessage(messageData: any, notification: any) {
+  const baseMessage = {
+    username: "Healthcare Assistant",
+    icon_emoji: ":hospital:",
+    channel: messageData.channel || "#general"
+  };
+
+  switch (messageData.type) {
+    case 'content_approval':
+      return {
+        ...baseMessage,
+        attachments: [{
+          color: "warning",
+          title: "🏥 Content Requires AHPRA Review",
+          text: messageData.message,
+          fields: [
+            {
+              title: "Content Type",
+              value: messageData.content_type || "Blog Post",
+              short: true
+            },
+            {
+              title: "Compliance Score",
+              value: `${messageData.compliance_score || 'N/A'}/100`,
+              short: true
+            }
+          ],
+          actions: messageData.approval_link ? [{
+            type: "button",
+            text: "Review Content",
+            url: messageData.approval_link,
+            style: "primary"
+          }] : undefined
+        }]
+      };
+
+    case 'compliance_alert':
+      return {
+        ...baseMessage,
+        attachments: [{
+          color: "danger",
+          title: "⚠️ AHPRA Compliance Alert",
+          text: messageData.message,
+          fields: [
+            {
+              title: "Violation Type",
+              value: messageData.violation_type || "Content Review Required",
+              short: true
+            },
+            {
+              title: "Severity",
+              value: messageData.severity || "Medium",
+              short: true
+            }
+          ]
+        }]
+      };
+
+    case 'content_approved':
+      return {
+        ...baseMessage,
+        attachments: [{
+          color: "good",
+          title: "✅ Content Approved - Ready to Copy/Paste",
+          text: messageData.message,
+          fields: [
+            {
+              title: "Platform",
+              value: messageData.platform || "Multiple",
+              short: true
+            },
+            {
+              title: "Final Compliance Score",
+              value: `${messageData.compliance_score || 'N/A'}/100`,
+              short: true
+            }
+          ]
+        }]
+      };
+
+    case 'weekly_report':
+      return {
+        ...baseMessage,
+        attachments: [{
+          color: "#36a64f",
+          title: "📊 Weekly Healthcare Marketing Report",
+          text: messageData.message,
+          fields: [
+            {
+              title: "Content Created",
+              value: messageData.content_count || "0",
+              short: true
+            },
+            {
+              title: "Avg Compliance Score",
+              value: `${messageData.avg_compliance || 'N/A'}/100`,
+              short: true
+            }
+          ]
+        }]
+      };
+
+    default:
+      return {
+        ...baseMessage,
+        text: messageData.message || messageData.title
+      };
   }
 }
 

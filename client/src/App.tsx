@@ -32,6 +32,8 @@ const Posts = lazy(() => import('./pages/Posts'));
 const CrossBusinessFeatures = lazy(() => import('./pages/CrossBusinessFeatures'));
 const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed').then(module => ({ default: module.default || module.HealthcareBlogEmbed })));
 const BusinessQuestionnaire = lazy(() => import('./components/questionnaire/BusinessQuestionnaire'));
+const SlackSetupWizard = lazy(() => import('./components/slack/SlackSetupWizard'));
+const BillingDashboard = lazy(() => import('./components/billing/BillingDashboard'));
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
@@ -159,6 +161,16 @@ function App() {
                         <Route path="/discover" element={
                           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading discover...</div>}>
                             <Discover />
+                          </Suspense>
+                        } />
+                        <Route path="/dashboard/slack-setup" element={
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading Slack setup...</div>}>
+                            <SlackSetupWizard />
+                          </Suspense>
+                        } />
+                        <Route path="/dashboard/billing" element={
+                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading billing...</div>}>
+                            <BillingDashboard />
                           </Suspense>
                         } />
 
