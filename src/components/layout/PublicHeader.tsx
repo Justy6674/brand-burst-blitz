@@ -11,7 +11,7 @@ const PublicHeader = () => {
 
   const navigationItems = [
     { path: '/', label: 'Home' },
-    { path: '/all-services', label: 'Services' },
+    { path: '/services', label: 'Services' },
     { path: '/blog', label: 'Blog' },
     { path: '/pricing', label: 'Pricing' },
     { path: '/common-questions', label: 'FAQ' }

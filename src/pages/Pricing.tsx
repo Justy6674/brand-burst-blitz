@@ -529,7 +529,7 @@ const Pricing = () => {
                 </Button>
               </Link>
             </div>
-            <Link to="/all-services">
+            <Link to="/services">
               <Button variant="outline" size="xl" className="text-lg md:text-xl px-8 md:px-12 py-4 md:py-6 w-full sm:w-auto">
                 <Eye className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                 See All Features
