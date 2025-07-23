@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ContentPublisher } from '@/components/content/ContentPublisher';
 import { SocialAccountSetup } from './SocialAccountSetup';
-import { QuickIdeaCapture } from './QuickIdeaCapture';
 
 export const SocialMediaDashboard = () => {
   const [showPublishDialog, setShowPublishDialog] = useState(false);
@@ -102,7 +101,6 @@ export const SocialMediaDashboard = () => {
         <TabsList>
           <TabsTrigger value="generator">Content Generator</TabsTrigger>
           <TabsTrigger value="platforms">Platform Setup</TabsTrigger>
-          <TabsTrigger value="ideas">Quick Ideas</TabsTrigger>
         </TabsList>
 
         <TabsContent value="generator" className="space-y-4">
@@ -121,10 +119,6 @@ export const SocialMediaDashboard = () => {
 
         <TabsContent value="platforms" className="space-y-4">
           <SocialAccountSetup />
-        </TabsContent>
-
-        <TabsContent value="ideas" className="space-y-4">
-          <QuickIdeaCapture />
         </TabsContent>
       </Tabs>
 

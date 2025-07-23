@@ -29,7 +29,8 @@ import {
   Network,
   ShieldCheck,
   BookOpen,
-  Edit3
+  Edit3,
+  Lightbulb
 } from 'lucide-react';
 
 const navigationItems = [
@@ -37,6 +38,11 @@ const navigationItems = [
     title: 'Dashboard',
     url: '/dashboard',
     icon: LayoutDashboard,
+  },
+  {
+    title: 'Smart Ideas',
+    url: '/dashboard/ideas',
+    icon: Lightbulb,
   },
   {
     title: 'Create Content',
