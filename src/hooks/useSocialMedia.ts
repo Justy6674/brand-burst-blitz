@@ -33,7 +33,7 @@ export const useSocialMedia = (): UseSocialMediaReturn => {
     { id: 'facebook', name: 'Facebook', icon: '📘', color: 'blue', isConnected: false },
     { id: 'instagram', name: 'Instagram', icon: '📷', color: 'pink', isConnected: false },
     { id: 'linkedin', name: 'LinkedIn', icon: '💼', color: 'blue', isConnected: false },
-    { id: 'twitter', name: 'Twitter/X', icon: '🐦', color: 'blue', isConnected: false },
+    { id: 'reddit', name: 'Reddit', icon: '🔴', color: 'red', isConnected: false },
   ]);
   const [publishingQueue, setPublishingQueue] = useState<PublishingQueue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
