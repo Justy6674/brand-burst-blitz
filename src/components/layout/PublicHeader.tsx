@@ -12,15 +12,15 @@ const PublicHeader = () => {
     <header className="sticky top-0 z-50 w-full bg-slate-900">
       <div className="container mx-auto px-6 flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3">
+        <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
           <img 
             src="/jbsaaslogo.png" 
             alt="JB SAAS Logo" 
             className="h-8 w-auto"
           />
-          <div className="text-white text-xl font-semibold whitespace-nowrap">
-            JB SaaS
-          </div>
+          <span className="text-white text-xl font-semibold whitespace-nowrap">
+            JB-SaaS
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
