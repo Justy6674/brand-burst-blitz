@@ -285,19 +285,28 @@ export function QuickAddFAB() {
   return (
     <>
       {/* Floating Action Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-6 z-50 group">
         <Button
           onClick={() => setIsOpen(true)}
           size="lg"
-          className="h-14 w-14 rounded-full shadow-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:scale-110 animate-pulse"
+          className="h-16 w-16 rounded-full shadow-xl bg-gradient-to-r from-primary via-primary/90 to-accent hover:from-primary/90 hover:via-accent hover:to-primary transition-all duration-500 hover:scale-110 hover:shadow-2xl border-2 border-white/20"
         >
-          <Plus className="h-6 w-6" />
+          <div className="flex flex-col items-center">
+            <Lightbulb className="h-6 w-6 text-white" />
+          </div>
         </Button>
+        
+        {/* Tooltip */}
+        <div className="absolute bottom-20 right-0 bg-background/95 backdrop-blur-sm border border-border rounded-lg px-3 py-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          <p className="text-sm font-medium">Quick Add Idea</p>
+          <p className="text-xs text-muted-foreground">Say "Hey JB" or click to start</p>
+        </div>
         
         {/* Listening indicator */}
         {isListening && (
-          <div className="absolute -top-2 -right-2 h-4 w-4 bg-green-500 rounded-full animate-pulse">
-            <div className="absolute inset-0 bg-green-500 rounded-full animate-ping"></div>
+          <div className="absolute -top-2 -right-2 h-5 w-5 bg-emerald-500 rounded-full">
+            <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
+            <div className="absolute inset-1 bg-emerald-400 rounded-full"></div>
           </div>
         )}
       </div>
@@ -374,7 +383,8 @@ export function QuickAddFAB() {
                           value={textInput}
                           onChange={(e) => setTextInput(e.target.value)}
                           rows={4}
-                          className="resize-none"
+                          className="resize-none bg-background border-input text-foreground"
+                          disabled={isProcessing}
                         />
                         <Button 
                           onClick={processText}
