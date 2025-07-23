@@ -451,7 +451,8 @@ export function QuickAddFAB() {
                           value={textInput}
                           onChange={(e) => setTextInput(e.target.value)}
                           rows={4}
-                          className="resize-none bg-background border-input text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20"
+                          className="resize-none bg-white border-input text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
+                          disabled={false}
                         />
                         <Button 
                           onClick={processText}
