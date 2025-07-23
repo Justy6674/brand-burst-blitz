@@ -14,6 +14,7 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('login');
@@ -74,11 +75,14 @@ const AuthPage = () => {
 
     try {
       const { error } = await supabase
-        .from('waitlist')
+        .from('interest_registrations')
         .insert([
           {
+            name,
             email,
             business_name: businessName,
+            is_australian: true,
+            wants_updates: true
           }
         ]);
 
@@ -98,6 +102,7 @@ const AuthPage = () => {
       });
 
       // Clear form
+      setName('');
       setEmail('');
       setBusinessName('');
     } catch (err) {
@@ -227,6 +232,18 @@ const AuthPage = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleWaitlist} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="waitlist-name">Full Name</Label>
+                      <Input
+                        id="waitlist-name"
+                        type="text"
+                        placeholder="Your full name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        className="bg-background/50 border-white/10"
+                      />
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="waitlist-business-name">Business Name</Label>
                       <Input
