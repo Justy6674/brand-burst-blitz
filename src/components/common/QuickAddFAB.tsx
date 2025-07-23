@@ -57,7 +57,7 @@ export function QuickAddFAB() {
       
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = 'en-US';
+      recognition.lang = 'en-AU'; // Australian English
       
       recognition.onresult = (event: any) => {
         const transcript = Array.from(event.results)
@@ -70,8 +70,8 @@ export function QuickAddFAB() {
           console.log('Wake word detected!');
           setIsOpen(true);
           toast({
-            title: "👋 Hey there!",
-            description: "JB is listening... What's your idea?",
+            title: "👋 G'day there!",
+            description: "JB is listening... What's your brilliant idea?",
           });
           startVoiceRecording();
         }
@@ -79,18 +79,30 @@ export function QuickAddFAB() {
 
       recognition.onerror = (event: any) => {
         console.log('Speech recognition error:', event.error);
-        if (event.error !== 'no-speech') {
+        if (event.error !== 'no-speech' && event.error !== 'aborted') {
           setTimeout(() => {
-            if (isListening) {
-              recognition.start();
+            if (isListening && recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+              } catch (e) {
+                console.log('Recognition restart failed:', e);
+              }
             }
           }, 1000);
         }
       };
 
       recognition.onend = () => {
-        if (isListening) {
-          setTimeout(() => recognition.start(), 500);
+        if (isListening && !isRecording) {
+          setTimeout(() => {
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+              } catch (e) {
+                console.log('Recognition restart failed:', e);
+              }
+            }
+          }, 500);
         }
       };
 
@@ -99,32 +111,55 @@ export function QuickAddFAB() {
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          console.log('Recognition stop failed:', e);
+        }
       }
     };
-  }, [isListening]);
+  }, [isListening, isRecording]);
 
   // Start listening for wake word when component mounts
   useEffect(() => {
-    setIsListening(true);
-    if (recognitionRef.current) {
-      try {
-        recognitionRef.current.start();
-      } catch (error) {
-        console.log('Speech recognition already running');
+    const startListening = () => {
+      setIsListening(true);
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.start();
+        } catch (error) {
+          console.log('Speech recognition already running or not available');
+        }
       }
-    }
+    };
+
+    // Small delay to ensure proper initialization
+    const timer = setTimeout(startListening, 100);
 
     return () => {
+      clearTimeout(timer);
       setIsListening(false);
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          console.log('Recognition stop failed:', e);
+        }
       }
     };
   }, []);
 
   const startVoiceRecording = async () => {
     try {
+      // Stop wake word detection while recording
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          console.log('Could not stop recognition:', e);
+        }
+      }
+      
       const stream = await navigator.mediaDevices.getUserMedia({ 
         audio: {
           sampleRate: 44100,
@@ -153,20 +188,31 @@ export function QuickAddFAB() {
         
         // Stop the stream
         stream.getTracks().forEach(track => track.stop());
+        
+        // Restart wake word detection
+        setTimeout(() => {
+          if (recognitionRef.current && isListening) {
+            try {
+              recognitionRef.current.start();
+            } catch (e) {
+              console.log('Could not restart recognition:', e);
+            }
+          }
+        }, 1000);
       };
       
       mediaRecorder.start();
       setIsRecording(true);
       
       toast({
-        title: "🎙️ Recording started",
-        description: "Speak your idea now...",
+        title: "🎙️ Recording your brilliant idea",
+        description: "Share your healthcare innovation...",
       });
     } catch (error) {
       console.error('Error accessing microphone:', error);
       toast({
-        title: "Error",
-        description: "Could not access microphone. Please check permissions.",
+        title: "Microphone Error",
+        description: "Please allow microphone access to record your ideas.",
         variant: "destructive",
       });
     }
@@ -207,9 +253,20 @@ export function QuickAddFAB() {
       if (error) throw error;
 
       setResult(data);
+      
+      // Save to localStorage for Ideas Library
+      const savedIdeas = JSON.parse(localStorage.getItem('quick-ideas') || '[]');
+      const newIdea = {
+        ...data,
+        id: `idea-${Date.now()}`,
+        timestamp: new Date().toISOString()
+      };
+      savedIdeas.unshift(newIdea); // Add to beginning
+      localStorage.setItem('quick-ideas', JSON.stringify(savedIdeas.slice(0, 50))); // Keep last 50 ideas
+      
       toast({
         title: `✨ Content generated with ${data.content.provider.toUpperCase()}!`,
-        description: `${data.transcribed ? 'Voice transcribed and ' : ''}content ready to copy`,
+        description: `${data.transcribed ? 'Voice transcribed and ' : ''}content ready to copy • Saved to Ideas Library`,
       });
     } catch (error) {
       console.error('Error processing audio:', error);
@@ -246,9 +303,20 @@ export function QuickAddFAB() {
       if (error) throw error;
 
       setResult(data);
+      
+      // Save to localStorage for Ideas Library
+      const savedIdeas = JSON.parse(localStorage.getItem('quick-ideas') || '[]');
+      const newIdea = {
+        ...data,
+        id: `idea-${Date.now()}`,
+        timestamp: new Date().toISOString()
+      };
+      savedIdeas.unshift(newIdea); // Add to beginning
+      localStorage.setItem('quick-ideas', JSON.stringify(savedIdeas.slice(0, 50))); // Keep last 50 ideas
+      
       toast({
         title: `🚀 Content generated with ${data.content.provider.toUpperCase()}!`,
-        description: "Your idea has been transformed into engaging content",
+        description: "Your idea has been transformed into engaging content • Saved to Ideas Library",
       });
     } catch (error) {
       console.error('Error processing text:', error);
@@ -379,12 +447,11 @@ export function QuickAddFAB() {
                           </p>
                         </div>
                         <Textarea
-                          placeholder="Describe your healthcare innovation idea..."
+                          placeholder="Share your healthcare innovation idea... (designed for Australian healthcare professionals)"
                           value={textInput}
                           onChange={(e) => setTextInput(e.target.value)}
                           rows={4}
-                          className="resize-none bg-background border-input text-foreground focus:bg-background focus:border-primary"
-                          disabled={isProcessing}
+                          className="resize-none bg-background border-input text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20"
                         />
                         <Button 
                           onClick={processText}

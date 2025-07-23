@@ -30,7 +30,8 @@ import {
   ShieldCheck,
   BookOpen,
   Edit3,
-  Lightbulb
+  Lightbulb,
+  Library
 } from 'lucide-react';
 
 const navigationItems = [
@@ -43,6 +44,11 @@ const navigationItems = [
     title: 'Smart Ideas',
     url: '/dashboard/ideas',
     icon: Lightbulb,
+  },
+  {
+    title: 'Ideas Library',
+    url: '/dashboard/ideas-library',
+    icon: Library,
   },
   {
     title: 'Create Content',
