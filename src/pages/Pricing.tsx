@@ -42,7 +42,7 @@ const Pricing = () => {
   // Define missing feature arrays
   const groupPracticeFeatures = [
     "🏥 Multi-practitioner management",
-    "📊 Centralised AHPRA compliance dashboard", 
+    "📊 Centralised TGA/AHPRA compliance dashboard", 
     "👥 Team collaboration tools",
     "📈 Practice-wide analytics",
     "🔐 Secure patient data sharing",
@@ -139,7 +139,7 @@ const Pricing = () => {
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              AHPRA-compliant plans designed specifically for Australian healthcare professionals. All prices in AUD, GST included.
+              TGA/AHPRA-compliant plans designed specifically for Australian healthcare professionals. All prices in AUD, GST included.
             </p>
           </div>
         </div>
@@ -166,7 +166,7 @@ const Pricing = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>One Platform.</span> <span className="text-gradient-primary">All Healthcare Compliance.</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              AHPRA-compliant content creation, patient education, TGA compliance screening, and Australian healthcare professional support - all in one platform.
+              TGA/AHPRA-compliant content creation, patient education, TGA compliance screening, and Australian healthcare professional support - all in one platform.
             </p>
           </div>
         </div>
@@ -189,7 +189,7 @@ const Pricing = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>Choose</span> <span className="text-gradient-primary">Your Healthcare Plan</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Specialized pricing for Australian healthcare professionals. All plans include AHPRA compliance and patient education features.
+              Specialized pricing for Australian healthcare professionals. All plans include TGA/AHPRA compliance and patient education features.
             </p>
           </div>
 
@@ -338,7 +338,7 @@ const Pricing = () => {
                     <span className="font-bold">$5,500/month</span>
                   </li>
                   <li className="flex justify-between text-sm md:text-base">
-                    <span>AHPRA Compliance Consultant</span>
+                    <span>TGA/AHPRA Compliance Consultant</span>
                     <span className="font-bold">$3,000/month</span>
                   </li>
                   <li className="flex justify-between text-sm md:text-base">

@@ -40,7 +40,7 @@ const AustralianServices = () => {
       features: [
         "Industry-specific AI content generation",
         "Blog posts, social media, marketing copy", 
-        "Australian compliance built-in (AHPRA, TGA, ASIC)",
+        "Australian compliance built-in (TGA/AHPRA, ASIC)",
         "Brand voice training and consistency",
         "SEO optimization for Google visibility"
       ]
@@ -134,7 +134,7 @@ const AustralianServices = () => {
   const bonusTools = [
     {
       title: "Medicare Compliance Suite",
-      description: "AHPRA regulations, Medicare rules, and healthcare compliance",
+      description: "TGA/AHPRA regulations, Medicare rules, and healthcare compliance",
       perfect: ["Doctors", "Specialists", "Allied Health"]
     },
     {

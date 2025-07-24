@@ -123,7 +123,7 @@ const PricingWithServices = () => {
           </h1>
           
           <p className="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
-            AHPRA-compliant content platform plus professional Australian business setup services. Everything you need for healthcare marketing compliance.
+            TGA/AHPRA-compliant content platform plus professional Australian business setup services. Everything you need for healthcare marketing compliance.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -199,10 +199,10 @@ const PricingWithServices = () => {
               🏥 Healthcare Platform
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              AHPRA-Compliant <span className="text-gradient-primary">Subscription Plans</span>
+              TGA/AHPRA-Compliant <span className="text-gradient-primary">Subscription Plans</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Choose your healthcare content platform subscription. All plans include AHPRA compliance and patient education features.
+              Choose your healthcare content platform subscription. All plans include TGA/AHPRA compliance and patient education features.
             </p>
           </div>
 

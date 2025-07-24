@@ -28,13 +28,13 @@ import aiContentHero from "@/assets/ai-content-creation-hero.jpg";
 const CommonQuestions = () => {
   const questionCategories = [
     {
-      title: "AHPRA Compliance & Safety",
+      title: "TGA/AHPRA Compliance & Safety",
       icon: Shield,
       color: "text-primary",
       questions: [
         {
-          question: "How does AHPRA compliance validation work?",
-          answer: "Our AI automatically screens all generated content against AHPRA advertising guidelines. We check for prohibited therapeutic claims, ensure appropriate professional boundaries are maintained, and flag any content that could violate advertising standards. Every piece of content receives a compliance score before publication."
+          question: "How does TGA/AHPRA compliance validation work?",
+          answer: "Our AI automatically screens all generated content against TGA/AHPRA advertising guidelines. We check for prohibited therapeutic claims, ensure appropriate professional boundaries are maintained, and flag any content that could violate advertising standards. Every piece of content receives a compliance score before publication."
         },
         {
           question: "What TGA guidelines does the platform follow?",
@@ -49,8 +49,8 @@ const CommonQuestions = () => {
           answer: "Yes, our Group Practice and Healthcare Network plans support multiple locations. Each location can have separate branding, content strategies, and compliance workflows while maintaining centralized oversight. Solo Practitioner plans support up to 5 locations."
         },
         {
-          question: "What happens if AHPRA guidelines change?",
-          answer: "We continuously monitor AHPRA guideline updates and automatically update our compliance algorithms. Existing content is rescanned against new guidelines, and you'll receive notifications about any content requiring updates. Our healthcare team reviews all guideline changes to ensure ongoing compliance."
+          question: "What happens if TGA/AHPRA guidelines change?",
+          answer: "We continuously monitor TGA/AHPRA guideline updates and automatically update our compliance algorithms. Existing content is rescanned against new guidelines, and you'll receive notifications about any content requiring updates. Our healthcare team reviews all guideline changes to ensure ongoing compliance."
         },
         {
           question: "How does this compare to hiring a healthcare compliance consultant?",
@@ -65,11 +65,11 @@ const CommonQuestions = () => {
       questions: [
         {
           question: "What healthcare professions are supported?",
-          answer: "JB-Health supports all AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customized for each profession's specific requirements."
+          answer: "JB-Health supports all TGA/AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customized for each profession's specific requirements."
         },
         {
           question: "How does patient education content differ from marketing content?",
-          answer: "Patient education content focuses on providing helpful health information without promotional intent, following AHPRA guidelines for educational material. Marketing content promotes your services while maintaining professional boundaries. Our AI understands this distinction and generates appropriate content for each purpose."
+          answer: "Patient education content focuses on providing helpful health information without promotional intent, following TGA/AHPRA guidelines for educational material. Marketing content promotes your services while maintaining professional boundaries. Our AI understands this distinction and generates appropriate content for each purpose."
         },
         {
           question: "Can I create content for different healthcare specialties?",
@@ -81,7 +81,7 @@ const CommonQuestions = () => {
         },
         {
           question: "What about telehealth and Medicare compliance?",
-          answer: "Our platform includes templates and guidelines for telehealth services, Medicare requirements, and bulk billing communications. We help you create compliant content about your telehealth offerings while following Medicare and AHPRA guidelines for remote healthcare services."
+          answer: "Our platform includes templates and guidelines for telehealth services, Medicare requirements, and bulk billing communications. We help you create compliant content about your telehealth offerings while following Medicare and TGA/AHPRA guidelines for remote healthcare services."
         },
         {
           question: "Can I manage content for multiple practitioners?",
@@ -96,7 +96,7 @@ const CommonQuestions = () => {
       questions: [
         {
           question: "How does the AI learn healthcare-specific language?",
-          answer: "Our AI is trained on healthcare-specific datasets, AHPRA guidelines, medical literature, and Australian healthcare communication standards. It understands medical terminology, professional language requirements, and patient communication best practices specific to Australian healthcare."
+          answer: "Our AI is trained on healthcare-specific datasets, TGA/AHPRA guidelines, medical literature, and Australian healthcare communication standards. It understands medical terminology, professional language requirements, and patient communication best practices specific to Australian healthcare."
         },
         {
           question: "What practice management systems can you integrate with?",
@@ -139,11 +139,11 @@ const CommonQuestions = () => {
         },
         {
           question: "Can you help with existing non-compliant content?",
-          answer: "Yes, we can analyze your existing content for AHPRA compliance and provide recommendations for updates. Our platform can identify potential compliance issues in your current social media, website content, and marketing materials, helping you achieve full compliance."
+          answer: "Yes, we can analyze your existing content for TGA/AHPRA compliance and provide recommendations for updates. Our platform can identify potential compliance issues in your current social media, website content, and marketing materials, helping you achieve full compliance."
         },
         {
           question: "What training is provided for healthcare teams?",
-          answer: "We provide healthcare-specific training covering AHPRA compliance, patient education best practices, and platform usage. Training includes live sessions for larger practices, video tutorials, and ongoing support. We understand healthcare professional schedules and offer flexible training options."
+          answer: "We provide healthcare-specific training covering TGA/AHPRA compliance, patient education best practices, and platform usage. Training includes live sessions for larger practices, video tutorials, and ongoing support. We understand healthcare professional schedules and offer flexible training options."
         },
         {
           question: "How do you handle urgent compliance questions?",
@@ -162,7 +162,7 @@ const CommonQuestions = () => {
         },
         {
           question: "What's the ROI for healthcare practice marketing?",
-          answer: "Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-Health customers see results 40% faster due to AHPRA-compliant automation and healthcare-specific optimization."
+          answer: "Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-Health customers see results 40% faster due to TGA/AHPRA-compliant automation and healthcare-specific optimization."
         },
         {
           question: "How do you measure success for healthcare practices?",
@@ -209,11 +209,11 @@ const CommonQuestions = () => {
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
               Healthcare Professional <span className="text-yellow-400">Questions</span><br />
-              About <span className="text-yellow-400">AHPRA Compliance</span>
+              About <span className="text-yellow-400">TGA/AHPRA Compliance</span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              Everything Australian healthcare professionals need to know about AHPRA-compliant content creation and patient education.
+              Everything Australian healthcare professionals need to know about TGA/AHPRA-compliant content creation and patient education.
             </p>
           </div>
         </div>
@@ -249,8 +249,8 @@ const CommonQuestions = () => {
                           <category.icon className={`w-10 h-10 text-white`} />
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                          {category.title === "AHPRA Compliance & Safety" && (
-                            <>AHPRA Compliance & <span className="text-yellow-400">Safety</span></>
+                          {category.title === "TGA/AHPRA Compliance & Safety" && (
+                            <>TGA/AHPRA Compliance & <span className="text-yellow-400">Safety</span></>
                           )}
                           {category.title === "Healthcare Professional Features" && (
                             <>Healthcare Professional <span className="text-yellow-400">Features</span></>
@@ -321,7 +321,7 @@ const CommonQuestions = () => {
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Still Have Healthcare Questions?</h2>
             <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
-              Our Australian healthcare team understands the unique challenges of healthcare practice marketing. Get personalized answers about AHPRA compliance and patient education.
+              Our Australian healthcare team understands the unique challenges of healthcare practice marketing. Get personalized answers about TGA/AHPRA compliance and patient education.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/pricing">

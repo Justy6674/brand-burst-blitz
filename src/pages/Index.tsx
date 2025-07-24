@@ -130,16 +130,16 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
             <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-              🏥 AHPRA-Compliant Healthcare Content Platform
+              🏥 TGA/AHPRA-Compliant Healthcare Content Platform
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              Australia's First <span className="text-yellow-400">AHPRA-Compliant</span><br />
+              Australia's First <span className="text-yellow-400">TGA/AHPRA-Compliant</span><br />
               Content Platform for <span className="text-yellow-400">Healthcare Professionals</span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              AI-powered patient education content and AHPRA-compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners.
+              AI-powered patient education content and TGA/AHPRA-compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners.
             </p>
             
             <div className="mb-8 md:mb-12">
@@ -187,7 +187,7 @@ const Index = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Australian healthcare professionals trapped in non-compliant marketing that risks AHPRA violations and patient trust.
+              Australian healthcare professionals trapped in non-compliant marketing that risks TGA/AHPRA violations and patient trust.
             </p>
           </div>
           
@@ -195,7 +195,7 @@ const Index = () => {
             {[
               {
                 title: "🩺 The Overwhelmed GP",
-                description: "Managing 200+ patients weekly while creating AHPRA-compliant content. Every social media post risks $13,000+ fines for regulatory violations.",
+                description: "Managing 200+ patients weekly while creating TGA/AHPRA-compliant content. Every social media post risks $13,000+ fines for regulatory violations.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
@@ -219,7 +219,7 @@ const Index = () => {
               },
               {
                 title: "🏢 The Private Practice Entrepreneur",
-                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, AHPRA obligations</span>, and patient acquisition strategies.",
+                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, TGA/AHPRA obligations</span>, and patient acquisition strategies.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
@@ -263,8 +263,8 @@ const Index = () => {
           <div className="grid gap-8">
             {[
               {
-                title: "⚖️ AHPRA Compliance Crisis",
-                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without <span className='text-yellow-400'>compliant content systems</span>.",
+                title: "⚖️ TGA/AHPRA Compliance Crisis",
+                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates TGA/AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without <span className='text-yellow-400'>compliant content systems</span>.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
@@ -276,7 +276,7 @@ const Index = () => {
               },
               {
                 title: "👥 Patient Trust Boundaries",
-                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by AHPRA</span> - but patients still need to find and trust you.",
+                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by TGA/AHPRA</span> - but patients still need to find and trust you.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
@@ -288,7 +288,7 @@ const Index = () => {
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "AHPRA-compliant content takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused content creation.",
+                description: "TGA/AHPRA-compliant content takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused content creation.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }
@@ -325,15 +325,15 @@ const Index = () => {
                <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
              </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-               AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
+               TGA/AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
              </p>
           </div>
 
            <div className="grid gap-6 md:gap-8">
              {[
                 {
-                  title: "🏥 AHPRA-Compliant Patient Education",
-                  description: "Healthcare-trained AI creates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and treatment information that builds trust without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Every piece vetted for AHPRA compliance.",
+                  title: "🏥 TGA/AHPRA-Compliant Patient Education",
+                  description: "Healthcare-trained AI creates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and treatment information that builds trust without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Every piece vetted for TGA/AHPRA compliance.",
                   gradient: "from-blue-500/10 to-blue-600/10",
                   border: "border-blue-500/20"
                 },
@@ -362,8 +362,8 @@ const Index = () => {
                   border: "border-red-500/20"
                 },
                 {
-                  title: "🛡️ Multi-Platform AHPRA Protection",
-                  description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets AHPRA advertising guidelines and professional standards.",
+                  title: "🛡️ Multi-Platform TGA/AHPRA Protection",
+                  description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets TGA/AHPRA advertising guidelines and professional standards.",
                   gradient: "from-yellow-500/10 to-yellow-600/10",
                   border: "border-yellow-500/20"
                 }
@@ -400,7 +400,7 @@ const Index = () => {
               <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Simple AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
+              Simple TGA/AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
             </p>
           </div>
 
@@ -408,13 +408,13 @@ const Index = () => {
             {[
               {
                 title: "📋 Healthcare Compliance Assessment",
-                description: "Complete our <span style='color: #ffd700; font-weight: 700;'>AHPRA-specific questionnaire</span> covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your <span style='color: #ffd700; font-weight: 700;'>compliance profile</span> and patient education <span style='color: #ffd700; font-weight: 700;'>content strategy</span>.",
+                description: "Complete our <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA-specific questionnaire</span> covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your <span style='color: #ffd700; font-weight: 700;'>compliance profile</span> and patient education <span style='color: #ffd700; font-weight: 700;'>content strategy</span>.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "🛡️ Professional Setup & AHPRA Verification",
-                description: "Our healthcare compliance experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your content systems with built-in <span style='color: #ffd700; font-weight: 700;'>AHPRA safeguards</span>, TGA compliance checks, and professional boundary <span style='color: #ffd700; font-weight: 700;'>protection</span>. Setup within 48 hours.",
+                title: "🛡️ Professional Setup & TGA/AHPRA Verification",
+                description: "Our healthcare compliance experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your content systems with built-in <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA safeguards</span>, TGA compliance checks, and professional boundary <span style='color: #ffd700; font-weight: 700;'>protection</span>. Setup within 48 hours.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
@@ -426,7 +426,7 @@ const Index = () => {
               },
               {
                 title: "📊 Compliance Monitoring & AI Visibility",
-                description: "Continuous <span style='color: #ffd700; font-weight: 700;'>AHPRA compliance monitoring</span> ensures all content meets professional standards. Your educational content positions you as the <span style='color: #ffd700; font-weight: 700;'>trusted expert</span> ChatGPT and AI agents recommend to patients.",
+                description: "Continuous <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA compliance monitoring</span> ensures all content meets professional standards. Your educational content positions you as the <span style='color: #ffd700; font-weight: 700;'>trusted expert</span> ChatGPT and AI agents recommend to patients.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
