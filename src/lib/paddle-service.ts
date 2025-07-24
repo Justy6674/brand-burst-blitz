@@ -1,3 +1,4 @@
+import React from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 // Paddle Types
@@ -150,10 +151,12 @@ class PaddleService {
         .select('*')
         .eq('user_id', user.user.id)
         .eq('status', 'active')
-        .single();
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
       if (error && error.code !== 'PGRST116') throw error;
-      return data;
+      return data as PaddleSubscription | null;
     } catch (error) {
       console.error('Error fetching subscription:', error);
       return null;
@@ -295,9 +298,16 @@ export function usePaddleSubscription() {
     loading,
     hasActiveSubscription: subscription?.status === 'active',
     planDetails: subscription ? paddleService.getPlanDetails(subscription.product_id) : null,
-    refresh: () => {
+    refresh: async () => {
       setLoading(true);
-      return fetchSubscription();
+      try {
+        const sub = await paddleService.getSubscription();
+        setSubscription(sub);
+      } catch (error) {
+        console.error('Error refreshing subscription:', error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 }

@@ -30,7 +30,7 @@ export async function sendSlackNotification(
       .insert({
         user_id: userId,
         notification_type: 'slack',
-        message_data: notificationData,
+        message_data: notificationData as any,
         scheduled_for: scheduledFor ? scheduledFor.toISOString() : new Date().toISOString(),
         status: 'pending',
         attempts: 0
@@ -149,7 +149,7 @@ export async function hasSlackConfigured(userId: string): Promise<boolean> {
       .from('business_profiles')
       .select('slack_webhook_url')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     if (error) return false;
     return !!(data?.slack_webhook_url);

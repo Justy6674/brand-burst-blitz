@@ -58,27 +58,57 @@ const BillingDashboard: React.FC = () => {
       const { data: user } = await supabase.auth.getUser();
       if (!user.user) return;
 
-      // Fetch current subscription
+      // Fetch current subscription directly from paddle_subscriptions table
       const { data: subData, error: subError } = await supabase
-        .rpc('get_user_subscription', { p_user_id: user.user.id });
+        .from('paddle_subscriptions')
+        .select('*')
+        .eq('user_id', user.user.id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
       if (subError) {
         console.error('Error fetching subscription:', subError);
-      } else if (subData && subData.length > 0) {
-        setSubscription(subData[0]);
+      } else if (subData) {
+        // Transform data to match expected interface
+        const transformedSub = {
+          subscription_id: subData.subscription_id,
+          paddle_subscription_id: subData.subscription_id,
+          product_id: subData.product_id,
+          status: subData.status,
+          current_period_start: subData.current_period_start,
+          current_period_end: subData.current_period_end,
+          trial_end: undefined,
+          plan_name: paddleService.getPlanDetails(subData.product_id)?.name || 'Unknown Plan',
+          plan_price: paddleService.getPlanDetails(subData.product_id)?.price || 0,
+          days_until_renewal: Math.ceil((new Date(subData.current_period_end).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+        };
+        setSubscription(transformedSub);
       }
 
-      // Fetch billing history
+      // Fetch billing history directly from paddle_transactions table
       const { data: transData, error: transError } = await supabase
-        .rpc('get_user_billing_history', { 
-          p_user_id: user.user.id, 
-          p_limit: 10 
-        });
+        .from('paddle_transactions')
+        .select('*')
+        .eq('user_id', user.user.id)
+        .order('created_at', { ascending: false })
+        .limit(10);
 
       if (transError) {
         console.error('Error fetching transactions:', transError);
-      } else {
-        setTransactions(transData || []);
+      } else if (transData) {
+        // Transform data to match expected interface
+        const transformedTransactions = transData.map(trans => ({
+          transaction_id: trans.id,
+          paddle_transaction_id: trans.transaction_id,
+          amount: trans.amount.toString(),
+          currency: trans.currency,
+          status: trans.status,
+          plan_name: trans.product_name || 'Subscription',
+          created_at: trans.created_at
+        }));
+        setTransactions(transformedTransactions);
       }
 
     } catch (error) {

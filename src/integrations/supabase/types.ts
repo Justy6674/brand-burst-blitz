@@ -395,6 +395,7 @@ export type Database = {
           industry: Database["public"]["Enums"]["industry_type"] | null
           is_primary: boolean | null
           logo_url: string | null
+          slack_webhook_url: string | null
           updated_at: string | null
           user_id: string | null
           website_url: string | null
@@ -411,6 +412,7 @@ export type Database = {
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
           logo_url?: string | null
+          slack_webhook_url?: string | null
           updated_at?: string | null
           user_id?: string | null
           website_url?: string | null
@@ -427,6 +429,7 @@ export type Database = {
           industry?: Database["public"]["Enums"]["industry_type"] | null
           is_primary?: boolean | null
           logo_url?: string | null
+          slack_webhook_url?: string | null
           updated_at?: string | null
           user_id?: string | null
           website_url?: string | null
@@ -1635,6 +1638,90 @@ export type Database = {
         }
         Relationships: []
       }
+      paddle_subscriptions: {
+        Row: {
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string
+          current_period_start: string
+          customer_id: string
+          id: string
+          product_id: string
+          status: string
+          subscription_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end: string
+          current_period_start: string
+          customer_id: string
+          id?: string
+          product_id: string
+          status?: string
+          subscription_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string
+          current_period_start?: string
+          customer_id?: string
+          id?: string
+          product_id?: string
+          status?: string
+          subscription_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      paddle_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          processed_at: string | null
+          product_name: string | null
+          status: string
+          subscription_id: string | null
+          transaction_id: string
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string
+          id?: string
+          processed_at?: string | null
+          product_name?: string | null
+          status: string
+          subscription_id?: string | null
+          transaction_id: string
+          transaction_type?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          processed_at?: string | null
+          product_name?: string | null
+          status?: string
+          subscription_id?: string | null
+          transaction_id?: string
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           ai_prompt: string | null
@@ -2305,6 +2392,33 @@ export type Database = {
       generate_questionnaire_insights: {
         Args: { user_id_param: string; responses_param: Json }
         Returns: Json
+      }
+      get_user_billing_history: {
+        Args: { user_id_param: string }
+        Returns: {
+          id: string
+          transaction_id: string
+          amount: number
+          currency: string
+          status: string
+          product_name: string
+          transaction_type: string
+          created_at: string
+          processed_at: string
+        }[]
+      }
+      get_user_subscription: {
+        Args: { user_id_param: string }
+        Returns: {
+          id: string
+          customer_id: string
+          subscription_id: string
+          product_id: string
+          status: string
+          current_period_start: string
+          current_period_end: string
+          cancel_at_period_end: boolean
+        }[]
       }
       has_role: {
         Args: {
