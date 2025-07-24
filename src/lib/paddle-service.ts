@@ -94,8 +94,8 @@ class PaddleService {
 
   constructor() {
     // These will be set via environment variables
-    this.apiKey = process.env.NEXT_PUBLIC_PADDLE_API_KEY || '';
-    this.environment = (process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox';
+    this.apiKey = import.meta.env.VITE_PADDLE_API_KEY || '';
+    this.environment = (import.meta.env.VITE_PADDLE_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox';
     this.baseUrl = this.environment === 'production' 
       ? 'https://api.paddle.com' 
       : 'https://sandbox-api.paddle.com';
