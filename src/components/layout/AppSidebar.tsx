@@ -173,7 +173,7 @@ export function AppSidebar() {
       <div className="border-b border-white/10 p-4 flex items-center gap-3">
         <div className="flex items-center gap-3 flex-1">
           <img 
-            src="/jbhealth-logo.png" 
+            src="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" 
             alt="JB-Health Logo" 
             className="w-8 h-8 flex-shrink-0"
             onError={(e) => {

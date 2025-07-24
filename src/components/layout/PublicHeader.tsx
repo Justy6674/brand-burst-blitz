@@ -50,7 +50,7 @@ const PublicHeader = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
           <img 
-            src="/jb-health-logo.png" 
+            src="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" 
             alt="JB-Health Logo" 
             className="h-10 w-auto"
           />
