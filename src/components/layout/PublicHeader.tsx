@@ -50,12 +50,9 @@ const PublicHeader = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
           <img 
-            src="/jbhealth-logo.png" 
+            src="/jb-health-logo.png" 
             alt="JB-Health Logo" 
-            className="h-8 w-auto"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
+            className="h-10 w-auto"
           />
           <span className="text-white text-xl font-semibold whitespace-nowrap">
             JB-Health
