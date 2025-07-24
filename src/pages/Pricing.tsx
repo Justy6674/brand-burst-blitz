@@ -39,6 +39,28 @@ const Pricing = () => {
   const [currentSubscription, setCurrentSubscription] = useState<any>(null);
   const { toast } = useToast();
 
+  // Define missing feature arrays
+  const groupPracticeFeatures = [
+    "🏥 Multi-practitioner management",
+    "📊 Centralised AHPRA compliance dashboard", 
+    "👥 Team collaboration tools",
+    "📈 Practice-wide analytics",
+    "🔐 Secure patient data sharing",
+    "📋 Bulk content creation",
+    "⚡ Priority support"
+  ];
+
+  const healthcareNetworkFeatures = [
+    "🏢 Enterprise-grade security",
+    "🌐 Multi-location management",
+    "📊 Advanced analytics & reporting",
+    "🔗 API integrations",
+    "👨‍💼 Dedicated account manager",
+    "🎯 Custom compliance workflows",
+    "⚡ 24/7 priority support",
+    "📈 Custom training programs"
+  ];
+
   useEffect(() => {
     checkUserStatus();
   }, []);
@@ -279,55 +301,6 @@ const Pricing = () => {
                 </Card>
               );
             })}
-                <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {groupPracticeFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-blue-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className={`text-xs md:text-sm ${index === 0 ? 'font-semibold' : ''}`}>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/auth">
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                    Get Started - $179/month
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Healthcare Network Plan */}
-            <Card className="relative border-2 border-purple-500/30 hover:border-purple-500/50 transition-colors h-full bg-gradient-to-br from-purple-500/10 to-purple-600/10">
-              <CardHeader className="text-center pb-6 md:pb-8">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Activity className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                </div>
-                <CardTitle className="text-xl md:text-2xl">🏢 Healthcare Network</CardTitle>
-                <CardDescription className="text-sm md:text-base">Enterprise healthcare organisations</CardDescription>
-                <div className="text-3xl md:text-4xl font-bold text-purple-600 mt-4">
-                  $449<span className="text-base md:text-lg text-muted-foreground">/month</span>
-                </div>
-                <Badge variant="outline" className="mt-2 border-purple-500 text-purple-600 text-xs md:text-sm">Enterprise Features</Badge>
-                <p className="text-xs md:text-sm text-muted-foreground mt-2">AUD, inc. GST</p>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-1">
-                  {healthcareNetworkFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-purple-500 mr-2 md:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-xs md:text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/auth">
-                  <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white border-0 text-sm md:text-base py-2 md:py-3">
-                    Contact Healthcare Sales
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
