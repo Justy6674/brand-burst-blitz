@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, User, Clock } from 'lucide-react';
 import { format } from 'date-fns';
+import DOMPurify from 'dompurify';
 import PublicHeader from '@/components/layout/PublicHeader';
 
 interface BlogPost {
@@ -229,7 +230,7 @@ const BlogPost = () => {
                          prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-6 prose-h3:text-white
                          prose-code:bg-black/30 prose-code:text-blue-200 prose-code:backdrop-blur-sm
                          prose-pre:bg-black/40 prose-pre:backdrop-blur-sm prose-pre:border prose-pre:border-white/20"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
               />
 
               {/* Article footer for SEO */}

@@ -195,7 +195,7 @@ const Index = () => {
             {[
               {
                 title: "🩺 The Overwhelmed GP",
-                description: "Managing <span className='text-yellow-highlight'>200+ patients weekly</span> while creating <span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span>. Every social media post risks <span className='text-yellow-highlight'>$13,000+ fines</span> for regulatory violations.",
+                description: "Managing 200+ patients weekly while creating AHPRA-compliant content. Every social media post risks $13,000+ fines for regulatory violations.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
@@ -226,8 +226,8 @@ const Index = () => {
             ].map((audience, index) => (
               <Card key={index} className={`p-8 hover-lift ${audience.border} bg-gradient-to-br ${audience.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: audience.title }}></h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: audience.description }}></p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{audience.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{audience.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -288,15 +288,15 @@ const Index = () => {
               },
               {
                 title: "⏳ Content Creation Bottleneck",
-                description: "<span style='color: #ffd700; font-weight: 700;'>AHPRA-compliant content</span> takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused <span className='text-yellow-highlight'>content creation</span>.",
+                description: "AHPRA-compliant content takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused content creation.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               }
             ].map((problem, index) => (
               <Card key={index} className={`p-8 hover-lift ${problem.border} bg-gradient-to-br ${problem.gradient} transition-all duration-300`}>
                 <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: problem.title }}></h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: problem.description }}></p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{problem.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{problem.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -370,8 +370,8 @@ const Index = () => {
              ].map((feature, index) => (
                <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
                  <CardContent className="p-0">
-                   <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: feature.title }}></h3>
-                   <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
+                   <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight">{feature.title}</h3>
+                   <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed">{feature.description}</p>
                  </CardContent>
                </Card>
              ))}
@@ -433,8 +433,8 @@ const Index = () => {
             ].map((step, index) => (
               <Card key={index} className={`p-8 hover-lift ${step.border} bg-gradient-to-br ${step.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-2xl font-bold mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: step.title }}></h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: step.description }}></p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{step.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -502,8 +502,8 @@ const Index = () => {
             ].map((timing, index) => (
               <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight" dangerouslySetInnerHTML={{ __html: timing.title }}></h3>
-                  <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: timing.description }}></p>
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight">{timing.title}</h3>
+                  <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed">{timing.description}</p>
                 </CardContent>
               </Card>
             ))}

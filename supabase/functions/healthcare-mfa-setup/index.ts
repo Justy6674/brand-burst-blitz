@@ -3,6 +3,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import * as speakeasy from 'https://esm.sh/speakeasy@2.0.0'
 import * as qrcode from 'https://esm.sh/qrcode@1.5.3'
 import { createHash, randomBytes } from 'https://deno.land/std@0.168.0/node/crypto.ts'
+import { encryptTOTPSecret, decryptTOTPSecret } from '../_shared/encryption.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -73,7 +74,7 @@ serve(async (req) => {
           .from('healthcare_mfa_settings')
           .upsert({
             user_id,
-            totp_secret: totpSecret.base32, // In production, encrypt this
+            totp_secret: encryptTOTPSecret(totpSecret.base32), // Now encrypted for security
             backup_codes: hashedBackupCodes,
             is_enabled: false,
             totp_enabled: false
@@ -94,13 +95,27 @@ serve(async (req) => {
       }
 
       case 'complete_totp_enrollment': {
-        if (!secret || !verification_code) {
-          throw new Error('Secret and verification code required')
+        if (!verification_code) {
+          throw new Error('Verification code required')
         }
+
+        // Retrieve encrypted secret from database
+        const { data: mfaSettings } = await supabaseClient
+          .from('healthcare_mfa_settings')
+          .select('totp_secret')
+          .eq('user_id', user_id)
+          .single()
+
+        if (!mfaSettings?.totp_secret) {
+          throw new Error('MFA setup not found')
+        }
+
+        // Decrypt the secret for verification
+        const decryptedSecret = decryptTOTPSecret(mfaSettings.totp_secret)
 
         // Verify the TOTP code
         const verified = speakeasy.totp.verify({
-          secret,
+          secret: decryptedSecret,
           encoding: 'base32',
           token: verification_code,
           window: 2
