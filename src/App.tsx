@@ -38,6 +38,9 @@ import PricingWithServices from "./pages/PricingWithServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import SlackSetupWizard from "./components/slack/SlackSetupWizard";
 import BillingDashboard from "./components/billing/BillingDashboard";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +64,9 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/embedded-blog" element={<EmbeddedBlogPage />} />
               <Route path="/embedded-blog/:slug" element={<BlogPost />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/refunds" element={<RefundPolicy />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/questionnaire" element={
                 <ProtectedRoute>

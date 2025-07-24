@@ -610,9 +610,22 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="border-t pt-6 md:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-Health. All rights reserved.</p>
-            <AdminAccess />
+          <div className="border-t pt-6 md:pt-8 space-y-4">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link to="/terms" className="text-muted-foreground hover:text-white transition-colors">
+                Terms & Conditions
+              </Link>
+              <Link to="/privacy" className="text-muted-foreground hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/refunds" className="text-muted-foreground hover:text-white transition-colors">
+                Refund Policy
+              </Link>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-Health. All rights reserved.</p>
+              <AdminAccess />
+            </div>
           </div>
         </div>
       </footer>
