@@ -233,12 +233,12 @@ const EmbeddedBlogPage = () => {
             Professional healthcare insights, patient education, and industry updates from trusted practitioners
           </p>
           
-          {/* Powered by JBSAAS badge */}
+          {/* Powered by JB-Health badge */}
           <div className="fade-in-delayed-2">
             <Badge variant="outline" className="bg-background/50 backdrop-blur-sm">
               <span className="text-xs">Powered by</span>
               <Separator orientation="vertical" className="mx-2 h-3" />
-              <span className="font-semibold text-primary">JBSAAS</span>
+              <span className="font-semibold text-primary">JB-Health</span>
             </Badge>
           </div>
         </div>
@@ -396,7 +396,7 @@ const EmbeddedBlogPage = () => {
               Want Your Own Professional Blog?
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Create and embed professional blogs for your healthcare practice with JBSAAS. 
+              Create and embed professional blogs for your healthcare practice with JB-Health. 
               AHPRA-compliant content generation and seamless integration with your website.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -420,7 +420,7 @@ const EmbeddedBlogPage = () => {
             This blog is powered by
           </p>
           <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold">
-            JBSAAS Healthcare Platform
+            JB-Health Healthcare Platform
             <ExternalLink className="h-4 w-4" />
           </Link>
           <p className="text-xs text-muted-foreground mt-2">

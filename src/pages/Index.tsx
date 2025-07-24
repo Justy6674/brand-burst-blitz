@@ -611,7 +611,7 @@ const Index = () => {
           </div>
           
           <div className="border-t pt-6 md:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-SaaS. All rights reserved.</p>
+            <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-Health. All rights reserved.</p>
             <AdminAccess />
           </div>
         </div>

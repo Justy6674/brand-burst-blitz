@@ -65,7 +65,7 @@ const CommonQuestions = () => {
       questions: [
         {
           question: "What healthcare professions are supported?",
-          answer: "JB-SaaS supports all AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customized for each profession's specific requirements."
+          answer: "JB-Health supports all AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customized for each profession's specific requirements."
         },
         {
           question: "How does patient education content differ from marketing content?",
@@ -162,7 +162,7 @@ const CommonQuestions = () => {
         },
         {
           question: "What's the ROI for healthcare practice marketing?",
-          answer: "Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-SaaS customers see results 40% faster due to AHPRA-compliant automation and healthcare-specific optimization."
+          answer: "Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-Health customers see results 40% faster due to AHPRA-compliant automation and healthcare-specific optimization."
         },
         {
           question: "How do you measure success for healthcare practices?",
@@ -396,13 +396,13 @@ const CommonQuestions = () => {
             <div className="flex items-center justify-center space-x-3 mb-4">
               <img 
                 src="/jbsaaslogo.png" 
-                alt="JB-SaaS Logo" 
+                alt="JB-Health Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold text-gradient-primary">JB-Software-As-A-Service</span>
+              <span className="text-xl font-bold text-gradient-primary">JB-Health</span>
             </div>
             <p className="text-muted-foreground">
-              © 2025 JB-Software-As-A-Service. All rights reserved.
+              © 2025 JB-Health. All rights reserved.
             </p>
           </div>
         </div>

@@ -174,12 +174,12 @@ export function AppSidebar() {
         <div className="flex items-center gap-3 flex-1">
           <img 
             src="/jbsaaslogo.png" 
-            alt="JB SAAS Logo" 
+            alt="JB-Health Logo" 
             className="w-8 h-8 flex-shrink-0"
           />
           {!collapsed && (
             <div className="min-w-0">
-              <h1 className="text-lg font-bold text-gradient-primary truncate">JB-SaaS</h1>
+              <h1 className="text-lg font-bold text-gradient-primary truncate">JB-Health</h1>
               <p className="text-xs text-muted-foreground truncate">AI Content Platform</p>
             </div>
           )}

@@ -64,7 +64,7 @@ const BlogAdmin = () => {
     featured_image: '',
     category: 'Business Strategy',
     tags: [],
-    author: 'JB-SaaS Team',
+    author: 'JB-Health Team',
     published: false,
     featured: false,
     meta_description: '',
@@ -155,7 +155,7 @@ const BlogAdmin = () => {
         featured_image: postData.featured_image || '',
         category: postData.category || 'Business Strategy',
         tags: Array.isArray(postData.tags) ? postData.tags : [],
-        author: postData.author || 'JB-SaaS Team',
+        author: postData.author || 'JB-Health Team',
         published: postData.published || false,
         featured: postData.featured || false,
         meta_description: postData.meta_description || '',
@@ -389,7 +389,7 @@ const BlogAdmin = () => {
                 <Label htmlFor="author">Author</Label>
                 <Input
                   id="author"
-                  value={currentPost.author || 'JB-SaaS Team'}
+                  value={currentPost.author || 'JB-Health Team'}
                   onChange={(e) => {
                     const author = e.target.value;
                     if (editingPost) {

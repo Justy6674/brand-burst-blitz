@@ -98,7 +98,7 @@ const AuthPage = () => {
       setWaitlistSuccess(true);
       toast({
         title: "Welcome to the waitlist!",
-        description: "We'll notify you when JB-SaaS is ready for your business.",
+        description: "We'll notify you when JB-Health is ready for your business.",
       });
 
       // Clear form
@@ -135,7 +135,7 @@ const AuthPage = () => {
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold text-gradient-primary">
-              Welcome to JB-SaaS
+              Welcome to JB-Health
             </CardTitle>
             <CardDescription className="text-muted-foreground">
               AI-powered content automation for your business
@@ -216,7 +216,7 @@ const AuthPage = () => {
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold text-foreground">You're on the list!</h3>
                       <p className="text-muted-foreground">
-                        We'll notify you as soon as JB-SaaS is ready for your business.
+                        We'll notify you as soon as JB-Health is ready for your business.
                       </p>
                     </div>
                     <Button 

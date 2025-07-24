@@ -363,7 +363,7 @@ const Pricing = () => {
             
             <Card className="border-green-200 bg-gradient-to-br from-green-500/10 to-green-600/10 border-2 border-green-500/30">
               <CardHeader className="text-center">
-                <CardTitle className="text-green-600 text-lg md:text-xl">JB-SaaS Healthcare Cost</CardTitle>
+                <CardTitle className="text-green-600 text-lg md:text-xl">JB-Health Healthcare Cost</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 md:space-y-3">

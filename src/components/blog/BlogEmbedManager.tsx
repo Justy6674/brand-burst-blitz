@@ -282,8 +282,8 @@ const BlogEmbedManager = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="show-footer">Show Footer Attribution</Label>
-                      <p className="text-xs text-muted-foreground">Display "Powered by JBSAAS"</p>
+                       <Label htmlFor="show-footer">Show Footer Attribution</Label>
+                       <p className="text-xs text-muted-foreground">Display "Powered by JB-Health"</p>
                     </div>
                     <Switch
                       id="show-footer"

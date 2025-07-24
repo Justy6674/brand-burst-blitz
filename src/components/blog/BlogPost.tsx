@@ -102,7 +102,7 @@ const BlogPost = () => {
     <div className="min-h-screen relative">
       <PublicHeader />
       {/* SEO Meta Tags */}
-      <title>{post.title} | JB-SaaS Blog</title>
+      <title>{post.title} | JB-Health Blog</title>
       <meta name="description" content={post.meta_description || post.excerpt} />
       
       {/* Fixed Background Image with Parallax */}
@@ -261,7 +261,7 @@ const BlogPost = () => {
                 Ready to Transform Your Content Strategy?
               </h2>
               <p className="text-white/90 mb-6 drop-shadow-md">
-                Join JB-SaaS and create professional content with AI-powered tools.
+                Join JB-Health and create professional content with AI-powered tools.
               </p>
               <Button
                 size="lg" 

@@ -39,7 +39,7 @@ const AussieSetupService = () => {
           
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Skip the technical hassle! Our Australian team personally configures your Facebook Business Manager, 
-            Instagram Business profile, and connects everything to JBSAAS. Professional setup in 2-5 business days.
+            Instagram Business profile, and connects everything to JB-Health. Professional setup in 2-5 business days.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -167,7 +167,7 @@ const AussieSetupService = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  JBSAAS platform connection
+                  JB-Health platform connection
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
@@ -302,13 +302,13 @@ const AussieSetupService = () => {
             <div className="flex items-center justify-center space-x-3 mb-4">
               <img 
                 src="/jbsaaslogo.png" 
-                alt="JBSAAS Logo" 
+                alt="JB-Health Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold text-gradient-primary">JB-Software-As-A-Service</span>
+              <span className="text-xl font-bold text-gradient-primary">JB-Health</span>
             </div>
             <p className="text-muted-foreground">
-              © 2025 JB-Software-As-A-Service. All rights reserved. Australian Business Setup Service.
+              © 2025 JB-Health. All rights reserved. Australian Business Setup Service.
             </p>
           </div>
         </div>

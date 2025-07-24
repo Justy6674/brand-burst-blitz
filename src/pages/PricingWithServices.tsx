@@ -59,13 +59,13 @@ const PricingWithServices = () => {
     {
       name: 'Australian Quick-Start Social Setup',
       price: '$199-299',
-      description: 'Complete Facebook Business Manager, Instagram Business profile setup and JBSAAS integration',
+      description: 'Complete Facebook Business Manager, Instagram Business profile setup and JB-Health integration',
       features: [
         'Facebook Business Manager setup',
         'Instagram Business configuration',
         'Meta App setup and verification',
         'Australian business compliance',
-        'Full JBSAAS integration',
+        'Full JB-Health integration',
         'Quality assurance testing'
       ]
     },

@@ -66,7 +66,7 @@ const AussieSetupPricing = () => {
         'Facebook Business Manager setup',
         'Instagram Business profile creation',
         'Basic Meta App configuration',
-        'Account connection to JBSAAS platform',
+        'Account connection to JB-Health platform',
         'Initial content calendar (1 week)',
         'Setup guide and training video'
       ],
@@ -192,7 +192,7 @@ const AussieSetupPricing = () => {
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our team personally configures your Facebook Business Manager, Instagram Business profile, 
-              and connects everything to your JBSAAS platform. Exclusively for Australian businesses.
+              and connects everything to your JB-Health platform. Exclusively for Australian businesses.
             </p>
           </div>
         </CardContent>
@@ -345,7 +345,7 @@ const AussieSetupPricing = () => {
               </div>
               <h3 className="font-medium">2. Setup</h3>
               <p className="text-sm text-muted-foreground">
-                Our Australian team configures your social media accounts and connects them to JBSAAS.
+                Our Australian team configures your social media accounts and connects them to JB-Health.
               </p>
             </div>
             <div className="text-center space-y-3">
@@ -378,13 +378,13 @@ const AussieSetupPricing = () => {
             <h4 className="font-medium mb-2">What if I already have some social media accounts set up?</h4>
             <p className="text-sm text-muted-foreground">
               No problem! We'll audit your existing setup, optimize configurations, and ensure everything 
-              is properly connected to JBSAAS for maximum efficiency.
+              is properly connected to JB-Health for maximum efficiency.
             </p>
           </div>
           <div>
             <h4 className="font-medium mb-2">Do you provide ongoing management?</h4>
             <p className="text-sm text-muted-foreground">
-              This is a setup service only. Once complete, you'll use JBSAAS to manage your content. 
+              This is a setup service only. Once complete, you'll use JB-Health to manage your content. 
               However, we do offer optional monthly strategy consultations.
             </p>
           </div>
