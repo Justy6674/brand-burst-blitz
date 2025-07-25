@@ -23,7 +23,10 @@ import {
   Brain,
   Target,
   Shield,
-  Settings
+  Settings,
+  Globe,
+  Network,
+  CheckCircle2
 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -281,7 +284,13 @@ const Index = () => {
                 border: "border-yellow-500/20"
               },
               {
-                title: "🔍 Professional Invisibility", 
+                title: "🔍 Hidden Competitor Advantages", 
+                description: "Your competitors are using <span style='color: #ffd700; font-weight: 700;'>subdomain strategies</span> to occupy <span className='text-yellow-highlight'>multiple Google search positions</span> for the same keywords. While you fight for one ranking, they dominate 3-5 positions with strategic subdomains.",
+                gradient: "from-indigo-500/10 to-indigo-600/10",
+                border: "border-indigo-500/20"
+              },
+              {
+                title: "👥 Professional Invisibility", 
                 description: "Patients ask <span style='color: #ffd700; font-weight: 700;'>AI for healthcare providers</span> - you're invisible to <span className='text-yellow-highlight'>ChatGPT recommendations</span>. Without quality patient education content, referral sources and patients can't find you.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
@@ -366,6 +375,12 @@ const Index = () => {
                   description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets TGA/AHPRA advertising guidelines and professional standards.",
                   gradient: "from-yellow-500/10 to-yellow-600/10",
                   border: "border-yellow-500/20"
+                },
+                {
+                  title: "🌐 Competitive Subdomain Intelligence",
+                  description: "Discover the <span style='color: #ffd700; font-weight: 700;'>hidden subdomain strategies</span> your competitors use to dominate search results. Our AI analyses competitor websites and suggests <span className='text-yellow-highlight'>powerful subdomain opportunities</span> that multiply your Google visibility and AI discoverability.",
+                  gradient: "from-indigo-500/10 to-indigo-600/10",
+                  border: "border-indigo-500/20"
                 }
              ].map((feature, index) => (
                <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
@@ -375,6 +390,135 @@ const Index = () => {
                  </CardContent>
                </Card>
              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Subdomain Advantage Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Network connectivity background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-indigo-900/80 to-purple-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
+        
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              The <span style={{color: '#ffd700', fontWeight: 700}}>Subdomain Advantage</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Multiply your healthcare practice's online presence with strategic subdomains that dominate search results and AI recommendations.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <Card className="p-6 md:p-8 border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-indigo-600/10">
+              <CardContent className="p-0">
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <Globe className="w-8 h-8 text-indigo-400" />
+                  Multiple Entry Points for Patient Discovery
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Transform your single website into a powerful network of specialised patient portals:
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">services.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Dedicated portal for all your healthcare services</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">conditions.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Patient education hub for medical conditions</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">telehealth.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Virtual consultation booking and information</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">sydney.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Location-specific clinic information</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 md:p-8 border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-purple-600/10">
+              <CardContent className="p-0">
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <TrendingUp className="w-8 h-8 text-purple-400" />
+                  Dominate Search Results & AI Recommendations
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  While competitors fight for one ranking, occupy multiple positions:
+                </p>
+                <div className="space-y-4">
+                  <div className="p-4 bg-background/50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-400 mb-2">Search Engine Benefits:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Each subdomain treated as separate domain by Google
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Multiple listings for same keywords
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Specialised content ranks higher
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-background/50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-400 mb-2">AI Discovery Enhancement:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        ChatGPT scans multiple subdomains
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Increased recommendation probability
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Authority signals from domain network
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link to="/dashboard/seo-expansion">
+              <Button size="xl" className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg">
+                <Network className="w-6 h-6 mr-3" />
+                Discover Your Subdomain Opportunities
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

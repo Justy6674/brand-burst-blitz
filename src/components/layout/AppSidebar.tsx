@@ -83,15 +83,15 @@ const toolsItems = [
     icon: Sparkles,
   },
   {
-    title: 'SEO Expansion',
-    url: '/dashboard/seo-expansion',
-    icon: Search,
-    description: 'Discover subdomain opportunities for growth'
-  },
-  {
     title: 'Competitors',
     url: '/dashboard/competitors',
     icon: Users,
+  },
+  {
+    title: 'Subdomain Discovery',
+    url: '/dashboard/seo-expansion',
+    icon: Network,
+    description: 'Multiply your Google presence with strategic subdomains'
   },
   {
     title: 'Templates',

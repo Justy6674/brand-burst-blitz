@@ -27,7 +27,9 @@ import {
   Copy,
   FileText,
   Lightbulb,
-  Zap
+  Zap,
+  Network,
+  Eye
 } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { supabase } from '@/integrations/supabase/client';
@@ -247,11 +249,11 @@ export const SEOExpansionWizard: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
-            <Search className="w-6 h-6 text-white" />
+            <Network className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">SEO Expansion Wizard</h1>
-            <p className="text-muted-foreground">Discover subdomain opportunities to expand your healthcare practice's online presence</p>
+            <h1 className="text-3xl font-bold">Subdomain Discovery Intelligence</h1>
+            <p className="text-muted-foreground">Discover the hidden subdomain strategies your competitors use to dominate search results</p>
           </div>
         </div>
         
@@ -317,11 +319,11 @@ export const SEOExpansionWizard: React.FC = () => {
               ))}
             </div>
 
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                This tool will analyse your website and competitors to identify subdomain opportunities for Australian healthcare practices. 
-                All analysis respects robots.txt and follows ethical scraping practices.
+            <Alert className="border-indigo-200 bg-indigo-50">
+              <Network className="h-4 w-4 text-indigo-600" />
+              <AlertDescription className="text-indigo-800">
+                <strong>Competitive Intelligence:</strong> This tool will reveal the hidden subdomain strategies your competitors use to dominate multiple search positions. 
+                Discover how they multiply their Google visibility while you compete for single rankings.
               </AlertDescription>
             </Alert>
 
@@ -549,39 +551,85 @@ export const SEOExpansionWizard: React.FC = () => {
             </CardContent>
           </Card>
 
-          {/* Competitor Analysis */}
+          {/* Competitive Intelligence Analysis */}
           {competitors.length > 0 && (
-            <Card>
+            <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-red-50">
               <CardHeader>
-                <CardTitle>Competitor Analysis</CardTitle>
+                <CardTitle className="flex items-center gap-2 text-orange-800">
+                  <Eye className="w-5 h-5" />
+                  Competitive Intelligence Revealed
+                </CardTitle>
+                <p className="text-orange-700">Here's how your competitors are dominating search results with subdomain strategies:</p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {competitors.map((competitor, index) => (
-                    <div key={index} className="border rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
+                    <div key={index} className="border border-orange-200 rounded-lg p-4 bg-white/70">
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
-                          <ExternalLink className="w-4 h-4" />
-                          <span className="font-semibold">{competitor.competitor_domain}</span>
+                          <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                          <span className="font-semibold text-orange-900">{competitor.competitor_domain}</span>
+                          <Badge variant="destructive" className="text-xs">
+                            COMPETITOR ADVANTAGE
+                          </Badge>
                         </div>
-                        <Badge variant="outline">
-                          {competitor.estimated_traffic?.toLocaleString() || 0} monthly visits
-                        </Badge>
+                        <div className="text-right">
+                          <Badge variant="outline" className="bg-orange-100 text-orange-800 border-orange-300">
+                            {competitor.estimated_traffic?.toLocaleString() || 0} monthly visits
+                          </Badge>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Subdomains Found: {competitor.subdomains_found?.length || 0}
+                      
+                      <div className="mb-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Target className="w-4 h-4 text-orange-600" />
+                          <span className="font-medium text-orange-800">
+                            {competitor.subdomains_found?.length || 0} Strategic Subdomains Found
+                          </span>
+                        </div>
+                        <p className="text-sm text-orange-700 mb-3">
+                          While you compete for single rankings, this competitor occupies {competitor.subdomains_found?.length || 0} different search positions:
                         </p>
-                        <div className="flex flex-wrap gap-1">
-                          {competitor.subdomains_found?.slice(0, 8).map((subdomain, subIndex) => (
-                            <Badge key={subIndex} variant="secondary" className="text-xs">
+                      </div>
+                      
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        {competitor.subdomains_found?.slice(0, 8).map((subdomain, subIndex) => (
+                          <div key={subIndex} className="p-2 bg-orange-100 rounded border border-orange-200">
+                            <Badge variant="secondary" className="text-xs w-full justify-center bg-orange-200 text-orange-800">
                               {subdomain}
                             </Badge>
-                          ))}
-                        </div>
+                          </div>
+                        ))}
+                        {competitor.subdomains_found && competitor.subdomains_found.length > 8 && (
+                          <div className="p-2 bg-orange-100 rounded border border-orange-200 flex items-center justify-center">
+                            <span className="text-xs text-orange-700 font-semibold">
+                              +{competitor.subdomains_found.length - 8} more
+                            </span>
+                          </div>
+                        )}
                       </div>
+                      
+                      {competitor.subdomains_found && competitor.subdomains_found.length > 0 && (
+                        <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded">
+                          <p className="text-sm text-red-800">
+                            <strong>Impact:</strong> This competitor appears in {competitor.subdomains_found.length}x more search results than practices with single domains. 
+                            They capture patients across multiple search queries while you fight for one position.
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ))}
+                </div>
+                
+                <div className="mt-6 p-4 bg-gradient-to-r from-indigo-100 to-purple-100 border border-indigo-200 rounded-lg">
+                  <h4 className="font-semibold text-indigo-900 mb-2 flex items-center gap-2">
+                    <Lightbulb className="w-4 h-4" />
+                    Your Competitive Advantage Opportunity
+                  </h4>
+                  <p className="text-indigo-800 text-sm">
+                    The subdomain opportunities identified below will help you implement similar strategies to multiply your search presence 
+                    and compete with these established practices on equal footing.
+                  </p>
                 </div>
               </CardContent>
             </Card>

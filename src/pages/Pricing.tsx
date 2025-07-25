@@ -43,6 +43,8 @@ const Pricing = () => {
   const groupPracticeFeatures = [
     "🏥 Multi-practitioner management",
     "📊 Centralised TGA/AHPRA compliance dashboard", 
+    "🔍 Competitor subdomain analysis & recommendations",
+    "🌐 SEO authority multiplication strategies",
     "👥 Team collaboration tools",
     "📈 Practice-wide analytics",
     "🔐 Secure patient data sharing",
@@ -53,6 +55,8 @@ const Pricing = () => {
   const healthcareNetworkFeatures = [
     "🏢 Enterprise-grade security",
     "🌐 Multi-location management",
+    "🔍 Advanced competitor subdomain intelligence",
+    "🚀 AI-powered domain expansion strategies",
     "📊 Advanced analytics & reporting",
     "🔗 API integrations",
     "👨‍💼 Dedicated account manager",
