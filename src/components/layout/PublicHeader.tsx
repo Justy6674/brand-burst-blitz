@@ -51,11 +51,11 @@ const PublicHeader = () => {
         <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
           <img 
             src="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" 
-            alt="JB-Health Logo" 
+            alt="jbhealth.health Logo" 
             className="h-10 w-auto"
           />
           <span className="text-white text-xl font-semibold whitespace-nowrap">
-            JB-Health
+            jbhealth.health
           </span>
         </Link>
 

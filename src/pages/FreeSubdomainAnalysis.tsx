@@ -17,13 +17,13 @@ const FreeSubdomainAnalysis = () => {
             <div className="flex items-center justify-center space-x-3 mb-4">
               <img 
                 src="/jbsaaslogo.png" 
-                alt="JB-Health Logo" 
+                alt="jbhealth.health Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold text-gradient-primary">JB-Health</span>
+              <span className="text-xl font-bold text-gradient-primary">jbhealth.health</span>
             </div>
             <p className="text-muted-foreground">
-              © 2025 JB-Health. All rights reserved.
+              © 2025 jbhealth.health. All rights reserved.
             </p>
           </div>
         </div>

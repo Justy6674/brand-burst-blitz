@@ -181,7 +181,7 @@ export function AppSidebar() {
         <div className="flex items-center gap-3 flex-1">
           <img 
             src="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" 
-            alt="JB-Health Logo" 
+            alt="jbhealth.health Logo" 
             className="w-8 h-8 flex-shrink-0"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
@@ -189,7 +189,7 @@ export function AppSidebar() {
           />
           {!collapsed && (
             <div className="min-w-0">
-              <h1 className="text-lg font-bold text-gradient-primary truncate">JB-Health</h1>
+              <h1 className="text-lg font-bold text-gradient-primary truncate">jbhealth.health</h1>
               <p className="text-xs text-muted-foreground truncate">AI Content Platform</p>
             </div>
           )}
