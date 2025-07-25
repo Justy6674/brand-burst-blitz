@@ -39,6 +39,7 @@ import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionna
 import SlackSetupWizard from "./components/slack/SlackSetupWizard";
 import BillingDashboard from "./components/billing/BillingDashboard";
 import SEOExpansionWizard from "./components/seo/SEOExpansionWizard";
+import FreeSubdomainAnalysis from "./pages/FreeSubdomainAnalysis";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/embedded-blog" element={<EmbeddedBlogPage />} />
               <Route path="/embedded-blog/:slug" element={<BlogPost />} />
+              <Route path="/free-subdomain-analysis" element={<FreeSubdomainAnalysis />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/refunds" element={<RefundPolicy />} />

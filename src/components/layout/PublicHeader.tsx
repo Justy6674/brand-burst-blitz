@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown, Network, Eye } from 'lucide-react';
 import { useState } from 'react';
 import { WaitlistDialog } from '@/components/ui/waitlist-dialog';
 
 const PublicHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const location = useLocation();
 
   const navigationItems = [
     { path: '/', label: 'Home' },
-    { path: '/services', label: 'Services' },
     { path: '/blog', label: 'Blog' },
     { path: '/pricing', label: 'Pricing' },
     { path: '/common-questions', label: 'FAQ' }
@@ -70,6 +70,83 @@ const PublicHeader = () => {
               {item.label}
             </Link>
           ))}
+          
+          {/* Services Dropdown */}
+          <div className="relative">
+            <button
+              className={`${getNavLinkClasses('/services')} flex items-center gap-1`}
+              onMouseEnter={() => setServicesDropdownOpen(true)}
+              onMouseLeave={() => setServicesDropdownOpen(false)}
+              onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+            >
+              Services
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            
+            {servicesDropdownOpen && (
+              <div 
+                className="absolute top-full left-0 mt-2 w-80 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-50"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+              >
+                <div className="p-4">
+                  <Link 
+                    to="/services" 
+                    className="block p-3 rounded-lg hover:bg-slate-700 transition-colors group"
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <Menu className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-white group-hover:text-blue-400">All Services</h3>
+                        <p className="text-sm text-slate-400">Complete healthcare marketing platform</p>
+                      </div>
+                    </div>
+                  </Link>
+                  
+                  <div className="border-t border-slate-700 mt-3 pt-3">
+                    <div className="mb-2">
+                      <span className="text-xs uppercase text-slate-400 font-semibold tracking-wide">🎯 FLAGSHIP SEO TOOLS</span>
+                    </div>
+                    
+                    <Link 
+                      to="/free-subdomain-analysis" 
+                      className="block p-3 rounded-lg hover:bg-slate-700 transition-colors group"
+                      onClick={() => setServicesDropdownOpen(false)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                          <Eye className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-white group-hover:text-orange-400">Free Subdomain Analysis</h3>
+                          <p className="text-sm text-slate-400">Discover competitor strategies - 60 seconds</p>
+                        </div>
+                      </div>
+                    </Link>
+                    
+                    <Link 
+                      to="/dashboard/seo-expansion" 
+                      className="block p-3 rounded-lg hover:bg-slate-700 transition-colors group"
+                      onClick={() => setServicesDropdownOpen(false)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                          <Network className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-white group-hover:text-indigo-400">Subdomain Intelligence</h3>
+                          <p className="text-sm text-slate-400">Full competitor analysis & implementation</p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Desktop CTA */}
@@ -114,6 +191,40 @@ const PublicHeader = () => {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Mobile Services Section */}
+            <div className="border-t border-slate-800 pt-4 mt-4">
+              <div className="mb-2">
+                <span className="text-xs uppercase text-slate-400 font-semibold tracking-wide px-4">SERVICES</span>
+              </div>
+              <Link 
+                to="/services" 
+                className={getMobileNavLinkClasses('/services')}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                All Services
+              </Link>
+              
+              <div className="ml-4 mt-2 space-y-1">
+                <Link 
+                  to="/free-subdomain-analysis" 
+                  className="flex items-center gap-3 px-4 py-2 rounded transition-colors text-white hover:bg-slate-800"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Eye className="w-4 h-4 text-orange-400" />
+                  Free Subdomain Analysis
+                </Link>
+                <Link 
+                  to="/dashboard/seo-expansion" 
+                  className="flex items-center gap-3 px-4 py-2 rounded transition-colors text-white hover:bg-slate-800"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Network className="w-4 h-4 text-indigo-400" />
+                  Subdomain Intelligence
+                </Link>
+              </div>
+            </div>
+            
             <div className="flex flex-col space-y-2 pt-4 border-t border-slate-800">
               <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="ghost" className="text-white hover:bg-slate-800 w-full justify-start">
