@@ -34,7 +34,8 @@ import {
   Library,
   Notebook,
   MessageSquare,
-  CreditCard
+  CreditCard,
+  Search
 } from 'lucide-react';
 
 const navigationItems = [
@@ -80,6 +81,12 @@ const toolsItems = [
     title: 'AI Generator',
     url: '/dashboard/create',
     icon: Sparkles,
+  },
+  {
+    title: 'SEO Expansion',
+    url: '/dashboard/seo-expansion',
+    icon: Search,
+    description: 'Discover subdomain opportunities for growth'
   },
   {
     title: 'Competitors',

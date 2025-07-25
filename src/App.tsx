@@ -38,6 +38,7 @@ import PricingWithServices from "./pages/PricingWithServices";
 import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
 import SlackSetupWizard from "./components/slack/SlackSetupWizard";
 import BillingDashboard from "./components/billing/BillingDashboard";
+import SEOExpansionWizard from "./components/seo/SEOExpansionWizard";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -97,6 +98,7 @@ const App = () => (
                 <Route path="business-settings" element={<BusinessSettings />} />
                 <Route path="slack-setup" element={<SlackSetupWizard />} />
                 <Route path="billing" element={<BillingDashboard />} />
+                <Route path="seo-expansion" element={<SEOExpansionWizard />} />
                 <Route path="cross-business" element={<CrossBusinessFeatures />} />
                 <Route path="blog-admin" element={<BlogAdmin />} />
                 <Route path="admin" element={<AdminPanel />} />
