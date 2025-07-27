@@ -167,7 +167,7 @@ const Pricing = () => {
               Replace $16,000/month in healthcare agency costs
             </Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>One Platform.</span> <span className="text-gradient-primary">All Healthcare Compliance.</span>
+              One Platform. <span className="text-gradient-primary">All Healthcare Compliance.</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               TGA/AHPRA-compliant content creation, patient education, TGA compliance screening, and Australian healthcare professional support - all in one platform.
@@ -190,7 +190,7 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Choose</span> <span className="text-gradient-primary">Your Healthcare Plan</span>
+              Choose <span className="text-gradient-primary">Your Healthcare Plan</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Specialized pricing for Australian healthcare professionals. All plans include TGA/AHPRA compliance and patient education features.
@@ -323,7 +323,7 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Healthcare</span> <span className="text-gradient-primary">ROI Calculator</span>
+              Healthcare <span className="text-gradient-primary">ROI Calculator</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               See how much Australian healthcare professionals save by replacing expensive agencies and compliance consultants
@@ -411,7 +411,7 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Professional</span> <span className="text-gradient-primary">Setup Services</span>
+              Professional <span className="text-gradient-primary">Setup Services</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               One-time professional services to get you started quickly
@@ -512,7 +512,7 @@ const Pricing = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Frequently</span> <span className="text-gradient-primary">Asked Questions</span>
+              Frequently <span className="text-gradient-primary">Asked Questions</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground px-2">
               Everything you need to know about our pricing

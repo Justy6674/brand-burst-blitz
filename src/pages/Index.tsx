@@ -187,7 +187,7 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>Who</span> <span className="text-gradient-primary">Desperately Needs This</span>
+              Who <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Australian healthcare professionals trapped in non-compliant marketing that risks TGA/AHPRA violations and patient trust.
@@ -331,7 +331,7 @@ const Index = () => {
          <div className="relative z-20 container mx-auto px-4 md:px-6">
            <div className="text-center mb-12 md:mb-20">
              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-               <span style={{color: '#ffd700', fontWeight: 700}}>What</span> You <span className="text-gradient-primary">Actually Get</span>
+               What You <span className="text-gradient-primary">Actually Get</span>
              </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
                TGA/AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
@@ -413,7 +413,7 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              The <span style={{color: '#ffd700', fontWeight: 700}}>Subdomain Advantage</span>
+              The Subdomain Advantage
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Multiply your healthcare practice's online presence with strategic subdomains that dominate search results and AI recommendations.
@@ -541,7 +541,7 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>How</span> Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
+              How Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Simple TGA/AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
@@ -604,7 +604,7 @@ const Index = () => {
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-              <span style={{color: '#ffd700', fontWeight: 700}}>When</span> You Need <span className="text-gradient-primary">This Subscription</span>
+              When You Need <span className="text-gradient-primary">This Subscription</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
               Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
@@ -687,7 +687,7 @@ const Index = () => {
           </h2>
           
           <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed animate-fade-in animation-delay-500 px-2">
-            Join Australian businesses dominating their markets with <span style={{color: '#ffd700', fontWeight: 700}}>AI-powered content</span>.
+            Join Australian businesses dominating their markets with AI-powered content.
           </p>
           
           {/* Dynamic CTA Button */}
