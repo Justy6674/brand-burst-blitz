@@ -204,25 +204,25 @@ const Index = () => {
               },
               {
                 title: "🦴 The Growing Specialist", 
-                description: "Need <span className='text-yellow-highlight'>patient education content</span> demonstrating expertise without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Building trust while maintaining <span className='text-yellow-highlight'>professional boundaries</span>.",
+                description: "Need patient education content demonstrating expertise without making prohibited therapeutic claims. Building trust while maintaining professional boundaries.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "🧠 The Allied Health Professional",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Psychology, Physiotherapy, OT, Dietician, Exercise Physiologist</span> compliance requirements. Need referral-generating content that meets <span className='text-yellow-highlight'>professional standards</span>.",
+                description: "Psychology, Physiotherapy, OT, Dietician, Exercise Physiologist compliance requirements. Need referral-generating content that meets professional standards.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "💉 The Nurse Practitioner",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Weight loss, telehealth, alternative medicine, sexual health</span> compliance challenges. Building practice visibility while navigating <span className='text-yellow-highlight'>strict advertising guidelines</span>.",
+                description: "Weight loss, telehealth, alternative medicine, sexual health compliance challenges. Building practice visibility while navigating strict advertising guidelines.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "🏢 The Private Practice Entrepreneur",
-                description: "Setting up <span style='color: #ffd700; font-weight: 700;'>private clinics, sole trader practices, or Pty Ltd healthcare businesses</span>. Need compliant marketing from day one while navigating <span className='text-yellow-highlight'>business registration, TGA/AHPRA obligations</span>, and patient acquisition strategies.",
+                description: "Setting up private clinics, sole trader practices, or Pty Ltd healthcare businesses. Need compliant marketing from day one while navigating business registration, TGA/AHPRA obligations, and patient acquisition strategies.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
@@ -267,31 +267,31 @@ const Index = () => {
             {[
               {
                 title: "⚖️ TGA/AHPRA Compliance Crisis",
-                description: "Generic <span className='text-yellow-400 font-bold'>marketing violates TGA/AHPRA advertising guidelines</span> - risk <span className='text-yellow-400'>$13,000+ fines</span> and professional sanctions. Every social media post could trigger regulatory investigation without <span className='text-yellow-400'>compliant content systems</span>.",
+                description: "Generic marketing violates TGA/AHPRA advertising guidelines - risk $13,000+ fines and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "🚫 TGA Therapeutic Claims",
-                description: "Accidentally making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span> without TGA approval. <span className='text-yellow-highlight'>ChatGPT, Gemini</span> and <span style='color: #ffd700; font-weight: 700;'>AI assistants</span> only recommend healthcare professionals with compliant <span style='color: #ffd700; font-weight: 700;'>online content</span>.",
+                description: "Accidentally making prohibited therapeutic claims without TGA approval. ChatGPT, Gemini and AI assistants only recommend healthcare professionals with compliant online content.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "👥 Patient Trust Boundaries",
-                description: "Maintaining appropriate <span style='color: #ffd700; font-weight: 700;'>patient-practitioner relationships online</span>. Patient testimonials and reviews are <span className='text-yellow-highlight'>strictly prohibited by TGA/AHPRA</span> - but patients still need to find and trust you.",
+                description: "Maintaining appropriate patient-practitioner relationships online. Patient testimonials and reviews are strictly prohibited by TGA/AHPRA - but patients still need to find and trust you.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
                 title: "🔍 Hidden Competitor Advantages", 
-                description: "Your competitors are using <span style='color: #ffd700; font-weight: 700;'>subdomain strategies</span> to occupy <span className='text-yellow-highlight'>multiple Google search positions</span> for the same keywords. While you fight for one ranking, they dominate 3-5 positions with strategic subdomains.",
+                description: "Your competitors are using subdomain strategies to occupy multiple Google search positions for the same keywords. While you fight for one ranking, they dominate 3-5 positions with strategic subdomains.",
                 gradient: "from-indigo-500/10 to-indigo-600/10",
                 border: "border-indigo-500/20"
               },
               {
                 title: "👥 Professional Invisibility", 
-                description: "Patients ask <span style='color: #ffd700; font-weight: 700;'>AI for healthcare providers</span> - you're invisible to <span className='text-yellow-highlight'>ChatGPT recommendations</span>. Without quality patient education content, referral sources and patients can't find you.",
+                description: "Patients ask AI for healthcare providers - you're invisible to ChatGPT recommendations. Without quality patient education content, referral sources and patients can't find you.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
@@ -342,43 +342,43 @@ const Index = () => {
              {[
                 {
                   title: "🏥 TGA/AHPRA-Compliant Patient Education",
-                  description: "Healthcare-trained AI creates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and treatment information that builds trust without making <span style='color: #ffd700; font-weight: 700;'>prohibited therapeutic claims</span>. Every piece vetted for TGA/AHPRA compliance.",
+                  description: "Healthcare-trained AI creates patient education content, condition explainers, and treatment information that builds trust without making prohibited therapeutic claims. Every piece vetted for TGA/AHPRA compliance.",
                   gradient: "from-blue-500/10 to-blue-600/10",
                   border: "border-blue-500/20"
                 },
                 {
                   title: "🩺 Healthcare Professional Directory Optimization",
-                  description: "<span style='color: #ffd700; font-weight: 700;'>AI optimizes your listings</span> for <span className='text-yellow-highlight'>HealthEngine, HotDoc, and medical directories</span>. Ensures patients and AI agents like <span style='color: #ffd700; font-weight: 700;'>ChatGPT find and recommend you</span> for relevant health conditions.",
+                  description: "AI optimizes your listings for HealthEngine, HotDoc, and medical directories. Ensures patients and AI agents like ChatGPT find and recommend you for relevant health conditions.",
                   gradient: "from-purple-500/10 to-purple-600/10",
                   border: "border-purple-500/20"
                 },
                 {
                   title: "📊 TGA-Compliant Content Monitoring",
-                  description: "<span style='color: #ffd700; font-weight: 700;'>Real-time compliance scanning</span> prevents accidental therapeutic claims that could trigger <span className='text-yellow-highlight'>TGA violations</span>. Built-in safeguards for medical device advertising and supplement promotion.",
+                  description: "Real-time compliance scanning prevents accidental therapeutic claims that could trigger TGA violations. Built-in safeguards for medical device advertising and supplement promotion.",
                   gradient: "from-green-500/10 to-green-600/10",
                   border: "border-green-500/20"
                 },
                 {
                   title: "🎯 Professional Referral Network Building",
-                  description: "Create <span style='color: #ffd700; font-weight: 700;'>professional relationship content</span> that encourages <span className='text-yellow-highlight'>GP referrals and specialist collaboration</span>. Educational content that demonstrates expertise to fellow healthcare professionals.",
+                  description: "Create professional relationship content that encourages GP referrals and specialist collaboration. Educational content that demonstrates expertise to fellow healthcare professionals.",
                   gradient: "from-orange-500/10 to-orange-600/10",
                   border: "border-orange-500/20"
                 },
                 {
                   title: "⚕️ Clinical Authority Content Creation",
-                  description: "<span style='color: #ffd700; font-weight: 700;'>Evidence-based content</span> that positions you as a trusted healthcare authority. Research citations, clinical guideline references, and <span className='text-yellow-highlight'>professional credential highlighting</span> that builds patient confidence.",
+                  description: "Evidence-based content that positions you as a trusted healthcare authority. Research citations, clinical guideline references, and professional credential highlighting that builds patient confidence.",
                   gradient: "from-red-500/10 to-red-600/10",
                   border: "border-red-500/20"
                 },
                 {
                   title: "🛡️ Multi-Platform TGA/AHPRA Protection",
-                  description: "Built-in protection across <span style='color: #ffd700; font-weight: 700;'>Facebook, Instagram, LinkedIn, and your website</span>. <span className='text-yellow-highlight'>Compliance review system</span> ensures every post meets TGA/AHPRA advertising guidelines and professional standards.",
+                  description: "Built-in protection across Facebook, Instagram, LinkedIn, and your website. Compliance review system ensures every post meets TGA/AHPRA advertising guidelines and professional standards.",
                   gradient: "from-yellow-500/10 to-yellow-600/10",
                   border: "border-yellow-500/20"
                 },
                 {
                   title: "🌐 Competitive Subdomain Intelligence",
-                  description: "Discover the <span style='color: #ffd700; font-weight: 700;'>hidden subdomain strategies</span> your competitors use to dominate search results. Our AI analyses competitor websites and suggests <span className='text-yellow-highlight'>powerful subdomain opportunities</span> that multiply your Google visibility and AI discoverability.",
+                  description: "Discover the hidden subdomain strategies your competitors use to dominate search results. Our AI analyses competitor websites and suggests powerful subdomain opportunities that multiply your Google visibility and AI discoverability.",
                   gradient: "from-indigo-500/10 to-indigo-600/10",
                   border: "border-indigo-500/20"
                 }
@@ -552,25 +552,25 @@ const Index = () => {
             {[
               {
                 title: "📋 Healthcare Compliance Assessment",
-                description: "Complete our <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA-specific questionnaire</span> covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your <span style='color: #ffd700; font-weight: 700;'>compliance profile</span> and patient education <span style='color: #ffd700; font-weight: 700;'>content strategy</span>.",
+                description: "Complete our TGA/AHPRA-specific questionnaire covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your compliance profile and patient education content strategy.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "🛡️ Professional Setup & TGA/AHPRA Verification",
-                description: "Our healthcare compliance experts <span style='color: #ffd700; font-weight: 700;'>configure</span> your content systems with built-in <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA safeguards</span>, TGA compliance checks, and professional boundary <span style='color: #ffd700; font-weight: 700;'>protection</span>. Setup within 48 hours.",
+                description: "Our healthcare compliance experts configure your content systems with built-in TGA/AHPRA safeguards, TGA compliance checks, and professional boundary protection. Setup within 48 hours.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "🧠 AI-Powered Patient Education Content",
-                description: "Healthcare-trained AI generates <span style='color: #ffd700; font-weight: 700;'>patient education content</span>, condition explainers, and practice information that builds trust without violating <span style='color: #ffd700; font-weight: 700;'>advertising guidelines</span> or making prohibited therapeutic claims.",
+                description: "Healthcare-trained AI generates patient education content, condition explainers, and practice information that builds trust without violating advertising guidelines or making prohibited therapeutic claims.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               },
               {
                 title: "📊 Compliance Monitoring & AI Visibility",
-                description: "Continuous <span style='color: #ffd700; font-weight: 700;'>TGA/AHPRA compliance monitoring</span> ensures all content meets professional standards. Your educational content positions you as the <span style='color: #ffd700; font-weight: 700;'>trusted expert</span> ChatGPT and AI agents recommend to patients.",
+                description: "Continuous TGA/AHPRA compliance monitoring ensures all content meets professional standards. Your educational content positions you as the trusted expert ChatGPT and AI agents recommend to patients.",
                 gradient: "from-orange-500/10 to-orange-600/10",
                 border: "border-orange-500/20"
               }
@@ -615,31 +615,31 @@ const Index = () => {
             {[
               {
                 title: "🚨 Right Now - Emergency Visibility Crisis",
-                description: "You're <span className='text-yellow-highlight'>invisible on Google</span>, ignored by AI agents, and <span style='color: #ffd700; font-weight: 700;'>bleeding customers</span> to competitors. Every day you wait costs you potential revenue and market share.",
+                description: "You're invisible on Google, ignored by AI agents, and bleeding customers to competitors. Every day you wait costs you potential revenue and market share.",
                 gradient: "from-red-500/10 to-red-600/10",
                 border: "border-red-500/20"
               },
               {
                 title: "📋 Agency Contract Renewal Time", 
-                description: "Your current agency wants <span className='text-yellow-highlight'>$8,000+ monthly</span> with no guarantee of <span className='text-yellow-highlight'>results</span>. Our subscription gives you better <span className='text-yellow-highlight'>results</span> for <span className='text-yellow-highlight'>$149/month</span> with full <span style='color: #ffd700; font-weight: 700;'>transparency and control</span>.",
+                description: "Your current agency wants $8,000+ monthly with no guarantee of results. Our subscription gives you better results for $149/month with full transparency and control.",
                 gradient: "from-blue-500/10 to-blue-600/10",
                 border: "border-blue-500/20"
               },
               {
                 title: "📈 Business Scaling Phase",
-                description: "You're ready to <span style='color: #ffd700; font-weight: 700;'>expand</span> but need consistent, compliant <span style='color: #ffd700; font-weight: 700;'>marketing</span> that scales with you. Our AI handles <span className='text-yellow-highlight'>increasing content demands</span> without increasing costs.",
+                description: "You're ready to expand but need consistent, compliant marketing that scales with you. Our AI handles increasing content demands without increasing costs.",
                 gradient: "from-green-500/10 to-green-600/10",
                 border: "border-green-500/20"
               },
               {
                 title: "⚠️ Compliance Deadline Pressure",
-                description: "<span style='color: #ffd700; font-weight: 700;'>Industry regulations</span> are tightening and generic <span className='text-yellow-highlight'>content</span> puts you at risk. Our built-in <span className='text-yellow-highlight'>compliance safeguards</span> protect you from costly violations and penalties.",
+                description: "Industry regulations are tightening and generic content puts you at risk. Our built-in compliance safeguards protect you from costly violations and penalties.",
                 gradient: "from-yellow-500/10 to-yellow-600/10",
                 border: "border-yellow-500/20"
               },
               {
                 title: "💼 ROI Justification Required",
-                description: "You need to prove <span className='text-yellow-highlight'>marketing ROI</span> to stakeholders or investors. Our detailed <span className='text-yellow-highlight'>analytics</span> and <span className='text-yellow-highlight'>$11,551 monthly savings</span> provide clear, measurable <span style='color: #ffd700; font-weight: 700;'>business value</span>.",
+                description: "You need to prove marketing ROI to stakeholders or investors. Our detailed analytics and $11,551 monthly savings provide clear, measurable business value.",
                 gradient: "from-purple-500/10 to-purple-600/10",
                 border: "border-purple-500/20"
               }
