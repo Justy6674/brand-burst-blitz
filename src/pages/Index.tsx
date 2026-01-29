@@ -7,10 +7,6 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PublicHeader from "@/components/layout/PublicHeader";
-import { SystemLockdownBanner } from "@/components/common/SystemLockdownBanner";
-import { StandardButton } from "@/components/common/StandardButton";
-
-import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import { 
   Sparkles, 
   Zap, 
@@ -27,11 +23,12 @@ import {
   Brain,
   Target,
   Shield,
-  Settings
+  Settings,
+  Globe,
+  Network,
+  CheckCircle2
 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
-import { GeoDetection } from "@/components/geo/GeoDetection";
-import { HeroSection } from "@/components/layout/HeroSection";
 
 // Hidden Admin Access Component
 const AdminAccess = () => {
@@ -102,7 +99,6 @@ const AdminAccess = () => {
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      <SystemLockdownBanner />
       
       {/* Modern Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -121,101 +117,120 @@ const Index = () => {
         <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay bg-noise"></div>
       </div>
       
-      <GeoDetection />
       <PublicHeader />
 
-      {/* Hero Section - Clinical Calm */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-primary/5 backdrop-blur-sm">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
         <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#3f5f55]/90 via-[#6b8f7a]/80 to-[#3f5f55]/90"></div>
+          <img 
+            src={heroImage}
+            alt="AI Marketing Hero Background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
         
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
-            <Badge className="mb-6 md:mb-8 bg-white/20 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-              Clinical Dermatology Telehealth
+            <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
+              🏥 TGA/AHPRA-Compliant Healthcare Content Platform
             </Badge>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              Clinical skin health,<br />
-              <span className="text-[#f7f2d3]">prescribed with care.</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
+              Australia's First <span className="text-yellow-400">TGA/AHPRA-Compliant</span><br />
+              Content Platform for <span className="text-yellow-400">Healthcare Professionals</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              Personalised assessment and treatment plans for common skin concerns. Where clinically appropriate, prescription or compounded topical treatments may be recommended following consultation.
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
+              AI-powered patient education content and TGA/AHPRA-compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners.
             </p>
             
             <div className="mb-8 md:mb-12">
+              <p className="text-xl md:text-2xl font-bold text-yellow-400 mb-6 md:mb-8 px-2">
+                $149/month replaces $16,000 in healthcare marketing agency costs
+              </p>
+              
               <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
-                <StandardButton action="waitlist" variant="primary">
-                  <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  Book a Consultation
-                </StandardButton>
-                <StandardButton action="pricing" variant="secondary">
-                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                  Learn More
-                </StandardButton>
+                <Link to="/auth">
+                  <Button variant="hero" size="xl">
+                    <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                    Join Healthcare Professionals Waitlist
+                  </Button>
+                </Link>
+                <Link to="/pricing">
+                  <Button variant="secondary" size="xl">
+                    <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                    View Pricing
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Skin Concerns Section */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-card backdrop-blur-sm">
+      {/* WHO Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Circuit board macro technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight text-foreground">
-              Skin Concerns <span className="text-gradient-primary">We Support</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              Who <span className="text-gradient-primary">Desperately Needs This</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Evidence-based assessment and personalised treatment plans for a range of common skin concerns.
+              Australian healthcare professionals trapped in non-compliant marketing that risks TGA/AHPRA violations and patient trust.
             </p>
           </div>
           
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8">
             {[
               {
-                title: "Acne & Congestion Support",
-                description: "Assessment and management of acne, including hormonal acne. Personalised treatment plans tailored to your skin type and concerns.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
+                title: "🩺 The Overwhelmed GP",
+                description: "Managing 200+ patients weekly while creating TGA/AHPRA-compliant content. Every social media post risks $13,000+ fines for regulatory violations.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
               },
               {
-                title: "Rosacea & Redness Support",
-                description: "Comprehensive assessment for rosacea and persistent redness. Evidence-based approaches to manage symptoms and support skin comfort.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
+                title: "🦴 The Growing Specialist", 
+                description: "Need patient education content demonstrating expertise without making prohibited therapeutic claims. Building trust while maintaining professional boundaries.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
               },
               {
-                title: "Pigmentation & Uneven Tone",
-                description: "Assessment of pigmentation concerns including melasma and sun damage. Personalised plans to support more even skin tone.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
+                title: "🧠 The Allied Health Professional",
+                description: "Psychology, Physiotherapy, OT, Dietician, Exercise Physiologist compliance requirements. Need referral-generating content that meets professional standards.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
               },
               {
-                title: "Post-Weight-Loss Skin Support",
-                description: "Skin quality support following significant weight changes. Addressing friction areas, irritation, and skin barrier concerns.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
+                title: "💉 The Nurse Practitioner",
+                description: "Weight loss, telehealth, alternative medicine, sexual health compliance challenges. Building practice visibility while navigating strict advertising guidelines.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
               },
               {
-                title: "Skin Ageing & Sun Damage Prevention",
-                description: "Prevention-focused care for long-term skin health. Assessment and plans to support skin longevity and protection.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
-              },
-              {
-                title: "Skin Barrier Dysfunction",
-                description: "Support for eczema, dermatitis, and compromised skin barriers where appropriate. Helping restore and maintain healthy skin function.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
+                title: "🏢 The Private Practice Entrepreneur",
+                description: "Setting up private clinics, sole trader practices, or Pty Ltd healthcare businesses. Need compliant marketing from day one while navigating business registration, TGA/AHPRA obligations, and patient acquisition strategies.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
               }
-            ].map((concern, index) => (
-              <Card key={index} className={`p-6 md:p-8 hover-lift ${concern.border} bg-gradient-to-br ${concern.gradient}`}>
+            ].map((audience, index) => (
+              <Card key={index} className={`p-8 hover-lift ${audience.border} bg-gradient-to-br ${audience.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 leading-tight text-foreground">{concern.title}</h3>
-                  <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{concern.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{audience.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{audience.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -223,115 +238,347 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-gradient-to-br from-[#3f5f55]/95 to-[#6b8f7a]/90">
-        <div className="relative z-20 container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 md:mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              How It <span className="text-[#f7f2d3]">Works</span>
+      {/* WHY Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Colorful programming code technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-red-900/80 to-yellow-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-red-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-yellow-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-700 z-10"></div>
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              <span className="text-yellow-400">WHY</span> Healthcare Professionals <span className="text-gradient-primary">Need This Platform</span>
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed px-2">
-              A simple, clinical process designed around your needs.
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Five critical compliance and visibility problems threatening your practice every day you remain invisible.
             </p>
           </div>
           
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-8">
             {[
               {
-                step: "1",
-                title: "Book a Consultation",
-                description: "Schedule your telehealth appointment at a time that suits you."
+                title: "⚖️ TGA/AHPRA Compliance Crisis",
+                description: "Generic marketing violates TGA/AHPRA advertising guidelines - risk $13,000+ fines and professional sanctions. Every social media post could trigger regulatory investigation without compliant content systems.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
               },
               {
-                step: "2",
-                title: "Complete Intake",
-                description: "Share your skin history and upload photos if requested."
+                title: "🚫 TGA Therapeutic Claims",
+                description: "Accidentally making prohibited therapeutic claims without TGA approval. ChatGPT, Gemini and AI assistants only recommend healthcare professionals with compliant online content.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
               },
               {
-                step: "3",
-                title: "Clinician Assessment",
-                description: "A qualified clinician reviews your case thoroughly."
+                title: "👥 Patient Trust Boundaries",
+                description: "Maintaining appropriate patient-practitioner relationships online. Patient testimonials and reviews are strictly prohibited by TGA/AHPRA - but patients still need to find and trust you.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
               },
               {
-                step: "4",
-                title: "Personalised Plan",
-                description: "Receive your tailored treatment recommendations."
+                title: "🔍 Hidden Competitor Advantages", 
+                description: "Your competitors are using subdomain strategies to occupy multiple Google search positions for the same keywords. While you fight for one ranking, they dominate 3-5 positions with strategic subdomains.",
+                gradient: "from-indigo-500/10 to-indigo-600/10",
+                border: "border-indigo-500/20"
               },
               {
-                step: "5",
-                title: "Optional Follow-up",
-                description: "Book follow-up consultations to track progress."
+                title: "👥 Professional Invisibility", 
+                description: "Patients ask AI for healthcare providers - you're invisible to ChatGPT recommendations. Without quality patient education content, referral sources and patients can't find you.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              },
+              {
+                title: "⏳ Content Creation Bottleneck",
+                description: "TGA/AHPRA-compliant content takes 20+ hours weekly. You're either neglecting patient education or paying healthcare agencies thousands monthly for compliance-focused content creation.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
               }
-            ].map((item, index) => (
-              <Card key={index} className="p-6 hover-lift bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-0 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[#f7f2d3] text-[#3f5f55] flex items-center justify-center text-xl font-bold">
-                    {item.step}
+            ].map((problem, index) => (
+              <Card key={index} className={`p-8 hover-lift ${problem.border} bg-gradient-to-br ${problem.gradient} transition-all duration-300`}>
+                <CardContent className="p-0">
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{problem.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{problem.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT Section - Mobile Optimized */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Matrix code digital background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-orange-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-l from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-44 h-44 bg-gradient-to-r from-orange-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-600 z-10"></div>
+         <div className="relative z-20 container mx-auto px-4 md:px-6">
+           <div className="text-center mb-12 md:mb-20">
+             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+               What You <span className="text-gradient-primary">Actually Get</span>
+             </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+               TGA/AHPRA-compliant patient education platform with healthcare-specific compliance safeguards built into every feature.
+             </p>
+          </div>
+
+           <div className="grid gap-6 md:gap-8">
+             {[
+                {
+                  title: "🏥 TGA/AHPRA-Compliant Patient Education",
+                  description: "Healthcare-trained AI creates patient education content, condition explainers, and treatment information that builds trust without making prohibited therapeutic claims. Every piece vetted for TGA/AHPRA compliance.",
+                  gradient: "from-blue-500/10 to-blue-600/10",
+                  border: "border-blue-500/20"
+                },
+                {
+                  title: "🩺 Healthcare Professional Directory Optimization",
+                  description: "AI optimizes your listings for HealthEngine, HotDoc, and medical directories. Ensures patients and AI agents like ChatGPT find and recommend you for relevant health conditions.",
+                  gradient: "from-purple-500/10 to-purple-600/10",
+                  border: "border-purple-500/20"
+                },
+                {
+                  title: "📊 TGA-Compliant Content Monitoring",
+                  description: "Real-time compliance scanning prevents accidental therapeutic claims that could trigger TGA violations. Built-in safeguards for medical device advertising and supplement promotion.",
+                  gradient: "from-green-500/10 to-green-600/10",
+                  border: "border-green-500/20"
+                },
+                {
+                  title: "🎯 Professional Referral Network Building",
+                  description: "Create professional relationship content that encourages GP referrals and specialist collaboration. Educational content that demonstrates expertise to fellow healthcare professionals.",
+                  gradient: "from-orange-500/10 to-orange-600/10",
+                  border: "border-orange-500/20"
+                },
+                {
+                  title: "⚕️ Clinical Authority Content Creation",
+                  description: "Evidence-based content that positions you as a trusted healthcare authority. Research citations, clinical guideline references, and professional credential highlighting that builds patient confidence.",
+                  gradient: "from-red-500/10 to-red-600/10",
+                  border: "border-red-500/20"
+                },
+                {
+                  title: "🛡️ Multi-Platform TGA/AHPRA Protection",
+                  description: "Built-in protection across Facebook, Instagram, LinkedIn, and your website. Compliance review system ensures every post meets TGA/AHPRA advertising guidelines and professional standards.",
+                  gradient: "from-yellow-500/10 to-yellow-600/10",
+                  border: "border-yellow-500/20"
+                },
+                {
+                  title: "🌐 Competitive Subdomain Intelligence",
+                  description: "Discover the hidden subdomain strategies your competitors use to dominate search results. Our AI analyses competitor websites and suggests powerful subdomain opportunities that multiply your Google visibility and AI discoverability.",
+                  gradient: "from-indigo-500/10 to-indigo-600/10",
+                  border: "border-indigo-500/20"
+                }
+             ].map((feature, index) => (
+               <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${feature.border} bg-gradient-to-br ${feature.gradient}`}>
+                 <CardContent className="p-0">
+                   <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight">{feature.title}</h3>
+                   <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed">{feature.description}</p>
+                 </CardContent>
+               </Card>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Subdomain Advantage Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Network connectivity background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-indigo-900/80 to-purple-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
+        
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              The Subdomain Advantage
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Multiply your healthcare practice's online presence with strategic subdomains that dominate search results and AI recommendations.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <Card className="p-6 md:p-8 border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-indigo-600/10">
+              <CardContent className="p-0">
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <Globe className="w-8 h-8 text-indigo-400" />
+                  Multiple Entry Points for Patient Discovery
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Transform your single website into a powerful network of specialised patient portals:
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">services.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Dedicated portal for all your healthcare services</p>
+                    </div>
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2 text-white">{item.title}</h3>
-                  <p className="text-white/70 text-sm md:text-base leading-relaxed">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">conditions.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Patient education hub for medical conditions</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">telehealth.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Virtual consultation booking and information</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div>
+                      <strong className="text-yellow-400">sydney.yourclinic.com.au</strong>
+                      <p className="text-sm text-muted-foreground">Location-specific clinic information</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 md:p-8 border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-purple-600/10">
+              <CardContent className="p-0">
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <TrendingUp className="w-8 h-8 text-purple-400" />
+                  Dominate Search Results & AI Recommendations
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  While competitors fight for one ranking, occupy multiple positions:
+                </p>
+                <div className="space-y-4">
+                  <div className="p-4 bg-background/50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-400 mb-2">Search Engine Benefits:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Each subdomain treated as separate domain by Google
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Multiple listings for same keywords
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Specialised content ranks higher
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-background/50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-400 mb-2">AI Discovery Enhancement:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        ChatGPT scans multiple subdomains
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Increased recommendation probability
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span>
+                        Authority signals from domain network
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link to="/dashboard/seo-expansion">
+              <Button size="xl" className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg">
+                <Network className="w-6 h-6 mr-3" />
+                Discover Your Subdomain Opportunities
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Our Approach Section */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-card backdrop-blur-sm">
+      {/* HOW Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Colorful programming code background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-cyan-900/80 to-pink-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-l from-cyan-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 left-0 w-52 h-52 bg-gradient-to-r from-pink-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-800 z-10"></div>
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight text-foreground">
-              Our <span className="text-gradient-primary">Approach</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              How Healthcare <span className="text-gradient-primary">Content Compliance Works</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
-              Evidence-based care focused on long-term skin health, not quick fixes.
+              Simple TGA/AHPRA-compliant content creation process that protects your practice while building patient trust and authority.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8">
             {[
               {
-                title: "Assessment-Led Care",
-                description: "Every treatment plan begins with a thorough clinical assessment. We understand your skin before recommending any approach.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
+                title: "📋 Healthcare Compliance Assessment",
+                description: "Complete our TGA/AHPRA-specific questionnaire covering your practice type, specialization, and regulatory requirements. Our AI immediately creates your compliance profile and patient education content strategy.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
               },
               {
-                title: "Evidence-Based",
-                description: "Our recommendations are grounded in clinical evidence and dermatological best practice, not trends or fads.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
+                title: "🛡️ Professional Setup & TGA/AHPRA Verification",
+                description: "Our healthcare compliance experts configure your content systems with built-in TGA/AHPRA safeguards, TGA compliance checks, and professional boundary protection. Setup within 48 hours.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
               },
               {
-                title: "Personalised Plans",
-                description: "No two skin types are the same. Your treatment plan is tailored to your specific concerns, history, and goals.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
+                title: "🧠 AI-Powered Patient Education Content",
+                description: "Healthcare-trained AI generates patient education content, condition explainers, and practice information that builds trust without violating advertising guidelines or making prohibited therapeutic claims.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
               },
               {
-                title: "Skin Longevity Focus",
-                description: "We prioritise long-term skin health over short-term results. Prevention and maintenance are key to lasting outcomes.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
-              },
-              {
-                title: "Telehealth Convenience",
-                description: "Access clinical dermatology care from the comfort of your home. No travel, no waiting rooms.",
-                gradient: "from-primary/10 to-secondary/10",
-                border: "border-primary/20"
-              },
-              {
-                title: "Ongoing Support",
-                description: "Skin health is a journey. We offer follow-up consultations to monitor progress and adjust plans as needed.",
-                gradient: "from-secondary/10 to-primary/10",
-                border: "border-secondary/20"
+                title: "📊 Compliance Monitoring & AI Visibility",
+                description: "Continuous TGA/AHPRA compliance monitoring ensures all content meets professional standards. Your educational content positions you as the trusted expert ChatGPT and AI agents recommend to patients.",
+                gradient: "from-orange-500/10 to-orange-600/10",
+                border: "border-orange-500/20"
               }
-            ].map((item, index) => (
-              <Card key={index} className={`p-6 md:p-8 hover-lift ${item.border} bg-gradient-to-br ${item.gradient}`}>
+            ].map((step, index) => (
+              <Card key={index} className={`p-8 hover-lift ${step.border} bg-gradient-to-br ${step.gradient}`}>
                 <CardContent className="p-0">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 leading-tight text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{item.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 leading-tight">{step.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -339,88 +586,190 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-gradient-to-br from-[#3f5f55] to-[#6b8f7a]">
+      {/* WHEN Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Matrix digital code technology background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-violet-900/80 to-emerald-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-violet-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-l from-emerald-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-900 z-10"></div>
+        <div className="relative z-20 container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+              When You Need <span className="text-gradient-primary">This Subscription</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2">
+              Critical business situations where this subscription becomes essential for survival and growth in today's digital marketplace.
+            </p>
+          </div>
+          
+          <div className="grid gap-6 md:gap-8">
+            {[
+              {
+                title: "🚨 Right Now - Emergency Visibility Crisis",
+                description: "You're invisible on Google, ignored by AI agents, and bleeding customers to competitors. Every day you wait costs you potential revenue and market share.",
+                gradient: "from-red-500/10 to-red-600/10",
+                border: "border-red-500/20"
+              },
+              {
+                title: "📋 Agency Contract Renewal Time", 
+                description: "Your current agency wants $8,000+ monthly with no guarantee of results. Our subscription gives you better results for $149/month with full transparency and control.",
+                gradient: "from-blue-500/10 to-blue-600/10",
+                border: "border-blue-500/20"
+              },
+              {
+                title: "📈 Business Scaling Phase",
+                description: "You're ready to expand but need consistent, compliant marketing that scales with you. Our AI handles increasing content demands without increasing costs.",
+                gradient: "from-green-500/10 to-green-600/10",
+                border: "border-green-500/20"
+              },
+              {
+                title: "⚠️ Compliance Deadline Pressure",
+                description: "Industry regulations are tightening and generic content puts you at risk. Our built-in compliance safeguards protect you from costly violations and penalties.",
+                gradient: "from-yellow-500/10 to-yellow-600/10",
+                border: "border-yellow-500/20"
+              },
+              {
+                title: "💼 ROI Justification Required",
+                description: "You need to prove marketing ROI to stakeholders or investors. Our detailed analytics and $11,551 monthly savings provide clear, measurable business value.",
+                gradient: "from-purple-500/10 to-purple-600/10",
+                border: "border-purple-500/20"
+              }
+            ].map((timing, index) => (
+              <Card key={index} className={`p-4 md:p-6 lg:p-8 hover-lift ${timing.border} bg-gradient-to-br ${timing.gradient}`}>
+                <CardContent className="p-0">
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 leading-tight">{timing.title}</h3>
+                  <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed">{timing.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA - Dynamic Tech Section */}
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image - Success/Growth Theme */}
+        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Financial growth charts and technology success background"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-purple-900/85 to-slate-900/90"></div>
+        </div>
+        
+        {/* Main Content */}
         <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight text-white">
-            Ready to take control of your <span className="text-[#f7f2d3]">skin health?</span>
+          {/* Tech Badge */}
+          <div className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-full backdrop-blur-sm">
+            <Rocket className="w-4 h-4 md:w-5 md:h-5 mr-2 text-cyan-400 animate-bounce" />
+            <span className="text-cyan-300 font-semibold tracking-wide text-xs md:text-sm">NEXT-GEN AI MARKETING</span>
+            <Zap className="w-4 h-4 md:w-5 md:h-5 ml-2 text-yellow-400 animate-pulse" />
+          </div>
+          
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent animate-fade-in">
+              Stop Being Invisible.
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent animate-fade-in animation-delay-300">
+              Start Dominating.
+            </span>
           </h2>
           
-          <p className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed px-2">
-            Book a consultation and receive a personalised assessment from our clinical team.
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed animate-fade-in animation-delay-500 px-2">
+            Join Australian businesses dominating their markets with AI-powered content.
           </p>
           
-          <StandardButton action="waitlist" variant="primary">
-            <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-            Book Your Consultation
-          </StandardButton>
+          {/* Dynamic CTA Button */}
+          <div className="relative inline-block animate-fade-in animation-delay-700">
+            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-red-600 to-blue-600 rounded-lg blur opacity-75 animate-pulse"></div>
+            <Link to="/auth">
+              <Button variant="hero" size="xl">
+                <Target className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
+                Join Waitlist Now
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 ml-2 md:ml-3" />
+              </Button>
+            </Link>
+          </div>
           
-          {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 md:px-6 py-3 md:py-4">
-              <div className="text-xl md:text-2xl font-bold text-[#f7f2d3]">TGA</div>
-              <div className="text-xs md:text-sm text-white/70">Compliant</div>
+          {/* Tech Stats */}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-12 md:mt-16 animate-fade-in animation-delay-1000">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-yellow-400">98%</div>
+              <div className="text-xs md:text-sm text-gray-400">Success Rate</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 md:px-6 py-3 md:py-4">
-              <div className="text-xl md:text-2xl font-bold text-[#f7f2d3]">Australian</div>
-              <div className="text-xs md:text-sm text-white/70">Clinicians</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-cyan-400">24/7</div>
+              <div className="text-xs md:text-sm text-gray-400">AI Working</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 md:px-6 py-3 md:py-4">
-              <div className="text-xl md:text-2xl font-bold text-[#f7f2d3]">Telehealth</div>
-              <div className="text-xs md:text-sm text-white/70">Australia-wide</div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-4 md:px-6 py-3 md:py-4">
+              <div className="text-xl md:text-2xl font-bold text-green-400">$149</div>
+              <div className="text-xs md:text-sm text-gray-400">Per Month</div>
             </div>
           </div>
         </div>
       </section>
 
+
       {/* Footer */}
-      <footer className="py-12 md:py-16 bg-[#3f5f55] text-white border-t border-white/10">
+      <footer className="py-12 md:py-16 bg-muted/20 border-t">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
             <div>
-              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6 text-[#f7f2d3]">Services</h3>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Product</h3>
               <ul className="space-y-2 md:space-y-3">
-                <li><Link to="/all-services" className="text-sm md:text-base text-white/70 hover:text-white">Skin Concerns</Link></li>
-                <li><Link to="/features" className="text-sm md:text-base text-white/70 hover:text-white">Our Approach</Link></li>
+                <li><Link to="/features" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Features</Link></li>
+                <li><Link to="/pricing" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6 text-[#f7f2d3]">Resources</h3>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Company</h3>
               <ul className="space-y-2 md:space-y-3">
-                <li><Link to="/blog" className="text-sm md:text-base text-white/70 hover:text-white">Skin Health Articles</Link></li>
-                <li><Link to="/common-questions" className="text-sm md:text-base text-white/70 hover:text-white">FAQ</Link></li>
+                <li><Link to="/about" className="text-sm md:text-base text-muted-foreground hover:text-foreground">About</Link></li>
+                <li><Link to="/blog" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Blog</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6 text-[#f7f2d3]">Contact</h3>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Support</h3>
               <ul className="space-y-2 md:space-y-3">
-                <li><Link to="/contact" className="text-sm md:text-base text-white/70 hover:text-white">Get in Touch</Link></li>
-                <li><Link to="/pricing" className="text-sm md:text-base text-white/70 hover:text-white">Consultations</Link></li>
+                <li><Link to="/common-questions" className="text-sm md:text-base text-muted-foreground hover:text-foreground">FAQ</Link></li>
+                <li><Link to="/contact" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Contact</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6 text-[#f7f2d3]">Legal</h3>
+              <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Legal</h3>
               <ul className="space-y-2 md:space-y-3">
-                <li><Link to="/privacy" className="text-sm md:text-base text-white/70 hover:text-white">Privacy Policy</Link></li>
+                <li><Link to="/privacy" className="text-sm md:text-base text-muted-foreground hover:text-foreground">Privacy</Link></li>
               </ul>
             </div>
           </div>
           
-          {/* Compliance Statements */}
-          <div className="border-t border-white/10 pt-6 md:pt-8 mb-6 md:mb-8">
-            <div className="text-xs md:text-sm text-white/60 space-y-2 max-w-4xl">
-              <p>This website provides general information only and does not replace medical advice.</p>
-              <p>Prescription treatments are only recommended if clinically appropriate following assessment.</p>
-              <p>We do not advertise prescription-only medicines. Results vary between individuals and are not guaranteed.</p>
+          <div className="border-t pt-6 md:pt-8 space-y-4">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link to="/terms" className="text-muted-foreground hover:text-white transition-colors">
+                Terms & Conditions
+              </Link>
+              <Link to="/privacy" className="text-muted-foreground hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/refunds" className="text-muted-foreground hover:text-white transition-colors">
+                Refund Policy
+              </Link>
             </div>
-          </div>
-          
-          <div className="border-t border-white/10 pt-6 md:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-3">
-              <img src="/downscalederm-icon.png" alt="Downscale Derm" className="w-8 h-8" />
-              <p className="text-sm md:text-base text-white/70 text-center sm:text-left">© 2025 Downscale Derm. All rights reserved.</p>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-sm md:text-base text-muted-foreground text-center sm:text-left">© 2024 JB-Health. All rights reserved.</p>
+              <AdminAccess />
             </div>
-            <AdminAccess />
           </div>
         </div>
       </footer>

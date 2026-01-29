@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ComingSoonPopup } from "@/components/common/ComingSoonPopup";
 import PublicHeader from "@/components/layout/PublicHeader";
-import { HeroSection } from "@/components/layout/HeroSection";
 import { 
   Accordion,
   AccordionContent,
@@ -30,98 +28,157 @@ import aiContentHero from "@/assets/ai-content-creation-hero.jpg";
 const CommonQuestions = () => {
   const questionCategories = [
     {
-      title: "About Our Service",
-      icon: Stethoscope,
+      title: "TGA/AHPRA Compliance & Safety",
+      icon: Shield,
       color: "text-primary",
       questions: [
         {
-          question: "What skin concerns do you help with?",
-          answer: "We provide clinical assessment and treatment plans for a range of common skin concerns including acne and congestion, hormonal acne and PCOS-related skin concerns, rosacea and redness, pigmentation and uneven tone, post-weight-loss skin support, skin ageing and sun damage prevention, and skin barrier dysfunction such as eczema and dermatitis where appropriate."
+          question: "How does TGA/AHPRA compliance validation work?",
+          answer: "Our AI automatically screens all generated content against TGA/AHPRA advertising guidelines. We check for prohibited therapeutic claims, ensure appropriate professional boundaries are maintained, and flag any content that could violate advertising standards. Every piece of content receives a compliance score before publication."
         },
         {
-          question: "How does the consultation work?",
-          answer: "After booking, you'll complete an intake form sharing your skin history and concerns. If requested, you may upload photos. A qualified clinician reviews your case and provides a personalised assessment and treatment plan. The entire process is conducted via telehealth, meaning you can access care from anywhere in Australia."
+          question: "What TGA guidelines does the platform follow?",
+          answer: "We integrate TGA therapeutic goods advertising guidelines into our content generation. The platform automatically prevents claims about treating, curing, or preventing diseases unless you have appropriate TGA approvals. We maintain an updated database of prohibited claims and automatically flag potential violations."
         },
         {
-          question: "Do you prescribe medications?",
-          answer: "Where clinically appropriate following assessment, prescription or compounded topical treatments may be recommended. Prescriptions are only provided when a clinician determines they are suitable for your specific situation. We do not advertise or promote specific prescription medicines."
+          question: "How do you ensure patient privacy in content creation?",
+          answer: "All content generation follows Australian Privacy Principles for health information. We never use patient data in content creation, maintain strict data segregation, and ensure no patient-identifiable information can appear in generated content. All healthcare content focuses on general education rather than specific patient cases."
         },
         {
-          question: "Do you use compounded creams?",
-          answer: "Where appropriate, treatment plans may include compounded topical formulations arranged through partner pharmacies. These are personalised preparations tailored to your specific skin needs and are only recommended when clinically indicated."
+          question: "Can I use this for multiple practice locations?",
+          answer: "Yes, our Group Practice and Healthcare Network plans support multiple locations. Each location can have separate branding, content strategies, and compliance workflows while maintaining centralized oversight. Solo Practitioner plans support up to 5 locations."
         },
         {
-          question: "Is this service suitable for everyone?",
-          answer: "Our telehealth service is suitable for many common skin concerns. However, some conditions require in-person assessment. If during your consultation we identify concerns that require face-to-face care, such as suspicious lesions, rapidly changing moles, or severe infections, we will refer you to an appropriate provider."
+          question: "What happens if TGA/AHPRA guidelines change?",
+          answer: "We continuously monitor TGA/AHPRA guideline updates and automatically update our compliance algorithms. Existing content is rescanned against new guidelines, and you'll receive notifications about any content requiring updates. Our healthcare team reviews all guideline changes to ensure ongoing compliance."
         },
         {
-          question: "What are your red flags for referral?",
-          answer: "We recommend in-person care for suspicious lesions or skin cancers, rapidly changing moles, severe skin infections requiring urgent attention, conditions requiring physical examination, or any concern where telehealth assessment would be insufficient. Your safety is our priority."
+          question: "How does this compare to hiring a healthcare compliance consultant?",
+          answer: "Traditional healthcare compliance consultants cost $3,000-5,000 monthly and only provide periodic reviews. Our platform provides real-time compliance checking, automated content validation, and continuous monitoring for a fraction of the cost while ensuring 100% of your content is compliant."
         }
       ]
     },
     {
-      title: "Photos & Privacy",
-      icon: Shield,
+      title: "Healthcare Professional Features",
+      icon: Stethoscope,
       color: "text-secondary",
       questions: [
         {
-          question: "What photos are required?",
-          answer: "Depending on your concern, you may be asked to provide clear photos of the affected areas. We'll provide specific guidance on what's needed. Good lighting and close-up images help our clinicians provide the most accurate assessment."
+          question: "What healthcare professions are supported?",
+          answer: "JB-Health supports all TGA/AHPRA-registered healthcare professionals including GPs, Specialists (Cardiologists, Dermatologists, etc.), Allied Health (Physiotherapists, Psychologists, Dietitians, Exercise Physiologists), Nurse Practitioners, Dentists, Pharmacists, and other healthcare providers. Content is customized for each profession's specific requirements."
         },
         {
-          question: "How are my photos stored?",
-          answer: "All photos and personal information are stored securely in compliance with Australian Privacy Principles. Your data is encrypted and stored in Australian data centres. We never share your information without your consent except as required by law."
+          question: "How does patient education content differ from marketing content?",
+          answer: "Patient education content focuses on providing helpful health information without promotional intent, following TGA/AHPRA guidelines for educational material. Marketing content promotes your services while maintaining professional boundaries. Our AI understands this distinction and generates appropriate content for each purpose."
         },
         {
-          question: "Who sees my information?",
-          answer: "Only the clinical team directly involved in your care will access your personal health information and photos. We maintain strict confidentiality and follow healthcare privacy standards."
+          question: "Can I create content for different healthcare specialties?",
+          answer: "Yes, our platform includes specialty-specific templates and compliance rules for all major healthcare specialties. Whether you're in mental health, women's health, cardiology, or any other specialty, the AI understands your specific regulatory requirements and professional standards."
+        },
+        {
+          question: "How does the platform handle sensitive health topics?",
+          answer: "We maintain strict guidelines for sensitive health topics including mental health, sexual health, weight management, and chronic diseases. Content is generated with appropriate sensitivity, avoids stigmatizing language, and maintains professional therapeutic boundaries at all times."
+        },
+        {
+          question: "What about telehealth and Medicare compliance?",
+          answer: "Our platform includes templates and guidelines for telehealth services, Medicare requirements, and bulk billing communications. We help you create compliant content about your telehealth offerings while following Medicare and TGA/AHPRA guidelines for remote healthcare services."
+        },
+        {
+          question: "Can I manage content for multiple practitioners?",
+          answer: "Group Practice and Healthcare Network plans include multi-practitioner management with role-based permissions. Each practitioner can have personalized content while maintaining practice-wide compliance and branding consistency. You can approve content across your entire healthcare team."
         }
       ]
     },
     {
-      title: "Consultations & Follow-up",
-      icon: Heart,
+      title: "Platform Technology & Integration",
+      icon: Brain,
       color: "text-accent",
       questions: [
         {
-          question: "How long does it take to receive my treatment plan?",
-          answer: "After completing your intake and providing any requested photos, our clinical team typically reviews your case within 1-3 business days. You'll receive your personalised assessment and treatment recommendations via the patient portal."
+          question: "How does the AI learn healthcare-specific language?",
+          answer: "Our AI is trained on healthcare-specific datasets, TGA/AHPRA guidelines, medical literature, and Australian healthcare communication standards. It understands medical terminology, professional language requirements, and patient communication best practices specific to Australian healthcare."
         },
         {
-          question: "Can I book follow-up consultations?",
-          answer: "Yes, follow-up consultations are available and often recommended to monitor your progress and adjust your treatment plan as needed. Skin health is a journey, and ongoing support helps achieve the best outcomes."
+          question: "What practice management systems can you integrate with?",
+          answer: "We integrate with popular Australian practice management systems including Medical Director, Best Practice, Zedmed, and others. Integration allows for appointment-based content, patient education material coordination, and practice workflow automation while maintaining privacy compliance."
         },
         {
-          question: "What if my treatment isn't working?",
-          answer: "If you're not seeing the expected progress, book a follow-up consultation. Our clinicians will reassess your situation and may adjust your treatment plan. Results vary between individuals, and sometimes modifications are needed."
+          question: "How secure is patient data and practice information?",
+          answer: "We use healthcare-grade security with end-to-end encryption, comply with Australian Privacy Principles for health information, and maintain ISO 27001 certification. All data is stored in Australian data centers with strict access controls and regular security audits."
         },
         {
-          question: "When will I be referred elsewhere?",
-          answer: "We refer patients when their condition requires in-person examination, specialist dermatologist review, or treatment beyond the scope of telehealth. This includes suspicious lesions, complex conditions, or when you're not responding to initial treatment approaches."
+          question: "Can I customize content for my practice's specialty focus?",
+          answer: "Absolutely. The platform learns your practice's specialty focus, target patient demographics, treatment approaches, and communication style. Whether you focus on pediatrics, geriatrics, sports medicine, or any other area, content is tailored to your expertise."
+        },
+        {
+          question: "What social media platforms work with healthcare content?",
+          answer: "We support Facebook, Instagram, LinkedIn, and other platforms with healthcare-specific formatting and compliance checking. Each platform has different requirements for healthcare content, and our system automatically adapts content to meet each platform's healthcare advertising policies."
+        },
+        {
+          question: "How does competitor analysis work for healthcare practices?",
+          answer: "We analyze other healthcare practices' public content within ethical boundaries, identifying successful patient education strategies, content gaps in your area, and opportunities for professional differentiation while maintaining ethical competitive intelligence practices."
         }
       ]
     },
     {
-      title: "Important Information",
+      title: "Implementation & Support",
+      icon: Heart,
+      color: "text-success",
+      questions: [
+        {
+          question: "How long does setup take for a healthcare practice?",
+          answer: "Basic setup takes 15-30 minutes. Our Healthcare Quick-Start service (available for Australian practices) provides complete setup within 2-5 business days, including social media configuration, compliance setup, and initial content creation. You'll see compliant content within your first week."
+        },
+        {
+          question: "Do I need technical skills to use the platform?",
+          answer: "No technical skills required. The platform is designed specifically for busy healthcare professionals. Our intuitive interface guides you through content creation, and our AI handles the complex compliance checking. We provide healthcare-specific training videos and 24/7 support."
+        },
+        {
+          question: "What support is available for healthcare professionals?",
+          answer: "All plans include email support with healthcare-experienced staff. Group Practice plans get priority support, and Healthcare Network plans include dedicated account managers with healthcare industry experience. We understand healthcare workflows and time constraints."
+        },
+        {
+          question: "Can you help with existing non-compliant content?",
+          answer: "Yes, we can analyze your existing content for TGA/AHPRA compliance and provide recommendations for updates. Our platform can identify potential compliance issues in your current social media, website content, and marketing materials, helping you achieve full compliance."
+        },
+        {
+          question: "What training is provided for healthcare teams?",
+          answer: "We provide healthcare-specific training covering TGA/AHPRA compliance, patient education best practices, and platform usage. Training includes live sessions for larger practices, video tutorials, and ongoing support. We understand healthcare professional schedules and offer flexible training options."
+        },
+        {
+          question: "How do you handle urgent compliance questions?",
+          answer: "Healthcare Network plans include priority support for urgent compliance questions. We maintain relationships with healthcare law experts and can provide rapid guidance on complex compliance situations. Our goal is to never leave healthcare professionals uncertain about compliance."
+        }
+      ]
+    },
+    {
+      title: "Healthcare Business Growth",
       icon: Activity,
       color: "text-green-600",
       questions: [
         {
-          question: "Is this a substitute for seeing a dermatologist in person?",
-          answer: "Our telehealth service is appropriate for many common skin concerns but is not a replacement for in-person dermatology care when that is clinically indicated. We will always recommend face-to-face consultation when necessary."
+          question: "How does consistent patient education help practice growth?",
+          answer: "Regular patient education builds trust, demonstrates expertise, and improves patient engagement. Healthcare practices with consistent educational content see 60% more patient inquiries, improved patient retention, and increased referrals from both patients and other healthcare professionals."
         },
         {
-          question: "What results can I expect?",
-          answer: "Results vary between individuals and depend on your specific condition, how consistently you follow your treatment plan, and individual factors. We cannot guarantee specific outcomes. Our clinicians will provide realistic expectations during your consultation."
+          question: "What's the ROI for healthcare practice marketing?",
+          answer: "Healthcare practices typically see 3-5x ROI within 6 months through increased patient bookings, improved patient retention, and professional referrals. JB-Health customers see results 40% faster due to TGA/AHPRA-compliant automation and healthcare-specific optimization."
         },
         {
-          question: "Do you offer cosmetic treatments?",
-          answer: "Our focus is on clinical skin health rather than cosmetic procedures. We assess and treat skin conditions from a medical perspective, focusing on long-term skin health and function rather than cosmetic enhancement."
+          question: "How do you measure success for healthcare practices?",
+          answer: "We track healthcare-specific metrics including patient inquiry rates, appointment bookings from content, professional referral increases, patient engagement with educational content, and compliance score maintenance. Our analytics understand healthcare practice success factors."
         },
         {
-          question: "How do I know if my concern is serious?",
-          answer: "If you have any concerns about a changing mole, new growth, non-healing wound, or any skin issue that worries you, please see your GP or a dermatologist in person. Do not rely solely on telehealth for potentially serious conditions. When in doubt, seek in-person care."
+          question: "Can this help with professional referral relationships?",
+          answer: "Yes, our platform helps create content that demonstrates your expertise to other healthcare professionals, facilitates appropriate professional networking content, and maintains visibility within healthcare communities while respecting professional boundaries and patient privacy."
+        },
+        {
+          question: "How does AI agent discovery work for healthcare practices?",
+          answer: "Future AI assistants will recommend healthcare providers based on comprehensive online presence and expertise demonstration. Consistent, high-quality educational content ensures your practice appears when patients ask AI assistants for healthcare provider recommendations in your specialty and location."
+        },
+        {
+          question: "What about patient reviews and reputation management?",
+          answer: "While we don't directly manage reviews, our patient education content builds trust and improves patient satisfaction, naturally leading to better reviews. We help create content that addresses common patient concerns and demonstrates your commitment to patient care and education."
         }
       ]
     }
@@ -131,23 +188,36 @@ const CommonQuestions = () => {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       
-      <HeroSection backgroundImage={aiContentHero}>
-        <div className="max-w-5xl mx-auto animate-fade-in text-center">
-          <Badge className="mb-6 md:mb-8 bg-[#3f5f55]/80 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-            <HelpCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-            Frequently Asked Questions
-          </Badge>
-          
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight text-white">
-            Common <span className="text-[#f7f2d3]">Questions</span><br />
-            About <span className="text-[#f7f2d3]">Our Service</span>
-          </h1>
-          
-          <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-            Everything you need to know about Downscale Derm consultations, treatment plans, and what to expect.
-          </p>
+      <section className="relative py-16 lg:py-24 overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${aiContentHero})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
         </div>
-      </HeroSection>
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="max-w-5xl mx-auto animate-fade-in text-center">
+            <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
+              <HelpCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              🏥 Australian Healthcare Professional Support
+            </Badge>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
+              Healthcare Professional <span className="text-yellow-400">Questions</span><br />
+              About <span className="text-yellow-400">TGA/AHPRA Compliance</span>
+            </h1>
+            
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
+              Everything Australian healthcare professionals need to know about TGA/AHPRA-compliant content creation and patient education.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Questions by Category */}
       <section className="py-12 md:py-16 lg:py-24">
@@ -157,14 +227,19 @@ const CommonQuestions = () => {
               <div key={categoryIndex} className="mb-12">
                 {/* Category Section with Background */}
                 <div className="relative py-8 md:py-12 lg:py-16 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-                {/* Background */}
-                <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#3f5f55]/95 via-[#6b8f7a]/90 to-[#3f5f55]/95"></div>
-                </div>
-                
-                {/* Section Background Effects */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-[#f7f2d3]/10 to-transparent rounded-full blur-3xl z-10"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-[#6b8f7a]/20 to-transparent rounded-full blur-3xl z-10"></div>
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                      alt="Technology support background"
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/80 to-purple-900/85"></div>
+                  </div>
+                  
+                  {/* Section Background Effects */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-l from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-r from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse animation-delay-500 z-10"></div>
                   
                   <div className="relative z-20 px-6">
                     {/* Category Header */}
@@ -174,17 +249,20 @@ const CommonQuestions = () => {
                           <category.icon className={`w-10 h-10 text-white`} />
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                          {category.title === "About Our Service" && (
-                            <>About Our <span className="text-[#f7f2d3]">Service</span></>
+                          {category.title === "TGA/AHPRA Compliance & Safety" && (
+                            <>TGA/AHPRA Compliance & <span className="text-yellow-400">Safety</span></>
                           )}
-                          {category.title === "Photos & Privacy" && (
-                            <>Photos & <span className="text-[#f7f2d3]">Privacy</span></>
+                          {category.title === "Healthcare Professional Features" && (
+                            <>Healthcare Professional <span className="text-yellow-400">Features</span></>
                           )}
-                          {category.title === "Consultations & Follow-up" && (
-                            <>Consultations & <span className="text-[#f7f2d3]">Follow-up</span></>
+                          {category.title === "Platform Technology & Integration" && (
+                            <>Platform Technology & <span className="text-yellow-400">Integration</span></>
                           )}
-                          {category.title === "Important Information" && (
-                            <>Important <span className="text-[#f7f2d3]">Information</span></>
+                          {category.title === "Implementation & Support" && (
+                            <>Implementation & <span className="text-yellow-400">Support</span></>
+                          )}
+                          {category.title === "Healthcare Business Growth" && (
+                            <>Healthcare Business <span className="text-yellow-400">Growth</span></>
                           )}
                         </h2>
                         <p className="text-white/80 text-lg">
@@ -221,52 +299,110 @@ const CommonQuestions = () => {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-[#3f5f55] to-[#6b8f7a]">
+      <section className="relative py-16 md:py-24 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Customer support team background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-green-900/80 to-blue-900/85"></div>
+        </div>
+        
+        {/* Section Background Effects */}
+        <div className="absolute top-0 left-0 w-52 h-52 bg-gradient-to-r from-green-500/15 to-transparent rounded-full blur-3xl animate-pulse z-10"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-gradient-to-l from-blue-500/15 to-transparent rounded-full blur-3xl animate-pulse animation-delay-700 z-10"></div>
+        
         <div className="relative z-20 container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm">
+            <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center backdrop-blur-sm">
               <Users className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Still Have Questions?</h2>
-            <p className="text-xl md:text-2xl text-white/80 mb-12 leading-relaxed">
-              We're here to help. Book a consultation and our clinical team will address your specific concerns.
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Still Have Healthcare Questions?</h2>
+            <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
+              Our Australian healthcare team understands the unique challenges of healthcare practice marketing. Get personalized answers about TGA/AHPRA compliance and patient education.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/pricing">
-                <Button size="xl" className="bg-[#f7f2d3] text-[#3f5f55] hover:bg-[#f7f2d3]/90 font-bold text-lg px-12 py-6">
+                <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold text-lg px-12 py-6">
                   <ArrowRight className="w-6 h-6 mr-3" />
-                  Book a Consultation
+                  Get Started Now
                 </Button>
               </Link>
-              <ComingSoonPopup 
-                trigger={
-                  <Button variant="outline" size="xl" className="text-lg px-12 py-6 border-white/30 text-white hover:bg-white/10">
-                    Contact Us
-                  </Button>
-                } 
-              />
+              <Link to="/auth">
+                <Button variant="outline" size="xl" className="text-lg px-12 py-6">
+                  Contact Healthcare Team
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Quick Stats */}
+      <section className="relative py-16 md:py-20 overflow-hidden mx-4 md:mx-8 my-8 rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Analytics dashboard background"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-purple-900/80 to-pink-900/85"></div>
+        </div>
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Commitment to Australian Businesses</h3>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Comprehensive support and resources designed specifically for the Australian market
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">46</div>
+                <div className="text-white/80 font-medium">Questions Answered</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">6</div>
+                <div className="text-white/80 font-medium">Key Categories</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">24/7</div>
+                <div className="text-white/80 font-medium">Support Available</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-colors">
+              <CardContent className="p-0">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">100%</div>
+                <div className="text-white/80 font-medium">Satisfaction Goal</div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-[#3f5f55] text-white border-t border-white/10">
+      <footer className="border-t border-border bg-muted/20">
         <div className="container mx-auto px-6 py-12">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <img 
-                src="/downscalederm-icon.png" 
-                alt="Downscale Derm" 
+                src="/jbsaaslogo.png" 
+                alt="JB-Health Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold text-[#f7f2d3]">Downscale Derm</span>
+              <span className="text-xl font-bold text-gradient-primary">JB-Health</span>
             </div>
-            <p className="text-white/60 text-sm max-w-2xl mx-auto mb-4">
-              This website provides general information only and does not replace medical advice. Prescription treatments are only recommended if clinically appropriate following assessment.
-            </p>
-            <p className="text-white/60">
-              © 2025 Downscale Derm. All rights reserved.
+            <p className="text-muted-foreground">
+              © 2025 JB-Health. All rights reserved.
             </p>
           </div>
         </div>

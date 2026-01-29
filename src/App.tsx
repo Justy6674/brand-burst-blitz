@@ -1,195 +1,118 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { Toaster as Sonner } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { UserProfileProvider } from '@/contexts/UserProfileContext';
-import { BusinessProfileProvider } from '@/contexts/BusinessProfileContext';
-import { BusinessThemeProvider } from '@/contexts/BusinessThemeContext';
-import { AuthProvider } from '@/components/auth/AuthProvider';
-import { GlobalErrorBoundary } from '@/components/error/GlobalErrorBoundary';
 
-// DEPLOYMENT VERSION: 25-JUL-2025-15:30 - PLATFORM SHOWCASE READY
-
-// Lazy load only existing pages
-const Index = lazy(() => import('./pages/Index'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const CreateContent = lazy(() => import('./pages/CreateContent').then(module => ({ default: module.default || module.CreateContent })));
-const Calendar = lazy(() => import('./pages/Calendar'));
-const Analytics = lazy(() => import('./pages/Analytics'));
-const SocialMedia = lazy(() => import('./pages/SocialMedia'));
-const Templates = lazy(() => import('./pages/Templates'));
-const Competitors = lazy(() => import('./pages/Competitors'));
-const BlogPage = lazy(() => import('./pages/Blog'));
-const Discover = lazy(() => import('./pages/Discover'));
-const PromptsPage = lazy(() => import('./pages/PromptsPage'));
-const BusinessSettings = lazy(() => import('./pages/BusinessSettings'));
-const AdminPanel = lazy(() => import('./pages/AdminPanel'));
-const PublishingPipeline = lazy(() => import('./pages/PublishingPipeline'));
-const Diary = lazy(() => import('./pages/Diary'));
-const Posts = lazy(() => import('./pages/Posts'));
-const CrossBusinessFeatures = lazy(() => import('./pages/CrossBusinessFeatures'));
-const HealthcareBlogEmbed = lazy(() => import('./pages/HealthcareBlogEmbed').then(module => ({ default: module.default || module.HealthcareBlogEmbed })));
-const BusinessQuestionnaire = lazy(() => import('./components/questionnaire/BusinessQuestionnaire'));
-const Onboarding = lazy(() => import('./pages/Onboarding'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-const OAuthCallback = lazy(() => import('./pages/OAuthCallback'));
-
-// Public pages
-const Pricing = lazy(() => import('./pages/Pricing'));
-const Features = lazy(() => import('./pages/Features'));
-const CommonQuestions = lazy(() => import('./pages/CommonQuestions'));
-const AllServices = lazy(() => import('./pages/AllServices'));
-const AustralianServices = lazy(() => import('./pages/AustralianServices'));
-const AustralianSetupService = lazy(() => import('./pages/AustralianSetupService'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-// const BlogShowcase = lazy(() => import('./pages/BlogShowcase'));
+import { Toaster } from "@/components/ui/toaster";
+// import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/components/auth/AuthProvider";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import AuthPage from "@/components/auth/AuthPage";
+import AppLayout from "@/components/layout/AppLayout";
+import Index from "./pages/Index";
+import Pricing from "./pages/Pricing";
+import CommonQuestions from "./pages/CommonQuestions";
+import Dashboard from "./pages/Dashboard";
+import Ideas from "./pages/Ideas";
+import IdeasLibrary from "./pages/IdeasLibrary";
+import IdeasNotebook from "./pages/IdeasNotebook";
+import { CreateContent } from "./pages/CreateContent";
+import Competitors from "./pages/Competitors";
+import Templates from "./pages/Templates";
+import Posts from "./pages/Posts";
+import SocialMedia from "./pages/SocialMedia";
+import Calendar from "./pages/Calendar";
+import Analytics from "./pages/Analytics";
+import BusinessSettings from "./pages/BusinessSettings";
+import CrossBusinessFeatures from "./pages/CrossBusinessFeatures";
+import AdminPanel from "./pages/AdminPanel";
+import PromptsPage from "./pages/PromptsPage";
+import NotFound from "./pages/NotFound";
+import BlogPage from "./pages/BlogPage";
+import EmbeddedBlogPage from "./pages/EmbeddedBlogPage";
+import BlogAdmin from "./pages/BlogAdmin";
+import BlogPost from "./components/blog/BlogPost";
+import AussieSetupService from "./pages/AussieSetupService";
+import AustralianServices from "./pages/AustralianServices";
+import PricingWithServices from "./pages/PricingWithServices";
+import BusinessQuestionnaire from "./components/questionnaire/BusinessQuestionnaire";
+import SlackSetupWizard from "./components/slack/SlackSetupWizard";
+import BillingDashboard from "./components/billing/BillingDashboard";
+import SEOExpansionWizard from "./components/seo/SEOExpansionWizard";
+import FreeSubdomainAnalysis from "./pages/FreeSubdomainAnalysis";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
 
 const queryClient = new QueryClient();
 
-// SEO Component for dynamic meta tags
-const SEOHead = () => {
-  const location = useLocation();
-  
-  useEffect(() => {
-    const titles: { [key: string]: string } = {
-      '/': 'Downscale Derm | Clinical Skin Health, Prescribed with Care',
-      '/pricing': 'Consultation Options | Downscale Derm',
-      '/features': 'Our Approach | Downscale Derm',
-      '/blog': 'Skin Health Resources | Downscale Derm',
-      '/common-questions': 'FAQ | Downscale Derm',
-      '/services': 'Skin Concerns We Support | Downscale Derm'
-    };
-
-    const title = titles[location.pathname] || 'Downscale Derm | Clinical Skin Health';
-    document.title = title;
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', `https://www.downscalederm.com.au${location.pathname}`);
-  }, [location]);
-
-  return null;
-};
-
-function App() {
-  return (
-    <GlobalErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <AuthProvider>
+        <ErrorBoundary>
           <Toaster />
-          <Sonner />
+          {/* <Sonner /> */}
           <BrowserRouter>
-            <SEOHead />
-            <AuthProvider>
-              <UserProfileProvider>
-                <BusinessProfileProvider>
-                  <BusinessThemeProvider>
-                    <div className="min-h-screen bg-background font-sans antialiased">
-                      <Routes>
-                        {/* Public Routes - SEO Optimized */}
-                        <Route path="/" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <Index />
-                          </Suspense>
-                        } />
-                        <Route path="/blog" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <BlogPage />
-                          </Suspense>
-                        } />
-                        {/* <Route path="/blog-showcase" element={<BlogShowcase />} /> */}
-                        <Route path="/pricing" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <Pricing />
-                          </Suspense>
-                        } />
-                        <Route path="/features" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <Features />
-                          </Suspense>
-                        } />
-                        <Route path="/common-questions" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <CommonQuestions />
-                          </Suspense>
-                        } />
-                        <Route path="/services" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <AllServices />
-                          </Suspense>
-                        } />
-                        <Route path="/all-services" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <AllServices />
-                          </Suspense>
-                        } />
-                        <Route path="/australian-services" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <AustralianServices />
-                          </Suspense>
-                        } />
-                        <Route path="/australian-setup-service" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <AustralianSetupService />
-                          </Suspense>
-                        } />
-                        <Route path="/privacy" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <PrivacyPolicy />
-                          </Suspense>
-                        } />
-
-                        {/* Members Routes */}
-                        <Route path="/dashboard" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading dashboard...</div>}>
-                            <Dashboard />
-                          </Suspense>
-                        } />
-                        <Route path="/create-content" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading content creation...</div>}>
-                            <CreateContent />
-                          </Suspense>
-                        } />
-                        <Route path="/discover" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading discover...</div>}>
-                            <Discover />
-                          </Suspense>
-                        } />
-
-                        {/* Auth Routes */}
-                        <Route path="/questionnaire" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading questionnaire...</div>}>
-                            <BusinessQuestionnaire />
-                          </Suspense>
-                        } />
-                        <Route path="/onboarding" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading onboarding...</div>}>
-                            <Onboarding />
-                          </Suspense>
-                        } />
-
-                        <Route path="*" element={
-                          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                            <NotFound />
-                          </Suspense>
-                        } />
-                      </Routes>
-                    </div>
-                  </BusinessThemeProvider>
-                </BusinessProfileProvider>
-              </UserProfileProvider>
-            </AuthProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/common-questions" element={<CommonQuestions />} />
+              <Route path="/aussie-setup-service" element={<AussieSetupService />} />
+              <Route path="/australian-services" element={<AustralianServices />} />
+              <Route path="/services" element={<AustralianServices />} />
+              <Route path="/pricing-with-services" element={<PricingWithServices />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/embedded-blog" element={<EmbeddedBlogPage />} />
+              <Route path="/embedded-blog/:slug" element={<BlogPost />} />
+              <Route path="/free-subdomain-analysis" element={<FreeSubdomainAnalysis />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/refunds" element={<RefundPolicy />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/questionnaire" element={
+                <ProtectedRoute>
+                  <BusinessQuestionnaire />
+                </ProtectedRoute>
+              } />
+              <Route path="/questionnaire-required" element={
+                <ProtectedRoute>
+                  <BusinessQuestionnaire />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }>
+                <Route index element={<Dashboard />} />
+                <Route path="ideas" element={<Ideas />} />
+                <Route path="ideas-library" element={<IdeasLibrary />} />
+                <Route path="ideas-notebook" element={<IdeasNotebook />} />
+                <Route path="create" element={<CreateContent />} />
+                <Route path="posts" element={<Posts />} />
+                <Route path="competitors" element={<Competitors />} />
+                <Route path="templates" element={<Templates />} />
+                <Route path="social" element={<SocialMedia />} />
+                <Route path="calendar" element={<Calendar />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="business-settings" element={<BusinessSettings />} />
+                <Route path="slack-setup" element={<SlackSetupWizard />} />
+                <Route path="billing" element={<BillingDashboard />} />
+                <Route path="seo-expansion" element={<SEOExpansionWizard />} />
+                <Route path="cross-business" element={<CrossBusinessFeatures />} />
+                <Route path="blog-admin" element={<BlogAdmin />} />
+                <Route path="admin" element={<AdminPanel />} />
+                <Route path="prompts" element={<PromptsPage />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </GlobalErrorBoundary>
-  );
-}
+        </ErrorBoundary>
+      </AuthProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
