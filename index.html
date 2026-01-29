@@ -1,32 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" type="image/png">
-    <link rel="apple-touch-icon" href="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png">
-    <title>jbhealth.health - TGA/AHPRA-Compliant Healthcare Content Platform</title>
-    <meta name="description" content="Australia's First TGA/AHPRA-Compliant Content Platform for Healthcare Professionals. AI-powered patient education content and compliant marketing for GPs, Specialists, Allied Health, and Nurse Practitioners." />
-    <meta name="author" content="jbhealth.health" />
-    <meta name="keywords" content="TGA/AHPRA compliant, healthcare content, patient education, medical marketing, GP content, healthcare professionals" />
-
-    <meta property="og:title" content="jbhealth.health - TGA/AHPRA-Compliant Healthcare Content Platform" />
-    <meta property="og:description" content="Australia's First TGA/AHPRA-Compliant Content Platform for Healthcare Professionals. AI-powered patient education content and compliant marketing." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" />
-    <meta property="og:url" content="https://jbhealth.ai" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="jbhealth.health - TGA/AHPRA-Compliant Healthcare Content Platform" />
-    <meta name="twitter:description" content="Australia's First TGA/AHPRA-Compliant Content Platform for Healthcare Professionals." />
-    <meta name="twitter:image" content="/lovable-uploads/42e98c4f-c6ed-4a73-b8db-79fef687b3fe.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/downscalederm-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Meta Tags for Google -->
+  <title>Downscale Derm | Clinical Skin Health, Prescribed with Care</title>
+  <meta name="description" content="Clinical dermatology telehealth for Australians. Evidence-based assessment and personalised treatment plans for acne, rosacea, pigmentation, and skin health concerns." />
+  <meta name="keywords" content="dermatology telehealth Australia, clinical skin health, skin assessment, acne treatment, rosacea support, pigmentation, TGA compliant" />
+  <meta name="author" content="Downscale Derm" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Downscale Derm | Clinical Skin Health" />
+  <meta property="og:description" content="Evidence-based skin care, focused on long-term skin health. Personalised assessment and treatment plans." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.downscalederm.com.au" />
+  <meta property="og:image" content="https://www.downscalederm.com.au/downscalederm-logo.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Downscale Derm | Clinical Skin Health" />
+  <meta name="twitter:description" content="Evidence-based skin care, focused on long-term skin health." />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.downscalederm.com.au" />
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/downscalederm-logo.png" as="image" />
+  
+  <!-- Structured Data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Downscale Derm",
+    "description": "Clinical dermatology telehealth service for Australians. Evidence-based skin assessment and personalised treatment plans.",
+    "url": "https://www.downscalederm.com.au",
+    "medicalSpecialty": "Dermatology",
+    "areaServed": "Australia",
+    "provider": {
+      "@type": "Organization",
+      "name": "Downscale Derm",
+      "url": "https://www.downscalederm.com.au"
+    }
+  }
+  </script>
+  
+  <!-- Embed Support - Allow iframe embedding -->
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://*.com https://*.com.au https://*.org https://*.net;">
+  
+  <!-- Performance Optimization -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <!-- Downscale Derm App Container -->
+  <div id="root" class="min-h-screen bg-background">
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>Downscale Derm</h1>
+        <p>This application requires JavaScript to run. Please enable JavaScript in your browser.</p>
+        <p>Clinical skin health, prescribed with care.</p>
+      </div>
+    </noscript>
+  </div>
+  
+  <!-- App Entry Point -->
+  <script type="module" src="/src/main.tsx"></script>
+  
+  <!-- Google Analytics 4 (when configured by user) -->
+  <script>
+    // GA4 will be dynamically loaded when user configures it
+    // No tracking without explicit user consent
+  </script>
+</body>
 </html>

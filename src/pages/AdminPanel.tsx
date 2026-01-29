@@ -29,10 +29,11 @@ export default function AdminPanel() {
     }>
       <div className="container mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Admin Panel</h1>
+          <h1 className="text-3xl font-bold">Downscale Derm Admin</h1>
           <p className="text-muted-foreground">
-            Comprehensive administration and monitoring dashboard
+            Clinical administration and patient management dashboard
           </p>
+          <p className="text-xs text-muted-foreground mt-1">Brand: Downscale Derm</p>
         </div>
 
         <Tabs defaultValue="users" className="space-y-6">

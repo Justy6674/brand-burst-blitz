@@ -30,23 +30,23 @@ const Features = () => {
       
       <HeroSection backgroundImage={featuresImage}>
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <Badge className="mb-6 bg-black/40 backdrop-blur-sm text-white border-white/30 text-lg px-6 py-2 font-semibold">
-            🏥 AHPRA-Compliant Healthcare Content Platform
+          <Badge className="mb-6 bg-[#3f5f55]/80 backdrop-blur-sm text-white border-white/30 text-lg px-6 py-2 font-semibold">
+            Clinical Dermatology Telehealth
           </Badge>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Everything Australian Healthcare Professionals Need to <span className="text-gradient-hero">Stay Compliant & Grow</span>
+            Our <span className="text-[#f7f2d3]">Clinical Approach</span> to Skin Health
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-8">
-            From AHPRA-compliant content creation to patient education, our comprehensive platform replaces multiple expensive healthcare marketing tools with one powerful solution.
+            Evidence-based assessment and personalised treatment plans for long-term skin health. Clinical care, conveniently delivered via telehealth.
           </p>
           
           <ComingSoonPopup 
             trigger={
-              <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-bold">
+              <Button size="xl" className="bg-[#f7f2d3] text-[#3f5f55] hover:bg-[#f7f2d3]/90 font-bold">
                 <Rocket className="w-6 h-6 mr-3" />
-                Join Healthcare Professionals Waitlist
+                Book a Consultation
               </Button>
             } 
           />

@@ -41,7 +41,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
           additional_notes: formData.additionalNotes || null,
           is_australian: true, // Since this is for Australian businesses
           wants_updates: true,
-          primary_goals: ['Early access to JB-SaaS platform'],
+          primary_goals: ['Early access to Downscale Derm consultations'],
           heard_about_us: 'Website waitlist'
         });
 
@@ -111,12 +111,12 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                   </Badge>
                   
                   <DialogTitle className="text-3xl md:text-4xl font-bold">
-                    Australia's Most Advanced <br />
-                    <span className="text-gradient-primary">AI Marketing Platform</span>
+                    Downscale Derm <br />
+                    <span className="text-gradient-primary">Coming Soon</span>
                   </DialogTitle>
                   
                   <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                    Australia's most comprehensive business automation and content management platform. Join thousands of Australian businesses getting early access to our AI-powered marketing tools.
+                    Clinical dermatology telehealth for Australians. Register your interest for early access to our evidence-based skin assessment service.
                   </p>
                 </div>
               </DialogHeader>
@@ -159,7 +159,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                 </div>
                 
                 <div className="text-center space-y-4">
-                  <h4 className="font-bold text-foreground">Get early access to JB-SaaS</h4>
+                  <h4 className="font-bold text-foreground">Register Your Interest</h4>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button 
                       size="lg" 
@@ -180,7 +180,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                   </div>
                   
                   <p className="text-sm text-muted-foreground">
-                    Join <strong>2,847+ Australian businesses</strong> already on our waitlist
+                    Be the first to access our clinical skin health service
                   </p>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                   Join the Priority Waitlist
                 </DialogTitle>
                 <p className="text-sm sm:text-base text-muted-foreground text-center px-4 sm:px-0">
-                  Get early access and exclusive launch pricing for Australian businesses
+                  Register for early access to Downscale Derm consultations
                 </p>
               </DialogHeader>
 
@@ -286,9 +286,9 @@ export const ComingSoonPopup: React.FC<ComingSoonPopupProps> = ({ trigger }) => 
                 </div>
 
                 <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
-                  <h4 className="font-semibold mb-2 text-primary">🇦🇺 Australian Business Priority</h4>
+                  <h4 className="font-semibold mb-2 text-primary">Australia-Wide Telehealth</h4>
                   <p className="text-sm text-muted-foreground">
-                    As an Australian business, you'll get priority access, local support, and special launch pricing.
+                    Clinical skin consultations delivered by Australian clinicians, accessible from anywhere in Australia.
                   </p>
                 </div>
 

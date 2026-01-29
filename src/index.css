@@ -2,68 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* JB-Health Modern Dark Design System - Ultra Premium SaaS Aesthetic */
+/* Downscale Derm - Clinical Eucalyptus Design System */
 
 @layer base {
   :root {
-    /* Modern Dark Theme - Base Colors */
-    --background: 222 47% 4%;
-    --foreground: 228 100% 99%;
+    /* Downscale Derm Light Theme - Cream & Eucalyptus */
+    --background: 52 63% 90%;
+    --foreground: 163 20% 20%;
 
-    --card: 222 35% 6%;
-    --card-foreground: 228 100% 99%;
+    --card: 52 60% 95%;
+    --card-foreground: 163 20% 20%;
 
-    --popover: 222 35% 6%;
-    --popover-foreground: 228 100% 99%;
+    --popover: 52 60% 95%;
+    --popover-foreground: 163 20% 20%;
 
-    /* Brand Colors - Electric Purple & Cyan */
-    --primary: 270 95% 65%;
-    --primary-foreground: 228 100% 99%;
-    --primary-glow: 270 95% 75%;
+    /* Brand Colors - Eucalyptus Green & Brown */
+    --primary: 163 20% 31%;
+    --primary-foreground: 52 63% 95%;
+    --primary-glow: 163 20% 40%;
 
-    --secondary: 185 84% 55%;
-    --secondary-foreground: 228 100% 99%;
+    --secondary: 145 15% 49%;
+    --secondary-foreground: 52 63% 95%;
 
-    --success: 142 76% 48%;
-    --success-foreground: 228 100% 99%;
+    --success: 145 30% 45%;
+    --success-foreground: 52 63% 95%;
 
-    --warning: 32 95% 55%;
-    --warning-foreground: 228 100% 99%;
+    --warning: 22 34% 58%;
+    --warning-foreground: 52 63% 95%;
 
-    --muted: 215 25% 12%;
-    --muted-foreground: 217 32% 65%;
+    /* Accent Brown */
+    --accent-brown: 22 34% 58%;
 
-    --accent: 215 25% 12%;
-    --accent-foreground: 228 100% 99%;
+    --muted: 52 30% 85%;
+    --muted-foreground: 198 5% 42%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 228 100% 99%;
+    --accent: 145 15% 49%;
+    --accent-foreground: 52 63% 95%;
 
-    --border: 215 25% 12%;
-    --input: 215 25% 12%;
-    --ring: 270 95% 65%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 52 63% 95%;
+
+    --border: 52 20% 80%;
+    --input: 52 20% 85%;
+    --ring: 163 20% 31%;
 
     --radius: 0.875rem;
 
-    /* Premium Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(270 95% 65%), hsl(185 84% 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(185 84% 55%), hsl(142 76% 48%));
-    --gradient-accent: linear-gradient(135deg, hsl(142 76% 48%), hsl(270 95% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(270 95% 65%) 0%, hsl(185 84% 55%) 50%, hsl(142 76% 48%) 100%);
-    --gradient-dark: linear-gradient(145deg, hsl(222 35% 6%) 0%, hsl(215 25% 8%) 100%);
-    --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-    --gradient-mesh: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(270 95% 65% / 0.3), transparent 50%), 
-                     radial-gradient(ellipse 80% 80% at 80% 120%, hsl(185 84% 55% / 0.25), transparent 50%);
+    /* Clinical Eucalyptus Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(163 20% 31%), hsl(145 15% 49%));
+    --gradient-secondary: linear-gradient(135deg, hsl(145 15% 49%), hsl(22 34% 58%));
+    --gradient-accent: linear-gradient(135deg, hsl(22 34% 58%), hsl(163 20% 31%));
+    --gradient-hero: linear-gradient(135deg, hsl(163 20% 31%) 0%, hsl(145 15% 49%) 50%, hsl(52 63% 90%) 100%);
+    --gradient-dark: linear-gradient(145deg, hsl(163 20% 25%) 0%, hsl(163 20% 20%) 100%);
+    --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+    --gradient-mesh: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(163 20% 31% / 0.15), transparent 50%), 
+                     radial-gradient(ellipse 80% 80% at 80% 120%, hsl(145 15% 49% / 0.12), transparent 50%);
 
-    /* Advanced Shadows & Effects */
-    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 8px 16px -4px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 30px -8px rgba(0, 0, 0, 0.5), 0 8px 16px -4px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 32px 60px -12px rgba(0, 0, 0, 0.6), 0 16px 24px -8px rgba(0, 0, 0, 0.4);
-    --shadow-2xl: 0 40px 80px -16px rgba(0, 0, 0, 0.7);
-    --shadow-primary: 0 32px 80px -16px hsl(270 95% 65% / 0.5);
-    --shadow-glow: 0 0 60px hsl(270 95% 65% / 0.6);
-    --shadow-secondary: 0 32px 80px -16px hsl(185 84% 55% / 0.4);
+    /* Softer Shadows for Light Theme */
+    --shadow-sm: 0 2px 4px 0 rgba(63, 95, 85, 0.08);
+    --shadow-md: 0 8px 16px -4px rgba(63, 95, 85, 0.12), 0 4px 8px -2px rgba(63, 95, 85, 0.08);
+    --shadow-lg: 0 20px 30px -8px rgba(63, 95, 85, 0.15), 0 8px 16px -4px rgba(63, 95, 85, 0.1);
+    --shadow-xl: 0 32px 60px -12px rgba(63, 95, 85, 0.18), 0 16px 24px -8px rgba(63, 95, 85, 0.12);
+    --shadow-2xl: 0 40px 80px -16px rgba(63, 95, 85, 0.2);
+    --shadow-primary: 0 32px 80px -16px hsl(163 20% 31% / 0.25);
+    --shadow-glow: 0 0 60px hsl(163 20% 31% / 0.2);
+    --shadow-secondary: 0 32px 80px -16px hsl(145 15% 49% / 0.2);
 
     /* Animation Variables */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -135,13 +138,13 @@
     @apply hover:scale-105;
   }
 
-  /* Premium Text Gradients */
+  /* Clinical Text Gradients */
   .text-gradient-primary {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 20px hsl(270 95% 65% / 0.3));
+    filter: drop-shadow(0 0 20px hsl(163 20% 31% / 0.15));
   }
 
   .text-gradient-hero {
@@ -149,11 +152,37 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 30px hsl(270 95% 65% / 0.4));
+    filter: drop-shadow(0 0 30px hsl(163 20% 31% / 0.2));
   }
 
   .text-glow {
     text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+
+  /* Eucalyptus Highlight for Keywords */
+  .text-eucalyptus-highlight {
+    color: #3f5f55 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Brown Accent Highlight */
+  .text-brown-highlight {
+    color: #b68a71 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Legacy yellow highlight - remap to eucalyptus for compatibility */
+  .text-yellow-highlight {
+    color: #3f5f55 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Even more specific override for card content */
+  .text-muted-foreground .text-yellow-highlight,
+  p .text-yellow-highlight,
+  * .text-yellow-highlight {
+    color: #3f5f55 !important;
+    font-weight: 700 !important;
   }
 
   /* Card Styles */

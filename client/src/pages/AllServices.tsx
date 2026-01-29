@@ -443,39 +443,30 @@ const AllServices = () => {
       <PublicHeader />
       
       {/* Hero Section - Optimized for Mobile */}
-      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-gray-300/20 bg-black/5 backdrop-blur-sm">
-        <div className="absolute inset-0 z-0 rounded-xl md:rounded-2xl overflow-hidden">
-          <img 
-            src={featuresImage}
-            alt="Platform Features Background"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/50 to-purple-900/60"></div>
-        </div>
-        
+      <section className="relative py-12 md:py-16 lg:py-24 overflow-hidden mx-2 md:mx-4 lg:mx-8 my-4 md:my-8 rounded-xl md:rounded-2xl border border-primary/20 bg-gradient-to-br from-[#3f5f55]/95 to-[#6b8f7a]/90">
         <div className="relative z-20 container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto animate-fade-in text-center">
-            <Badge className="mb-6 md:mb-8 bg-black/40 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
-              <Building className="w-4 h-4 mr-2" />
-              {platformFeatures.length} Platform Features + {professionalServices.length} Professional Services
+            <Badge className="mb-6 md:mb-8 bg-white/20 backdrop-blur-sm text-white border-white/30 text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 font-semibold">
+              <Stethoscope className="w-4 h-4 mr-2" />
+              Skin Concerns We Support
             </Badge>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 leading-tight text-white">
-              Everything You Get <span className="text-yellow-400">Inside</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 leading-tight text-white">
+              Clinical Skin <span className="text-[#f7f2d3]">Assessment</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-              Complete AI-powered marketing platform with professional Australian business services. Here's every feature in your members dashboard.
+            <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
+              Evidence-based assessment and personalised treatment plans for common skin concerns. Our clinical team supports you on your skin health journey.
             </p>
             
             <div className="flex flex-col gap-4 md:gap-6 justify-center px-4">
               <StandardButton action="waitlist" variant="primary">
                 <Rocket className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                Join Waitlist
+                Book a Consultation
               </StandardButton>
               <StandardButton action="pricing" variant="secondary">
                 <Eye className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-                View Pricing Plans
+                View Consultation Options
               </StandardButton>
             </div>
           </div>
