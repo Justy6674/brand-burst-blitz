@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useUserRoles } from '@/hooks/useUserRoles';
-import { BusinessSwitcher } from '@/components/business/BusinessSwitcher';
 import {
   Sidebar,
   SidebarContent,
@@ -31,8 +30,12 @@ import {
   ShieldCheck,
   BookOpen,
   Edit3,
-  Globe,
-  Copy
+  Lightbulb,
+  Library,
+  Notebook,
+  MessageSquare,
+  CreditCard,
+  Search
 } from 'lucide-react';
 
 const navigationItems = [
@@ -42,9 +45,14 @@ const navigationItems = [
     icon: LayoutDashboard,
   },
   {
-    title: 'Content Hub',
-    url: '/dashboard/diary',
-    icon: BookOpen,
+    title: 'Smart Ideas',
+    url: '/dashboard/ideas',
+    icon: Lightbulb,
+  },
+  {
+    title: 'Ideas Notebook',
+    url: '/dashboard/ideas-notebook',
+    icon: Notebook,
   },
   {
     title: 'Create Content',
@@ -75,14 +83,15 @@ const toolsItems = [
     icon: Sparkles,
   },
   {
-    title: 'Copy-Paste Workflow',
-    url: '/dashboard/copy-paste-workflow',
-    icon: Copy,
-  },
-  {
     title: 'Competitors',
     url: '/dashboard/competitors',
     icon: Users,
+  },
+  {
+    title: 'Subdomain Discovery',
+    url: '/dashboard/seo-expansion',
+    icon: Network,
+    description: 'Multiply your Google presence with strategic subdomains'
   },
   {
     title: 'Templates',
@@ -100,14 +109,10 @@ const toolsItems = [
     icon: Instagram,
   },
   {
-    title: 'Blog Embed',
-    url: '/dashboard/blog-embed',
-    icon: Globe,
-  },
-  {
-    title: 'Validation System',
-    url: '/dashboard/validation',
-    icon: ShieldCheck,
+    title: 'Slack Setup',
+    url: '/dashboard/slack-setup',
+    icon: MessageSquare,
+    description: 'Connect your practice Slack for notifications'
   },
 ];
 
@@ -116,6 +121,12 @@ const settingsItems = [
     title: 'Business Profile',
     url: '/dashboard/business-settings',
     icon: Target,
+  },
+  {
+    title: 'Billing & Subscription',
+    url: '/dashboard/billing',
+    icon: CreditCard,
+    description: 'Manage your subscription and billing'
   },
   {
     title: 'Cross-Business',
@@ -166,30 +177,25 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={collapsed ? 'w-14' : 'w-60'} collapsible="icon">
-      <div className="border-b border-primary/10 p-3 flex items-center gap-3">
-        <div className="flex items-center gap-3 flex-1 min-w-0">
+      <div className="border-b border-primary/10 p-4 flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-1">
           <img 
             src="/downscalederm-icon.png" 
             alt="Downscale Derm" 
             className="w-8 h-8 flex-shrink-0"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
           />
           {!collapsed && (
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0">
               <h1 className="text-lg font-bold text-gradient-primary truncate">Downscale Derm</h1>
               <p className="text-xs text-muted-foreground truncate">Clinical Skin Health</p>
             </div>
           )}
         </div>
-        <SidebarTrigger className="ml-auto flex-shrink-0" />
+        <SidebarTrigger className="ml-auto" />
       </div>
-
-      {/* Business Switcher in Sidebar */}
-      {!collapsed && (
-        <div className="p-3 border-b border-white/5">
-          <div className="text-xs text-muted-foreground mb-2">Current Business</div>
-          <BusinessSwitcher className="w-full" />
-        </div>
-      )}
 
       <SidebarContent className="px-2 py-4">
         {/* Main Navigation */}
